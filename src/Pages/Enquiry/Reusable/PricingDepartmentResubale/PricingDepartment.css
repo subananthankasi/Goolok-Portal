@@ -1,0 +1,22 @@
+/* .items--table{
+    width: 100%;
+    padding: 10px; 
+    thead{
+      background: #ddd;
+      color: #111;
+      text-align: center;
+      font-weight: 800;
+    }
+    tbody{
+      text-align: center;
+    }
+    .total-price{
+      font-weight: 500;
+      padding-top: 4px;
+      font-weight: 800;
+      background: lighten(green, 50%);
+    }
+  } */
+.land_th {
+  background-color: rgb(47, 79, 79);
+}

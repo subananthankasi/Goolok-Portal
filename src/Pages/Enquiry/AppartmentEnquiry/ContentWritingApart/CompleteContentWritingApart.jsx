@@ -1,0 +1,178 @@
+import React, { useEffect, useState } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import {
+    GridComponent,
+    ColumnsDirective,
+    ColumnDirective,
+    Inject,
+    Toolbar,
+    ExcelExport,
+    PdfExport,
+    Sort,
+    Page,
+    Filter,
+} from "@syncfusion/ej2-react-grids";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+// import { DateFormatcustom } from "../../../Utils/DateFormatcustom";
+// import { AgeCalculate } from "../../../Utils/AgeCalculate";
+import axios from "axios";
+import API_BASE_URL from "../../../../Api/api";
+import { encryptData } from "../../../../Utils/encrypt";
+// import API_BASE_URL from "../../../Api/api";
+// import { encryptData } from "../../../Utils/encrypt";
+
+const CompleteContentWritingApart = () => {
+    const staffid = JSON.parse(sessionStorage.getItem("token"));
+    const dispatch = useDispatch();
+    const [completeData, setCompleteData] = useState([]);
+
+    const filterSettings = { type: "Excel" };
+    const toolbarOptions = ["ExcelExport", "PdfExport", "Search"];
+
+    let gridInstance;
+
+    function toolbarClick(args) {
+        switch (args.item.id) {
+            case "DefaultExport_pdfexport":
+                gridInstance.pdfExport();
+                break;
+            case "DefaultExport_excelexport":
+                gridInstance.excelExport();
+                break;
+            case "DefaultExport_csvexport":
+                gridInstance.csvExport();
+                break;
+        }
+    }
+
+    const navigate = useNavigate();
+    // useEffect(() => {
+    //     dispatch(contentWritingCompleteThunk())
+    // }, [])
+
+    //  url: `${API_BASE_URL}/contentdpt?id=${staffid.loginid}&status=complete`
+    const fetchData = async () => {
+        try {
+            const response = await axios.get(
+                `${API_BASE_URL}/contentdpt?id=${staffid.loginid}&status=complete`,
+                {
+                    headers: {
+                        "Pr-Root": "apartment",
+                    },
+                }
+            );
+
+            setCompleteData(
+                response.data?.map((data, index) => ({
+                    ...data,
+                    sno: index + 1,
+                }))
+            );
+        } catch (error) {
+            console.error(error);
+        }
+    };
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+    const data = useSelector((state) => state.completeContentData?.data?.[0]);
+    useEffect(() => {
+        if (data && typeof data === "object") {
+            const updateData = [
+                {
+                    ...data,
+                    sno: 1,
+                },
+            ];
+            setCompleteData(updateData);
+        } else {
+            console.error("dataWaiting is not an object");
+        }
+    }, [data]);
+
+    const handleRowSelect = (args) => {
+        const rowData = args.data;
+        navigate(`/apart_content_Writing/${encryptData(rowData.enqid)}/${encryptData(rowData.id)}/${encryptData("complete")}`);
+    };
+    return (
+        <>
+            <section className="section1">
+                <div className=" ">
+                    <div className="row">
+                        <div className="col-12">
+                            <div className="card-body p-1">
+                                <h4 className="page_heading">Complete Department</h4>
+                                <div className="col-lg-12 mb-4 mt-4">
+                                    <GridComponent
+                                        id="DefaultExport"
+                                        dataSource={completeData}
+                                        allowTextWrap={true}
+                                        ref={(grid) => (gridInstance = grid)}
+                                        toolbar={toolbarOptions}
+                                        allowExcelExport={true}
+                                        allowPdfExport={true}
+                                        allowSorting={true}
+                                        allowFiltering={true}
+                                        allowPaging={true}
+                                        filterSettings={filterSettings}
+                                        toolbarClick={toolbarClick.bind(this)}
+                                        height="350"
+                                        rowSelected={handleRowSelect}
+                                    >
+                                        <ColumnsDirective>
+                                            <ColumnDirective
+                                                field="sno"
+                                                headerText="S.no"
+                                                width="150"
+                                            />
+                                            <ColumnDirective
+                                                headerText="Date"
+                                                width="150"
+                                                field="created_at"
+                                            />
+                                            <ColumnDirective
+                                                field="customer"
+                                                headerText="Customer Name"
+                                                width="150"
+                                            />
+                                            <ColumnDirective
+                                                headerText="Age"
+                                                width="150"
+                                                field="age"
+                                            />
+                                            <ColumnDirective
+                                                field="mobile"
+                                                headerText="Mobile"
+                                                width="150"
+                                            />
+                                            <ColumnDirective
+                                                field="email_id"
+                                                headerText="Email"
+                                                width="150"
+                                            />
+                                        </ColumnsDirective>
+                                        <Inject
+                                            services={[
+                                                Toolbar,
+                                                ExcelExport,
+                                                PdfExport,
+                                                Sort,
+                                                Filter,
+                                                Page,
+                                            ]}
+                                        />
+                                    </GridComponent>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </>
+    );
+};
+
+export default CompleteContentWritingApart;

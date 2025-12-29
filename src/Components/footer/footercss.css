@@ -1,0 +1,10 @@
+.footer_bar {
+    background-color: #e4e5e5;
+    padding: 10px 5px;
+    bottom: 0;
+    position: fixed;
+    width: 100%;
+    z-index: -1;
+    left: 0;
+}
+

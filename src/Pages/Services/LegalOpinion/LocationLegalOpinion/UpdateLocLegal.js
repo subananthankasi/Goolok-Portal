@@ -1,0 +1,39 @@
+import React from "react";
+import { TabView, TabPanel } from "primereact/tabview";
+import { useParams } from "react-router-dom";
+import { Header } from "../../../Enquiry/Reusable/Header";
+import { decryptData } from "../../../../Utils/encrypt";
+import LocationSelectlegal from "./legalLocComponent/LocationSelectlegal";
+import ReminderDocLegal from "../DocumentLegalOpinion/LegalDocResuble/ReminderDocLegal";
+
+const UpdateLocLegal = () => {
+  const { eid, locationid, status, pagetype } = useParams();
+  const decryEid = decryptData(eid);
+  const decryLocation = decryptData(locationid);
+  const decryStatus = decryptData(status);
+  return (
+    <section className="section">
+      <div className="container-fluid">
+        <div className="row">
+          <Header eid={decryEid} />
+
+          <TabView>
+            <TabPanel header="Current">
+              <LocationSelectlegal
+                eid={decryEid}
+                id={decryLocation}
+                status={decryStatus}
+              />
+            </TabPanel>
+            <TabPanel header="Remainder">
+              <ReminderDocLegal id = {decryLocation} eid={decryEid} status = {decryStatus}  pagetype="reminder"/>
+            </TabPanel>
+          </TabView>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default UpdateLocLegal;
+

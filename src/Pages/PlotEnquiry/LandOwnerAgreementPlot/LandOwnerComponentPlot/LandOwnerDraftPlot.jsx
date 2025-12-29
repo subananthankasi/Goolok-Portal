@@ -1,0 +1,1806 @@
+import React, { useEffect, useRef, useState } from "react";
+import DataTable from "react-data-table-component";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import axios from "axios";
+import EditIcon from "@mui/icons-material/Edit";
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
+import { useFormik } from "formik";
+import * as yup from "yup";
+import { Dialog } from "primereact/dialog";
+import Button from "@mui/material/Button";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchPincode } from "../../../../Redux/Actions/MasterPage/PincodeAction";
+import API_BASE_URL, { IMG_PATH } from "../../../../Api/api";
+import { fetchState } from "../../../../Redux/Actions/MasterPage/StateAction";
+import { fetchDistrict } from "../../../../Redux/Actions/MasterPage/DistrictAction";
+import { fetchTaluk } from "../../../../Redux/Actions/MasterPage/TalukAction";
+import { fetchVillage } from "../../../../Redux/Actions/MasterPage/VillageAction";
+import Toast from "../../../../Utils/Toast";
+import customStyle from "../../../../Utils/tableStyle";
+import { InputGroup } from "rsuite";
+import { ThreeDots } from "react-loader-spinner";
+import GeneralState from "../../../../Utils/Dropdown/GeneralState";
+import GeneralDistrict from "../../../../Utils/Dropdown/GeneralDistrict";
+import GeneralTalukDropdown from "../../../../Utils/Dropdown/GeneralTalukDropdown";
+import GeneralVillageDropdown from "../../../../Utils/Dropdown/GeneralVillageDropdown";
+import GeneralPincodeDropdown from "../../../../Utils/Dropdown/GeneralPincodeDropdown";
+import GeneralSroDropdown from "../../../../Utils/Dropdown/GeneralSroDropdown";
+
+
+const LandOwnerDraftPlot = ({ eid, id, status, sub_property, pagetype }) => {
+  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const [newDialog, setNewDialog] = useState(false);
+  const [editDialog, setEditDialog] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [prDetails, setPrDetails] = useState([]);
+  const StateData = useSelector((state) => state.State.StateNameData);
+  const DistrictData = useSelector((state) => state.District.districtData);
+  const talukData = useSelector((state) => state.Taluk.TalukData);
+  const VillageData = useSelector((state) => state.Village.villageData);
+  const pincodeData = useSelector((state) => state.Pincode.PincodeData);
+  const [sroData, setSroData] = useState([]);
+  const [url, setUrl] = useState(null);
+  const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false)
+
+  const fetchSro = async () => {
+    try {
+      const response = await axios.get(`${API_BASE_URL}/srodetails`);
+      setSroData(response?.data || []);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    dispatch(fetchState());
+    dispatch(fetchDistrict());
+    dispatch(fetchTaluk());
+    dispatch(fetchPincode());
+    dispatch(fetchVillage());
+
+    fetchSro();
+  }, [dispatch]);
+
+  const enquiryDoumentData = useSelector(
+    (state) => state.Enquiry.enquiryDocument
+  );
+
+  const column = [
+    {
+      name: "S.no",
+      cell: (row, index) => index + 1,
+      sortable: true,
+    },
+    {
+      name: "PropertyId",
+      selector: (row) => row.property_id,
+      sortable: true,
+    },
+    {
+      name: "State",
+      selector: (row) => row.state_name,
+      sortable: true,
+    },
+    {
+      name: "District",
+      selector: (row) => row.district_name,
+      sortable: true,
+    },
+    {
+      name: "Taluk",
+      selector: (row) => row.taluk_name,
+      sortable: true,
+    },
+    {
+      name: "Village",
+      selector: (row) => row.village_name,
+      sortable: true,
+    },
+    {
+      name: "Sro",
+      selector: (row) => row.sro_title,
+      sortable: true,
+    },
+    {
+      name: "Pincode",
+      selector: (row) => row.pincode_name,
+      sortable: true,
+    },
+    {
+      name:
+        sub_property === "UnApproved Plot"
+          ? "Approval No."
+          : sub_property === "CMDA"
+            ? "CMDA Approval No"
+            : "DTCP Approval No.",
+      selector: (row) => row.aprovalno,
+      sortable: true,
+      width: "180px",
+    },
+    sub_property === "UnApproved Plot" && {
+      name: "Approval Type.",
+      selector: (row) => row.approval_no,
+      sortable: true,
+      width: "170px",
+    },
+    {
+      name: "RERA No",
+      selector: (row) => row.rera_no,
+      sortable: true,
+      width: "150px",
+    },
+
+    {
+      name: "Project Name",
+      selector: (row) => row.projectname,
+      sortable: true,
+      width: "150px",
+    },
+    {
+      name: "Plot No",
+      selector: (row) => row.plotno,
+      sortable: true,
+      width: "150px",
+    },
+    {
+      name: "Extent in units",
+      selector: (row) => row.extent_units,
+      sortable: true,
+      width: "150px",
+    },
+    {
+      name: "Price per Sq.ft.,",
+      selector: (row) => row.sqft_price,
+      sortable: true,
+      width: "180px",
+    },
+    {
+      name: "Total saleable plots cost",
+      selector: (row) => row.total_saleable,
+      sortable: true,
+      width: "210px",
+    },
+    {
+      name: "Agreement draft",
+      cell: (row) => (
+        <>
+          <a
+            href={`${IMG_PATH}/enquiry/agreement/${row.document}`}
+            class="btn btn-warning ms-2"
+            download="download"
+            target="_blank"
+          >
+            <RemoveRedEyeIcon />
+          </a>
+        </>
+      ),
+      sortable: true,
+      width: "180px",
+    },
+    {
+      name: "Digital sign status",
+      cell: (row) => (
+        <>
+          <button
+            type="button"
+            className={`badge btn rounded-pill btnhover btn p-2 ${row.status == "pending" ? "bg-danger" : "bg-success"
+              }`}
+            style={{ width: "60px" }}
+          >
+            {row.status}
+          </button>
+        </>
+      ),
+      sortable: true,
+      width: "180px",
+    },
+    {
+      name: "Signed date",
+      selector: (row) => row.signed_date,
+      sortable: true,
+      width: "190px",
+    },
+
+    ...((status === "pending" || status === "complete") &&
+      staffid.Login == "staff" &&
+      pagetype !== "reminder" &&
+      prDetails[0]?.status !== "signed" &&
+      enquiryDoumentData?.status !== "booking"
+      ? [
+        {
+          name: "Actions",
+          cell: (row) => (
+            <div className="d-flex">
+              <button
+                className="btn btn-outline-info me-1 edit"
+                data-tooltip-id="edit"
+                onClick={() => handleEdit(row)}
+              >
+                <EditIcon />
+              </button>
+            </div>
+          ),
+        },
+      ]
+      : []),
+  ];
+
+  const handleEdit = (row) => {
+    setNewDialog(true);
+    // setEditDialog(true);
+    formik.setFieldValue("property_id", row.property_id);
+    formik.setFieldValue("type", row.village_type);
+    formik.setFieldValue("state", row.state);
+    formik.setFieldValue("district", row.district);
+    formik.setFieldValue("village", row.village);
+    formik.setFieldValue("taluk", row.taluk);
+    formik.setFieldValue("pincode", row.pincode);
+    formik.setFieldValue("sro", row.sro);
+    formik.setFieldValue("ward", row.ward);
+    formik.setFieldValue("block", row.block);
+    formik.setFieldValue("sro", row.sro);
+    formik.setFieldValue("projectname", row.projectname);
+    formik.setFieldValue("aprovalno", row.aprovalno);
+    formik.setFieldValue("aprovaltype", row.aprovaltype);
+    formik.setFieldValue("rerano", row.rera_no);
+    formik.setFieldValue("plotno", row.plotno);
+    formik.setFieldValue("priceper", row.sqft_price);
+    formik.setFieldValue("extent_unit", row.extent_units);
+    formik.setFieldValue("total_saleable", row.total_saleable);
+    formik.setFieldValue("file", row.document);
+    formik.setFieldValue("oldfile", row.document);
+    setUrl(row.document);
+
+    formik.setFieldValue("id", row.id);
+  };
+  const viewDocument = () => {
+    window.open(`${IMG_PATH}/enquiry/agreement/${url}`, "_blank");
+  };
+
+  const fetchDetails = async () => {
+    try {
+      const response = await axios.get(
+        `${API_BASE_URL}/plotagreement/${eid}`,
+        {}
+      );
+      setPrDetails(response.data);
+    } catch (error) { }
+  };
+  const [createFetchData, setCreateFetchData] = useState([]);
+  const createFetch = async () => {
+    try {
+      const response = await axios.put(
+        `${API_BASE_URL}/plotagreement/${eid}`,
+        {}
+      );
+      setCreateFetchData(response.data);
+    } catch (error) { }
+  };
+  useEffect(() => {
+    fetchDetails();
+    createFetch();
+  }, []);
+  const onSubmit = async (values) => {
+    if (isEditing) {
+      const payload = {
+        ...values,
+        enqid: eid,
+        agreeid: id,
+        status: null,
+      };
+      setLoading(true)
+      try {
+        await axios.post(`${API_BASE_URL}/plotagreement`, payload, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+
+        formik.resetForm();
+        Toast({ message: "Successfully Updated", type: "success" });
+        // setNewDialog(false)
+        setEditDialog(false);
+        fetchDetails();
+        setLoading(false)
+      } catch (error) {
+        alert(error);
+        setLoading(false)
+      }
+    } else {
+      const payload = {
+        ...values,
+        enqid: eid,
+        agreeid: id,
+      };
+      setLoading(true)
+      try {
+        await axios.post(`${API_BASE_URL}/plotagreement`, payload, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+
+        formik.resetForm();
+        Toast({ message: "Successfully Submited", type: "success" });
+        setNewDialog(false);
+        // setEditDialog(false)
+        fetchDetails();
+        setLoading(false)
+      } catch (error) {
+        alert(error);
+        setLoading(false)
+      }
+    }
+  };
+  const formik = useFormik({
+    initialValues: {
+      property_id: `PROP${1000 + eid}`,
+      type: "",
+      state: "",
+      district: "",
+      taluk: "",
+      village: "",
+      pincode: "",
+      ward: "",
+      block: "",
+      sro: "",
+      projectname: "",
+      aprovalno: "",
+      aprovaltype: "",
+      rerano: "",
+      plotno: "",
+      priceper: "",
+      total_saleable: "",
+      extent_unit: "",
+      file: "",
+      oldfile: "",
+      status: "pending",
+    },
+    validationSchema: yup.object().shape({
+      type: yup.string().required("village type is required !!"),
+      state: yup.string().required("state is required !!"),
+      district: yup.string().required("district is required !!"),
+      taluk: yup.string().required("taluk is required !!"),
+      village: yup.string().required("village is required !!"),
+      sro: yup.string().required("sro is required !!"),
+      pincode: yup.string().required("pincode is required !!"),
+      projectname: yup.string().required("projectname is required !!"),
+      aprovalno: yup.string().required("aprovalno is required !!"),
+      rerano: yup.string().required("rerano is required !!"),
+      plotno: yup.string().required("plot no is required !!"),
+      priceper: yup.string().required("priceper is required !!"),
+      total_saleable: yup.string().required("total saleable is required !!"),
+      extent_unit: yup.string().required("extent in units is required !!"),
+      file: yup.mixed().required("File is required !!"),
+    }),
+    onSubmit,
+  });
+
+  const handleCreate = () => {
+    setNewDialog(true);
+    formik.setFieldValue("type", createFetchData[0]?.village_type);
+    formik.setFieldValue("state", createFetchData[0]?.state);
+    formik.setFieldValue("district", createFetchData[0]?.district);
+    formik.setFieldValue("village", createFetchData[0]?.village);
+    formik.setFieldValue("taluk", createFetchData[0]?.taluk);
+    formik.setFieldValue("pincode", createFetchData[0]?.pincode);
+    formik.setFieldValue("sro", createFetchData[0]?.sro);
+    formik.setFieldValue("ward", createFetchData[0]?.ward);
+    formik.setFieldValue("block", createFetchData[0]?.block);
+    formik.setFieldValue("sro", createFetchData[0]?.sro);
+    formik.setFieldValue("projectname", createFetchData[0]?.project_name);
+    formik.setFieldValue("aprovalno", createFetchData[0]?.approval_no);
+    formik.setFieldValue("aprovaltype", createFetchData[0]?.aprovaltype);
+    formik.setFieldValue("rerano", createFetchData[0]?.rera_no);
+    formik.setFieldValue("plotno", createFetchData[0]?.plot_no);
+    // formik.setFieldValue("priceper", createFetchData[0]?.priceUnit);
+    // formik.setFieldValue("extent_unit", createFetchData[0]?.extent);
+    formik.setFieldValue("total_saleable", createFetchData[0]?.total_cost);
+
+    formik.setFieldValue("extent_unit", enquiryDoumentData?.land_extent_total);
+    formik.setFieldValue("priceper", enquiryDoumentData?.price_per_unit);
+  };
+  useEffect(() => {
+    if (formik.values.village) {
+      const matchedPin = pincodeData?.find(
+        (pin) => pin.pin_village === formik.values.village
+      );
+      if (matchedPin && formik.values.pincode !== matchedPin.id) {
+        formik.setFieldValue("pincode", matchedPin.id);
+      }
+    }
+  }, [formik.values.village, pincodeData]);
+  useEffect(() => {
+    const extent = parseFloat(formik.values.extent_unit) || 0;
+    const priceper = parseFloat(formik.values.priceper) || 0;
+    const total_saleable = extent * priceper;
+    formik.setFieldValue("total_saleable", total_saleable || "");
+  }, [formik.values.extent_unit, formik.values.priceper]);
+
+  // useEffect(() => {
+  //   const apartcost = parseFloat(formik.values.apartcost) || 0;
+  //   const parkingcost = parseFloat(formik.values.parkingcost) || 0;
+  //   const total = apartcost + parkingcost;
+  //   formik.setFieldValue("total_apart_cost", total || "");
+  // }, [formik.values.apartcost, formik.values.parkingcost]);
+  return (
+    <>
+      <div className="col-12 mt-4">
+        <div className="card shadow border-0 mb-3">
+          <div className="card shadow border-0 p-4">
+            <div className="  justify-content-between mb-3">
+              <h6>Land Owner Agreement </h6>
+              <hr />
+            </div>
+            {prDetails?.length === 0 ? (
+              <div className="d-flex justify-content-center">
+                <button className="btn1" onClick={() => handleCreate()}>
+                  +Create Agreement
+                </button>
+              </div>
+            ) : (
+              <DataTable
+                persistTableHead={true}
+                columns={column}
+                data={prDetails}
+                customStyles={customStyle}
+                fixedHeader
+              />
+            )}
+          </div>
+        </div>
+      </div>
+      <Dialog
+        visible={newDialog}
+        style={{ width: "62rem" }}
+        breakpoints={{ "960px": "75vw", "641px": "90vw" }}
+        header="Project Details "
+        modal
+        className="p-fluid"
+        onHide={() => {
+          setNewDialog(false);
+          formik.resetForm();
+        }}
+      >
+        <form onSubmit={formik.handleSubmit} autoComplete="off">
+          <div className="row mt-4">
+            <div className="col-md-6 mb-3 ">
+              <div className="row">
+                <div className="col-4 mb-3 ">
+                  <label htmlFor="projectname" className="form-label">
+                    PropertyId
+                  </label>
+                </div>
+                <div className="col-8 mb-3 ">
+                  <input
+                    name="property_id"
+                    id="property_id"
+                    className="form-control"
+                    value={formik.values.property_id}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    disabled
+                  />
+
+                  {formik.errors.property_id && formik.touched.property_id ? (
+                    <p style={{ color: "red", fontSize: "12px" }}>
+                      {formik.errors.property_id}
+                    </p>
+                  ) : null}
+                </div>
+              </div>
+            </div>
+            <div className="col-md-6 mb-3 ">
+              <div className="row">
+                <div className="col-4 mb-3 ">
+                  <label htmlFor="projectname" className="form-label">
+                    Village Type
+                  </label>
+                </div>
+                <div className="col-8 mb-3 ">
+                  <select
+                    name="type"
+                    id="type"
+                    className="form-select"
+                    value={formik.values.type}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  // disabled={formik.values.type}
+                  >
+                    <option>Select Village Type </option>
+                    <option value="Natham_patta">Natham Village</option>
+                    <option value="Rural_patta">Rural Village</option>
+                    <option value="Town_patta">Town Village</option>
+                  </select>
+
+                  {formik.errors.type && formik.touched.type ? (
+                    <p style={{ color: "red", fontSize: "12px" }}>
+                      {formik.errors.type}
+                    </p>
+                  ) : null}
+                </div>
+              </div>
+            </div>
+            <div className="col-md-6 mb-3 ">
+              <div className="row">
+                <div className="col-4 mb-3 ">
+                  <label htmlFor="projectname" className="form-label">
+                    State
+                  </label>
+                </div>
+                <div className="col-8 mb-3 ">
+                  {/* <select
+                    name="state"
+                    id="state"
+                    className="form-select"
+                    value={formik.values.state}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    disabled={formik.values.state}
+                  >
+                    <option value="">Select State</option>
+                    {StateData?.map((item) => (
+                      <option value={item.id}>{item.state_name} </option>
+                    ))}
+                  </select> */}
+                  <GeneralState
+                    value={formik.values.state}
+                    onChange={(value) => {
+                      formik.setFieldValue("state", value);
+                      formik.setFieldValue("district", "");
+                      formik.setFieldValue("taluk", "");
+                      formik.setFieldValue("village", "");
+                    }}
+                    onBlur={() => formik.setFieldTouched("state", true)}
+                  />
+                  {formik.errors.state && formik.touched.state ? (
+                    <p style={{ color: "red", fontSize: "12px" }}>
+                      {formik.errors.state}
+                    </p>
+                  ) : null}
+                </div>
+              </div>
+            </div>
+            <div className="col-md-6 mb-3 ">
+              <div className="row">
+                <div className="col-4 mb-3 ">
+                  <label htmlFor="projectname" className="form-label">
+                    District
+                  </label>
+                </div>
+                <div className="col-8 mb-3 ">
+                  {/* <select
+                    name="district"
+                    id="district"
+                    className="form-select"
+                    value={formik.values.district}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    disabled={formik.values.district}
+                  >
+                    <option value="">Select district</option>
+                    {DistrictData?.filter(
+                      (district) => district.state_type === formik.values.state
+                    ).map((item) => (
+                      <option key={item.id} value={item.id}>
+                        {" "}
+                        {item.district}{" "}
+                      </option>
+                    ))}
+                  </select> */}
+                  <GeneralDistrict
+                    stateId={formik.values.state}
+                    value={formik.values.district}
+                    onChange={(value) => {
+                      formik.setFieldValue("district", value);
+                      formik.setFieldValue("taluk", "");
+                      formik.setFieldValue("village", "");
+                    }}
+                    onBlur={() => formik.setFieldTouched("district", true)}
+                  />
+                  {formik.errors.district && formik.touched.district ? (
+                    <p style={{ color: "red", fontSize: "12px" }}>
+                      {formik.errors.district}
+                    </p>
+                  ) : null}
+                </div>
+              </div>
+            </div>
+            <div className="col-md-6 mb-3 ">
+              <div className="row">
+                <div className="col-4 mb-3 ">
+                  <label htmlFor="projectname" className="form-label">
+                    Taluk
+                  </label>
+                </div>
+                <div className="col-8 mb-3 ">
+                  {/* <select
+                    name="taluk"
+                    id="taluk"
+                    className="form-select"
+                    value={formik.values.taluk}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    disabled={formik.values.taluk}
+                  >
+                    <option value="">Select Taluk</option>
+                    {talukData
+                      ?.filter(
+                        (taluk) =>
+                          taluk.taluk_district === formik.values.district
+                      )
+                      .map((item) => (
+                        <option key={item.id} value={item.id}>
+                          {" "}
+                          {item.taluk_name}{" "}
+                        </option>
+                      ))}
+                  </select> */}
+                  <GeneralTalukDropdown
+                    districtId={formik.values.district}
+                    value={formik.values.taluk}
+                    onChange={(value) => {
+                      formik.setFieldValue("taluk", value);
+                      formik.setFieldValue("village", "");
+                    }}
+                    onBlur={() => formik.setFieldTouched("taluk", true)}
+                  />
+                  {formik.errors.taluk && formik.touched.taluk ? (
+                    <p style={{ color: "red", fontSize: "12px" }}>
+                      {formik.errors.taluk}
+                    </p>
+                  ) : null}
+                </div>
+              </div>
+            </div>
+            <div className="col-md-6 mb-3 ">
+              <div className="row">
+                <div className="col-4 mb-3 ">
+                  <label htmlFor="projectname" className="form-label">
+                    {formik.values.type === "Town village" ? "Town" : "Village"}
+                  </label>
+                </div>
+                <div className="col-8 mb-3 ">
+                  {/* <select
+                    name="village"
+                    id="village"
+                    className="form-select"
+                    value={formik.values.village}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    disabled={formik.values.village}
+                  >
+                    <option value="">Select Village</option>
+                    {VillageData?.filter(
+                      (vill) => vill.village_taluk === formik.values.taluk
+                    ).map((item) => (
+                      <option key={item.id} value={item.id}>
+                        {" "}
+                        {item.village_name}{" "}
+                      </option>
+                    ))}
+                  </select> */}
+                  <GeneralVillageDropdown
+                    talukId={formik.values.taluk}
+                    value={formik.values.village}
+                    onChange={(value) => formik.setFieldValue("village", value)}
+                    onBlur={() => formik.setFieldTouched("village", true)}
+                  />
+                  {formik.errors.village && formik.touched.village ? (
+                    <p style={{ color: "red", fontSize: "12px" }}>
+                      {formik.errors.village}
+                    </p>
+                  ) : null}
+                </div>
+              </div>
+            </div>
+            {formik.values.type === "Town village" && (
+              <>
+                <div className="col-md-6 mb-3 ">
+                  <div className="row">
+                    <div className="col-4 mb-3 ">
+                      <label htmlFor="projectname" className="form-label">
+                        Ward
+                      </label>
+                    </div>
+                    <div className="col-8 mb-3 ">
+                      <input
+                        name="ward"
+                        id="ward"
+                        className="form-control"
+                        placeholder="Enter ward...."
+                        value={formik.values.ward}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="col-md-6 mb-3 ">
+                  <div className="row">
+                    <div className="col-4 mb-3 ">
+                      <label htmlFor="projectname" className="form-label">
+                        Block
+                      </label>
+                    </div>
+                    <div className="col-8 mb-3 ">
+                      <input
+                        name="block"
+                        id="block"
+                        className="form-control"
+                        placeholder="Enter block...."
+                        value={formik.values.block}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </>
+            )}
+            <div className="col-md-6 mb-3 ">
+              <div className="row">
+                <div className="col-4 mb-3 ">
+                  <label htmlFor="projectname" className="form-label">
+                    Sro
+                  </label>
+                </div>
+                <div className="col-8 mb-3 ">
+                  {/* <select
+                    type="text"
+                    className="form-select"
+                    name="sro"
+                    value={formik.values.sro}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    disabled={formik.values.sro}
+                  >
+                    <option value="">Select SRO</option>
+                    {sroData?.map((item) => (
+                      <option key={item.id} value={item.id}>
+                        {item.sro_title}{" "}
+                      </option>
+                    ))}
+                  </select> */}
+                  <GeneralSroDropdown
+                    value={formik.values.sro}
+                    onChange={(value) => {
+                      formik.setFieldValue("sro", value);
+                    }}
+                    onBlur={() => formik.setFieldTouched("sro", true)}
+                  />
+                  {formik.errors.sro && formik.touched.sro ? (
+                    <p style={{ color: "red", fontSize: "12px" }}>
+                      {formik.errors.sro}
+                    </p>
+                  ) : null}
+                </div>
+              </div>
+            </div>
+            <div className="col-md-6 mb-3 ">
+              <div className="row">
+                <div className="col-4 mb-3 ">
+                  <label htmlFor="projectname" className="form-label">
+                    Pincode
+                  </label>
+                </div>
+                <div className="col-8 mb-3 ">
+                  {/* <select
+                    name="pincode"
+                    id="pincode"
+                    className="form-select"
+                    value={formik.values.pincode}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  >
+                    <option value="">Select Pincode</option>
+                    {pincodeData
+                      ?.filter(
+                        (pin) => pin.pin_village === formik.values.village
+                      )
+                      .map((item) => (
+                        <option key={item.id} value={item.id}>
+                          {" "}
+                          {item.pincode}{" "}
+                        </option>
+                      ))}
+                  </select> */}
+                  <GeneralPincodeDropdown
+                    villageId={formik.values.village}
+                    value={formik.values.pincode}
+                    onChange={(value) => formik.setFieldValue("pincode", value)}
+                    onBlur={() => formik.setFieldTouched("pincode", true)}
+                  />
+                  {formik.errors.pincode && formik.touched.pincode ? (
+                    <p style={{ color: "red", fontSize: "12px" }}>
+                      {formik.errors.pincode}
+                    </p>
+                  ) : null}
+                </div>
+              </div>
+            </div>
+            <div className="col-md-6 mb-3 ">
+              <div className="row">
+                <div className="col-4 mb-3 ">
+                  <label htmlFor="projectname" className="form-label">
+                    Project Name
+                  </label>
+                </div>
+                <div className="col-8 mb-3 ">
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="projectname"
+                    placeholder="enter project name..."
+                    value={formik.values.projectname}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  // disabled={formik.values.projectname}
+                  />
+                  {formik.errors.projectname && formik.touched.projectname ? (
+                    <p style={{ color: "red", fontSize: "12px" }}>
+                      {formik.errors.projectname}
+                    </p>
+                  ) : null}
+                </div>
+              </div>
+            </div>
+
+            <div className="col-md-6 mb-3 ">
+              <div className="row">
+                <div className="col-4 mb-3 ">
+                  <label htmlFor="lastName" className="form-label">
+                    {sub_property === "UnApproved Plot"
+                      ? "Approval No."
+                      : sub_property === "CMDA"
+                        ? "CMDA Approval No"
+                        : "DTCP Approval No."}
+                  </label>
+                </div>
+                <div className="col-8 mb-3 ">
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="aprovalno"
+                    placeholder="enter aproval no..."
+                    value={formik.values.aprovalno}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  // disabled={formik.values.aprovalno}
+                  />
+                  {formik.errors.aprovalno && formik.touched.aprovalno ? (
+                    <p style={{ color: "red", fontSize: "12px" }}>
+                      {formik.errors.aprovalno}
+                    </p>
+                  ) : null}
+                </div>
+              </div>
+            </div>
+            {sub_property === "UnApproved Plot" && (
+              <div className="col-md-6 mb-3 ">
+                <div className="row">
+                  <div className="col-4 mb-3 ">
+                    <label htmlFor="lastName" className="form-label">
+                      Approval Type
+                    </label>
+                  </div>
+                  <div className="col-8 mb-3 ">
+                    <input
+                      type="text"
+                      className="form-control"
+                      name="aprovaltype"
+                      placeholder="enter aproval type..."
+                      value={formik.values.aprovaltype}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                    // disabled={formik.values.aprovaltype}
+                    />
+                    {formik.errors.aprovaltype && formik.touched.aprovaltype ? (
+                      <p style={{ color: "red", fontSize: "12px" }}>
+                        {formik.errors.aprovaltype}
+                      </p>
+                    ) : null}
+                  </div>
+                </div>
+              </div>
+            )}
+            <div className="col-md-6 mb-3 ">
+              <div className="row">
+                <div className="col-4 mb-3 ">
+                  <label htmlFor="lastName" className="form-label">
+                    RERA No
+                  </label>
+                </div>
+                <div className="col-8 mb-3 ">
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="rerano"
+                    placeholder="enter rera no..."
+                    value={formik.values.rerano}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  // disabled={formik.values.rerano}
+                  />
+                  {formik.errors.rerano && formik.touched.rerano ? (
+                    <p style={{ color: "red", fontSize: "12px" }}>
+                      {formik.errors.rerano}
+                    </p>
+                  ) : null}
+                </div>
+              </div>
+            </div>
+            <div className="col-md-6 mb-3 ">
+              <div className="row">
+                <div className="col-4 mb-3 ">
+                  <label htmlFor="lastName" className="form-label">
+                    Plot No.
+                  </label>
+                </div>
+                <div className="col-8 mb-3 ">
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="plotno"
+                    placeholder="Enter plot no ..."
+                    value={formik.values.plotno}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  // disabled={formik.values.plotno}
+                  />
+                  {formik.errors.plotno && formik.touched.plotno ? (
+                    <p style={{ color: "red", fontSize: "12px" }}>
+                      {formik.errors.plotno}
+                    </p>
+                  ) : null}
+                </div>
+              </div>
+            </div>
+            <div className="col-md-6 mb-3 ">
+              <div className="row">
+                <div className="col-4 mb-3 ">
+                  <label htmlFor="lastName" className="form-label">
+                    Extent in units
+                  </label>
+                </div>
+                <div className="col-8 mb-3 ">
+                  {/* <input
+                    name="extent_unit"
+                    id="extent_unit"
+                    className="form-control"
+                    placeholder="Enter no of bhk ..."
+                    type="number"
+                    value={formik.values.extent_unit}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  /> */}
+                  <InputGroup>
+                    <input
+                      name="extent_unit"
+                      id="extent_unit"
+                      className="form-control"
+                      placeholder="Enter total extent ..."
+                      value={formik.values.extent_unit}
+                      onChange={(e) => {
+                        const regex = /^[0-9]*$/;
+                        if (regex.test(e.target.value)) {
+                          formik.handleChange(e);
+                        } else {
+                          alert("Please Enter Number Only");
+                        }
+                      }}
+                      onBlur={formik.handleBlur}
+                    // disabled={formik.values.extent_unit}
+                    />
+                    <InputGroup.Addon>
+                      {enquiryDoumentData?.land_units}{" "}
+                    </InputGroup.Addon>
+                  </InputGroup>
+
+                  {formik.errors.extent_unit && formik.touched.extent_unit ? (
+                    <p style={{ color: "red", fontSize: "12px" }}>
+                      {formik.errors.extent_unit}
+                    </p>
+                  ) : null}
+                </div>
+              </div>
+            </div>
+            <div className="col-md-6 mb-3 ">
+              <div className="row">
+                <div className="col-4 mb-3 ">
+                  <label htmlFor="lastName" className="form-label">
+                    Price per unit
+                  </label>
+                </div>
+                <div className="col-8 mb-3 ">
+                  {/* <input
+                    name="priceper"
+                    id="priceper"
+                    className="form-control"
+                    placeholder="Enter price per Sq.ft., ..."
+                    type="number"
+                    value={formik.values.priceper}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  /> */}
+                  <InputGroup>
+                    <input
+                      name="priceper"
+                      id="priceper"
+                      className="form-control"
+                      placeholder="Enter price per unit., ..."
+                      value={formik.values.priceper}
+                      onChange={(e) => {
+                        const regex = /^[0-9]*$/;
+                        if (regex.test(e.target.value)) {
+                          formik.handleChange(e);
+                        } else {
+                          alert("Please Enter Number Only");
+                        }
+                      }}
+                      onBlur={formik.handleBlur}
+                    // disabled={formik.values.priceper}
+                    />
+                    <InputGroup.Addon>
+                      {enquiryDoumentData?.land_units}{" "}
+                    </InputGroup.Addon>
+                  </InputGroup>
+
+                  {formik.errors.priceper && formik.touched.priceper ? (
+                    <p style={{ color: "red", fontSize: "12px" }}>
+                      {formik.errors.priceper}
+                    </p>
+                  ) : null}
+                </div>
+              </div>
+            </div>
+            <div className="col-md-6 mb-3 ">
+              <div className="row">
+                <div className="col-4 mb-3 ">
+                  <label htmlFor="lastName" className="form-label">
+                    Total saleable plots cost
+                  </label>
+                </div>
+                <div className="col-8 mb-3 ">
+                  <input
+                    name="total_saleable"
+                    id="total_saleable"
+                    className="form-control"
+                    placeholder="Enter total saleable plots cost ..."
+                    type="number"
+                    value={formik.values.total_saleable}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  // disabled={formik.values.total_saleable}
+                  />
+
+                  {formik.errors.total_saleable &&
+                    formik.touched.total_saleable ? (
+                    <p style={{ color: "red", fontSize: "12px" }}>
+                      {formik.errors.total_saleable}
+                    </p>
+                  ) : null}
+                </div>
+              </div>
+            </div>
+            <hr />
+            <div className="col-md-6 mb-3 ">
+              <div className="row">
+                <div className="col-4 mb-3 ">
+                  <label htmlFor="carparking" className="form-label">
+                    File
+                  </label>
+                </div>
+                <div className="col-7 mb-3 ">
+                  <input
+                    type="file"
+                    className="form-control"
+                    name="file"
+                    // value={formik.values.file}
+                    onChange={(event) => {
+                      formik.setFieldValue(
+                        "file",
+                        event.currentTarget.files[0]
+                      );
+                    }}
+                    onBlur={formik.handleBlur}
+                  />
+
+                  {formik.errors.file && formik.touched.file ? (
+                    <p style={{ color: "red", fontSize: "12px" }}>
+                      {formik.errors.file}
+                    </p>
+                  ) : null}
+                </div>
+                {url && (
+                  <div className="col-1">
+                    <button className="btn1" type="button" onClick={viewDocument}>
+                      <RemoveRedEyeIcon />{" "}
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
+            <div className="text-end gap-3">
+              {staffid.Login === "staff" &&
+                (status === "pending" || status === "complete") && (
+                  <>
+                    <Button
+                      variant="contained"
+                      type="submit"
+                      onClick={() => setIsEditing(false)}
+                      disabled={loading}
+                    >
+                      {loading ? (
+                        <ThreeDots
+                          visible={true}
+                          height="25"
+                          width="55"
+                          color="#ffffff"
+                          radius="18"
+                          ariaLabel="three-dots-loading"
+                          wrapperStyle={{
+                            justifyContent: "center",
+                            fontSize: "12px",
+                          }}
+                          wrapperClass=""
+                        />
+                      ) : (
+                        "Save "
+                      )}
+                    </Button>
+                  </>
+                )}
+            </div>
+          </div>
+        </form>
+      </Dialog>
+      <Dialog
+        visible={editDialog}
+        style={{ width: "62rem" }}
+        breakpoints={{ "960px": "75vw", "641px": "90vw" }}
+        header="Project Details "
+        modal
+        className="p-fluid"
+        onHide={() => {
+          setEditDialog(false);
+          formik.resetForm();
+        }}
+      >
+        <form onSubmit={formik.handleSubmit} autoComplete="off">
+          ;{" "}
+          <div className="row mt-4">
+            <div className="col-md-6 mb-3 ">
+              <div className="row">
+                <div className="col-4 mb-3 ">
+                  <label htmlFor="projectname" className="form-label">
+                    PropertyId
+                  </label>
+                </div>
+                <div className="col-8 mb-3 ">
+                  <input
+                    name="property_id"
+                    id="property_id"
+                    className="form-control"
+                    value={formik.values.property_id}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    disabled
+                  />
+
+                  {formik.errors.property_id && formik.touched.property_id ? (
+                    <p style={{ color: "red", fontSize: "12px" }}>
+                      {formik.errors.property_id}
+                    </p>
+                  ) : null}
+                </div>
+              </div>
+            </div>
+            <div className="col-md-6 mb-3 ">
+              <div className="row">
+                <div className="col-4 mb-3 ">
+                  <label htmlFor="projectname" className="form-label">
+                    Village Type
+                  </label>
+                </div>
+                <div className="col-8 mb-3 ">
+                  <select
+                    name="type"
+                    id="type"
+                    className="form-select"
+                    value={formik.values.type}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  >
+                    <option>Select Village Type </option>
+                    <option value="Natham_patta">Natham Village</option>
+                    <option value="Rural_patta">Rural Village</option>
+                    <option value="Town_patta">Town Village</option>
+                  </select>
+
+                  {formik.errors.type && formik.touched.type ? (
+                    <p style={{ color: "red", fontSize: "12px" }}>
+                      {formik.errors.type}
+                    </p>
+                  ) : null}
+                </div>
+              </div>
+            </div>
+            <div className="col-md-6 mb-3 ">
+              <div className="row">
+                <div className="col-4 mb-3 ">
+                  <label htmlFor="projectname" className="form-label">
+                    State
+                  </label>
+                </div>
+                <div className="col-8 mb-3 ">
+                  <select
+                    name="state"
+                    id="state"
+                    className="form-select"
+                    value={formik.values.state}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  >
+                    <option value="">Select State</option>
+                    {StateData?.map((item) => (
+                      <option value={item.id}>{item.state_name} </option>
+                    ))}
+                  </select>
+                  {formik.errors.state && formik.touched.state ? (
+                    <p style={{ color: "red", fontSize: "12px" }}>
+                      {formik.errors.state}
+                    </p>
+                  ) : null}
+                </div>
+              </div>
+            </div>
+            <div className="col-md-6 mb-3 ">
+              <div className="row">
+                <div className="col-4 mb-3 ">
+                  <label htmlFor="projectname" className="form-label">
+                    District
+                  </label>
+                </div>
+                <div className="col-8 mb-3 ">
+                  <select
+                    name="district"
+                    id="district"
+                    className="form-select"
+                    value={formik.values.district}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  >
+                    <option value="">Select district</option>
+                    {DistrictData?.filter(
+                      (district) => district.state_type === formik.values.state
+                    ).map((item) => (
+                      <option key={item.id} value={item.id}>
+                        {" "}
+                        {item.district}{" "}
+                      </option>
+                    ))}
+                  </select>
+                  {formik.errors.district && formik.touched.district ? (
+                    <p style={{ color: "red", fontSize: "12px" }}>
+                      {formik.errors.district}
+                    </p>
+                  ) : null}
+                </div>
+              </div>
+            </div>
+            <div className="col-md-6 mb-3 ">
+              <div className="row">
+                <div className="col-4 mb-3 ">
+                  <label htmlFor="projectname" className="form-label">
+                    Taluk
+                  </label>
+                </div>
+                <div className="col-8 mb-3 ">
+                  <select
+                    name="taluk"
+                    id="taluk"
+                    className="form-select"
+                    value={formik.values.taluk}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  >
+                    <option value="">Select Taluk</option>
+                    {talukData
+                      ?.filter(
+                        (taluk) =>
+                          taluk.taluk_district === formik.values.district
+                      )
+                      .map((item) => (
+                        <option key={item.id} value={item.id}>
+                          {" "}
+                          {item.taluk_name}{" "}
+                        </option>
+                      ))}
+                  </select>
+                  {formik.errors.taluk && formik.touched.taluk ? (
+                    <p style={{ color: "red", fontSize: "12px" }}>
+                      {formik.errors.taluk}
+                    </p>
+                  ) : null}
+                </div>
+              </div>
+            </div>
+            <div className="col-md-6 mb-3 ">
+              <div className="row">
+                <div className="col-4 mb-3 ">
+                  <label htmlFor="projectname" className="form-label">
+                    {formik.values.type === "Town village" ? "Town" : "Village"}
+                  </label>
+                </div>
+                <div className="col-8 mb-3 ">
+                  <select
+                    name="village"
+                    id="village"
+                    className="form-select"
+                    value={formik.values.village}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  >
+                    <option value="">Select Village</option>
+                    {VillageData?.filter(
+                      (vill) => vill.village_taluk === formik.values.taluk
+                    ).map((item) => (
+                      <option key={item.id} value={item.id}>
+                        {" "}
+                        {item.village_name}{" "}
+                      </option>
+                    ))}
+                  </select>
+                  {formik.errors.village && formik.touched.village ? (
+                    <p style={{ color: "red", fontSize: "12px" }}>
+                      {formik.errors.village}
+                    </p>
+                  ) : null}
+                </div>
+              </div>
+            </div>
+            {formik.values.type === "Town village" && (
+              <>
+                <div className="col-md-6 mb-3 ">
+                  <div className="row">
+                    <div className="col-4 mb-3 ">
+                      <label htmlFor="projectname" className="form-label">
+                        Ward
+                      </label>
+                    </div>
+                    <div className="col-8 mb-3 ">
+                      <input
+                        name="ward"
+                        id="ward"
+                        className="form-control"
+                        placeholder="Enter ward...."
+                        value={formik.values.ward}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="col-md-6 mb-3 ">
+                  <div className="row">
+                    <div className="col-4 mb-3 ">
+                      <label htmlFor="projectname" className="form-label">
+                        Block
+                      </label>
+                    </div>
+                    <div className="col-8 mb-3 ">
+                      <input
+                        name="block"
+                        id="block"
+                        className="form-control"
+                        placeholder="Enter block...."
+                        value={formik.values.block}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </>
+            )}
+            <div className="col-md-6 mb-3 ">
+              <div className="row">
+                <div className="col-4 mb-3 ">
+                  <label htmlFor="projectname" className="form-label">
+                    Sro
+                  </label>
+                </div>
+                <div className="col-8 mb-3 ">
+                  <select
+                    type="text"
+                    className="form-select"
+                    name="sro"
+                    value={formik.values.sro}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  >
+                    <option value="">Select SRO</option>
+                    {sroData?.map((item) => (
+                      <option key={item.id} value={item.id}>
+                        {item.sro_title}{" "}
+                      </option>
+                    ))}
+                  </select>
+                  {formik.errors.sro && formik.touched.sro ? (
+                    <p style={{ color: "red", fontSize: "12px" }}>
+                      {formik.errors.sro}
+                    </p>
+                  ) : null}
+                </div>
+              </div>
+            </div>
+            <div className="col-md-6 mb-3 ">
+              <div className="row">
+                <div className="col-4 mb-3 ">
+                  <label htmlFor="projectname" className="form-label">
+                    Pincode
+                  </label>
+                </div>
+                <div className="col-8 mb-3 ">
+                  <select
+                    name="pincode"
+                    id="pincode"
+                    className="form-select"
+                    value={formik.values.pincode}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  >
+                    <option value="">Select Pincode</option>
+                    {pincodeData
+                      ?.filter(
+                        (pin) => pin.pin_village === formik.values.village
+                      )
+                      .map((item) => (
+                        <option key={item.id} value={item.id}>
+                          {" "}
+                          {item.pincode}{" "}
+                        </option>
+                      ))}
+                  </select>
+                  {formik.errors.pincode && formik.touched.pincode ? (
+                    <p style={{ color: "red", fontSize: "12px" }}>
+                      {formik.errors.pincode}
+                    </p>
+                  ) : null}
+                </div>
+              </div>
+            </div>
+            <div className="col-md-6 mb-3 ">
+              <div className="row">
+                <div className="col-4 mb-3 ">
+                  <label htmlFor="projectname" className="form-label">
+                    Project Name
+                  </label>
+                </div>
+                <div className="col-8 mb-3 ">
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="projectname"
+                    placeholder="enter project name..."
+                    value={formik.values.projectname}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                  {formik.errors.projectname && formik.touched.projectname ? (
+                    <p style={{ color: "red", fontSize: "12px" }}>
+                      {formik.errors.projectname}
+                    </p>
+                  ) : null}
+                </div>
+              </div>
+            </div>
+
+            <div className="col-md-6 mb-3 ">
+              <div className="row">
+                <div className="col-4 mb-3 ">
+                  <label htmlFor="lastName" className="form-label">
+                    {sub_property === "UnApproved Plot"
+                      ? "Approval No."
+                      : sub_property === "CMDA"
+                        ? "CMDA Approval No"
+                        : "DTCP Approval No."}
+                  </label>
+                </div>
+                <div className="col-8 mb-3 ">
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="aprovalno"
+                    placeholder="enter aproval no..."
+                    value={formik.values.aprovalno}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                  {formik.errors.aprovalno && formik.touched.aprovalno ? (
+                    <p style={{ color: "red", fontSize: "12px" }}>
+                      {formik.errors.aprovalno}
+                    </p>
+                  ) : null}
+                </div>
+              </div>
+            </div>
+            {sub_property === "UnApproved Plot" && (
+              <div className="col-md-6 mb-3 ">
+                <div className="row">
+                  <div className="col-4 mb-3 ">
+                    <label htmlFor="lastName" className="form-label">
+                      Approval Type
+                    </label>
+                  </div>
+                  <div className="col-8 mb-3 ">
+                    <input
+                      type="text"
+                      className="form-control"
+                      name="aprovaltype"
+                      placeholder="enter aproval type..."
+                      value={formik.values.aprovaltype}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
+            <div className="col-md-6 mb-3 ">
+              <div className="row">
+                <div className="col-4 mb-3 ">
+                  <label htmlFor="lastName" className="form-label">
+                    RERA No
+                  </label>
+                </div>
+                <div className="col-8 mb-3 ">
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="rerano"
+                    placeholder="enter rera no..."
+                    value={formik.values.rerano}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                  {formik.errors.rerano && formik.touched.rerano ? (
+                    <p style={{ color: "red", fontSize: "12px" }}>
+                      {formik.errors.rerano}
+                    </p>
+                  ) : null}
+                </div>
+              </div>
+            </div>
+            <div className="col-md-6 mb-3 ">
+              <div className="row">
+                <div className="col-4 mb-3 ">
+                  <label htmlFor="lastName" className="form-label">
+                    Plot No.
+                  </label>
+                </div>
+                <div className="col-8 mb-3 ">
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="plotno"
+                    placeholder="Enter plot no ..."
+                    value={formik.values.plotno}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                  {formik.errors.plotno && formik.touched.plotno ? (
+                    <p style={{ color: "red", fontSize: "12px" }}>
+                      {formik.errors.plotno}
+                    </p>
+                  ) : null}
+                </div>
+              </div>
+            </div>
+            <div className="col-md-6 mb-3 ">
+              <div className="row">
+                <div className="col-4 mb-3 ">
+                  <label htmlFor="lastName" className="form-label">
+                    Extent in units
+                  </label>
+                </div>
+                <div className="col-8 mb-3 ">
+                  {/* <input
+                    name="extent_unit"
+                    id="extent_unit"
+                    className="form-control"
+                    placeholder="Enter no of bhk ..."
+                    type="number"
+                    value={formik.values.extent_unit}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  /> */}
+                  <InputGroup>
+                    <input
+                      name="extent_unit"
+                      id="extent_unit"
+                      className="form-control"
+                      placeholder="Enter total extent ..."
+                      value={formik.values.extent_unit}
+                      onChange={(e) => {
+                        const regex = /^[0-9]*$/;
+                        if (regex.test(e.target.value)) {
+                          formik.handleChange(e);
+                        } else {
+                          alert("Please Enter Number Only");
+                        }
+                      }}
+                      onBlur={formik.handleBlur}
+                    // disabled={formik.values.extent_unit}
+                    />
+                    <InputGroup.Addon>
+                      {enquiryDoumentData?.land_units}{" "}
+                    </InputGroup.Addon>
+                  </InputGroup>
+
+                  {formik.errors.extent_unit && formik.touched.extent_unit ? (
+                    <p style={{ color: "red", fontSize: "12px" }}>
+                      {formik.errors.extent_unit}
+                    </p>
+                  ) : null}
+                </div>
+              </div>
+            </div>
+            <div className="col-md-6 mb-3 ">
+              <div className="row">
+                <div className="col-4 mb-3 ">
+                  <label htmlFor="lastName" className="form-label">
+                    Price per unit
+                  </label>
+                </div>
+                <div className="col-8 mb-3 ">
+                  {/* <input
+                    name="priceper"
+                    id="priceper"
+                    className="form-control"
+                    placeholder="Enter price per Sq.ft., ..."
+                    type="number"
+                    value={formik.values.priceper}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  /> */}
+                  <InputGroup>
+                    <input
+                      name="priceper"
+                      id="priceper"
+                      className="form-control"
+                      placeholder="Enter price per unit., ..."
+                      value={formik.values.priceper}
+                      onChange={(e) => {
+                        const regex = /^[0-9]*$/;
+                        if (regex.test(e.target.value)) {
+                          formik.handleChange(e);
+                        } else {
+                          alert("Please Enter Number Only");
+                        }
+                      }}
+                      onBlur={formik.handleBlur}
+                    // disabled={formik.values.priceper}
+                    />
+                    <InputGroup.Addon>
+                      {enquiryDoumentData?.land_units}{" "}
+                    </InputGroup.Addon>
+                  </InputGroup>
+
+                  {formik.errors.priceper && formik.touched.priceper ? (
+                    <p style={{ color: "red", fontSize: "12px" }}>
+                      {formik.errors.priceper}
+                    </p>
+                  ) : null}
+                </div>
+              </div>
+            </div>
+            <div className="col-md-6 mb-3 ">
+              <div className="row">
+                <div className="col-4 mb-3 ">
+                  <label htmlFor="lastName" className="form-label">
+                    Total saleable plots cost
+                  </label>
+                </div>
+                <div className="col-8 mb-3 ">
+                  <input
+                    name="total_saleable"
+                    id="total_saleable"
+                    className="form-control"
+                    placeholder="Enter total saleable plots cost ..."
+                    type="number"
+                    value={formik.values.total_saleable}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+
+                  {formik.errors.total_saleable &&
+                    formik.touched.total_saleable ? (
+                    <p style={{ color: "red", fontSize: "12px" }}>
+                      {formik.errors.total_saleable}
+                    </p>
+                  ) : null}
+                </div>
+              </div>
+            </div>
+            <hr />
+            <div className="col-md-6 mb-3 ">
+              <div className="row">
+                <div className="col-4 mb-3 ">
+                  <label htmlFor="carparking" className="form-label">
+                    File
+                  </label>
+                </div>
+                <div className="col-7 mb-3 ">
+                  <input
+                    type="file"
+                    className="form-control"
+                    name="file"
+                    // value={formik.values.file}
+                    onChange={(event) => {
+                      formik.setFieldValue(
+                        "file",
+                        event.currentTarget.files[0]
+                      );
+                    }}
+                    onBlur={formik.handleBlur}
+                  />
+
+                  {formik.errors.file && formik.touched.file ? (
+                    <p style={{ color: "red", fontSize: "12px" }}>
+                      {formik.errors.file}
+                    </p>
+                  ) : null}
+                </div>
+                {url && (
+                  <div className="col-1">
+                    <button className="btn1" onClick={viewDocument}>
+                      <RemoveRedEyeIcon />{" "}
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <div className="text-end gap-3">
+              {staffid.Login === "staff" &&
+                (status === "pending" || status === "complete") && (
+                  <>
+                    <Button
+                      variant="contained"
+                      type="submit"
+                      onClick={() => setIsEditing(true)}
+                      disabled={loading}
+                    >
+                      {loading ? (
+                        <ThreeDots
+                          visible={true}
+                          height="25"
+                          width="55"
+                          color="#ffffff"
+                          radius="18"
+                          ariaLabel="three-dots-loading"
+                          wrapperStyle={{
+                            justifyContent: "center",
+                            fontSize: "12px",
+                          }}
+                          wrapperClass=""
+                        />
+                      ) : (
+                        "Update "
+                      )}
+                    </Button>
+                  </>
+                )}
+            </div>
+          </div>
+        </form>
+      </Dialog>
+    </>
+  );
+};
+
+export default LandOwnerDraftPlot;

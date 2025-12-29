@@ -1,0 +1,29 @@
+{
+  "files": {
+    "main.css": "/goolokadmindemo/static/css/main.a08489ea.css",
+    "main.js": "/goolokadmindemo/static/js/main.efdcc8f7.js",
+    "static/js/611.47755473.chunk.js": "/goolokadmindemo/static/js/611.47755473.chunk.js",
+    "static/js/82.fde9d870.chunk.js": "/goolokadmindemo/static/js/82.fde9d870.chunk.js",
+    "static/js/790.00f55937.chunk.js": "/goolokadmindemo/static/js/790.00f55937.chunk.js",
+    "static/js/206.dd3aca4d.chunk.js": "/goolokadmindemo/static/js/206.dd3aca4d.chunk.js",
+    "static/media/InterVariable-Italic.woff2": "/goolokadmindemo/static/media/InterVariable-Italic.e295f70fe3e2df296c7b.woff2",
+    "static/media/InterVariable.woff2": "/goolokadmindemo/static/media/InterVariable.a0e477f2f1f9d2376fde.woff2",
+    "static/media/primeicons.svg": "/goolokadmindemo/static/media/primeicons.6ed59f962963a4a73af2.svg",
+    "static/media/banner.jpg": "/goolokadmindemo/static/media/banner.ef8dae0dacdb5ad501e3.jpg",
+    "static/media/booking.png": "/goolokadmindemo/static/media/booking.8394c26b23289f61214f.png",
+    "static/media/dummyProfile.png": "/goolokadmindemo/static/media/dummyProfile.0bf0bc8757f59fe287b8.png",
+    "static/media/Goolok Final Logo.png": "/goolokadmindemo/static/media/Goolok Final Logo.b72ab7da045d271d935b.png",
+    "static/media/primeicons.eot": "/goolokadmindemo/static/media/primeicons.ff0c4cd79b2ffca2de54.eot",
+    "static/media/primeicons.woff": "/goolokadmindemo/static/media/primeicons.8931fda1930c3bd21e96.woff",
+    "static/media/primeicons.ttf": "/goolokadmindemo/static/media/primeicons.a5c2a53d1ff7a9ff5933.ttf",
+    "static/media/sold.png": "/goolokadmindemo/static/media/sold.fe01abda0ff64d05d5a5.png",
+    "static/media/primeicons.woff2": "/goolokadmindemo/static/media/primeicons.024b32cc7bf399b1a847.woff2",
+    "static/media/LOGO1.png": "/goolokadmindemo/static/media/LOGO1.91f45cc01e2293e61011.png",
+    "static/media/live.webp": "/goolokadmindemo/static/media/live.2118d699b031ffc4bff4.webp",
+    "index.html": "/goolokadmindemo/index.html"
+  },
+  "entrypoints": [
+    "static/css/main.a08489ea.css",
+    "static/js/main.efdcc8f7.js"
+  ]
+}

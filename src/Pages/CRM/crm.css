@@ -1,0 +1,134 @@
+.rbc-month-header{
+    background-color: #2f4f4f40 ;
+}
+.rbc-header{
+    padding: 8px 0px;
+}
+.rbc-btn-group{
+    background-color: #ffae42;
+}
+
+.rbc-toolbar button:active, .rbc-toolbar button.rbc-active {
+    background-image: none;
+    box-shadow: none !important;
+    background-color: white !important;
+    border-color:#ffae42 !important;
+}
+.rbc-toolbar button:focus {
+    color: #373a3c;
+    background-color: #ffffff;
+    border-color:#ffae42 !important;
+}
+.rbc-toolbar{
+    /* background-color: #ffae42 !important;
+     */
+}
+
+.rbc-toolbar button{
+    border-radius: 0px !important;
+}
+
+.rbc-off-range-bg {
+    background: #e6e6e65c !important;
+}
+
+.rbc-event, .rbc-day-slot .rbc-background-event {
+ 
+    padding: 0px !important;
+    background-color:#eaf6ff !important;
+    border-radius: 0px !important;
+    color:black !important;
+ 
+}
+.rbc-day-slot .rbc-event, .rbc-day-slot .rbc-background-event{
+    border: none !important;
+}
+.rbc-day-slot .rbc-event, .rbc-day-slot .rbc-background-event{
+    top: 59.4028% !important;
+}
+.rbc-event:focus, .rbc-day-slot .rbc-background-event:focus {
+    outline: 5px auto #3b99fc;
+}
+
+.rbc-event:focus, .rbc-day-slot .rbc-background-event:focus {
+    outline: none !important;
+}
+
+.rbc-toolbar button:hover {
+    color: #373a3c;
+    background-color: #cbd3d3 !important;
+    border-color: #e6e6e6 !important;
+}
+
+thead{
+    background-color:#2f4f4f40;
+}
+.rbc-time-view .rbc-allday-cell{
+    display: none !important;
+}
+.rbc-time-header-content {
+background-color: #2f4f4f40 !important;
+}
+
+
+/* Notification..................................////////////////////////////////////// */
+.css-1h9z7r5-MuiButtonBase-root-MuiTab-root{
+    text-transform: capitalize !important;
+}
+.css-1aquho2-MuiTabs-indicator{
+    background-color: #ffae42 !important;
+}
+.css-1h9z7r5-MuiButtonBase-root-MuiTab-root.Mui-selected {
+    color: #2f4f4f !important;
+    font-weight: 600;
+}
+
+.card1{
+    border-radius: 0px !important;
+    box-shadow: none !important;
+}
+.css-1h9z7r5-MuiButtonBase-root-MuiTab-root{
+    color: rgb(47 79 79);
+}
+.card1:hover{
+    background-color: #cbd3d3;
+    transform: scale(1.01); 
+}
+
+.bg_icon {
+    background-color: #ffae42;
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    display: flex;  
+    justify-content: center;  
+    align-items: center;  
+  }
+  .css-1q2h7u5.Mui-selected{
+    color: rgb(47 79 79) !important;
+    font-weight: 600 !important;
+  }
+
+
+  .css-ttwr4n { 
+    background-color:#ffae42 !important;
+}
+
+.rbc-toolbar button{
+    font-size: 13px !important;
+}
+.rbc-button-link{
+    font-size: 13px !important;
+}
+.rbc-ellipsis, .rbc-show-more, .rbc-row-segment .rbc-event-content, .rbc-event-label{
+    font-size: 13px;
+}
+
+.rbc-label {
+    padding: 0 5px;
+    font-size: 14px !important;
+}
+
+tr{
+    font-size: 14px !important;
+}
