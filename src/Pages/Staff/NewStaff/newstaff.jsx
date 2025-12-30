@@ -251,8 +251,10 @@ function NewStaff() {
   ]);
 
   const { cleanText } = Common();
+  const [loading, setLoading] = useState(false)
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true)
     const result = StaffValidation(formData);
     if (result.isValid && passwordError === "") {
       const newData = {
@@ -272,8 +274,10 @@ function NewStaff() {
         if (backendErrors.staff_mobile) mappedErrors.staffMobile = backendErrors.staff_mobile;
         setErrors((prev) => ({ ...prev, ...mappedErrors }));
       }
+      setLoading(false)
     } else {
       setErrors(result.errors);
+      setLoading(false)
     }
   };
 
@@ -599,8 +603,8 @@ function NewStaff() {
                           >
                             Clear
                           </button>
-                          <button type="submit" className="  btn1">
-                            Add
+                          <button type="submit" className="  btn1" disabled={loading} >
+                            {loading ? "Adding..." : "Add"}
                           </button>
                         </div>
                       </div>

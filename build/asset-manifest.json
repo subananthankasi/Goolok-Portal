@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/goolokadmindemo/static/css/main.a08489ea.css",
-    "main.js": "/goolokadmindemo/static/js/main.efdcc8f7.js",
+    "main.js": "/goolokadmindemo/static/js/main.1f85a107.js",
     "static/js/611.47755473.chunk.js": "/goolokadmindemo/static/js/611.47755473.chunk.js",
     "static/js/82.fde9d870.chunk.js": "/goolokadmindemo/static/js/82.fde9d870.chunk.js",
     "static/js/790.00f55937.chunk.js": "/goolokadmindemo/static/js/790.00f55937.chunk.js",
@@ -24,6 +24,6 @@
   },
   "entrypoints": [
     "static/css/main.a08489ea.css",
-    "static/js/main.efdcc8f7.js"
+    "static/js/main.1f85a107.js"
   ]
 }
