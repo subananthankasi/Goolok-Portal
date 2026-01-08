@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useFormik } from "formik";
 import * as yup from "yup";
 import Button from "@mui/material/Button";
-import DatePicker from "react-datepicker";
+// import DatePicker from "react-datepicker";
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import Spinner from "react-bootstrap/Spinner";
@@ -18,6 +18,7 @@ import GeneralDistrict from '../../../../Utils/Dropdown/GeneralDistrict';
 import GeneralTalukDropdown from '../../../../Utils/Dropdown/GeneralTalukDropdown';
 import GeneralVillageDropdown from '../../../../Utils/Dropdown/GeneralVillageDropdown';
 import GeneralSroDropdown from '../../../../Utils/Dropdown/GeneralSroDropdown';
+import { DatePicker } from 'antd';
 // import { DatePicker, Select } from "antd";
 
 const TitleDetailsLayout = ({ data, setStep }) => {
@@ -257,7 +258,7 @@ const TitleDetailsLayout = ({ data, setStep }) => {
                                 </label>
                             </div>
                             <div className="col-8 mb-3 ">
-                                <DatePicker
+                                {/* <DatePicker
                                     selected={formik.values.registerDate ? new Date(formik.values.registerDate) : null}
                                     onChange={(date) => {
                                         const formattedDate = date ? date.toISOString().split("T")[0] : "";
@@ -267,6 +268,25 @@ const TitleDetailsLayout = ({ data, setStep }) => {
                                     placeholderText="Select a Date"
                                     className="form-control w-100"
                                     style={{ width: "100%" }}
+                                /> */}
+                                <DatePicker
+                                    placement="topRight"
+                                    name="registerDate"
+                                    value={
+                                        formik.values.registerDate
+                                            ? dayjs(formik.values.registerDate, "YYYY-MM-DD")
+                                            : null
+                                    }
+                                    onChange={(registerDate) => {
+                                        formik.setFieldValue(
+                                            "registerDate",
+                                            registerDate ? registerDate?.format("YYYY-MM-DD") : ""
+                                        );
+                                    }}
+                                    format="DD/MM/YYYY"
+                                    style={{ width: "100%" }}
+                                    onBlur={formik.handleBlur}
+                                     getPopupContainer={(triggerNode) => triggerNode.parentNode}
                                 />
 
                                 {/* <DatePicker

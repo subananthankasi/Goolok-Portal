@@ -16,6 +16,7 @@ import {
 import { SearchData } from "../../../Utils/Search";
 import CustomLoder from "../../../Components/customLoader/CustomLoder";
 import Common from "../../../common/Common";
+import Toast from "../../../Utils/Toast";
 const Features = () => {
   const [editDialog, setEditDialog] = useState(false);
   const [editing, setEditing] = useState();
@@ -50,6 +51,7 @@ const Features = () => {
         dispatch(iFeatureGetThunk());
         formik.resetForm();
         await setEditDialog(false);
+        Toast({ message: "Successfully Updated", type: "success" });
       }
       if (iFeatureUpdateThunk.rejected.match(res)) {
         formik.setFieldError("feature", res?.payload?.messages?.feature);
@@ -60,6 +62,7 @@ const Features = () => {
         dispatch(iFeatureGetThunk());
         formik.resetForm();
         await setEditDialog(false);
+        Toast({ message: "Successfully Submited", type: "success" });
       }
       if (iFeaturePostThunk.rejected.match(res)) {
         formik.setFieldError("feature", res?.payload?.messages?.feature);
@@ -74,6 +77,7 @@ const Features = () => {
   const handleDelete = () => {
     dispatch(iFeatureDeleteThunk(deleteId)).then(() => {
       dispatch(iFeatureGetThunk());
+       Toast({ message: "Successfully Deleted", type: "success" });
     });
     setDeleteDialog(false);
   };
@@ -84,12 +88,12 @@ const Features = () => {
     <div className="d-flex justify-content-end gap-2 mt-4">
       <button
         type="button"
-        className="btn btn-outline-primary"
+        className="btn1"
         onClick={() => setDeleteDialog(false)}
       >
         Cancel
       </button>
-      <button type="button" className="btn btn-danger" onClick={handleDelete}>
+      <button type="button" className="btn1" onClick={handleDelete}>
         Delete
       </button>
     </div>
@@ -351,13 +355,13 @@ const Features = () => {
             <button
               onClick={cancelDialog}
               type="button"
-              className="btn btn-warning"
+              className="btn1"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="btn btn-primary"
+              className="btn1 "
               onClick={() => setEditing(true)}
               disabled={updateLoading}
             >

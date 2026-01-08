@@ -63,30 +63,35 @@ function Branch() {
       selector: (row) => row.branchid,
       wrap: true,
       sortable: true,
+      width: "150px",
     },
     {
       name: "Branch Name",
       selector: (row) => row.branch_name,
       wrap: true,
       sortable: true,
+      width: "170px",
     },
     {
       name: "Short Name",
       selector: (row) => row.short_name,
       wrap: true,
       sortable: true,
+      width: "170px",
     },
     {
       name: "Village",
       selector: (row) => row.village_name,
       sortable: true,
       wrap: true,
+      width: "170px",
     },
     {
       name: "Taluk",
       selector: (row) => row.taluk_name,
       sortable: true,
       wrap: true,
+      width: "170px",
     },
     {
       name: "District",
@@ -99,6 +104,7 @@ function Branch() {
       selector: (row) => row.state_name,
       wrap: true,
       sortable: true,
+      width: "170px",
     },
     {
       name: "Pincode",
@@ -125,12 +131,14 @@ function Branch() {
       selector: (row) => row.email,
       sortable: true,
       wrap: true,
+      width: "200px",
     },
     {
       name: "Geo Location",
       selector: (row) => row.geo_location,
       sortable: true,
       wrap: true,
+      width: "200px",
     },
     {
       name: "Status",

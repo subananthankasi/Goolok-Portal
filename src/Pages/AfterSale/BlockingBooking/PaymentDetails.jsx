@@ -6,7 +6,7 @@ import API_BASE_URL from "../../../Api/api";
 
 const PaymentDetails = ({ bookingData, block_id }) => {
 
-
+console.log("bookingdata",bookingData)
   const columns = [
     {
       name: "S.no",
@@ -47,7 +47,7 @@ const PaymentDetails = ({ bookingData, block_id }) => {
   const fetchPaymentDetails = async (id) => {
     try {
       const response = await axios.get(
-        `${API_BASE_URL}/bookingschedule/${block_id}/edit`
+        `${API_BASE_URL}/bookingschedule/${id}/edit`
       );
       setPayDetails(response.data);
     } catch (error) { }
@@ -63,7 +63,7 @@ const PaymentDetails = ({ bookingData, block_id }) => {
     <div className="col-12 mt-4 mb-4">
       <div className="card shadow border-0">
         <div className="card shadow border-0 p-4">
-          <h6> Payments Detailsddddd</h6>
+          <h6> Payments Details</h6>
           <hr />
 
           <DataTable

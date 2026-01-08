@@ -78,25 +78,6 @@ const LocationSelectApart = ({ eid, id, status, pagetype }) => {
     setCenter(latLng);
   };
 
-  // const handlePlaceChanged = () => {
-  //   const place = autocompleteRef.current.getPlace();
-  //   if (place.geometry) {
-  //     const lat = place.geometry.location.lat();
-  //     const lng = place.geometry.location.lng();
-  //     const latLng = { lat, lng };
-  //     setMapMove(latLng);
-  //   }
-  // };
-
-  // const handleSearch = () => {
-  //   if (mapMove) {
-  //     setClickedLatLng(mapMove);
-  //     setLocation(`${mapMove.lat}, ${mapMove.lng}`);
-  //     if (map) {
-  //       map.panTo(mapMove);
-  //     }
-  //   }
-  // };
   const handlePlaceChanged = () => {
     const place = autocompleteRef.current.getPlace();
     if (place.geometry) {
@@ -104,8 +85,12 @@ const LocationSelectApart = ({ eid, id, status, pagetype }) => {
       const lng = place.geometry.location.lng();
       const latLng = { lat, lng };
       setMapMove(latLng);
+      setClickedLatLng(latLng);
+      setCenter(latLng);
+      setLocation(`${lat}, ${lng}`);
     }
   };
+
 
   const handleSearch = () => {
     const inputValue = document
@@ -280,7 +265,14 @@ const LocationSelectApart = ({ eid, id, status, pagetype }) => {
   const handleMarkerClick = (index) => {
     setHandleMarker(index);
   };
+  const viewCenter = surveyData[0]?.location
+    ? (() => {
+      const [lat, lng] = surveyData[0].location.split(",").map(Number);
+      return isNaN(lat) || isNaN(lng) ? null : { lat, lng };
+    })()
+    : null;
 
+  const mapCenter = viewCenter ?? initialCenter;
   return isLoaded ? (
     <>
       <ConfirmationModal
@@ -402,7 +394,7 @@ const LocationSelectApart = ({ eid, id, status, pagetype }) => {
             <div className="mt-3">
               <GoogleMap
                 mapContainerStyle={containerStyle}
-                center={center}
+                center={mapCenter}
                 zoom={10}
               >
                 {/* Markers */}

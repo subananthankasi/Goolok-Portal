@@ -155,7 +155,7 @@ const WholeAfterSale = ({
     "area",
     "patta_doc",
   ];
-
+  console.log("registerData[0]?.enq_status", registerData[0]?.enq_status)
   const column1 = [
     {
       name: "S.no",
@@ -294,7 +294,7 @@ const WholeAfterSale = ({
             </button>
             {(status === "pending" || status === "complete") &&
               staffid.Login === "staff" &&
-              pagetype !== "reminder" && registerData[0]?.enq_status !== "booking" && (
+              pagetype !== "reminder" && registerData[0]?.enq_status === "booking" && (
                 <button
                   className="editButton"
                   onClick={() => {
@@ -320,7 +320,7 @@ const WholeAfterSale = ({
           // </button>
           (status === "pending" || status === "complete") &&
           staffid.Login === "staff" &&
-          pagetype !== "reminder" && registerData[0]?.enq_status !== "booking" && (
+          pagetype !== "reminder" && registerData[0]?.enq_status === "booking" && (
             <button className="btn btn-sm btn-link ms-1 p-0">
               <ControlPointIcon
                 sx={{ fontSize: 30 }}
@@ -357,7 +357,7 @@ const WholeAfterSale = ({
             </button>
             {(status === "pending" || status === "complete") &&
               staffid.Login === "staff" &&
-              pagetype !== "reminder" && registerData[0]?.enq_status !== "booking" && (
+              pagetype !== "reminder" && registerData[0]?.enq_status === "booking" && (
                 <button
                   className="editButton"
                   onClick={() => {
@@ -383,7 +383,7 @@ const WholeAfterSale = ({
           // </button>
           (status === "pending" || status === "complete") &&
           staffid.Login === "staff" &&
-          pagetype !== "reminder" && registerData[0]?.enq_status !== "booking" && (
+          pagetype !== "reminder" && registerData[0]?.enq_status === "booking" && (
             <button className="btn btn-sm btn-link ms-1 p-0">
               <ControlPointIcon
                 sx={{ fontSize: 30 }}
@@ -419,7 +419,7 @@ const WholeAfterSale = ({
             </button>
             {(status === "pending" || status === "complete") &&
               staffid.Login === "staff" &&
-              pagetype !== "reminder" && registerData[0]?.enq_status !== "booking" && (
+              pagetype !== "reminder" && registerData[0]?.enq_status === "booking" && (
                 <button
                   className="editButton"
                   onClick={() => {
@@ -446,7 +446,7 @@ const WholeAfterSale = ({
 
           (status === "pending" || status === "complete") &&
           staffid.Login === "staff" &&
-          pagetype !== "reminder" && registerData[0]?.enq_status !== "booking" && (
+          pagetype !== "reminder" && registerData[0]?.enq_status === "booking" && (
             <button className="btn btn-sm btn-link ms-1 p-0">
               <ControlPointIcon
                 sx={{ fontSize: 30 }}
@@ -482,7 +482,7 @@ const WholeAfterSale = ({
             </button>
             {(status === "pending" || status === "complete") &&
               staffid.Login === "staff" &&
-              pagetype !== "reminder" && registerData[0]?.enq_status !== "booking" && (
+              pagetype !== "reminder" && registerData[0]?.enq_status === "booking" && (
                 <button
                   className="editButton"
                   onClick={() => {
@@ -508,7 +508,7 @@ const WholeAfterSale = ({
           // </button>
           (status === "pending" || status === "complete") &&
           staffid.Login === "staff" &&
-          pagetype !== "reminder" && registerData[0]?.enq_status !== "booking" && (
+          pagetype !== "reminder" && registerData[0]?.enq_status === "booking" && (
             <button className="btn btn-sm btn-link ms-1 p-0">
               <ControlPointIcon
                 sx={{ fontSize: 30 }}
@@ -526,7 +526,7 @@ const WholeAfterSale = ({
     },
     {
       name: "Actions",
-      omit: staffid.logintype === "admin" || registerData[0]?.enq_status === "booking",
+      omit: staffid.logintype === "admin" || registerData[0]?.enq_status !== "booking",
       cell: (row) => (
         <div className="d-flex gap-2">
           <>

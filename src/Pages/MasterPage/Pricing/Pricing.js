@@ -12,16 +12,17 @@ import {
   pricingPostThunk,
   pricingUpdateThunk,
 } from "../../../Redux/Actions/MasterPage/PricingThunk";
-import { Toast } from "primereact/toast";
+// import { Toast } from "primereact/toast";
 import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
 import { SearchData } from "../../../Utils/Search";
 import CustomLoder from "../../../Components/customLoader/CustomLoder";
 import Common from "../../../common/Common";
+import Toast from "../../../Utils/Toast";
 
 const Pricing = () => {
   const dispatch = useDispatch();
-  const toast = useRef(null);
+  // const toast = useRef(null);
   const [deleteDialog, setDeleteDialog] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
   const [editDialog, setEditDialog] = useState(false);
@@ -54,12 +55,13 @@ const Pricing = () => {
 
       // SUCCESS
       if (pricingUpdateThunk.fulfilled.match(response)) {
-        toast.current.show({
-          severity: "success",
-          summary: "Success",
-          detail: "Successfully Updated",
-          life: 3000,
-        });
+        // toast.current.show({
+        //   severity: "success",
+        //   summary: "Success",
+        //   detail: "Successfully Updated",
+        //   life: 3000,
+        // });
+        Toast({ message: "Successfully Updated", type: "success" });
 
         setEditDialog(false);
         formik.resetForm();
@@ -83,12 +85,7 @@ const Pricing = () => {
 
     // SUCCESS
     if (pricingPostThunk.fulfilled.match(response)) {
-      toast.current.show({
-        severity: "success",
-        summary: "Success",
-        detail: "Successfully Added",
-        life: 3000,
-      });
+      Toast({ message: "Successfully Added", type: "success" });
 
       formik.resetForm();
       dispatch(pricingGetThunk());
@@ -192,12 +189,13 @@ const Pricing = () => {
       dispatch(pricingGetThunk());
     });
     setDeleteDialog(false);
-    toast.current.show({
-      severity: "success",
-      summary: "Success",
-      detail: "Successfully Deleted",
-      life: 3000,
-    });
+    // toast.current.show({
+    //   severity: "success",
+    //   summary: "Success",
+    //   detail: "Successfully Deleted",
+    //   life: 3000,
+    // });
+    Toast({ message: "Successfully Deleted", type: "success" });
   };
 
   const editCancel = () => {
@@ -253,8 +251,8 @@ const Pricing = () => {
     },
   ];
   const deleteUnitsDialogFooter = (
-    <div className=" d-flex gap-3 justify-content-end">
-      <Button
+    <div className=" d-flex gap-1 justify-content-end">
+      {/* <Button
         label="No"
         icon="pi pi-times"
         outlined
@@ -267,7 +265,13 @@ const Pricing = () => {
         severity="danger"
         style={{ borderRadius: "7px" }}
         onClick={deletePricing}
-      />
+      /> */}
+      <button type="button" className="btn1" onClick={() => setDeleteDialog(false)}>
+        No
+      </button>
+      <button type="button" className="btn1" onClick={deletePricing} >
+        Yes
+      </button>
     </div>
   );
   const hideDeleteProductsDialog = () => {
@@ -278,7 +282,7 @@ const Pricing = () => {
   };
   return (
     <>
-      <Toast ref={toast} />
+      {/* <Toast ref={toast} /> */}
       <section className="section">
         <div className="container-fluid">
           <div className="row">
@@ -500,16 +504,22 @@ const Pricing = () => {
             </select>
           </div>
 
-          <div className="d-flex gap-2 mt-4">
-            <Button
+          <div className="d-flex justify-content-end gap-2 mt-4">
+            {/* <Button
               label="Cancel"
               icon="pi pi-times"
               type="button"
               outlined
               onClick={editCancel}
               style={{ borderRadius: "7px" }}
-            />
-            <Button
+            /> */}
+            <button type="button" className="btn1" onClick={editCancel} disabled={updateLoading}>
+              Cancel
+            </button>
+            <button type="submit" className="btn1" onClick={() => setEditing(true)} disabled={updateLoading}>
+              {updateLoading ? "Processing..." : "Update"}
+            </button>
+            {/* <Button
               disabled={updateLoading}
               loading={updateLoading}
               label={updateLoading ? "Processing..." : "Update"}
@@ -517,7 +527,7 @@ const Pricing = () => {
               type="submit"
               style={{ borderRadius: "7px" }}
               onClick={() => setEditing(true)}
-            />
+            /> */}
           </div>
         </form>
       </Dialog>

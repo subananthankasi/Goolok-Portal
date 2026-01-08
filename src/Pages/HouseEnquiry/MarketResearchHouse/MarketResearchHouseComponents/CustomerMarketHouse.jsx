@@ -11,11 +11,13 @@ import Toast from "../../../../Utils/Toast";
 import customStyle from "../../../../Utils/tableStyle";
 import { Input, InputGroup } from "rsuite";
 import { useSelector } from "react-redux";
+import MarketLocation from "../../../Enquiry/Reusable/MarketLocation";
 
 const CustomerMarketHouse = ({ eid, marketid, status, pagetype }) => {
   const staffid = JSON.parse(sessionStorage.getItem("token"));
   const [customerdata, setCustomerdata] = useState([]);
   const [newDialog, setNewDialog] = useState(false);
+  const [mapVisible, setMapVisible] = useState(false);
   const [editing, setEditing] = useState(false);
   const [loading, setloading] = useState(0);
   const [editDialog, setEditDialog] = useState(false);
@@ -27,7 +29,7 @@ const CustomerMarketHouse = ({ eid, marketid, status, pagetype }) => {
   );
 
   const handleEdit = (row) => {
-    setEditDialog(true);
+    setNewDialog(true);
     formik.setFieldValue("loc", row.location);
     formik.setFieldValue("facing_width", row.facing_width);
     // formik.setFieldValue("road_width", row.road_width);
@@ -125,7 +127,7 @@ const CustomerMarketHouse = ({ eid, marketid, status, pagetype }) => {
       name: "Price per Unit",
       // selector: (row) => row.unit,
       selector: (row) =>
-        `${row.unit} per ${enquiryDoumentData?.land_units} price`,
+        `${row.unit} Per ${enquiryDoumentData?.land_units} Price`,
       sortable: true,
       width: "180px",
     },
@@ -340,6 +342,11 @@ const CustomerMarketHouse = ({ eid, marketid, status, pagetype }) => {
 
   return (
     <>
+      <MarketLocation
+        mapVisible={mapVisible}
+        setMapVisible={setMapVisible}
+        setLoc={(value) => formik.setFieldValue("loc", value)}
+      />
       <div className="d-flex justify-content-center mt-4 mb-3">
         {staffid.logintype == "staff" &&
           (status === "pending" || status === "complete") &&
@@ -386,7 +393,7 @@ const CustomerMarketHouse = ({ eid, marketid, status, pagetype }) => {
                   </label>
                 </div>
                 <div className="col-7 mb-3">
-                  <input
+                  {/* <input
                     type="text"
                     className="form-control"
                     autoComplete="off"
@@ -394,7 +401,19 @@ const CustomerMarketHouse = ({ eid, marketid, status, pagetype }) => {
                     value={formik.values.loc}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
-                  />
+                  /> */}
+                  <InputGroup >
+                    <input
+                      type="text"
+                      className="form-control"
+                      autoComplete="off"
+                      name="loc"
+                      value={formik.values.loc}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                    />
+                    <InputGroup.Addon>  <a href="#" onClick={(e) => { e.preventDefault(); setMapVisible(true) }}>map</a> </InputGroup.Addon>
+                  </InputGroup>
                   {formik.errors.loc && formik.touched.loc ? (
                     <p style={{ color: "red", fontSize: "12px" }}>
                       {formik.errors.loc}
@@ -443,13 +462,18 @@ const CustomerMarketHouse = ({ eid, marketid, status, pagetype }) => {
                 <div className="col-7 mb-3">
                   <InputGroup>
                     <input
-                      type="number"
+                      type="text"
                       className="form-control"
                       id="road_width"
                       name="road_width"
                       value={formik.values.road_width}
-                      onChange={formik.handleChange}
+                      // onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
+                      onChange={(e) => {
+                        const val = e.target.value;
+                        const numericVal = val.replace(/[^0-9.]/g, "");
+                        formik.setFieldValue("road_width", numericVal);
+                      }}
                     // maxLength='100'
                     />
                     <InputGroup.Addon>ft </InputGroup.Addon>

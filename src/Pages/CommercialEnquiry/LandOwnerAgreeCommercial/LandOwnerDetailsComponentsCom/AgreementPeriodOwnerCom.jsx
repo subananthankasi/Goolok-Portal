@@ -12,6 +12,8 @@ import API_BASE_URL from "../../../../Api/api";
 import Toast from "../../../../Utils/Toast";
 import customStyle from "../../../../Utils/tableStyle";
 import { useSelector } from "react-redux";
+import dayjs from "dayjs";
+import { DatePicker } from "antd";
 
 const AgreementPeriodOwnerCom = ({ eid, id, status, pagetype }) => {
     const staffid = JSON.parse(sessionStorage.getItem("token"));
@@ -215,6 +217,11 @@ const AgreementPeriodOwnerCom = ({ eid, id, status, pagetype }) => {
         formik.setFieldValue("extperiod", row.agree_extperiod);
         formik.setFieldValue("id", row.id);
     };
+    const disableBeforeDate = (date) => (current) => {
+        if (!date) return false;
+        const start = dayjs(date, "YYYY-MM-DD");
+        return current && current <= start;
+    };
     return (
         <>
             <div className="col-12 mt-4">
@@ -281,7 +288,7 @@ const AgreementPeriodOwnerCom = ({ eid, id, status, pagetype }) => {
                         <label htmlFor="startdate" className="form-label">
                             Agreement Starting Date <span style={{ color: "red" }}>*</span>
                         </label>
-                        <input
+                        {/* <input
                             id="startdate"
                             type="date"
                             name="startdate"
@@ -289,7 +296,29 @@ const AgreementPeriodOwnerCom = ({ eid, id, status, pagetype }) => {
                             value={formik.values.startdate}
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
+                        /> */}
+                        <DatePicker
+                            placement="topRight"
+                            name="startdate"
+                            value={
+                                formik.values.startdate
+                                    ? dayjs(formik.values.startdate, "YYYY-MM-DD")
+                                    : null
+                            }
+                            onChange={(startdate) => {
+                                formik.setFieldValue(
+                                    "startdate",
+                                    startdate ? startdate?.format("YYYY-MM-DD") : ""
+                                );
+                                formik.setFieldValue("closedate", "");
+                            }}
+                            format="DD/MM/YYYY"
+                            style={{ width: "100%" }}
+                            //   disabledDate={(current) => current && current > dayjs()}
+                            onBlur={formik.handleBlur}
+                            getPopupContainer={(triggerNode) => triggerNode.parentNode}
                         />
+
 
                         {formik.errors.startdate && formik.touched.startdate ? (
                             <p style={{ color: "red", fontSize: "12px" }}>
@@ -301,7 +330,7 @@ const AgreementPeriodOwnerCom = ({ eid, id, status, pagetype }) => {
                         <label htmlFor="closedate" className="form-label">
                             Agreement Closing Date <span style={{ color: "red" }}>*</span>
                         </label>
-                        <input
+                        {/* <input
                             id="closedate"
                             type="date"
                             name="closedate"
@@ -309,6 +338,26 @@ const AgreementPeriodOwnerCom = ({ eid, id, status, pagetype }) => {
                             value={formik.values.closedate}
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
+                        /> */}
+                        <DatePicker
+                            placement="topRight"
+                            name="closedate"
+                            value={
+                                formik.values.closedate
+                                    ? dayjs(formik.values.closedate, "YYYY-MM-DD")
+                                    : null
+                            }
+                            onChange={(closedate) =>
+                                formik.setFieldValue(
+                                    "closedate",
+                                    closedate ? closedate?.format("YYYY-MM-DD") : ""
+                                )
+                            }
+                            format="DD/MM/YYYY"
+                            style={{ width: "100%" }}
+                            disabledDate={disableBeforeDate(formik.values.startdate)}
+                            onBlur={formik.handleBlur}
+                            getPopupContainer={(triggerNode) => triggerNode.parentNode}
                         />
 
                         {formik.errors.closedate && formik.touched.closedate ? (
@@ -403,7 +452,7 @@ const AgreementPeriodOwnerCom = ({ eid, id, status, pagetype }) => {
                         <label htmlFor="startdate" className="form-label">
                             Agreement Starting Date <span style={{ color: "red" }}>*</span>
                         </label>
-                        <input
+                        {/* <input
                             id="startdate"
                             type="date"
                             name="startdate"
@@ -411,7 +460,29 @@ const AgreementPeriodOwnerCom = ({ eid, id, status, pagetype }) => {
                             value={formik.values.startdate}
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
+                        /> */}
+                        <DatePicker
+                            placement="topRight"
+                            name="startdate"
+                            value={
+                                formik.values.startdate
+                                    ? dayjs(formik.values.startdate, "YYYY-MM-DD")
+                                    : null
+                            }
+                            onChange={(startdate) => {
+                                formik.setFieldValue(
+                                    "startdate",
+                                    startdate ? startdate?.format("YYYY-MM-DD") : ""
+                                );
+                                formik.setFieldValue("closedate", "");
+                            }}
+                            format="DD/MM/YYYY"
+                            style={{ width: "100%" }}
+                            //   disabledDate={(current) => current && current > dayjs()}
+                            onBlur={formik.handleBlur}
+                            getPopupContainer={(triggerNode) => triggerNode.parentNode}
                         />
+
 
                         {formik.errors.startdate && formik.touched.startdate ? (
                             <p style={{ color: "red", fontSize: "12px" }}>
@@ -423,7 +494,7 @@ const AgreementPeriodOwnerCom = ({ eid, id, status, pagetype }) => {
                         <label htmlFor="closedate" className="form-label">
                             Agreement Closing Date <span style={{ color: "red" }}>*</span>
                         </label>
-                        <input
+                        {/* <input
                             id="closedate"
                             type="date"
                             name="closedate"
@@ -431,6 +502,26 @@ const AgreementPeriodOwnerCom = ({ eid, id, status, pagetype }) => {
                             value={formik.values.closedate}
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
+                        /> */}
+                        <DatePicker
+                            placement="topRight"
+                            name="closedate"
+                            value={
+                                formik.values.closedate
+                                    ? dayjs(formik.values.closedate, "YYYY-MM-DD")
+                                    : null
+                            }
+                            onChange={(closedate) =>
+                                formik.setFieldValue(
+                                    "closedate",
+                                    closedate ? closedate?.format("YYYY-MM-DD") : ""
+                                )
+                            }
+                            format="DD/MM/YYYY"
+                            style={{ width: "100%" }}
+                            disabledDate={disableBeforeDate(formik.values.startdate)}
+                            onBlur={formik.handleBlur}
+                            getPopupContainer={(triggerNode) => triggerNode.parentNode}
                         />
 
                         {formik.errors.closedate && formik.touched.closedate ? (

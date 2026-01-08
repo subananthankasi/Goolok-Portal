@@ -145,29 +145,39 @@ function Village() {
       name: "Date",
       selector: (row) => row.createdat,
       sortable: true,
+      width: "150px",
+
     },
     {
       name: "State",
       selector: (row) => row.state_name,
       sortable: true,
+      width: "150px",
+
     },
     {
       name: "District",
       selector: (row) => row.district,
       sortable: true,
       wrap: true,
+      width: "150px",
+
     },
     {
       name: "Taluk",
       selector: (row) => row.taluk_name,
       sortable: true,
       wrap: true,
+      width: "170px",
+
     },
     {
       name: "Village",
       selector: (row) => row.village_name,
       sortable: true,
       wrap: true,
+      width: "170px",
+
     },
     {
       name: "Status",

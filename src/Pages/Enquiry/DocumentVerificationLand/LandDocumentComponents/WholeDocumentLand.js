@@ -570,7 +570,7 @@ const WholeDocumentLand = ({ eid, id, status, pagetype }) => {
                 }
             );
             Toast({ message: "Successfully Updated", type: "success" });
-            navigate("/plot_document#Complete");
+            navigate("/document_verification#Complete");
             setConfirmLoading(false)
         } catch (error) {
             const errorMessage =

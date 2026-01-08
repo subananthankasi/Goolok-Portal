@@ -89,6 +89,9 @@ const WholeLocationVerifyAP = ({ eid, id, status, pagetype }) => {
       const lng = place.geometry.location.lng();
       const latLng = { lat, lng };
       setMapMove(latLng);
+      setClickedLatLng(latLng);
+      setCenter(latLng);
+      setLocation(`${lat}, ${lng}`);
     }
   };
 
@@ -278,6 +281,15 @@ const WholeLocationVerifyAP = ({ eid, id, status, pagetype }) => {
     setHandleMarker(index);
   };
 
+  const viewCenter = surveyData[0]?.location
+    ? (() => {
+      const [lat, lng] = surveyData[0].location.split(",").map(Number);
+      return isNaN(lat) || isNaN(lng) ? null : { lat, lng };
+    })()
+    : null;
+
+  const mapCenter = viewCenter ?? initialCenter;
+
   return isLoaded ? (
     <>
       <ConfirmationModal
@@ -307,7 +319,6 @@ const WholeLocationVerifyAP = ({ eid, id, status, pagetype }) => {
                   <th className="text-center" style={{ backgroundColor: "rgb(47, 79, 79)", color: "#ffff", fontWeight: "400" }}> Lat & Lng </th>
                   {staffid.Login === "staff" && (status === "pending" || status === "complete") && pagetype !== "reminder" && enquiryDoumentData?.status !== "booking" ? (
                     <th className="text-center" style={{ backgroundColor: "rgb(47, 79, 79)", color: "#ffff", fontWeight: "400" }}> Actions </th>
-
                   ) : null}
                 </tr>
               </thead>
@@ -339,14 +350,13 @@ const WholeLocationVerifyAP = ({ eid, id, status, pagetype }) => {
                     <td colSpan="4" className="p-4 text-center"> Please Add Survey Number in Document Verification Page ...</td>
                   </tr>
                 )}
-
               </tbody>
             </table>
 
             <div className="mt-3">
               <GoogleMap
                 mapContainerStyle={containerStyle}
-                center={center}
+                center={viewCenter}
                 zoom={10}
               >
                 {/* Markers */}
@@ -361,7 +371,6 @@ const WholeLocationVerifyAP = ({ eid, id, status, pagetype }) => {
                         // onClick={() => handleMarkerClick(index)}
                         onClick={() => setHandleMarker(index)}
                         tooltip="Confirm to proceed"
-
                       />
                       {handleMarker === index && (
                         <InfoWindow
@@ -371,7 +380,6 @@ const WholeLocationVerifyAP = ({ eid, id, status, pagetype }) => {
                             maxWidth: 500,
                           }}
                           onCloseClick={() => setHandleMarker(null)}
-
                         >
                           <div style={{ textAlign: "center", height: "50px", overflow: "hidden" }} className="p-0">
 
@@ -403,9 +411,7 @@ const WholeLocationVerifyAP = ({ eid, id, status, pagetype }) => {
                   }}
                 />
               </GoogleMap>
-
             </div>
-
             {(staffid.logintype == "staff" && status !== "complete") && pagetype !== "reminder" &&
               <div className="ms-2 text-end mt-4">
                 <button
@@ -417,8 +423,6 @@ const WholeLocationVerifyAP = ({ eid, id, status, pagetype }) => {
                 </button>
               </div>
             }
-
-
           </div>
         </div>
       </div>

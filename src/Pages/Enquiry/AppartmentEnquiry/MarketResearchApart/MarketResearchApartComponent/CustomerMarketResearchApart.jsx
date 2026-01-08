@@ -11,6 +11,7 @@ import Toast from "../../../../../Utils/Toast";
 import customStyle from "../../../../../Utils/tableStyle";
 import { Input, InputGroup } from "rsuite";
 import { useSelector } from "react-redux";
+import MarketLocation from "../../../Reusable/MarketLocation";
 
 const CustomerMarketResearchApart = ({ eid, marketid, status, pagetype }) => {
   const enquiryDoumentData = useSelector(
@@ -20,6 +21,7 @@ const CustomerMarketResearchApart = ({ eid, marketid, status, pagetype }) => {
   const staffid = JSON.parse(sessionStorage.getItem("token"));
   const [customerdata, setCustomerdata] = useState([]);
   const [newDialog, setNewDialog] = useState(false);
+  const [mapVisible, setMapVisible] = useState(false);
   const [editing, setEditing] = useState(false);
   const [loading, setloading] = useState(false);
   const [editDialog, setEditDialog] = useState(false);
@@ -27,7 +29,7 @@ const CustomerMarketResearchApart = ({ eid, marketid, status, pagetype }) => {
   const [deleteId, setDeleteId] = useState(null);
 
   const handleEdit = (row) => {
-    setEditDialog(true);
+    setNewDialog(true);
     formik.setFieldValue("loc", row.location);
     formik.setFieldValue("facing_width", row.facing_width);
     // formik.setFieldValue("road_width", row.road_width);
@@ -177,7 +179,8 @@ const CustomerMarketResearchApart = ({ eid, marketid, status, pagetype }) => {
     },
     ...(staffid.logintype == "staff" &&
       (status === "complete" || status === "pending") &&
-      pagetype !== "reminder"  && enquiryDoumentData?.status !== "booking"
+      pagetype !== "reminder" &&
+      enquiryDoumentData?.status !== "booking"
       ? [
         // ? [
         {
@@ -204,6 +207,7 @@ const CustomerMarketResearchApart = ({ eid, marketid, status, pagetype }) => {
       ]
       : []),
   ];
+
   const onSubmit = async (values) => {
     if (editing) {
       const payload = {
@@ -343,7 +347,8 @@ const CustomerMarketResearchApart = ({ eid, marketid, status, pagetype }) => {
         {staffid.logintype == "staff" &&
           (status === "pending" || status === "complete") &&
           pagetype !== "reminder" &&
-          customerdata.length === 0  && enquiryDoumentData?.status !== "booking" ? (
+          customerdata.length === 0 &&
+          enquiryDoumentData?.status !== "booking" ? (
           <a href="#0" onClick={() => setNewDialog(true)} className="btn1 me-2">
             + Add customer Property
           </a>
@@ -385,7 +390,7 @@ const CustomerMarketResearchApart = ({ eid, marketid, status, pagetype }) => {
                   </label>
                 </div>
                 <div className="col-7 mb-3">
-                  <input
+                  {/* <input
                     type="text"
                     className="form-control"
                     autoComplete="off"
@@ -393,7 +398,30 @@ const CustomerMarketResearchApart = ({ eid, marketid, status, pagetype }) => {
                     value={formik.values.loc}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
-                  />
+                  /> */}
+                  <InputGroup>
+                    <input
+                      type="text"
+                      className="form-control"
+                      autoComplete="off"
+                      name="loc"
+                      value={formik.values.loc}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                    />
+                    <InputGroup.Addon>
+                      {" "}
+                      <a
+                        href="#"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setMapVisible(true);
+                        }}
+                      >
+                        map
+                      </a>{" "}
+                    </InputGroup.Addon>
+                  </InputGroup>
                   {formik.errors.loc && formik.touched.loc ? (
                     <p style={{ color: "red", fontSize: "12px" }}>
                       {formik.errors.loc}
@@ -440,16 +468,20 @@ const CustomerMarketResearchApart = ({ eid, marketid, status, pagetype }) => {
                   </label>
                 </div>
                 <div className="col-7 mb-3">
-                  <InputGroup >
+                  <InputGroup>
                     <input
-                      type="number"
+                      type="text"
                       className="form-control"
                       id="road_width"
                       name="road_width"
                       value={formik.values.road_width}
-                      onChange={formik.handleChange}
+                      // onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
-                    // maxLength='100'
+                      onChange={(e) => {
+                        const val = e.target.value;
+                        const numericVal = val.replace(/[^0-9.]/g, "");
+                        formik.setFieldValue("road_width", numericVal);
+                      }}
                     />
                     <InputGroup.Addon>ft </InputGroup.Addon>
                   </InputGroup>
@@ -841,482 +873,6 @@ const CustomerMarketResearchApart = ({ eid, marketid, status, pagetype }) => {
           </div>
         </form>
       </Dialog>
-      <Dialog
-        visible={editDialog}
-        style={{ width: "55rem" }}
-        breakpoints={{ "960px": "75vw", "641px": "90vw" }}
-        header="Edit Customer Properties"
-        modal
-        className="p-fluid"
-        onHide={() => setEditDialog(false)}
-      >
-        <form onSubmit={formik.handleSubmit} autoComplete="off">
-          <div className="row">
-            {/* Lat, Long */}
-            <div className="col-md-12 col-lg-6 mb-3">
-              <div className="row">
-                <div className="col-4 mb-3">
-                  <label htmlFor="loc" className="form-label">
-                    Lat & Long
-                  </label>
-                </div>
-                <div className="col-7 mb-3">
-                  <input
-                    type="text"
-                    className="form-control"
-                    autoComplete="off"
-                    name="loc"
-                    value={formik.values.loc}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                  />
-                  {formik.errors.loc && formik.touched.loc ? (
-                    <p style={{ color: "red", fontSize: "12px" }}>
-                      {formik.errors.loc}
-                    </p>
-                  ) : null}
-                </div>
-              </div>
-            </div>
-
-            {/* Road Facing Width */}
-            <div className="col-md-12 col-lg-6 mb-3">
-              <div className="row">
-                <div className="col-4 mb-3">
-                  <label htmlFor="facing_width" className="form-label">
-                    Road Facing Width
-                  </label>
-                </div>
-                <div className="col-7 mb-3">
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="facing_width"
-                    name="facing_width"
-                    value={formik.values.facing_width}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    maxLength="100"
-                  />
-                  {formik.errors.facing_width && formik.touched.facing_width ? (
-                    <p style={{ color: "red", fontSize: "12px" }}>
-                      {formik.errors.facing_width}
-                    </p>
-                  ) : null}
-                </div>
-              </div>
-            </div>
-
-            {/* Road Width */}
-            <div className="col-md-12 col-lg-6 mb-3">
-              <div className="row">
-                <div className="col-4 mb-3">
-                  <label htmlFor="road_width" className="form-label">
-                    Road Width
-                  </label>
-                </div>
-                <div className="col-7 mb-3">
-                  <InputGroup >
-                    <input
-                      type="number"
-                      className="form-control"
-                      id="road_width"
-                      name="road_width"
-                      value={formik.values.road_width}
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                    // maxLength='100'
-                    />
-                    <InputGroup.Addon>ft </InputGroup.Addon>
-                  </InputGroup>
-                  {formik.errors.road_width && formik.touched.road_width ? (
-                    <p style={{ color: "red", fontSize: "12px" }}>
-                      {formik.errors.road_width}
-                    </p>
-                  ) : null}
-                </div>
-              </div>
-            </div>
-
-            {/* Amenities */}
-            <div className="col-md-12 col-lg-6 mb-3">
-              <div className="row">
-                <div className="col-4 mb-3">
-                  <label htmlFor="amenities" className="form-label">
-                    Amenities
-                  </label>
-                </div>
-                <div className="col-7 mb-3">
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="amenities"
-                    name="amenities"
-                    value={formik.values.amenities}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                  />
-                  {formik.errors.amenities && formik.touched.amenities ? (
-                    <p style={{ color: "red", fontSize: "12px" }}>
-                      {formik.errors.amenities}
-                    </p>
-                  ) : null}
-                </div>
-              </div>
-            </div>
-
-            {/* Location Advantages */}
-            <div className="col-md-12 col-lg-6 mb-3">
-              <div className="row">
-                <div className="col-4 mb-3">
-                  <label htmlFor="location_advantages" className="form-label">
-                    Location Advantages
-                  </label>
-                </div>
-                <div className="col-7 mb-3">
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="location_advantages"
-                    name="location_advantages"
-                    value={formik.values.location_advantages}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                  />
-                  {formik.errors.location_advantages &&
-                    formik.touched.location_advantages ? (
-                    <p style={{ color: "red", fontSize: "12px" }}>
-                      {formik.errors.location_advantages}
-                    </p>
-                  ) : null}
-                </div>
-              </div>
-            </div>
-
-            {/* Transportation Feasibility */}
-            <div className="col-md-12 col-lg-6 mb-3">
-              <div className="row">
-                <div className="col-4 mb-3">
-                  <label
-                    htmlFor="transportation_feasibility"
-                    className="form-label"
-                  >
-                    Transportation Feasibility
-                  </label>
-                </div>
-                <div className="col-7 mb-3">
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="transportation_feasibility"
-                    name="transportation_feasibility"
-                    value={formik.values.transportation_feasibility}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                  />
-                  {formik.errors.transportation_feasibility &&
-                    formik.touched.transportation_feasibility ? (
-                    <p style={{ color: "red", fontSize: "12px" }}>
-                      {formik.errors.transportation_feasibility}
-                    </p>
-                  ) : null}
-                </div>
-              </div>
-            </div>
-
-            {/* Corner Property */}
-            <div className="col-md-12 col-lg-6 mb-3">
-              <div className="row">
-                <div className="col-4 mb-3">
-                  <label htmlFor="corner_property" className="form-label">
-                    Corner Property
-                  </label>
-                </div>
-                <div className="col-7 mb-3">
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="corner_property"
-                    name="corner_property"
-                    value={formik.values.corner_property}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                  />
-                  {formik.errors.corner_property &&
-                    formik.touched.corner_property ? (
-                    <p style={{ color: "red", fontSize: "12px" }}>
-                      {formik.errors.corner_property}
-                    </p>
-                  ) : null}
-                </div>
-              </div>
-            </div>
-
-            {/* Water Level */}
-            <div className="col-md-12 col-lg-6 mb-3">
-              <div className="row">
-                <div className="col-4 mb-3">
-                  <label htmlFor="water_level" className="form-label">
-                    Water Level
-                  </label>
-                </div>
-                <div className="col-7 mb-3">
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="water_level"
-                    name="water_level"
-                    value={formik.values.water_level}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    maxLength="1000"
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* Price Per Unit */}
-            <div className="col-md-12 col-lg-6 mb-3">
-              <div className="row">
-                <div className="col-4 mb-3">
-                  <label htmlFor="price_per_unit" className="form-label">
-                    Price Per Unit
-                  </label>
-                </div>
-                <div className="col-7 mb-3">
-                  {/* <input
-                    type="text"
-                    className="form-control"
-                    id="price_per_unit"
-                    name="price_per_unit"
-                    value={formik.values.price_per_unit}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                  /> */}
-                  <InputGroup>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="price_per_unit"
-                      name="price_per_unit"
-                      value={formik.values.price_per_unit}
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                    />
-                    <InputGroup.Addon>
-                      {enquiryDoumentData?.land_units}{" "}
-                    </InputGroup.Addon>
-                  </InputGroup>
-                  {formik.errors.price_per_unit &&
-                    formik.touched.price_per_unit ? (
-                    <p style={{ color: "red", fontSize: "12px" }}>
-                      {formik.errors.price_per_unit}
-                    </p>
-                  ) : null}
-                </div>
-              </div>
-            </div>
-
-            {/* New Developments */}
-            <div className="col-md-12 col-lg-6 mb-3">
-              <div className="row">
-                <div className="col-4 mb-3">
-                  <label htmlFor="new_developments" className="form-label">
-                    New Developments
-                  </label>
-                </div>
-                <div className="col-7 mb-3">
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="new_developments"
-                    name="new_developments"
-                    value={formik.values.new_developments}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                  />
-                  {formik.errors.new_developments &&
-                    formik.touched.new_developments ? (
-                    <p style={{ color: "red", fontSize: "12px" }}>
-                      {formik.errors.new_developments}
-                    </p>
-                  ) : null}
-                </div>
-              </div>
-            </div>
-
-            {/* Road Types */}
-            <div className="col-md-12 col-lg-6 mb-3">
-              <div className="row">
-                <div className="col-4 mb-3">
-                  <label htmlFor="road_types" className="form-label">
-                    Road Types
-                  </label>
-                </div>
-                <div className="col-7 mb-3">
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="road_types"
-                    name="road_types"
-                    value={formik.values.road_types}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                  />
-                  {formik.errors.road_types && formik.touched.road_types ? (
-                    <p style={{ color: "red", fontSize: "12px" }}>
-                      {formik.errors.road_types}
-                    </p>
-                  ) : null}
-                </div>
-              </div>
-            </div>
-
-            {/* Contact Number */}
-            <div className="col-md-12 col-lg-6 mb-3">
-              <div className="row">
-                <div className="col-4 mb-3">
-                  <label htmlFor="contact_no" className="form-label">
-                    Contact Number
-                  </label>
-                </div>
-                <div className="col-7 mb-3">
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="contact_no"
-                    name="contact_no"
-                    value={formik.values.contact_no}
-                    // onChange={formik.handleChange}
-                    onChange={(e) => {
-                      const value = e.target.value;
-                      if (/^\d*$/.test(value)) {
-                        formik.setFieldValue("contact_no", value);
-                      }
-                    }}
-                    maxLength={10}
-                    minLength={10}
-                    onBlur={formik.handleBlur}
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* Direction */}
-            <div className="col-md-12 col-lg-6 mb-3">
-              <div className="row">
-                <div className="col-4 mb-3">
-                  <label htmlFor="direction" className="form-label">
-                    Direction
-                  </label>
-                </div>
-                <div className="col-7 mb-3">
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="direction"
-                    name="direction"
-                    value={formik.values.direction}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                  />
-                  {formik.errors.direction && formik.touched.direction ? (
-                    <p style={{ color: "red", fontSize: "12px" }}>
-                      {formik.errors.direction}
-                    </p>
-                  ) : null}
-                </div>
-              </div>
-            </div>
-
-            {/* Distance */}
-            <div className="col-md-12 col-lg-6 mb-3">
-              <div className="row">
-                <div className="col-4 mb-3">
-                  <label htmlFor="distance" className="form-label">
-                    Distance
-                  </label>
-                </div>
-                <div className="col-7 mb-3">
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="distance"
-                    name="distance"
-                    value={formik.values.distance}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                  />
-                  {formik.errors.distance && formik.touched.distance ? (
-                    <p style={{ color: "red", fontSize: "12px" }}>
-                      {formik.errors.distance}
-                    </p>
-                  ) : null}
-                </div>
-              </div>
-            </div>
-
-            {/* Facing */}
-            <div className="col-md-12 col-lg-6 mb-3">
-              <div className="row">
-                <div className="col-4 mb-3">
-                  <label htmlFor="facing" className="form-label">
-                    Facing
-                  </label>
-                </div>
-                <div className="col-7 mb-3">
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="facing"
-                    name="facing"
-                    value={formik.values.facing}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                  />
-                  {formik.errors.facing && formik.touched.facing ? (
-                    <p style={{ color: "red", fontSize: "12px" }}>
-                      {formik.errors.facing}
-                    </p>
-                  ) : null}
-                </div>
-              </div>
-            </div>
-
-            {/* Rumors */}
-            <div className="col-md-12 col-lg-6 mb-3">
-              <div className="row">
-                <div className="col-4 mb-3">
-                  <label htmlFor="rumors" className="form-label">
-                    Rumors
-                  </label>
-                </div>
-                <div className="col-7 mb-3">
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="rumors"
-                    name="rumors"
-                    value={formik.values.rumors}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="d-flex justify-content-end mt-4">
-            <button
-              className="btn1"
-              type="submit"
-              onClick={() => setEditing(true)}
-              disabled={loading === 2}
-            >
-              {loading === 2 ? "Update..." : "Update"}
-            </button>
-          </div>
-        </form>
-      </Dialog>
 
       <Dialog
         visible={deleteDialog}
@@ -1334,6 +890,13 @@ const CustomerMarketResearchApart = ({ eid, marketid, status, pagetype }) => {
           </span>
         </div>
       </Dialog>
+
+      <MarketLocation
+        mapVisible={mapVisible}
+        setMapVisible={setMapVisible}
+        setLoc={(value) => formik.setFieldValue("loc", value)}
+      />
+
     </>
   );
 };

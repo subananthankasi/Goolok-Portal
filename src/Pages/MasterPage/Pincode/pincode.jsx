@@ -133,7 +133,7 @@ function Pincode() {
 
   // submit
 
-  const [errors, setErrors] = useState({}); //validation messages
+  const [errors, setErrors] = useState({}); 
   const handleSubmit = (e) => {
     e.preventDefault();
     const result = PincodeValidateFormData(formData);
@@ -297,34 +297,46 @@ function Pincode() {
       selector: (row) => row.createdat,
       sortable: true,
       wrap: true,
+      width: "150px",
+
     },
     {
       name: "State",
       selector: (row) => row.state_name,
       sortable: true,
+      width: "150px",
+
     },
     {
       name: "District",
       selector: (row) => row.district,
       sortable: true,
       wrap: true,
+      width: "150px",
+
     },
     {
       name: "Taluk",
       selector: (row) => row.taluk_name,
       sortable: true,
       wrap: true,
+      width: "170px",
+
     },
     {
       name: "Village",
       selector: (row) => row.village_name,
       sortable: true,
       wrap: true,
+      width: "170px",
+
     },
     {
       name: "Pincode",
       selector: (row) => row.pincode,
       sortable: true,
+      width: "150px",
+
     },
     {
       name: "Status",

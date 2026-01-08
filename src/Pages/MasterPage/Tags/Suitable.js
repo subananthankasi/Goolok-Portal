@@ -16,6 +16,7 @@ import {
 } from "../../../Redux/Actions/MasterPage/TagsThunk/SuitableThunk";
 import CustomLoder from "../../../Components/customLoader/CustomLoder";
 import Common from "../../../common/Common";
+import Toast from "../../../Utils/Toast";
 
 const Suitable = () => {
   const [editDialog, setEditDialog] = useState(false);
@@ -47,6 +48,7 @@ const Suitable = () => {
         formik.resetForm();
         setEditDialog(false);
         dispatch(suitableGetThunk());
+        Toast({ message: "Successfully Updated", type: "success" });
       }
       if (suitableUpdateThunk.rejected.match(res)) {
         formik.setFieldError(
@@ -59,6 +61,7 @@ const Suitable = () => {
       if (suitablePostThunk.fulfilled.match(res)) {
         formik.resetForm();
         dispatch(suitableGetThunk());
+        Toast({ message: "Successfully Submited", type: "success" });
       }
       if (suitablePostThunk.rejected.match(res)) {
         formik.setFieldError(
@@ -75,6 +78,7 @@ const Suitable = () => {
   const handleDelete = () => {
     dispatch(suitableDeleteThunk(deleteId)).then(() => {
       dispatch(suitableGetThunk());
+      Toast({ message: "Successfully Deleted", type: "success" });
     });
     setDeleteDialog(false);
   };
@@ -85,12 +89,12 @@ const Suitable = () => {
     <div className="d-flex justify-content-end gap-2 mt-4">
       <button
         type="button"
-        className="btn btn-outline-primary"
+        className="btn1"
         onClick={() => setDeleteDialog(false)}
       >
         Cancel
       </button>
-      <button type="button" className="btn btn-danger" onClick={handleDelete}>
+      <button type="button" className="btn1" onClick={handleDelete}>
         Delete
       </button>
     </div>
@@ -199,7 +203,7 @@ const Suitable = () => {
                           onBlur={formik.handleBlur}
                         />
                         {formik.errors.suitabletag &&
-                        formik.touched.suitabletag ? (
+                          formik.touched.suitabletag ? (
                           <p style={{ color: "red", fontSize: "14px" }}>
                             {formik.errors.suitabletag}
                           </p>
@@ -354,13 +358,13 @@ const Suitable = () => {
             <button
               onClick={cancelDialog}
               type="button"
-              className="btn btn-warning"
+              className="btn1"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="btn btn-primary"
+              className="btn1"
               onClick={() => setEditing(true)}
               disabled={updateLoading}
             >

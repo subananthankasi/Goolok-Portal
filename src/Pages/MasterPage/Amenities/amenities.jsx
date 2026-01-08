@@ -153,7 +153,8 @@ function Amenities() {
     },
     {
       name: "Date",
-      selector: (row) => row.created_at,
+      // selector: (row) => row.created_at,
+      selector: (row) =>  String(row.created_at).split(" ")[0].split('-').reverse().join('/'),
       sortable: true,
       wrap: true,
       width: "150px",

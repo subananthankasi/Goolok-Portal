@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import Button from "@mui/material/Button";
-import DatePicker from "react-datepicker";
+// import DatePicker from "react-datepicker";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { fetchState } from "../../../../Redux/Actions/MasterPage/StateAction";
@@ -15,6 +15,8 @@ import GeneralState from "../../../../Utils/Dropdown/GeneralState";
 import GeneralDistrict from "../../../../Utils/Dropdown/GeneralDistrict";
 import GeneralTalukDropdown from "../../../../Utils/Dropdown/GeneralTalukDropdown";
 import GeneralVillageDropdown from "../../../../Utils/Dropdown/GeneralVillageDropdown";
+import { DatePicker } from "antd";
+import dayjs from "dayjs";
 
 const PattaDetailsCommercial = ({ data, setStep }) => {
   const staffid = JSON.parse(sessionStorage.getItem("token"));
@@ -242,7 +244,7 @@ const PattaDetailsCommercial = ({ data, setStep }) => {
                 </label>
               </div>
               <div className="col-8 mb-3 ">
-                <DatePicker
+                {/* <DatePicker
                   selected={
                     formik.values.date ? new Date(formik.values.date) : null
                   }
@@ -262,6 +264,26 @@ const PattaDetailsCommercial = ({ data, setStep }) => {
                   yearDropdownItemNumber={100}
                   scrollableYearDropdown
                   maxDate={new Date()}
+                /> */}
+                <DatePicker
+                  placement="topRight"
+                  name="date"
+                  value={
+                    formik.values.date
+                      ? dayjs(formik.values.date, "YYYY-MM-DD")
+                      : null
+                  }
+                  onChange={(date) => {
+                    formik.setFieldValue(
+                      "date",
+                      date ? date?.format("YYYY-MM-DD") : ""
+                    );
+                  }}
+                  format="DD/MM/YYYY"
+                  style={{ width: "100%" }}
+                  disabledDate={(current) => current && current > dayjs()}
+                  onBlur={formik.handleBlur}
+                  getPopupContainer={(triggerNode) => triggerNode.parentNode}
                 />
                 {formik.errors.date && formik.touched.date ? (
                   <p style={{ color: "red", fontSize: "12px" }}>

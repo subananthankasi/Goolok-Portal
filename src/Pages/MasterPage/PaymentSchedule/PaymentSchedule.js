@@ -12,16 +12,17 @@ import {
   paymentScheduleUpdateThunk,
   paymentSchedulGetThunk,
 } from "../../../Redux/Actions/MasterPage/PaymentScheduleThunk";
-import { Toast } from "primereact/toast";
+// import { Toast } from "primereact/toast";
 import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
 import { SearchData } from "../../../Utils/Search";
 import CustomLoder from "../../../Components/customLoader/CustomLoder";
 import Common from "../../../common/Common";
+import Toast from "../../../Utils/Toast";
 
 const PaymentSchedule = () => {
   const dispatch = useDispatch();
-  const toast = useRef(null);
+  // const toast = useRef(null);
   const [deleteDialog, setDeleteDialog] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
   const [editDialog, setEditDialog] = useState(false);
@@ -51,12 +52,13 @@ const PaymentSchedule = () => {
       const response = await dispatch(paymentScheduleUpdateThunk(newData));
 
       if (paymentScheduleUpdateThunk.fulfilled.match(response)) {
-        toast.current.show({
-          severity: "success",
-          summary: "Updated",
-          detail: "Successfully Updated",
-          life: 3000,
-        });
+        // toast.current.show({
+        //   severity: "success",
+        //   summary: "Updated",
+        //   detail: "Successfully Updated",
+        //   life: 3000,
+        // });
+        Toast({ message: "Successfully Submited", type: "success" });
 
         setEditDialog(false);
         formik.resetForm();
@@ -71,12 +73,13 @@ const PaymentSchedule = () => {
       const response = await dispatch(paymentSchedulePostThunk(newData));
 
       if (paymentSchedulePostThunk.fulfilled.match(response)) {
-        toast.current.show({
-          severity: "success",
-          summary: "Created",
-          detail: "Successfully Created",
-          life: 3000,
-        });
+        // toast.current.show({
+        //   severity: "success",
+        //   summary: "Created",
+        //   detail: "Successfully Created",
+        //   life: 3000,
+        // });
+        Toast({ message: "Successfully Created", type: "success" });
         formik.resetForm();
         dispatch(paymentSchedulGetThunk());
       }
@@ -107,16 +110,17 @@ const PaymentSchedule = () => {
       dispatch(paymentSchedulGetThunk());
     });
     setDeleteDialog(false);
-    toast.current.show({
-      severity: "success",
-      summary: "Deleted",
-      detail: "Successfully Deleted",
-      life: 3000,
-    });
+    // toast.current.show({
+    //   severity: "success",
+    //   summary: "Deleted",
+    //   detail: "Successfully Deleted",
+    //   life: 3000,
+    // });
+    Toast({ message: "Successfully Deleted", type: "success" });
   };
   const deleteUnitsDialogFooter = (
-    <div className=" d-flex gap-3 justify-content-end">
-      <Button
+    <div className=" d-flex gap-1 justify-content-end">
+      {/* <Button
         label="No"
         icon="pi pi-times"
         outlined
@@ -130,7 +134,13 @@ const PaymentSchedule = () => {
         severity="danger"
         style={{ borderRadius: "7px" }}
         onClick={deletePricing}
-      />
+      /> */}
+      <button type="button" className="btn1" onClick={() => setDeleteDialog(false)} disabled={updateLoading}>
+        No
+      </button>
+      <button type="button" className="btn1" onClick={deletePricing} >
+        Yes
+      </button>
     </div>
   );
   const hideDeleteProductsDialog = () => {
@@ -202,7 +212,7 @@ const PaymentSchedule = () => {
 
   return (
     <>
-      <Toast ref={toast} />
+      {/* <Toast ref={toast} /> */}
       <section className="section">
         <div className="container-fluid">
           <div className="row">
@@ -391,7 +401,7 @@ const PaymentSchedule = () => {
           </div>
 
           <div className="d-flex justify-content-end gap-2 mt-4">
-            <div>
+            {/* <div>
               <Button
                 label="Cancel"
                 icon="pi pi-times"
@@ -411,7 +421,13 @@ const PaymentSchedule = () => {
                 style={{ borderRadius: "7px" }}
                 onClick={() => setEditing(true)}
               />
-            </div>
+            </div> */}
+            <button type="button" className="btn1" onClick={editCancel} disabled={updateLoading}>
+              Cancel
+            </button>
+            <button type="submit" className="btn1" onClick={() => setEditing(true)} disabled={updateLoading}>
+              {updateLoading ? "Processing..." : "Update"}
+            </button>
           </div>
         </form>
       </Dialog>

@@ -16,6 +16,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import CustomLoder from "../../../Components/customLoader/CustomLoder";
 import Common from "../../../common/Common";
+import Toast from "../../../Utils/Toast";
 
 const GeneralFeature = () => {
   const [editDialog, setEditDialog] = useState(false);
@@ -50,6 +51,7 @@ const GeneralFeature = () => {
         formik.resetForm();
         await setEditDialog(false);
         dispatch(gFeatureGetThunk());
+        Toast({ message: "Successfully Updated", type: "success" });
       }
       if (gFeatureUpdateThunk.rejected.match(res)) {
         formik.setFieldError("glfeature", res?.payload?.messages?.glfeature);
@@ -59,6 +61,7 @@ const GeneralFeature = () => {
       if (gFeaturePostThunk.fulfilled.match(res)) {
         formik.resetForm();
         dispatch(gFeatureGetThunk());
+        Toast({ message: "Successfully Submited", type: "success" });
       }
       if (gFeaturePostThunk.rejected.match(res)) {
         formik.setFieldError("glfeature", res?.payload?.messages?.glfeature);
@@ -73,6 +76,7 @@ const GeneralFeature = () => {
   const handleDelete = () => {
     dispatch(gFeatureDeleteThunk(deleteId)).then(() => {
       dispatch(gFeatureGetThunk());
+      Toast({ message: "Successfully Deleted", type: "success" });
     });
     setDeleteDialog(false);
   };
@@ -83,12 +87,12 @@ const GeneralFeature = () => {
     <div className="d-flex justify-content-end gap-2 mt-4">
       <button
         type="button"
-        className="btn btn-outline-primary"
+        className="btn1"
         onClick={() => setDeleteDialog(false)}
       >
         Cancel
       </button>
-      <button type="button" className="btn btn-danger" onClick={handleDelete}>
+      <button type="button" className="btn1" onClick={handleDelete}>
         Delete
       </button>
     </div>
@@ -351,13 +355,13 @@ const GeneralFeature = () => {
             <button
               onClick={cancelDialog}
               type="button"
-              className="btn btn-warning"
+              className="btn1"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="btn btn-primary"
+              className="btn1"
               onClick={() => setEditing(true)}
               disabled={updateLoading}
             >

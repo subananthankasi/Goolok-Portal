@@ -201,7 +201,12 @@ const Bookingprocess = () => {
                                             <ColumnDirective
                                                 headerText="Cleared Date"
                                                 width="150"
-                                                field="cleared_date"
+                                                // field="cleared_date"
+                                                template={(props)=>{
+                                                    return(
+                                                        <span>{String(props.cleared_date)?.split(" ")[0].split("-").reverse().join("/")}</span>
+                                                    )
+                                                }}
                                             />
                                             <ColumnDirective
                                                 headerText="Age"

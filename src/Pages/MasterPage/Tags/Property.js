@@ -16,6 +16,7 @@ import {
 } from "../../../Redux/Actions/MasterPage/TagsThunk/PropertyThunk";
 import CustomLoder from "../../../Components/customLoader/CustomLoder";
 import Common from "../../../common/Common";
+import Toast from "../../../Utils/Toast";
 
 const Praperty = () => {
   const [editDialog, setEditDialog] = useState(false);
@@ -46,18 +47,21 @@ const Praperty = () => {
         formik.resetForm();
         setEditDialog(false);
         dispatch(propertyGetThunk());
+        Toast({ message: "Successfully Updated", type: "success" });
       }
       if (propertyUpdateThunk.rejected.match(res)) {
         formik.setFieldError(
           "propertytag",
           res?.payload?.messages?.propertytag
         );
+
       }
     } else {
       const res = await dispatch(propertyPostThunk(newData));
       if (propertyPostThunk.fulfilled.match(res)) {
         formik.resetForm();
         dispatch(propertyGetThunk());
+        Toast({ message: "Successfully Submited", type: "success" });
       }
       if (propertyPostThunk.rejected.match(res)) {
         formik.setFieldError(
@@ -74,6 +78,7 @@ const Praperty = () => {
   const handleDelete = () => {
     dispatch(propertyDeleteThunk(deleteId)).then(() => {
       dispatch(propertyGetThunk());
+      Toast({ message: "Successfully Deleted", type: "success" });
     });
     setDeleteDialog(false);
   };
@@ -84,12 +89,12 @@ const Praperty = () => {
     <div className="d-flex justify-content-end gap-2 mt-4">
       <button
         type="button"
-        className="btn btn-outline-primary"
+        className="btn1"
         onClick={() => setDeleteDialog(false)}
       >
         Cancel
       </button>
-      <button type="button" className="btn btn-danger" onClick={handleDelete}>
+      <button type="button" className="btn1" onClick={handleDelete}>
         Delete
       </button>
     </div>
@@ -119,7 +124,7 @@ const Praperty = () => {
   const formik = useFormik({
     initialValues: {
       propertytag: "",
-      status: "",
+      status: "enable",
     },
     validationSchema: yup.object().shape({
       propertytag: yup.string().required("property is required !!"),
@@ -199,7 +204,7 @@ const Praperty = () => {
                           onBlur={formik.handleBlur}
                         />
                         {formik.errors.propertytag &&
-                        formik.touched.propertytag ? (
+                          formik.touched.propertytag ? (
                           <p style={{ color: "red", fontSize: "14px" }}>
                             {formik.errors.propertytag}
                           </p>
@@ -354,13 +359,13 @@ const Praperty = () => {
             <button
               onClick={cancelDialog}
               type="button"
-              className="btn btn-warning"
+              className="btn1"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="btn btn-primary"
+              className="btn1"
               onClick={() => setEditing(true)}
               disabled={updateLoading}
             >

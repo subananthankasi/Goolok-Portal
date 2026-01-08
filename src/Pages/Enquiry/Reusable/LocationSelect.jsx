@@ -52,6 +52,7 @@ const LocationSelect = ({ eid, id, status, pagetype }) => {
   const [clickedLatLng, setClickedLatLng] = useState({});
   const [center, setCenter] = useState(initialCenter);
 
+
   const autocompleteRef = useRef(null);
   const staffid = JSON.parse(sessionStorage.getItem("token"));
 
@@ -77,32 +78,18 @@ const LocationSelect = ({ eid, id, status, pagetype }) => {
     setCenter(latLng);
   };
 
-  // const handlePlaceChanged = () => {
-  //   const place = autocompleteRef.current.getPlace();
-  //   if (place.geometry) {
-  //     const lat = place.geometry.location.lat();
-  //     const lng = place.geometry.location.lng();
-  //     const latLng = { lat, lng };
-  //     setMapMove(latLng);
-  //   }
-  // };
-
-  // const handleSearch = () => {
-  //   if (mapMove) {
-  //     setClickedLatLng(mapMove);
-  //     setLocation(`${mapMove.lat}, ${mapMove.lng}`);
-  //     if (map) {
-  //       map.panTo(mapMove);
-  //     }
-  //   }
-  // };
   const handlePlaceChanged = () => {
     const place = autocompleteRef.current.getPlace();
+
     if (place.geometry) {
       const lat = place.geometry.location.lat();
       const lng = place.geometry.location.lng();
       const latLng = { lat, lng };
       setMapMove(latLng);
+      setClickedLatLng(latLng);
+      setCenter(latLng);
+      setLocation(`${lat}, ${lng}`);
+
     }
   };
 
@@ -135,10 +122,6 @@ const LocationSelect = ({ eid, id, status, pagetype }) => {
       }
     }
   };
-
-
-
-
 
 
   const [isLoading, setIsLoading] = useState(false);
@@ -176,72 +159,18 @@ const LocationSelect = ({ eid, id, status, pagetype }) => {
       setIsLoading(false);
     }
   };
-  const handleEditSubmit = async (e) => {
-    e.preventDefault();
 
-    if (!Location) {
-      alert("Please fill all fields");
-      return;
-    }
-    setIsLoading(true);
-
-    const data = {
-      id: survey_id,
-      location: Location,
-    }
-
-    try {
-      await axios.post(`${API_BASE_URL}/location`, data, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      Toast({ message: "Successfully Updated", type: "success" });
-      setIsLoading(false);
-      setLocation("")
-      setClickedLatLng("")
-      setEditDialog(false)
-      fetchSurveyNo()
-    } catch (error) {
-      console.error(error)
-      setIsLoading(false);
-    }
-  };
 
 
   const [isLoadingPage, setIsLoadingPage] = useState(true);
   const [data, setData] = useState([])
 
 
-  // useEffect(() => {
-  //   const fetch = async () => {
-  //     try {
-  //       const response = await axios.get(`${API_BASE_URL}/location/${eid}/edit`);
-  //       setData(response.data)
-  //       const fetchedLocation = response.data?.location;
-
   const fetch = async () => {
     try {
       const response = await axios.get(`${API_BASE_URL}/location/${eid}/edit`);
       setData(response.data)
       const fetchedLocation = response.data?.location;
-
-
-      //       if (fetchedLocation) {
-      //         const [lat, lng] = fetchedLocation.split(",").map(parseFloat);
-      //         setLocation(fetchedLocation);
-      //         setCenter({ lat, lng });
-      //       }
-
-      //       setIsLoadingPage(false);
-      //     }
-      //     catch (error) {
-      //       console.error(error);
-      //       setIsLoadingPage(false)
-      //     }
-      //   }
-      //   fetch()
-      // }, [])
 
       setIsLoadingPage(false);
     }
@@ -347,12 +276,21 @@ const LocationSelect = ({ eid, id, status, pagetype }) => {
   };
 
   const [handleMarker, setHandleMarker] = useState(null);
-  const handleMarkerClick = (index) => {
-    setHandleMarker(index);
-  };
   const enquiryDoumentData = useSelector(
     (state) => state.Enquiry.enquiryDocument
   );
+
+
+const viewCenter = surveyData[0]?.location
+  ? (() => {
+      const [lat, lng] = surveyData[0].location.split(",").map(Number);
+      return isNaN(lat) || isNaN(lng) ? null : { lat, lng };
+    })()
+  : null;
+
+const mapCenter = viewCenter ?? initialCenter;
+
+
   return isLoaded ? (
     <>
       <ConfirmationModal
@@ -381,7 +319,7 @@ const LocationSelect = ({ eid, id, status, pagetype }) => {
                   <th className="text-center" style={{ backgroundColor: "rgb(47, 79, 79)", color: "#ffff", fontWeight: "400" }}> S.no</th>
                   <th className="text-center" style={{ backgroundColor: "rgb(47, 79, 79)", color: "#ffff", fontWeight: "400" }}>Survey No </th>
                   <th className="text-center" style={{ backgroundColor: "rgb(47, 79, 79)", color: "#ffff", fontWeight: "400" }}> Lat & Lng </th>
-                  {staffid.Login === "staff" && (status === "pending" || status === "complete") && pagetype !== "reminder"&& enquiryDoumentData?.status !=="booking" ? (
+                  {staffid.Login === "staff" && (status === "pending" || status === "complete") && pagetype !== "reminder" && enquiryDoumentData?.status !== "booking" ? (
                     <th className="text-center" style={{ backgroundColor: "rgb(47, 79, 79)", color: "#ffff", fontWeight: "400" }}> Actions </th>
 
                   ) : null}
@@ -395,7 +333,7 @@ const LocationSelect = ({ eid, id, status, pagetype }) => {
                       <td className="text-center">{item.survey_no} </td>
                       <td className="text-center"> {item.location} </td>
 
-                      {staffid.Login === "staff" && (status === "pending" || status === "complete") && pagetype !== "reminder" && enquiryDoumentData?.status !=="booking" ? (
+                      {staffid.Login === "staff" && (status === "pending" || status === "complete") && pagetype !== "reminder" && enquiryDoumentData?.status !== "booking" ? (
                         <td className="text-center">
                           {item.location ? (
                             <button className="btn1 me-2" onClick={() => editModal(item)}>
@@ -422,13 +360,14 @@ const LocationSelect = ({ eid, id, status, pagetype }) => {
             <div className="mt-3">
               <GoogleMap
                 mapContainerStyle={containerStyle}
-                center={center}
+                center={mapCenter}
                 zoom={10}
               >
                 {/* Markers */}
                 {surveyData?.map((item, index) => {
                   if (!item.location) return null;
                   const [lat, lng] = item.location.split(",").map(parseFloat);
+                
                   return (
                     <>
                       <Marker

@@ -3,7 +3,7 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import Button from "@mui/material/Button";
 // import { DatePicker } from "antd";
-import DatePicker from "react-datepicker";
+// import DatePicker from "react-datepicker";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { fetchState } from "../../../../Redux/Actions/MasterPage/StateAction";
@@ -17,6 +17,7 @@ import GeneralState from "../../../../Utils/Dropdown/GeneralState";
 import GeneralDistrict from "../../../../Utils/Dropdown/GeneralDistrict";
 import GeneralTalukDropdown from "../../../../Utils/Dropdown/GeneralTalukDropdown";
 import GeneralVillageDropdown from "../../../../Utils/Dropdown/GeneralVillageDropdown";
+import { DatePicker } from "antd";
 
 const PattaDetailsLayout = ({ data, setStep }) => {
   const staffid = JSON.parse(sessionStorage.getItem("token"));
@@ -244,7 +245,8 @@ const PattaDetailsLayout = ({ data, setStep }) => {
                 </label>
               </div>
               <div className="col-8 mb-3 ">
-                {/* <DatePicker
+
+                <DatePicker
                   placement="topRight"
                   name="date"
                   value={
@@ -262,27 +264,7 @@ const PattaDetailsLayout = ({ data, setStep }) => {
                   style={{ width: "100%" }}
                   disabledDate={(current) => current && current > dayjs()}
                   onBlur={formik.handleBlur}
-                /> */}
-                <DatePicker
-                  selected={
-                    formik.values.date ? new Date(formik.values.date) : null
-                  }
-                  onChange={(date) => {
-                    const formattedDate = date
-                      ? date.toISOString().split("T")[0]
-                      : "";
-                    formik.setFieldValue("date", formattedDate);
-                  }}
-                  dateFormat="dd/MM/yyyy"
-                  placeholderText="Select a Date"
-                  className="form-control w-100"
-                  style={{ width: "100%" }}
-                  showMonthDropdown
-                  showYearDropdown
-                  dropdownMode="select"
-                  yearDropdownItemNumber={100}
-                  scrollableYearDropdown
-                  maxDate={new Date()}
+                  getPopupContainer={(triggerNode) => triggerNode.parentNode}
                 />
                 {formik.errors.date && formik.touched.date ? (
                   <p style={{ color: "red", fontSize: "12px" }}>

@@ -109,6 +109,9 @@ const LocationSelectPlot = ({ eid, id, status, pagetype }) => {
       const lng = place.geometry.location.lng();
       const latLng = { lat, lng };
       setMapMove(latLng);
+      setClickedLatLng(latLng);
+      setCenter(latLng);
+      setLocation(`${lat}, ${lng}`);
     }
   };
 
@@ -286,6 +289,15 @@ const LocationSelectPlot = ({ eid, id, status, pagetype }) => {
     setHandleMarker(index);
   };
 
+
+    const viewCenter = surveyData[0]?.location
+    ? (() => {
+      const [lat, lng] = surveyData[0].location.split(",").map(Number);
+      return isNaN(lat) || isNaN(lng) ? null : { lat, lng };
+    })()
+    : null;
+
+  const mapCenter = viewCenter ?? initialCenter;
   return isLoaded ? (
     <>
       <ConfirmationModal
@@ -407,7 +419,7 @@ const LocationSelectPlot = ({ eid, id, status, pagetype }) => {
             <div className="mt-3">
               <GoogleMap
                 mapContainerStyle={containerStyle}
-                center={center}
+                center={mapCenter}
                 zoom={10}
               >
                 {/* Markers */}

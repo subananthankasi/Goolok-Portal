@@ -16,6 +16,7 @@ import {
 import { SearchData } from "../../../Utils/Search";
 import CustomLoder from "../../../Components/customLoader/CustomLoder";
 import Common from "../../../common/Common";
+import Toast from "../../../Utils/Toast";
 
 const ExteriorFeatures = () => {
   const dispatch = useDispatch();
@@ -49,6 +50,7 @@ const ExteriorFeatures = () => {
   const handleDelete = () => {
     dispatch(eFeatureDeleteThunk(deleteId)).then(() => {
       dispatch(eFeatureGetThunk());
+      Toast({ message: "Successfully Deleted", type: "success" });
     });
     setDeleteDialog(false);
   };
@@ -59,12 +61,12 @@ const ExteriorFeatures = () => {
     <div className="d-flex justify-content-end gap-2 mt-4">
       <button
         type="button"
-        className="btn btn-outline-primary"
+        className="btn1 "
         onClick={() => setDeleteDialog(false)}
       >
         Cancel
       </button>
-      <button type="button" className="btn btn-danger" onClick={handleDelete}>
+      <button type="button" className="btn1" onClick={handleDelete}>
         Delete
       </button>
     </div>
@@ -95,6 +97,7 @@ const ExteriorFeatures = () => {
         formik.resetForm();
         setEditDialog(false);
         dispatch(eFeatureGetThunk());
+        Toast({ message: "Successfully Updated", type: "success" });
       }
 
       if (eFeatureUpdateThunk.rejected.match(res)) {
@@ -105,6 +108,7 @@ const ExteriorFeatures = () => {
       if (eFeaturePostThunk.fulfilled.match(res)) {
         formik.resetForm();
         dispatch(eFeatureGetThunk());
+        Toast({ message: "Successfully Submited", type: "success" });
       }
 
       if (eFeaturePostThunk.rejected.match(res)) {
@@ -348,13 +352,13 @@ const ExteriorFeatures = () => {
             <button
               onClick={cancelDialog}
               type="button"
-              className="btn btn-warning"
+              className="btn1"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="btn btn-primary"
+              className="btn1"
               onClick={() => setEditing(true)}
               disabled={updateLoading}
             >
