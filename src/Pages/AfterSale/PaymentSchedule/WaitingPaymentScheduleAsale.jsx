@@ -44,7 +44,7 @@ const WaitingPaymentScheduleAsale = () => {
         fetchData();
     }, []);
 
-    const staffid = JSON.parse(sessionStorage.getItem("token"));
+    const staffid = JSON.parse(localStorage.getItem("token"));
     const toolbarOptions = ["ExcelExport", "PdfExport", "Search"];
     const [docId, setDocId] = useState("");
     const [isModalTakeTask, setIsModalTakeTask] = useState(false);

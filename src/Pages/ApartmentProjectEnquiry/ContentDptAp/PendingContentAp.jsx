@@ -23,7 +23,7 @@ import ClosedProperty from '../../../Utils/ClosedProperty';
 const options = ['Progress', 'Closed'];
 
 const PendingContentAp = () => {
-    const staffid = JSON.parse(sessionStorage.getItem('token'));
+    const staffid = JSON.parse(localStorage.getItem('token'));
     const [pendingWaitingData, setPendingWaitingData] = useState([]);
     const dispatch = useDispatch()
 

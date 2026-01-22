@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { Header } from "../../../Enquiry/Reusable/Header";
 import { decryptData } from "../../../../Utils/encrypt";
 import LocationSelectlegal from "./legalLocComponent/LocationSelectlegal";
-import ReminderDocLegal from "../DocumentLegalOpinion/LegalDocResuble/ReminderDocLegal";
+import WholeDocGetPatta from "../../DocumentService/GetPattaComponents/WholeDocGetPatta";
 
 const UpdateLocLegal = () => {
   const { eid, locationid, status, pagetype } = useParams();
@@ -26,7 +26,8 @@ const UpdateLocLegal = () => {
               />
             </TabPanel>
             <TabPanel header="Remainder">
-              <ReminderDocLegal id = {decryLocation} eid={decryEid} status = {decryStatus}  pagetype="reminder"/>
+              {/* <ReminderDocLegal id = {decryLocation} eid={decryEid} status = {decryStatus}  pagetype="reminder"/> */}
+              <WholeDocGetPatta eid={decryEid} id={decryLocation} status={decryStatus} pagetype="reminder" />
             </TabPanel>
           </TabView>
         </div>

@@ -21,6 +21,7 @@ import ClosedProperty from "../../../../Utils/ClosedProperty";
 import { DateFormatcustom } from "../../../../Utils/DateFormatcustom";
 import { ButtonGroup, Button, Whisper, Popover, Dropdown, IconButton } from 'rsuite';
 import ArrowDownIcon from '@rsuite/icons/ArrowDown';
+import { encryptData } from "../../../../Utils/encrypt";
 
 const options = ['Progress', 'Closed'];
 
@@ -45,9 +46,11 @@ const PendingMap = () => {
             case "DefaultExport_csvexport":
                 gridInstance.csvExport();
                 break;
+            default:
+                break;
         }
     }
-    const staffid = JSON.parse(sessionStorage.getItem('token'));
+    const staffid = JSON.parse(localStorage.getItem('token'));
     const [enquiryDataFromWebsite, setenquiryDataFromWebsite] = useState([])
 
 
@@ -79,7 +82,8 @@ const PendingMap = () => {
 
     const handleRowSelect = (args) => {
         const rowData = args.data;
-        navigate(`/update_document_google/${rowData.id}/${rowData.userid}/pending`);
+        // navigate(`/update_document_google/${rowData.id}/${rowData.userid}/pending`);
+        navigate(`/update_document/${encryptData(rowData.id)}/${encryptData(rowData.userid)}/${encryptData('pending')}`);
 
 
     };

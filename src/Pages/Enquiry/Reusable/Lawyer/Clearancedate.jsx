@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect,useState } from 'react';
 import {
   GridComponent,
   ColumnsDirective,
@@ -19,10 +19,11 @@ import { UploaderComponent } from '@syncfusion/ej2-react-inputs';
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { useSelector } from 'react-redux';
+
+
 export const Clearancedate = (props) => {
 
-
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const enquiryDoumentData = useSelector(
     (state) => state.Enquiry.enquiryDocument
   );
@@ -31,11 +32,6 @@ export const Clearancedate = (props) => {
   const filterSettings = { type: 'Excel' };
   const toolbarOptions = [options];
 
-  // const editSettings = {
-  //   allowEditing: props.data.status == "complete" ? false : true,
-  //   mode: 'Dialog',
-  //   template: dialogTemplate,
-  // };
 
   const editSettings = {
     allowEditing: (props.data.status === "pending" || props.data.status === "complete") && props.data.pagetype !== "reminder" && staffid.Login === "staff" && enquiryDoumentData?.status !== "booking" ? true : false,

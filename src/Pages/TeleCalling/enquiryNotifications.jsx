@@ -8,13 +8,11 @@ import dummy from "../../Assets/images/dummyProfile.png";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import FileView from "../../Utils/FileView/FileView";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import DataTable from "react-data-table-component";
 import customStyle from "../../Utils/tableStyle";
 import {
   GoogleMap,
   useJsApiLoader,
-  Autocomplete,
   Marker,
 } from "@react-google-maps/api";
 
@@ -22,7 +20,7 @@ import {
 function EnquiryNotifications() {
   
   const { eid } = useParams();
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const [loading, setLoading] = React.useState(true);
   const [data, setData] = React.useState([]);
   useEffect(() => {

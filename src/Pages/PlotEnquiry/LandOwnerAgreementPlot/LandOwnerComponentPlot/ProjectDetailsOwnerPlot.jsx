@@ -13,7 +13,7 @@ import { useSelector } from "react-redux";
 const { Column, ColumnGroup, HeaderCell, Cell } = Table;
 
 export const ProjectDetailsOwnerPlot = ({ eid, id, status, pagetype }) => {
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const enquiryDoumentData = useSelector(
     (state) => state.Enquiry.enquiryDocument
   );

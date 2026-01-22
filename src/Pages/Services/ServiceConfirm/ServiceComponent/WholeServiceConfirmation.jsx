@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import ConfirmServiceComponent from './ConfirmServiceComponent'
 import AddService from './AddService'
 import ConfirmationModal from '../../../../Utils/ConfirmationModal';
@@ -9,7 +9,7 @@ import Toast from '../../../../Utils/Toast';
 import AlertPop from '../../../../Utils/AlertPop';
 
 const WholeServiceConfirmation = ({ eid, id, status, pagetype }) => {
-    const staffid = JSON.parse(sessionStorage.getItem('token'));
+    const staffid = JSON.parse(localStorage.getItem('token'));
 
     const [verifyConfirm, setIsVerifyConfirm] = useState(false);
     const [modalOpen, setModalOpen] = useState(false);

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
   GridComponent,
@@ -30,18 +30,18 @@ const ServicePaymentTele = () => {
 
   const [loading, setLoading] = useState(true);
   // staff id 
-  const staffid = JSON.parse(sessionStorage.getItem('token'));
+  const staffid = JSON.parse(localStorage.getItem('token'));
   const [pendingData, setPendingData] = useState([]);
 
   const fetchData = async () => {
     try {
       const response = await axios.get(`${API_BASE_URL}/teleservice`, {
-       
-    headers:
-      staffid.Login === "admin"
-        ? { "Gl-Status": "all" }
-        : { "Gl-Status": "pending"},
-  
+
+        headers:
+          staffid.Login === "admin"
+            ? { "Gl-Status": "all" }
+            : { "Gl-Status": "pending" },
+
       });
       setLoading(false);
       setPendingData(
@@ -58,8 +58,6 @@ const ServicePaymentTele = () => {
     fetchData();
   }, []);
 
-
-
   const filterSettings = { type: "Excel" };
   const toolbarOptions = ["ExcelExport", "PdfExport", "Search"];
 
@@ -75,6 +73,8 @@ const ServicePaymentTele = () => {
         break;
       case "DefaultExport_csvexport":
         gridInstance.csvExport();
+        break;
+      default:
         break;
     }
   }

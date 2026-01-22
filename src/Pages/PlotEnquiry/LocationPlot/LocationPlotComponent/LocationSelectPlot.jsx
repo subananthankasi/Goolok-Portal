@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import  { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import {
@@ -6,7 +6,6 @@ import {
   useJsApiLoader,
   Autocomplete,
   Marker,
-  Polyline,
   Polygon,
   InfoWindow,
 } from "@react-google-maps/api";
@@ -14,7 +13,6 @@ import LocationSearchingIcon from "@mui/icons-material/LocationSearching";
 import Spinner from "react-bootstrap/Spinner";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { ThreeDots } from "react-loader-spinner";
 import { Dialog } from "primereact/dialog";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import API_BASE_URL from "../../../../Api/api";
@@ -22,12 +20,7 @@ import Toast from "../../../../Utils/Toast";
 import ConfirmationModal from "../../../../Utils/ConfirmationModal";
 import AlertPop from "../../../../Utils/AlertPop";
 import { useSelector } from "react-redux";
-// import API_BASE_URL from "../../../../../Api/api";
-// import Toast from "../../../../../Utils/Toast";
-// import ConfirmationModal from "../../../../../Utils/ConfirmationModal";
-// import AlertPop from "../../../../../Utils/AlertPop";
 
-//.....................
 const containerStyle = {
   width: "100%",
   height: "50vh",
@@ -56,10 +49,8 @@ const LocationSelectPlot = ({ eid, id, status, pagetype }) => {
   const enquiryDoumentData = useSelector(
     (state) => state.Enquiry.enquiryDocument
   );
-
   const autocompleteRef = useRef(null);
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
-
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const [mapMove, setMapMove] = useState(null);
   const [Location, setLocation] = useState();
 

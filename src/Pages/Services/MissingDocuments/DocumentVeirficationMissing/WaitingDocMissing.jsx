@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
     GridComponent,
     ColumnsDirective,
@@ -13,7 +13,6 @@ import {
 } from "@syncfusion/ej2-react-grids";
 import Spinner from "react-bootstrap/Spinner";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
-
 import axios from 'axios';
 import API_BASE_URL from '../../../../Api/api';
 import Toast from '../../../../Utils/Toast';
@@ -23,7 +22,7 @@ import AlertPop from '../../../../Utils/AlertPop';
 
 
 const WaitingDocMissing = () => {
-    const staffid = JSON.parse(sessionStorage.getItem('token'));
+    const staffid = JSON.parse(localStorage.getItem('token'));
 
     const [loading, setLoading] = useState(false);
     const filterSettings = { type: "Excel" };
@@ -42,6 +41,8 @@ const WaitingDocMissing = () => {
             case "DefaultExport_csvexport":
                 gridInstance.csvExport();
                 break;
+            default:
+                break;
         }
     }
 
@@ -51,7 +52,7 @@ const WaitingDocMissing = () => {
             const response = await axios.get(`${API_BASE_URL}/landservice`, {
                 headers: {
                     "Gl-status": 'land',
-                    "Level":"Missing Documents"
+                    "Level": "Missing Documents"
                 }
             })
             setLoading(false);

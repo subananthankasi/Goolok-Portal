@@ -27,7 +27,7 @@ function PendingProposalCom() {
 
     const [loading, setLoading] = useState(true);
     // staff id 
-    const staffid = JSON.parse(sessionStorage.getItem('token'));
+    const staffid = JSON.parse(localStorage.getItem('token'));
     const [pendingWaitingData, setPendingWaitingData] = useState([]);
 
     const fetchData = async () => {
@@ -71,6 +71,8 @@ function PendingProposalCom() {
             case "DefaultExport_csvexport":
                 gridInstance.csvExport();
                 break;
+            default:
+                break;
         }
     }
 
@@ -88,16 +90,16 @@ function PendingProposalCom() {
         setVisible(true)
         setRowId(id)
     }
-    const datas=[
+    const datas = [
         {
-          sno:"1",
-          amount:"ghjs",
-          invoice_date:"78/12/25",
-          age:"20",
-          customer:"rtyui"
-    
+            sno: "1",
+            amount: "ghjs",
+            invoice_date: "78/12/25",
+            age: "20",
+            customer: "rtyui"
+
         }
-      ]
+    ]
     return (
         <>
             <ClosedProperty
@@ -121,59 +123,59 @@ function PendingProposalCom() {
                             </div>
                         ) : (
                             <div className="col-12">
-                                    <div className="card-body p-1">
-                                        <h4 className="page_heading">Pending Proposal Report</h4>
-                                        <div className="col-lg-12 mb-4 mt-4">
-                                            <GridComponent
-                                                id="DefaultExport"
-                                                 dataSource={pendingWaitingData}
-                                                // dataSource={datas}
+                                <div className="card-body p-1">
+                                    <h4 className="page_heading">Pending Proposal Report</h4>
+                                    <div className="col-lg-12 mb-4 mt-4">
+                                        <GridComponent
+                                            id="DefaultExport"
+                                            dataSource={pendingWaitingData}
+                                            // dataSource={datas}
 
-                                                allowTextWrap={true}
-                                                ref={(grid) => (gridInstance = grid)}
-                                                toolbar={toolbarOptions}
-                                                allowExcelExport={true}
-                                                allowPdfExport={true}
-                                                allowSorting={true}
-                                                allowFiltering={true}
-                                                allowPaging={true}
-                                                filterSettings={filterSettings}
-                                                toolbarClick={toolbarClick.bind(this)}
-                                                height="350"
-                                                rowSelected={handleRowSelect}
-                                            >
-                                                <ColumnsDirective>
-                                                    <ColumnDirective
-                                                        field="sno"
-                                                        headerText="S.no"
-                                                        width="150"
-                                                    />
-                                                    <ColumnDirective
-                                                        headerText="Date"
-                                                        width="150"
-                                                        field="created_at"
-                                                    />
-                                                    <ColumnDirective
-                                                        field="customer"
-                                                        headerText="Customer Name"
-                                                        width="150"
-                                                    />
-                                                    <ColumnDirective
-                                                        headerText="Age"
-                                                        width="150"
-                                                        field="age"
-                                                    />
-                                                    <ColumnDirective
-                                                        field="mobile"
-                                                        headerText="Mobile"
-                                                        width="150"
-                                                    />
-                                                    <ColumnDirective
-                                                        field="email_id"
-                                                        headerText="Email"
-                                                        width="150"
-                                                    />
-                                                    {/* <ColumnDirective
+                                            allowTextWrap={true}
+                                            ref={(grid) => (gridInstance = grid)}
+                                            toolbar={toolbarOptions}
+                                            allowExcelExport={true}
+                                            allowPdfExport={true}
+                                            allowSorting={true}
+                                            allowFiltering={true}
+                                            allowPaging={true}
+                                            filterSettings={filterSettings}
+                                            toolbarClick={toolbarClick.bind(this)}
+                                            height="350"
+                                            rowSelected={handleRowSelect}
+                                        >
+                                            <ColumnsDirective>
+                                                <ColumnDirective
+                                                    field="sno"
+                                                    headerText="S.no"
+                                                    width="150"
+                                                />
+                                                <ColumnDirective
+                                                    headerText="Date"
+                                                    width="150"
+                                                    field="created_at"
+                                                />
+                                                <ColumnDirective
+                                                    field="customer"
+                                                    headerText="Customer Name"
+                                                    width="150"
+                                                />
+                                                <ColumnDirective
+                                                    headerText="Age"
+                                                    width="150"
+                                                    field="age"
+                                                />
+                                                <ColumnDirective
+                                                    field="mobile"
+                                                    headerText="Mobile"
+                                                    width="150"
+                                                />
+                                                <ColumnDirective
+                                                    field="email_id"
+                                                    headerText="Email"
+                                                    width="150"
+                                                />
+                                                {/* <ColumnDirective
                             headerText="Status"
                             width="150"
                             template={(props) => (
@@ -196,61 +198,61 @@ function PendingProposalCom() {
 
                             )}
                           /> */}
-                                                    <ColumnDirective
-                                                        headerText="Status"
-                                                        width="170"
-                                                        template={(props) => (
-                                                            <div >
-                                                                <ButtonGroup>
-                                                                    <Button appearance="primary" color="green" onClick={(e) => e.stopPropagation()}>
-                                                                        {options[action]}
-                                                                    </Button>
-                                                                    <Whisper
-                                                                        placement="bottomEnd"
-                                                                        trigger="click"
-                                                                        speaker={({ onClose, left, top, className }, ref) => {
-                                                                            const handleSelect = (eventKey) => {
-                                                                                setAction(eventKey);
-                                                                                if (eventKey === 1) {
-                                                                                    handleDelete(props.enqid);
-                                                                                }
-                                                                                onClose();
-                                                                            };
-                                                                            return (
-                                                                                <Popover ref={ref} className={className} style={{ left, top }} full>
-                                                                                    <Dropdown.Menu onSelect={(event, eventKey) => handleSelect(event, eventKey)}>
-                                                                                        {options.map((item, index) => (
-                                                                                            <Dropdown.Item key={index} eventKey={index}>
-                                                                                                {item}
-                                                                                            </Dropdown.Item>
-                                                                                        ))}
-                                                                                    </Dropdown.Menu>
-                                                                                </Popover>
-                                                                            );
-                                                                        }}
-                                                                    >
-                                                                        <IconButton appearance="primary" color="green" onClick={(event) => event.stopPropagation()} icon={<ArrowDownIcon />} />
-                                                                    </Whisper>
-                                                                </ButtonGroup>
+                                                <ColumnDirective
+                                                    headerText="Status"
+                                                    width="170"
+                                                    template={(props) => (
+                                                        <div >
+                                                            <ButtonGroup>
+                                                                <Button appearance="primary" color="green" onClick={(e) => e.stopPropagation()}>
+                                                                    {options[action]}
+                                                                </Button>
+                                                                <Whisper
+                                                                    placement="bottomEnd"
+                                                                    trigger="click"
+                                                                    speaker={({ onClose, left, top, className }, ref) => {
+                                                                        const handleSelect = (eventKey) => {
+                                                                            setAction(eventKey);
+                                                                            if (eventKey === 1) {
+                                                                                handleDelete(props.enqid);
+                                                                            }
+                                                                            onClose();
+                                                                        };
+                                                                        return (
+                                                                            <Popover ref={ref} className={className} style={{ left, top }} full>
+                                                                                <Dropdown.Menu onSelect={(event, eventKey) => handleSelect(event, eventKey)}>
+                                                                                    {options.map((item, index) => (
+                                                                                        <Dropdown.Item key={index} eventKey={index}>
+                                                                                            {item}
+                                                                                        </Dropdown.Item>
+                                                                                    ))}
+                                                                                </Dropdown.Menu>
+                                                                            </Popover>
+                                                                        );
+                                                                    }}
+                                                                >
+                                                                    <IconButton appearance="primary" color="green" onClick={(event) => event.stopPropagation()} icon={<ArrowDownIcon />} />
+                                                                </Whisper>
+                                                            </ButtonGroup>
 
-                                                            </div>
-                                                        )}
-                                                    />
-                                                </ColumnsDirective>
-                                                <Inject
-                                                    services={[
-                                                        Toolbar,
-                                                        ExcelExport,
-                                                        PdfExport,
-                                                        Sort,
-                                                        Filter,
-                                                        Page,
-                                                    ]}
+                                                        </div>
+                                                    )}
                                                 />
-                                            </GridComponent>
-                                        </div>
+                                            </ColumnsDirective>
+                                            <Inject
+                                                services={[
+                                                    Toolbar,
+                                                    ExcelExport,
+                                                    PdfExport,
+                                                    Sort,
+                                                    Filter,
+                                                    Page,
+                                                ]}
+                                            />
+                                        </GridComponent>
                                     </div>
-                              
+                                </div>
+
                             </div>
                         )}
                     </div>

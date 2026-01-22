@@ -17,7 +17,7 @@ const NearbyMarketHouse = ({ eid, status, marketid, pagetype }) => {
     const enquiryDoumentData = useSelector(
         (state) => state.Enquiry.enquiryDocument
     );
-    const staffid = JSON.parse(sessionStorage.getItem("token"));
+    const staffid = JSON.parse(localStorage.getItem("token"));
 
     const [newDialog, setNewDialog] = useState(false);
     const [editDialog, setEditDialog] = useState(false);

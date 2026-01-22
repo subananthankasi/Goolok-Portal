@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
     GridComponent,
@@ -24,7 +24,7 @@ import ConfirmationModal from "../../../Utils/ConfirmationModal";
 
 function WaitingProposalCom() {
 
-    const staffid = JSON.parse(sessionStorage.getItem('token'));
+    const staffid = JSON.parse(localStorage.getItem('token'));
     const [loading, setLoading] = useState(true);
 
 
@@ -84,6 +84,8 @@ function WaitingProposalCom() {
                 break;
             case "DefaultExport_csvexport":
                 gridInstance.csvExport();
+                break;
+            default:
                 break;
         }
     }
@@ -167,7 +169,7 @@ function WaitingProposalCom() {
                                                     width="150"
                                                 />
                                                 <ColumnDirective
-                                                    field="created_at" 
+                                                    field="created_at"
                                                     headerText="Date"
                                                     width="150"
                                                 />
@@ -177,7 +179,7 @@ function WaitingProposalCom() {
                                                     width="150"
                                                 />
                                                 <ColumnDirective
-                                                    field="age" 
+                                                    field="age"
                                                     headerText="Age"
                                                     width="150"
                                                 />

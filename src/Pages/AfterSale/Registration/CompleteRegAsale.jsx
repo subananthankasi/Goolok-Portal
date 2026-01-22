@@ -20,7 +20,7 @@ import { encryptData } from "../../../Utils/encrypt";
 
 const CompleteRegAsale = () => {
 
-    const staffid = JSON.parse(sessionStorage.getItem("token"));
+    const staffid = JSON.parse(localStorage.getItem("token"));
     const [completeData, setCompleteData] = useState([]);
 
     const filterSettings = { type: "Excel" };

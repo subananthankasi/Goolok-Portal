@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
   GridComponent,
@@ -18,7 +18,7 @@ import API_BASE_URL from "../../../Api/api";
 import { encryptData } from "../../../Utils/encrypt";
 
 const AdminTicketTele = () => {
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const [pendingWaitingData, setPendingWaitingData] = useState([]);
 
   const filterSettings = { type: "Excel" };

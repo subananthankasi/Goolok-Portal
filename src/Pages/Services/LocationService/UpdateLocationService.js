@@ -4,7 +4,7 @@ import { TabView, TabPanel } from "primereact/tabview";
 import LocationSelectService from "./Locations/LocationSelectService";
 import { useParams } from "react-router-dom";
 import { decryptData } from "../../../Utils/encrypt";
-import ReminderDocumentVerification from "../DocumentService/Reusable/ReminderDocumentVerification";
+import WholeDocGetPatta from "../DocumentService/GetPattaComponents/WholeDocGetPatta";
 
 const UpdateLocationService = () => {
   const { eid, locationid, status, pagetype } = useParams();
@@ -27,7 +27,8 @@ const UpdateLocationService = () => {
               />
             </TabPanel>
             <TabPanel header="Remainder">
-              <ReminderDocumentVerification id = {decryLocation} eid={decryEid} status = {decryStatus} pagetype = "reminder"/>
+              {/* <ReminderDocumentVerification id = {decryLocation} eid={decryEid} status = {decryStatus} pagetype = "reminder"/> */}
+              <WholeDocGetPatta eid={decryEid} id={decryLocation} status={decryStatus} pagetype = "reminder"/>
             </TabPanel>
           </TabView>
         </div>

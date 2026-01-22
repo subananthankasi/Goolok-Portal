@@ -1,14 +1,8 @@
-import React, { useRef, useState } from "react";
-
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { ThreeDots } from "react-loader-spinner";
-// import { Toast } from 'primereact/toast';
-
 import { TabView, TabPanel } from "primereact/tabview";
 import Toast from "../../../../Utils/Toast";
 import AddAttachmentsPlot from "./AddAttachmentsPlot";
-import { mediaDptConfirmThunk } from "../../../../Redux/Actions/Enquiry/MediaDptEnq/MediaDptConfirmThunk";
 import AddPhotosPlot from "./AddPhotosPlot";
 import AddVideoPlot from "./AddVideoPlot";
 import API_BASE_URL from "../../../../Api/api";
@@ -17,27 +11,10 @@ import ConfirmationModal from "../../../../Utils/ConfirmationModal";
 import AlertPop from "../../../../Utils/AlertPop";
 
 const PlotMediaDepartment = ({ eid, id, status, pagetype }) => {
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const [verifyConfirm, setIsVerifyConfirm] = useState(false);
-  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const toast = useRef();
 
-  // const confirmLoading = useSelector((state) => state.mediaDptConfirm?.loading);
-  //   const handleConfirm = async () => {
-  //     const payload = {
-  //       enqid: eid,
-  //       id: id,
-  //     };
-  //     try {
-  //       const response = await dispatch(mediaDptConfirmThunk(payload));
-  //       Toast({ message: "Successfully Submited", type: "success" });
-  //       navigate("/plot_media_department#Complete");
-  //     } catch (error) {
-  //       console.error(error);
-  //       Toast({ message: "Try Again", type: "error" });
-  //     }
-  //   };
   const [confirmLoading, setConfirmLoading] = useState(false)
   const handleConfirm = async () => {
     setConfirmLoading(true)

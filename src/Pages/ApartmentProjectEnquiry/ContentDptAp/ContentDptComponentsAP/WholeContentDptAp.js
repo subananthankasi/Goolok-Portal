@@ -14,7 +14,7 @@ import TagsContentAP from './TagsContentAP';
 const WholeContentDptAp = ({ eid, id, status, pagetype, subtype }) => {
 
   const navigate = useNavigate()
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const [verifyConfirm, setIsVerifyConfirm] = useState(false);
   const [postLoading, setPostLoading] = useState(false)
 

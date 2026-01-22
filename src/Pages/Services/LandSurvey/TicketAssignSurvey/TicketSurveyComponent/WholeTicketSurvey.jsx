@@ -6,7 +6,6 @@ import ConfirmationModal from "../../../../../Utils/ConfirmationModal";
 import AlertPop from "../../../../../Utils/AlertPop";
 import Toast from "../../../../../Utils/Toast";
 import TicketAssignSurvey from "./TicketAssignSurvey";
-import BountryEntrySurvey from "../../MandodaryDocsSurvey/WholeManComponent/BountryEntrySurvey";
 import BountryTicketSurvey from "./BountryTicketSurvey";
 import SurveyDateConfirmation from "./SurveyDateConfirmation";
 import MediaTicketSurvey from "./MediaTicketSurvey/MediaTicketSurvey";
@@ -16,7 +15,7 @@ import TicketClosingComponentSurvey from "./TicketClosingInput/TicketClosingComp
 
 const WholeTicketSurvey = ({ eid, id, status }) => {
   const navigate = useNavigate();
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const [verifyConfirm, setIsVerifyConfirm] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false)
 

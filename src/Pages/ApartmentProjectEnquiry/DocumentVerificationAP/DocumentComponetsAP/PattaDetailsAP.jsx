@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import Button from "@mui/material/Button";
-// import DatePicker from "react-datepicker";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import axios from "axios";
 import { fetchState } from "../../../../Redux/Actions/MasterPage/StateAction";
 import { fetchDistrict } from "../../../../Redux/Actions/MasterPage/DistrictAction";
@@ -19,12 +18,8 @@ import dayjs from "dayjs";
 import { DatePicker } from "antd";
 
 const PattaDetailsAP = ({ data, setStep }) => {
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const dispatch = useDispatch();
-  const StateData = useSelector((state) => state.State.StateNameData);
-  const DistrictData = useSelector((state) => state.District.districtData);
-  const talukData = useSelector((state) => state.Taluk.TalukData);
-  const VillageData = useSelector((state) => state.Village.villageData);
 
   useEffect(() => {
     dispatch(fetchState());

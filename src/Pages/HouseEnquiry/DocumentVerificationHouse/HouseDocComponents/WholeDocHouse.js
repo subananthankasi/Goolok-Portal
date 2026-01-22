@@ -3,7 +3,6 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
-
 import { useDispatch, useSelector } from "react-redux";
 import DataTable from "react-data-table-component";
 import Button from "@mui/material/Button";
@@ -30,7 +29,7 @@ import AddMoreHouse from "./AddMoreHouse";
 import AnotherAddMoreHouse from "./AnotherAddMoreHouse";
 
 const WholeDocHouse = ({ eid, id, status, pagetype }) => {
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const dispatch = useDispatch();
   const [loadingPage, setLoadingPage] = useState(true);
   const [deleteDialog, setDeleteDialog] = useState(false);

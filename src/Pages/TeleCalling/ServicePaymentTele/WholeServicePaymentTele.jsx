@@ -1,8 +1,6 @@
-import React from "react";
 import { useParams } from "react-router-dom";
 import { decryptData } from "../../../Utils/encrypt";
 import { Header } from "../../Enquiry/Reusable/Header";
-import AddService from "../../Services/ServiceConfirm/ServiceComponent/AddService";
 import FollowupDateTele from "../Document Verification/FollowupDateTele";
 import InvoiceComponent from "../../Services/InvoiceService/InvoiceComponet/InvoiceComponent";
 

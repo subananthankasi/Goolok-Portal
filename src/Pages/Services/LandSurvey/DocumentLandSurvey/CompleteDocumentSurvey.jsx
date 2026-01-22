@@ -18,6 +18,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import API_BASE_URL from "../../../../Api/api";
+import { encryptData } from "../../../../Utils/encrypt";
 
 
 
@@ -42,6 +43,8 @@ const CompleteDocumentSurvey = () => {
             case "DefaultExport_csvexport":
                 gridInstance.csvExport();
                 break;
+            default:
+                break;
         }
     }
 
@@ -49,14 +52,15 @@ const CompleteDocumentSurvey = () => {
 
     const handleRowSelect = (args) => {
         const rowData = args.data;
-        navigate(`/documentsetsurvey/${rowData.id}/${rowData.userid}/complete`);
+        // navigate(`/documentsetsurvey/${rowData.id}/${rowData.userid}/complete`);
+        navigate(`/update_document/${encryptData(rowData.id)}/${encryptData(rowData.userid)}/${encryptData('pending')}`);
 
     };
 
     const dispatch = useDispatch();
     const [enquiryDataFromWebsite, setenquiryDataFromWebsite] = useState([])
     // staff id 
-    const staffid = JSON.parse(sessionStorage.getItem('token'));
+    const staffid = JSON.parse(localStorage.getItem('token'));
 
     const fetchData = async () => {
         try {

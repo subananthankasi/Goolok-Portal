@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
     GridComponent,
@@ -14,14 +14,7 @@ import {
 } from "@syncfusion/ej2-react-grids";
 import Spinner from "react-bootstrap/Spinner";
 import axios from "axios";
-
 import { useNavigate } from "react-router-dom";
-
-import html2canvas from "html2canvas";
-import jsPDF from "jspdf";
-
-import FileDownloadIcon from '@mui/icons-material/FileDownload';
-import { useRef } from "react";
 import { ButtonGroup, Button, Whisper, Popover, Dropdown, IconButton } from 'rsuite';
 import ArrowDownIcon from '@rsuite/icons/ArrowDown';
 import API_BASE_URL from "../../../Api/api";
@@ -34,10 +27,8 @@ const PendingPaymentCom = () => {
 
     const [loading, setLoading] = useState(true);
     // staff id 
-    const staffid = JSON.parse(sessionStorage.getItem('token'));
+    const staffid = JSON.parse(localStorage.getItem('token'));
     const [pendingWaitingData, setPendingWaitingData] = useState([]);
-    const contentRef = useRef();
-
 
     const fetchData = async () => {
         try {
@@ -79,6 +70,8 @@ const PendingPaymentCom = () => {
             case "DefaultExport_csvexport":
                 gridInstance.csvExport();
                 break;
+            default:
+                break;
         }
     }
 
@@ -97,16 +90,16 @@ const PendingPaymentCom = () => {
         setVisible(true)
         setRowId(id)
     }
- const datas=[
+    const datas = [
         {
-          sno:"1",
-          amount:"ghjs",
-          invoice_date:"78/12/25",
-          age:"20",
-          customer:"rtyui"
-    
+            sno: "1",
+            amount: "ghjs",
+            invoice_date: "78/12/25",
+            age: "20",
+            customer: "rtyui"
+
         }
-      ]
+    ]
 
     return (
         <>
@@ -136,7 +129,7 @@ const PendingPaymentCom = () => {
                                     <div className="col-lg-12 mb-4 mt-4">
                                         <GridComponent
                                             id="DefaultExport"
-                                             dataSource={pendingWaitingData}
+                                            dataSource={pendingWaitingData}
                                             // dataSource={datas}
 
                                             allowTextWrap={true}

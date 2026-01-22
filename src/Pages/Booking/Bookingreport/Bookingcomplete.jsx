@@ -12,7 +12,6 @@ import {
     Page,
     Filter,
 } from "@syncfusion/ej2-react-grids";
-// import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import API_BASE_URL from "../../../Api/api";
 import { Dialog } from "primereact/dialog";
@@ -25,7 +24,7 @@ import { encryptData } from "../../../Utils/encrypt";
 
 const Bookingcomplete = () => {
 
-    const staffid = JSON.parse(sessionStorage.getItem("token"));
+    const staffid = JSON.parse(localStorage.getItem("token"));
     const [completeData, setCompleteData] = useState([]);
     const [visible, setVisible] = useState(false);
     const [cancelRow, setCancelRow] = useState();

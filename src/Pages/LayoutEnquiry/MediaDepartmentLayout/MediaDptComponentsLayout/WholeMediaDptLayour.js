@@ -13,17 +13,12 @@ import AddPhotosLayout from "./AddPhotosLayout";
 import AddAttachmentsLayout from "./AddAttachmentsLayout";
 
 const WholeMediaDptLayour = ({ eid, id, status, pagetype }) => {
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const [verifyConfirm, setIsVerifyConfirm] = useState(false);
-  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const toast = useRef();
   const enquiryDoumentData = useSelector(
     (state) => state.Enquiry.enquiryDocument
   );
-
-  // const confirmLoading = useSelector((state) => state.mediaDptConfirm?.loading);
-
 
   const [confirmLoading, setConfirmLoading] = useState(false)
 

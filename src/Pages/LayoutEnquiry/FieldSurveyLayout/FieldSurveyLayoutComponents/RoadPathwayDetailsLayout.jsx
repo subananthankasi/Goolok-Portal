@@ -13,11 +13,10 @@ import { useSelector } from "react-redux";
 
 
 const RoadPathwayDetailsLayout = ({ eid, marketid, status, pagetype }) => {
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const [customerdata, setCustomerdata] = useState([]);
   const [newDialog, setNewDialog] = useState(false);
   const [editing, setEditing] = useState(false);
-  const [loading, setloading] = useState(false);
   const [editDialog, setEditDialog] = useState(false);
   const [deleteDialog, setDeleteDialog] = useState(false);
   const [deleteId, setDeleteId] = useState(null);

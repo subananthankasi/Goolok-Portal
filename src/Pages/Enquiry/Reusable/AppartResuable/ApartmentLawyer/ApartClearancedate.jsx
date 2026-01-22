@@ -1,5 +1,4 @@
 import axios from "axios";
-
 import API_BASE_URL from "../../../../../Api/api";
 import Toast from "../../../../../Utils/Toast";
 import React, { useEffect, useState } from 'react';
@@ -16,35 +15,20 @@ import {
   } from '@syncfusion/ej2-react-grids';
 import { Calendar } from 'primereact/calendar';
 import { DatePickerComponent } from '@syncfusion/ej2-react-calendars';
-
-
-
-
 export const ApartClearancedate = (props) => {
 
 
-    const options = props.data.status == "complete" ? " " : "Edit"
-  
-  
+    const options = props.data.status === "complete" ? " " : "Edit"
     const filterSettings = { type: 'Excel' };
     const toolbarOptions = [options];
-  
-    // const editSettings = {
-    //   allowEditing: props.data.status == "complete" ? false : true,
-    //   mode: 'Dialog',
-    //   template: dialogTemplate,
-    // };
-    const staffid = JSON.parse(sessionStorage.getItem("token"));
+    const staffid = JSON.parse(localStorage.getItem("token"));
   
     const editSettings = {
-      allowEditing: props.data.status == "pending" || props.data.status == "complete" && staffid.Login == "staff" ? true : false,
+      allowEditing: (props.data.status === "pending" || props.data.status === "complete") && staffid.Login === "staff" ? true : false,
       mode: "Dialog",
       template: dialogTemplate,
     };
     const pageSettings = { pageCount: 5 };
-  
-  
-  
     const [loadingPage, setLoadingPage] = useState(true);
     const [surveyData, setSurveyData] = useState([])
   

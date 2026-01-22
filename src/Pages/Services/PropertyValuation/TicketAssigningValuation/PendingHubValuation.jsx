@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
     GridComponent,
@@ -15,7 +15,6 @@ import {
 import Spinner from "react-bootstrap/Spinner";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
 import { ButtonGroup, Button, Whisper, Popover, Dropdown, IconButton } from 'rsuite';
 import ArrowDownIcon from '@rsuite/icons/ArrowDown';
 import API_BASE_URL from "../../../../Api/api";
@@ -27,7 +26,7 @@ const options = ['Progress', 'Closed'];
 
 const PendingHubValuation = () => {
     const [loading, setLoading] = useState(true);
-    const staffid = JSON.parse(sessionStorage.getItem('token'));
+    const staffid = JSON.parse(localStorage.getItem('token'));
     const [pendingData, setPendingData] = useState([]);
 
     const fetchData = async () => {

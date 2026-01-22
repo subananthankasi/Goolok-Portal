@@ -6,12 +6,10 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { Dialog } from "primereact/dialog";
 import Button from "@mui/material/Button";
-import { DateFormatcustom } from "../../../../Utils/DateFormatcustom";
 import customStyle from "../../../../Utils/tableStyle";
 import API_BASE_URL from "../../../../Api/api";
 import axios from "axios";
 import Toast from "../../../../Utils/Toast";
-import { TabView, TabPanel } from "primereact/tabview";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchDistrict } from "../../../../Redux/Actions/MasterPage/DistrictAction";
 import { fetchTaluk } from "../../../../Redux/Actions/MasterPage/TalukAction";
@@ -21,7 +19,7 @@ import Spinner from "react-bootstrap/Spinner";
 
 const ApplicationDetails = ({ eid, id, status, rowId, pagetype }) => {
 
-    const staffid = JSON.parse(sessionStorage.getItem("token"));
+    const staffid = JSON.parse(localStorage.getItem("token"));
     const dispatch = useDispatch();
     const [editing, setEditing] = useState(false)
     const [deleteDialog, setDeleteDialog] = useState(false)

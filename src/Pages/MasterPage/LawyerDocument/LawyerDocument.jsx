@@ -19,6 +19,8 @@ import {
 } from "../../../Redux/Actions/MasterPage/LawyerDocumentAction";
 import CustomLoder from "../../../Components/customLoader/CustomLoder";
 import Common from "../../../common/Common";
+import { useFormik } from "formik";
+import * as yup from 'yup'
 
 function LawyerDocument() {
   const LawyerDocument = useSelector((state) => state.LawyerDocument.lawyerDoc);
@@ -35,7 +37,19 @@ function LawyerDocument() {
     document: " ",
     status: "Enable",
   });
-
+  const onSubmit = async () => {
+    console.log('ok')
+  }
+  const formik = useFormik({
+    initialValues: {
+      document: "",
+      status: "Enable"
+    },
+    validationSchema: yup.object().shape({
+      document: yup.string().required("document is required !!"),
+    }),
+    onSubmit
+  })
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({

@@ -1,19 +1,13 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
-import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { Dialog } from "primereact/dialog";
 import Button from "@mui/material/Button";
 import axios from "axios";
-import { TabView, TabPanel } from "primereact/tabview";
-import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
-import { useNavigate } from "react-router-dom";
 import API_BASE_URL, { IMG_PATH } from "../../../../../../Api/api";
 import Toast from "../../../../../../Utils/Toast";
-import ConfirmationModal from "../../../../../../Utils/ConfirmationModal";
-import AlertPop from "../../../../../../Utils/AlertPop";
 import customStyle from "../../../../../../Utils/tableStyle";
 import FileViewUtils from "../../../../../../Utils/FileView/FileViewUtils";
 import UploadFmp from "./UploadFmp";
@@ -23,12 +17,9 @@ import FileView from "../../../../../../Utils/FileView/FileView";
 import { useSelector } from "react-redux";
 
 const TicketClosingComponentSurvey = ({ eid, id, status, pagetype }) => {
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
-  const pattaref = useRef(null);
-  const [editing, setEditing] = useState(false);
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const [fillDialog, setFillDialog] = useState(false);
   const [visible, setVisible] = useState(false);
-  const [editDialog, setEditDialog] = useState(false);
   const [deleteDialog, setDeleteDialog] = useState(false);
   const [deleteId, setdeleteId] = useState(null);
   const [getData, setGetData] = useState([]);

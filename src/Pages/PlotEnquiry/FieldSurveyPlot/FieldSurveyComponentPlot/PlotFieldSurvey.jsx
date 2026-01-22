@@ -15,7 +15,7 @@ import RoadPathwayPlot from "./RoadPathwayPlot";
 export const PlotFieldSurvey = (props) => {
 
     const navigate = useNavigate()
-    const staffid = JSON.parse(sessionStorage.getItem("token"));
+    const staffid = JSON.parse(localStorage.getItem("token"));
     const [verifyConfirm, setIsVerifyConfirm] = useState(false);
     const [confirmLoading, setConfirmLoading] = useState(false)
 

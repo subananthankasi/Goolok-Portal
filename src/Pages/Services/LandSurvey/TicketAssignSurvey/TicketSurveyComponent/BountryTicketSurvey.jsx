@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
 import Button from "@mui/material/Button";
 import { Dialog } from "primereact/dialog";
 import { useFormik } from "formik";
@@ -11,13 +10,12 @@ import Toast from "../../../../../Utils/Toast";
 import { useSelector } from "react-redux";
 
 const BountryTicketSurvey = ({ eid, id, status, pagetype }) => {
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
 
   const [newDialog, setNewDialog] = useState(false);
   const [deleteDialog, setDeleteDialog] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
   const [editDialog, setEditDialog] = useState(false);
-  const [editing, setEditing] = useState(false);
   const [getData, setGetData] = useState([]);
   const [postLoading, setPostLoading] = useState(false);
   const enquiryDoumentData = useSelector(

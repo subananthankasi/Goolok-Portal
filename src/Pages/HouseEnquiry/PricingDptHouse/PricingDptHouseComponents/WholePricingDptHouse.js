@@ -4,15 +4,13 @@ import { useNavigate } from "react-router-dom";
 import { pricingConfirmThunk } from "../../../../Redux/Actions/Enquiry/pricingConfirmThunk";
 import Toast from "../../../../Utils/Toast";
 import PricingDepartmentHouse from "./PricingDepartmentHouse";
-import PaymentSchedulePricingHouse from "./PaymentSchedulePricingHouse";
 import PaymentScheduleDaysHouse from "./PaymentScheduleDaysHouse";
 
 const WholePricingDptHouse = ({ eid, status, id, pagetype, discountPage }) => {
 
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const toast = useRef();
   const confirmLoading = useSelector((state) => state.pricingConfirm?.loading)
   const handleConfirm = async () => {
     const payload = {

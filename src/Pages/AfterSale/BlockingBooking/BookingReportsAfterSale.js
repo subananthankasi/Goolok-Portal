@@ -24,7 +24,7 @@ import { encryptData } from "../../../Utils/encrypt";
 import { Skeleton } from "primereact/skeleton";
 
 const BookingReportsAfterSale = () => {
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const [completeData, setCompleteData] = useState([]);
   const [visible, setVisible] = useState(false);
   const [cancelRow, setCancelRow] = useState();

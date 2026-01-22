@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
     GridComponent,
@@ -14,14 +14,7 @@ import {
 } from "@syncfusion/ej2-react-grids";
 import Spinner from "react-bootstrap/Spinner";
 import axios from "axios";
-
 import { useNavigate } from "react-router-dom";
-
-import html2canvas from "html2canvas";
-import jsPDF from "jspdf";
-
-import FileDownloadIcon from '@mui/icons-material/FileDownload';
-import { useRef } from "react";
 import { ButtonGroup, Button, Whisper, Popover, Dropdown, IconButton } from 'rsuite';
 import ArrowDownIcon from '@rsuite/icons/ArrowDown';
 import API_BASE_URL from "../../../Api/api";
@@ -34,11 +27,8 @@ const PendingLegalHouse = () => {
 
     const [loading, setLoading] = useState(true);
     // staff id 
-    const staffid = JSON.parse(sessionStorage.getItem('token'));
+    const staffid = JSON.parse(localStorage.getItem('token'));
     const [pendingWaitingData, setPendingWaitingData] = useState([]);
-    const contentRef = useRef();
-
-
     const fetchData = async () => {
         try {
             const response = await axios.get(`${API_BASE_URL}/invoicedpt?id=${staffid.loginid}&status=pending`, {

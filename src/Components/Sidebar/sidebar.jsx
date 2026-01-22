@@ -163,16 +163,16 @@ const Sidebars = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   // const [selected, setSelected] = useState("")
   const [selected, setSelected] = useState(() => {
-    return sessionStorage.getItem("selectedRoute") || "";
+    return localStorage.getItem("selectedRoute") || "";
   });
   const [openSubMenus, setOpenSubMenus] = useState(() => {
-    return JSON.parse(sessionStorage.getItem("openSubMenus")) || {};
+    return JSON.parse(localStorage.getItem("openSubMenus")) || {};
   });
 
   const toggleSubMenu = (menu) => {
     setOpenSubMenus((prev) => {
       const updated = { ...prev, [menu]: !prev[menu] };
-      sessionStorage.setItem("openSubMenus", JSON.stringify(updated));
+      localStorage.setItem("openSubMenus", JSON.stringify(updated));
       return updated;
     });
   };
@@ -325,13 +325,13 @@ const Sidebars = () => {
     const basePath = getBasePath(location.pathname);
     if (baseRoutes.includes(basePath)) {
       setSelected(`/${basePath}`);
-      sessionStorage.setItem("selectedRoute", `/${basePath}`);
+      localStorage.setItem("selectedRoute", `/${basePath}`);
     }
   }, [location.pathname]);
   //........................
 
-  const loginType = sessionStorage.getItem("logintype");
-  const token = sessionStorage.getItem("token");
+  const loginType = localStorage.getItem("logintype");
+  const token = localStorage.getItem("token");
   const pages = JSON.parse(token)?.pages;
 
   // no internet

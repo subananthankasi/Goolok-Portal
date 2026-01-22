@@ -45,8 +45,7 @@ useEffect(() => {
   }));
 }, [location.search]);
 
-// sessionStorage data get 
-const staffid = JSON.parse(sessionStorage.getItem('token'));
+const staffid = JSON.parse(localStorage.getItem('token'));
 
 const [landData, setLandData] = useState([]); 
 const [surveyData, setSurveyData] = useState([]); 

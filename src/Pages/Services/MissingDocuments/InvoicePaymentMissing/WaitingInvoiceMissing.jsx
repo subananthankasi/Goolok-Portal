@@ -21,7 +21,7 @@ import ConfirmationModal from '../../../Enquiry/Reusable/AppartResuable/Confirma
 
 const WaitingInvoiceMissing = () => {
 
-    const staffid = JSON.parse(sessionStorage.getItem('token'));
+    const staffid = JSON.parse(localStorage.getItem('token'));
     const [loading, setLoading] = useState(false);
     const [WaitingData, setWaitingData] = useState([])
 
@@ -81,6 +81,8 @@ const WaitingInvoiceMissing = () => {
                 break;
             case "DefaultExport_csvexport":
                 gridInstance.csvExport();
+                break;
+            default:
                 break;
         }
     }

@@ -1,10 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
+import  { useEffect, useRef, useState } from "react";
 import DataTable from "react-data-table-component";
-
 import axios from "axios";
-
 import Spinner from "react-bootstrap/Spinner";
-
 import EditIcon from "@mui/icons-material/Edit";
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import API_BASE_URL, { IMG_PATH } from "../../../../Api/api";
@@ -16,7 +13,7 @@ import customStyle from "../../../../Utils/tableStyle";
 export const PlotProposal = ({ eid, id, status, pagetype }) => {
 
 
-    const staffid = JSON.parse(sessionStorage.getItem("token"));
+    const staffid = JSON.parse(localStorage.getItem("token"));
     const [editData, setEditData] = useState({})
     const [proposalData, setProposalData] = useState([])
 

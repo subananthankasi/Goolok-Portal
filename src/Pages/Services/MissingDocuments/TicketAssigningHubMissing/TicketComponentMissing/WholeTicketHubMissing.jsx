@@ -11,7 +11,7 @@ import { useSelector } from "react-redux";
 
 const WholeTicketHubMissing = ({ eid, id, status }) => {
   const navigate = useNavigate();
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const [verifyConfirm, setIsVerifyConfirm] = useState(false);
   const [postLoading, setPostLoading] = useState(false)
   const enquiryDoumentData = useSelector(

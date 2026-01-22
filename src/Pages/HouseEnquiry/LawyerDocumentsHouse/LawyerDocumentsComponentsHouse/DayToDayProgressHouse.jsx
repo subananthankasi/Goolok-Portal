@@ -14,7 +14,7 @@ import { DatePicker } from "antd";
 import { useSelector } from "react-redux";
 
 const DayToDayProgressHouse = (props) => {
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const enquiryDoumentData = useSelector(
     (state) => state.Enquiry.enquiryDocument
   );

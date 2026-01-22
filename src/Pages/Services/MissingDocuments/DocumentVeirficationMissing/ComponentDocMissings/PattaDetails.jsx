@@ -14,7 +14,7 @@ import API_BASE_URL from '../../../../../Api/api';
 
 
 const PattaDetails = ({ data }) => {
-    const staffid = JSON.parse(sessionStorage.getItem("token"));
+    const staffid = JSON.parse(localStorage.getItem("token"));
     const dispatch = useDispatch();
     const StateData = useSelector((state) => state.State.StateNameData);
     const DistrictData = useSelector((state) => state.District.districtData);

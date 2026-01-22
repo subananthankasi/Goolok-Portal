@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import  { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import API_BASE_URL from '../../../../../Api/api';
@@ -10,7 +10,7 @@ import ConfirmServicevaluation from './ConfirmServicevaluation';
 
 
 const WholeServiceValuation = ({ eid, id, status, pagetype }) => {
-    const staffid = JSON.parse(sessionStorage.getItem('token'));
+    const staffid = JSON.parse(localStorage.getItem('token'));
 
     const [verifyConfirm, setIsVerifyConfirm] = useState(false);
     const [modalOpen, setModalOpen] = useState(false);

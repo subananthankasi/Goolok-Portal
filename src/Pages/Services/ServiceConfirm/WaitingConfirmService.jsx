@@ -13,7 +13,6 @@ import {
 } from "@syncfusion/ej2-react-grids";
 import Spinner from "react-bootstrap/Spinner";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
-import ServiceWaitingPopup from '../../../Utils/ServiceWaitingPopup';
 import ConfirmationModal from '../../../Utils/ConfirmationModal';
 import Toast from '../../../Utils/Toast';
 import axios from 'axios';
@@ -21,7 +20,7 @@ import API_BASE_URL from '../../../Api/api';
 
 const WaitingConfirmService = () => {
 
-  const staffid = JSON.parse(sessionStorage.getItem('token'));
+  const staffid = JSON.parse(localStorage.getItem('token'));
   const [loading, setLoading] = useState(false);
   const [serviceData, setServiceData] = useState([])
 
@@ -81,6 +80,8 @@ const WaitingConfirmService = () => {
         break;
       case "DefaultExport_csvexport":
         gridInstance.csvExport();
+        break;
+      default:
         break;
     }
   }

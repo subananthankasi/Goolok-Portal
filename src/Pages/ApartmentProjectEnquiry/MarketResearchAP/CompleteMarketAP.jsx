@@ -19,9 +19,8 @@ import API_BASE_URL from "../../../Api/api";
 import { encryptData } from "../../../Utils/encrypt";
 
 const CompleteMarketAP = () => {
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
 
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [pendingWaitingData, setPendingWaitingData] = useState([]);

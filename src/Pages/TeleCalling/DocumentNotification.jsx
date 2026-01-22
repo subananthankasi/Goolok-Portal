@@ -1,11 +1,9 @@
 import axios from "axios";
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import API_BASE_URL, { IMG_PATH } from "../../Api/api";
-import { useNavigate, useParams } from "react-router-dom";
+import React, {  useEffect,useState } from "react";
+import API_BASE_URL from "../../Api/api";
+import { useParams } from "react-router-dom";
 import Spinner from "react-bootstrap/Spinner";
 import Toast from "../../Utils/Toast";
-import dummy from "../../Assets/images/dummyProfile.png";
-import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import FileView from "../../Utils/FileView/FileView";
 import FollowUp from "./FollowUp";
 import VisibilityIcon from '@mui/icons-material/Visibility';
@@ -15,7 +13,7 @@ import FollowUpView from "./FollowUpView";
 function DocumentNotification() {
   
   const { eid } = useParams();
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const [loading, setLoading] = React.useState(true);
   const [data, setData] = React.useState([]);
   useEffect(() => {

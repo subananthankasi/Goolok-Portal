@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import customStyle from "../../../../Utils/tableStyle";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -29,7 +29,7 @@ const AddPhotosAP = ({ eid, status, pagetype }) => {
     const [deleteDialog, setDeleteDialog] = useState(false);
     const [deleteId, setDeleteId] = useState(null);
     const dispatch = useDispatch();
-    const staffid = JSON.parse(sessionStorage.getItem("token"));
+    const staffid = JSON.parse(localStorage.getItem("token"));
     const enquiryDoumentData = useSelector(
         (state) => state.Enquiry.enquiryDocument
     );

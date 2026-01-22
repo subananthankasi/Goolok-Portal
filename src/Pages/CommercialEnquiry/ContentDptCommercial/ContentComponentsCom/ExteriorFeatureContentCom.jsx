@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import DataTable from "react-data-table-component";
@@ -21,7 +21,7 @@ const ExteriorFeatureContentCom = ({ eid, id, status }) => {
     const [deleteDialog, setDeleteDialog] = useState(false);
     const [editDialog, setEditDialog] = useState(false);
     const [editing, setEditing] = useState(false);
-    const staffid = JSON.parse(sessionStorage.getItem("token"));
+    const staffid = JSON.parse(localStorage.getItem("token"));
     const [deleteId, setDeleteId] = useState("");
     const dispatch = useDispatch();
     const enquiryDoumentData = useSelector(

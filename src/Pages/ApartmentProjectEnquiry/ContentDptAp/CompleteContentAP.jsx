@@ -21,7 +21,7 @@ import { encryptData } from "../../../Utils/encrypt";
 
 
 const CompleteContentAP = () => {
-    const staffid = JSON.parse(sessionStorage.getItem("token"));
+    const staffid = JSON.parse(localStorage.getItem("token"));
     const dispatch = useDispatch();
     const [completeData, setCompleteData] = useState([]);
 

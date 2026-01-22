@@ -8,18 +8,16 @@ import * as yup from "yup";
 import axios from "axios";
 import API_BASE_URL from "../../../../Api/api";
 import Toast from "../../../../Utils/Toast";
-import { Table, Pagination } from "rsuite";
+import { Table } from "rsuite";
 import { useSelector } from "react-redux";
 const { Column, ColumnGroup, HeaderCell, Cell } = Table;
 
 export const TicketClosingFieldLayout = ({ eid, id, status, pagetype }) => {
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
-
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const [newDialog, setNewDialog] = useState(false);
   const [deleteDialog, setDeleteDialog] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
   const [editDialog, setEditDialog] = useState(false);
-  const [editing, setEditing] = useState(false);
   const [getData, setGetData] = useState([]);
 
   const [limit, setLimit] = React.useState(10);

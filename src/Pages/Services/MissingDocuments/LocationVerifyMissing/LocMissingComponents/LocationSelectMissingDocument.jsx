@@ -49,7 +49,7 @@ const LocationSelectMissingDocument = ({ eid, id, status, pagetype }) => {
     const [center, setCenter] = useState(initialCenter);
 
     const autocompleteRef = useRef(null);
-    const staffid = JSON.parse(sessionStorage.getItem("token"));
+    const staffid = JSON.parse(localStorage.getItem("token"));
     const enquiryDoumentData = useSelector(
         (state) => state.Enquiry.enquiryDocument
     );

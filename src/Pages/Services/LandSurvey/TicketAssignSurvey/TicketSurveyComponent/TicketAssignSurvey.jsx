@@ -6,19 +6,16 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { Dialog } from "primereact/dialog";
 import Button from "@mui/material/Button";
-// import { DateFormatcustom } from "../../../../Utils/DateFormatcustom";
-// import customStyle from "../../../../Utils/tableStyle";
 import axios from "axios";
 import { DateFormatcustom } from "../../../../../Utils/DateFormatcustom";
 import API_BASE_URL from "../../../../../Api/api";
 import Toast from "../../../../../Utils/Toast";
 import customStyle from "../../../../../Utils/tableStyle";
 import { useSelector } from "react-redux";
-// import API_BASE_URL from "../../../../Api/api";
-// import Toast from "../../../../Utils/Toast";
+
 
 const TicketAssignSurvey = ({ eid, id, status, pagetype }) => {
-    const staffid = JSON.parse(sessionStorage.getItem("token"));
+    const staffid = JSON.parse(localStorage.getItem("token"));
     const [editing, setEditing] = useState(false);
     const [newDialog, setNewDialog] = useState(false);
     const [editDialog, setEditDialog] = useState(false);

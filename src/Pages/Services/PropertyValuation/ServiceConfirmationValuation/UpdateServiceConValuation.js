@@ -3,9 +3,9 @@ import { TabView, TabPanel } from "primereact/tabview";
 import { useParams } from "react-router-dom";
 import { decryptData } from "../../../../Utils/encrypt";
 import { Header } from "../../../Enquiry/Reusable/Header";
-import ReminderDocVerifyValution from "../DocumentVerifyValuation/ValuationComponents/ReminderDocVerifyValution";
 import LocationSelectValuation from "../LocationVerifyValuation/LocValComponent/LocationSelectValuation";
 import WholeServiceValuation from "./ServiceComponentValuation/WholeServiceValuation";
+import WholeDocGetPatta from "../../DocumentService/GetPattaComponents/WholeDocGetPatta";
 
 const UpdateServiceConValuation = () => {
   const { eid, id, status } = useParams();
@@ -28,12 +28,13 @@ const UpdateServiceConValuation = () => {
               />
             </TabPanel>
             <TabPanel header="Remainder">
-              <ReminderDocVerifyValution
+              {/* <ReminderDocVerifyValution
                 id={decryid}
                 eid={decryEid}
                 status={decryStatus}
                 pagetype="reminder"
-              />
+              /> */}
+              <WholeDocGetPatta eid={decryEid} id={decryid} status={decryStatus} pagetype="reminder" />
               <LocationSelectValuation
                 eid={decryEid}
                 id={decryid}

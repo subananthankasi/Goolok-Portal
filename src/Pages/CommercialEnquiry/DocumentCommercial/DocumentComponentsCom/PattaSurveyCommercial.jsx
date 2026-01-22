@@ -20,7 +20,7 @@ import API_BASE_URL from '../../../../Api/api';
 import Toast from '../../../../Utils/Toast';
 
 const PattaSurveyCommercial = ({ data }) => {
-    const staffid = JSON.parse(sessionStorage.getItem("token"));
+    const staffid = JSON.parse(localStorage.getItem("token"));
     const [isLoading, setIsLoading] = useState(false)
     const [surveyData, setSurveyData] = useState([])
     const [deleteDialog, setDeleteDialog] = useState(false)

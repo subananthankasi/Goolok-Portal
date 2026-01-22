@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
     GridComponent,
@@ -21,7 +21,7 @@ import API_BASE_URL from "../../../Api/api";
 const CompleteInvoiceService = () => {
     const [loading, setLoading] = useState(true);
     // staff id 
-    const staffid = JSON.parse(sessionStorage.getItem('token'));
+    const staffid = JSON.parse(localStorage.getItem('token'));
     const [completeData, setCompleteData] = useState([]);
 
     const fetchData = async () => {

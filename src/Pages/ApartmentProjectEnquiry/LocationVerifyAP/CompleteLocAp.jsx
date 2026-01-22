@@ -11,23 +11,20 @@ import {
   Sort,
   Page,
   Filter,
-  colGroup,
 } from "@syncfusion/ej2-react-grids";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Spinner } from "react-bootstrap";
-import { useDispatch } from "react-redux";
 import API_BASE_URL from "../../../Api/api";
 import { encryptData } from "../../../Utils/encrypt";
 
 
 const CompleteLocAp = () => {
 
-  const staffid = JSON.parse(sessionStorage.getItem('token'));
+  const staffid = JSON.parse(localStorage.getItem('token'));
   const [loading, setLoading] = useState(true);
   const [completeData, setCompleteData] = useState([]);
 
-  const dispatch = useDispatch()
   const navigate = useNavigate();
 
 

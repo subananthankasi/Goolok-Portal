@@ -4,7 +4,6 @@ import * as yup from "yup";
 import Button from "@mui/material/Button";
 // import DatePicker from "react-datepicker";
 import { useDispatch, useSelector } from "react-redux";
-
 import axios from "axios";
 import { fetchState } from "../../../../Redux/Actions/MasterPage/StateAction";
 import { fetchDistrict } from "../../../../Redux/Actions/MasterPage/DistrictAction";
@@ -21,7 +20,7 @@ import GeneralTalukDropdown from "../../../../Utils/Dropdown/GeneralTalukDropdow
 import GeneralVillageDropdown from "../../../../Utils/Dropdown/GeneralVillageDropdown";
 
 const PattaDetailsPlot = ({ data, setStep }) => {
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const dispatch = useDispatch();
   const StateData = useSelector((state) => state.State.StateNameData);
   const DistrictData = useSelector((state) => state.District.districtData);

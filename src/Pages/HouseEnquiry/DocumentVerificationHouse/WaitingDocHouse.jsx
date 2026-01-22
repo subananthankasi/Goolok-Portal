@@ -25,7 +25,7 @@ import FileView from "../../../Utils/FileView/FileView";
 
 const WaitingDocHouse = () => {
 
-    const staffid = JSON.parse(sessionStorage.getItem('token'));
+    const staffid = JSON.parse(localStorage.getItem('token'));
     const [loading, setLoading] = useState(true);
 
 
@@ -105,6 +105,8 @@ const WaitingDocHouse = () => {
             case "DefaultExport_csvexport":
                 gridInstance.csvExport();
                 break;
+            default:
+                break;
         }
     }
 
@@ -112,6 +114,7 @@ const WaitingDocHouse = () => {
     const openModalDoc = () => {
         setIsModalDoc(true);
     };
+
     const closeModalDoc = () => {
         setIsModalDoc(false);
     };
@@ -225,6 +228,11 @@ const WaitingDocHouse = () => {
                                                     <ColumnDirective
                                                         field="customer"
                                                         headerText="Customer Name"
+                                                        width="150"
+                                                    />
+                                                    <ColumnDirective
+                                                        field="age"
+                                                        headerText="Age"
                                                         width="150"
                                                     />
                                                     <ColumnDirective

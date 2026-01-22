@@ -1,5 +1,5 @@
 import React from "react";
-import UpdateDocumentGoogleMap from "./UpdateDocumentGoogleMap";
+// import UpdateDocumentGoogleMap from "./UpdateDocumentGoogleMap";
 import { useParams } from "react-router-dom";
 import { Header } from "../../../Enquiry/Reusable/Header";
 
@@ -9,7 +9,7 @@ const DocumentSetGoogleMap = () => {
     <section className="section">
       <div className="container-fluid">
         <Header eid={eid} />
-        <UpdateDocumentGoogleMap />
+        {/* <UpdateDocumentGoogleMap /> */}
       </div>
     </section>
   );

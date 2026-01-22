@@ -21,7 +21,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 const WaitingManSurvey = () => {
-    const staffid = JSON.parse(sessionStorage.getItem('token'));
+    const staffid = JSON.parse(localStorage.getItem('token'));
     const [loading, setLoading] = useState(false);
     const [locationWaitingData, setLocationWaitingData] = useState([])
 
@@ -82,6 +82,8 @@ const WaitingManSurvey = () => {
             case "DefaultExport_csvexport":
                 gridInstance.csvExport();
                 break;
+            default:
+                break;
         }
     }
 
@@ -108,7 +110,7 @@ const WaitingManSurvey = () => {
             });
             fetchData()
             Toast({ message: "Successfully Updated", type: "success" })
-           
+
         } catch (error) {
             Toast({ message: "Failed to update", type: "error" })
         }

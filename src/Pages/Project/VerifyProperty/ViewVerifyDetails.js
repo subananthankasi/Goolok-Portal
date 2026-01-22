@@ -1,36 +1,36 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import MediaDeptUpdateStage from "../../Enquiry/Media Department/MediaDeptUpdateStage";
-import { EnquirySurveyUpdateStages } from "../../Enquiry/Fieldsurvey/EnquirySurveyUpdateStages";
-import MandatoryDocumentUpdate from "../../Enquiry/MandatoryDocument/MandatoryDocumentUpdate";
-import { DocumentVerification } from "../../Enquiry/Reusable/DocumentVerification";
-import { LawyerDocumentsUploadStages } from "../../Enquiry/LawyerDocuments/LawyerDocumentsUploadStages";
-import { PaymentLegalOpinion } from "../../Enquiry/Reusable/PaymentLegalOpinion";
-import { Priceproposal } from "../../Enquiry/Reusable/Priceproposal";
-import { MarketResearch } from "../../Enquiry/Reusable/MarketResearch";
-import LocationSelect from "../../Enquiry/Reusable/LocationSelect";
-import { InvoiceDetails } from "../../Enquiry/Reusable/InvoiceDetails";
+// import MediaDeptUpdateStage from "../../Enquiry/Media Department/MediaDeptUpdateStage";
+// import { EnquirySurveyUpdateStages } from "../../Enquiry/Fieldsurvey/EnquirySurveyUpdateStages";
+// import MandatoryDocumentUpdate from "../../Enquiry/MandatoryDocument/MandatoryDocumentUpdate";
+// import { DocumentVerification } from "../../Enquiry/Reusable/DocumentVerification";
+// import { LawyerDocumentsUploadStages } from "../../Enquiry/LawyerDocuments/LawyerDocumentsUploadStages";
+// import { PaymentLegalOpinion } from "../../Enquiry/Reusable/PaymentLegalOpinion";
+// import { Priceproposal } from "../../Enquiry/Reusable/Priceproposal";
+// import { MarketResearch } from "../../Enquiry/Reusable/MarketResearch";
+// import LocationSelect from "../../Enquiry/Reusable/LocationSelect";
+// import { InvoiceDetails } from "../../Enquiry/Reusable/InvoiceDetails";
 import { Header } from "../../Enquiry/Reusable/Header";
-import ContentWritingUpdateStage from "../../Enquiry/ContentWriting/ContentWritingUpdateStage";
-import { MandatoryDocumentUpdateStages } from "../../Enquiry/MandatoryDocument/MandatoryDocumentUpdateStages";
-import PriceDepartment from "../../Enquiry/PricingDepartment/PriceDepartmentUpdateStage";
-import PaymentScheduleUpdateStage from "../../Enquiry/PaymentSchedule/PaymentScheduleUpdateStage";
-import PaymentScheduleStage from "../../Enquiry/PaymentScheduleStage/PaymentScheduleStage";
-import LandOwnerDetails from "../../Enquiry/Reusable/LandOwnerDetails";
-import LandOwnerAddedTable from "../../Enquiry/Reusable/LandOwnerAddedTable";
-import { LandOwnerAgreement } from "../../Enquiry/Reusable/LandOwnerAgreement";
-import WholeComponentDocApart from "../../Enquiry/AppartmentEnquiry/ApartDocumentVerification/ApartDocComponents/WholeComponentDocApart";
-import { InvoiceApart } from "../../Enquiry/AppartmentEnquiry/InvoiceVerifiCationApart/InvoiceComponentApart/InvoiceApart";
-import LocationSelectApart from "../../Enquiry/AppartmentEnquiry/LocationVerificationApart/LocationApartComponent/LocationSelectApart";
-import { ApartMarketResearch } from "../../Enquiry/AppartmentEnquiry/MarketResearchApart/MarketResearchApartComponent/ApartMarketResearch";
-import { ApartmentProposal } from "../../Enquiry/AppartmentEnquiry/PriceProposalAgreementApart/ApartProposalComponent/ApartmentProposal";
-import { ApartLegalOpinion } from "../../Enquiry/AppartmentEnquiry/PaymentLegalOpinion/ApartLegalOpinionComponent/ApartLegalOpinion";
-import { WholeApartLawyerDocuments } from "../../Enquiry/AppartmentEnquiry/LawyerDocumentsApart/ApartLawyerDocumentComponents/WholeApartLawyerDocuments";
-import { WholeFieldSurveyApart } from "../../Enquiry/AppartmentEnquiry/FieldSurveyApart/ApartFieldSurveyComponents/WholeFieldSurveyApart";
-import WholeLandOwnerApart from "../../Enquiry/AppartmentEnquiry/LandOwnerAgreementApart/LandOwnerApartComponents.jsx/WholeLandOwnerApart";
-import WholePricingDptApart from "../../Enquiry/AppartmentEnquiry/PricingDepartmentApart/PricingDptApartComponents/WholePricingDptApart";
-import WholeMediaDptApart from "../../Enquiry/AppartmentEnquiry/MediaDepartmentApart/ApartMediaReUsable/WholeMediaDptApart";
-import WholeContentWritingApart from "../../Enquiry/AppartmentEnquiry/ContentWritingApart/ContentWritingComponentsApart/WholeContentWritingApart";
+// import ContentWritingUpdateStage from "../../Enquiry/ContentWriting/ContentWritingUpdateStage";
+// import { MandatoryDocumentUpdateStages } from "../../Enquiry/MandatoryDocument/MandatoryDocumentUpdateStages";
+// import PriceDepartment from "../../Enquiry/PricingDepartment/PriceDepartmentUpdateStage";
+// import PaymentScheduleUpdateStage from "../../Enquiry/PaymentSchedule/PaymentScheduleUpdateStage";
+// import PaymentScheduleStage from "../../Enquiry/PaymentScheduleStage/PaymentScheduleStage";
+// import LandOwnerDetails from "../../Enquiry/Reusable/LandOwnerDetails";
+// import LandOwnerAddedTable from "../../Enquiry/Reusable/LandOwnerAddedTable";
+// import { LandOwnerAgreement } from "../../Enquiry/Reusable/LandOwnerAgreement";
+// import WholeComponentDocApart from "../../Enquiry/AppartmentEnquiry/ApartDocumentVerification/ApartDocComponents/WholeComponentDocApart";
+// import { InvoiceApart } from "../../Enquiry/AppartmentEnquiry/InvoiceVerifiCationApart/InvoiceComponentApart/InvoiceApart";
+// import LocationSelectApart from "../../Enquiry/AppartmentEnquiry/LocationVerificationApart/LocationApartComponent/LocationSelectApart";
+// import { ApartMarketResearch } from "../../Enquiry/AppartmentEnquiry/MarketResearchApart/MarketResearchApartComponent/ApartMarketResearch";
+// import { ApartmentProposal } from "../../Enquiry/AppartmentEnquiry/PriceProposalAgreementApart/ApartProposalComponent/ApartmentProposal";
+// import { ApartLegalOpinion } from "../../Enquiry/AppartmentEnquiry/PaymentLegalOpinion/ApartLegalOpinionComponent/ApartLegalOpinion";
+// import { WholeApartLawyerDocuments } from "../../Enquiry/AppartmentEnquiry/LawyerDocumentsApart/ApartLawyerDocumentComponents/WholeApartLawyerDocuments";
+// import { WholeFieldSurveyApart } from "../../Enquiry/AppartmentEnquiry/FieldSurveyApart/ApartFieldSurveyComponents/WholeFieldSurveyApart";
+// import WholeLandOwnerApart from "../../Enquiry/AppartmentEnquiry/LandOwnerAgreementApart/LandOwnerApartComponents.jsx/WholeLandOwnerApart";
+// import WholePricingDptApart from "../../Enquiry/AppartmentEnquiry/PricingDepartmentApart/PricingDptApartComponents/WholePricingDptApart";
+// import WholeMediaDptApart from "../../Enquiry/AppartmentEnquiry/MediaDepartmentApart/ApartMediaReUsable/WholeMediaDptApart";
+// import WholeContentWritingApart from "../../Enquiry/AppartmentEnquiry/ContentWritingApart/ContentWritingComponentsApart/WholeContentWritingApart";
 import { decryptData } from "../../../Utils/encrypt";
 import WholeDocPlot from "../../PlotEnquiry/DocumentPlot/DocumentPlotComponents/WholeDocPlot";
 import { WholeInvoicePlot } from "../../PlotEnquiry/InvoicePlot/InvoicePlotComponent/WholeInvoicePlot";
@@ -86,6 +86,31 @@ import WholeLandOwnerAgreeAP from "../../ApartmentProjectEnquiry/LandOwnerAgreeA
 import WholePricingDptAp from "../../ApartmentProjectEnquiry/PricingDptAP/PricingDptComponentsAP/WholePricingDptAp";
 import WholeMediaDptAP from "../../ApartmentProjectEnquiry/MediaDptAP/MediaDptComponentsAp/WholeMediaDptAP";
 import WholeContentDptAp from "../../ApartmentProjectEnquiry/ContentDptAp/ContentDptComponentsAP/WholeContentDptAp";
+import WholeComponentDocApart from "../../ApartmentEnquiry/ApartDocumentVerification/ApartDocComponents/WholeComponentDocApart";
+import { InvoiceApart } from "../../ApartmentEnquiry/InvoiceVerifiCationApart/InvoiceComponentApart/InvoiceApart";
+import LocationSelectApart from "../../ApartmentEnquiry/LocationVerificationApart/LocationApartComponent/LocationSelectApart";
+import { ApartMarketResearch } from "../../ApartmentEnquiry/MarketResearchApart/MarketResearchApartComponent/ApartMarketResearch";
+import { ApartmentProposal } from "../../ApartmentEnquiry/PriceProposalAgreementApart/ApartProposalComponent/ApartmentProposal";
+import { ApartLegalOpinion } from "../../ApartmentEnquiry/PaymentLegalOpinion/ApartLegalOpinionComponent/ApartLegalOpinion";
+import { WholeApartLawyerDocuments } from "../../ApartmentEnquiry/LawyerDocumentsApart/ApartLawyerDocumentComponents/WholeApartLawyerDocuments";
+import { WholeFieldSurveyApart } from "../../ApartmentEnquiry/FieldSurveyApart/ApartFieldSurveyComponents/WholeFieldSurveyApart";
+import WholeLandOwnerApart from "../../ApartmentEnquiry/LandOwnerAgreementApart/LandOwnerApartComponents.jsx/WholeLandOwnerApart";
+import WholePricingDptApart from "../../ApartmentEnquiry/PricingDepartmentApart/PricingDptApartComponents/WholePricingDptApart";
+import WholeMediaDptApart from "../../ApartmentEnquiry/MediaDepartmentApart/ApartMediaReUsable/WholeMediaDptApart";
+import WholeContentWritingApart from "../../ApartmentEnquiry/ContentWritingApart/ContentWritingComponentsApart/WholeContentWritingApart";
+import ContentWritingUpdateStage from "../../LandEnquiry/ContentWriting/ContentWritingUpdateStage";
+import WholeDocumentLand from "../../LandEnquiry/DocumentVerificationLand/LandDocumentComponents/WholeDocumentLand";
+import { WholeMandatoryDocLand } from "../../LandEnquiry/MandatoryDocumentLand/MandatoryDocComponentsLand/WholeMandatoryDocLand";
+import { WholeFieldSurveyLand } from "../../LandEnquiry/FieldsurveyLand/FieldsurveyComponentsLand/WholeFieldSurveyLand";
+import { InvoiceDetails } from "../../LandEnquiry/InvoiceVerification/InvoiceComponentsLand/InvoiceDetails";
+import WholeLandOwnerAgreement from "../../LandEnquiry/LandOwnerAgreement/LandOwnerAgreementComponents/WholeLandOwnerAgreement";
+import { WholeLawyerDocumentLand } from "../../LandEnquiry/LawyerDocumentsLand/LawyerDocumentComponents/WholeLawyerDocumentLand";
+import LocationSelectLand from "../../LandEnquiry/LocationVerifyLand/LocationComponents/LocationSelectLand";
+import { WholeMarketResearchLand } from "../../LandEnquiry/MarketResearchLand/MarketResearchComponentsLand/WholeMarketResearchLand";
+import WholeMediaDptLand from "../../LandEnquiry/Media Department/MediaDptLandComponents/WholeMediaDptLand";
+import { PaymentLegalOpinionLand } from "../../LandEnquiry/PaymentLegalopinion/PaymentLegalOpinionComponent/PaymentLegalOpinionLand";
+import { PriceProposalLand } from "../../LandEnquiry/PriceProposalAgreement/PriceProposalComponentLand/PriceProposalLand";
+import WholePricingDptLand from "../../LandEnquiry/PricingDepartmentLand/PricingDptLandComponents/WholePricingDptLand";
 
 const ViewVerifyDetails = () => {
   const { eid, id, status, landtype, property } = useParams();
@@ -101,65 +126,131 @@ const ViewVerifyDetails = () => {
             <Header eid={decryEid} />
             {decryProperty === "Land" ? (
               <>
-                <DocumentVerification eid={decryEid} />
+                <WholeDocumentLand
+                  eid={decryEid}
+                  id={id}
+                  status={"complete"}
+                  pagetype={"reminder"}
+                />
                 <InvoiceDetails id={decryEid} status={"success"} />
-                <LocationSelect eid={decryEid} status={"complete"} />
-                <MarketResearch eid={decryEid} status={"complete"} />
-                <Priceproposal eid={decryEid} status={"complete"} />
-                <PaymentLegalOpinion eid={decryEid} status={"complete"} />
-                <LawyerDocumentsUploadStages
+                {/* <LocationSelect eid={decryEid} status={"complete"} /> */}
+                <LocationSelectLand
                   eid={decryEid}
                   status={"complete"}
+                  pagetype={"reminder"}
                 />
-                <MandatoryDocumentUpdateStages
+                {/* <MarketResearch eid={decryEid} status={"complete"} /> */}
+                <WholeMarketResearchLand
+                  eid={decryEid}
+                  status={"complete"}
+                  pagetype="reminder"
+                />
+                {/* <Priceproposal eid={decryEid} status={"complete"} /> */}
+                <PriceProposalLand
+                  eid={eid}
+                  status={"complete"}
+                  pagetype="reminder"
+                />
+                {/* <PaymentLegalOpinion eid={decryEid} status={"complete"} /> */}
+                <PaymentLegalOpinionLand
+                  eid={decryEid}
+                  status={"complete"}
+                  pagetype="reminder"
+                />
+                {/* <LawyerDocumentsUploadStages
+                  eid={decryEid}
+                  status={"complete"}
+                /> */}
+                <WholeLawyerDocumentLand
+                  eid={decryEid}
+                  id={id}
+                  status={"complete"}
+                  pagetype="reminder"
+                  landtype={decryLandType}
+                />
+                {/* <MandatoryDocumentUpdateStages
                   eid={decryEid}
                   status={"complete"}
                   landtype={decryLandType}
+                /> */}
+                <WholeMandatoryDocLand
+                  eid={decryEid}
+                  status={"complete"}
+                  pagetype="reminder"
+                  landtype={decryLandType}
                 />
-                <EnquirySurveyUpdateStages
+                {/* <EnquirySurveyUpdateStages
                   eid={decryEid}
                   status={"complete"}
                   landtype={decryLandType}
+                /> */}
+                <WholeFieldSurveyLand
+                  eid={eid}
+                  id={id}
+                  status={status}
+                  landtype={decryLandType}
+                  pagetype="reminder"
                 />
-                <LandOwnerDetails
+                {/* <LandOwnerDetails
                   eid={decryEid}
                   id={id}
                   status={status}
                   landtype={decryLandType}
-                />
-                <LandOwnerAddedTable
+                /> */}
+                {/* <LandOwnerAddedTable
                   eid={decryEid}
                   id={id}
                   status={status}
                   landtype={decryLandType}
-                />
-                <LandOwnerAgreement
+                /> */}
+                {/* <LandOwnerAgreement
                   eid={decryEid}
                   id={id}
                   status={status}
                   landtype={decryLandType}
+                /> */}
+                <WholeLandOwnerAgreement
+                  decryEid={eid}
+                  decryId={id}
+                  decryStatus={status}
+                  pagetype="reminder"
+                  landtype={decryLandType}
                 />
-                <PriceDepartment
+                {/* <PriceDepartment
                   eid={decryEid}
                   status={status}
                   landtype={decryLandType}
-                  discountPage = {"discount"}
-
+                  discountPage={"discount"}
+                /> */}
+                <WholePricingDptLand
+                  eid={eid}
+                  status={status}
+                  id={id}
+                  pagetype="reminder"
+                  landtype={decryLandType}
+                  discountPage={"discount"}
                 />
-                <PaymentScheduleUpdateStage
+                {/* <PaymentScheduleUpdateStage
                   eid={decryEid}
                   status={status}
                   landtype={decryLandType}
-                />
-                <PaymentScheduleStage
+                /> */}
+                {/* <PaymentScheduleStage
                   id={decryEid}
                   status={status}
                   landtype={decryLandType}
-                />
-                <MediaDeptUpdateStage
+                /> */}
+                {/* <MediaDeptUpdateStage
                   id={id}
                   eid={decryEid}
                   status={status}
+                  landtype={decryLandType}
+                /> */}
+                <WholeMediaDptLand
+                  id={id}
+                  eid={decryEid}
+                  status={status}
+                  pagetype="reminder"
                   landtype={decryLandType}
                 />
                 <ContentWritingUpdateStage
@@ -224,7 +315,7 @@ const ViewVerifyDetails = () => {
                   id={id}
                   status={"complete"}
                   // pagetype={"reminder"}
-                  discountPage = {"discount"}
+                  discountPage={"discount"}
                 />
                 <WholeMediaDptApart
                   eid={decryEid}
@@ -296,7 +387,7 @@ const ViewVerifyDetails = () => {
                   eid={decryEid}
                   status={"complete"}
                   // pagetype={"reminder"}
-                  discountPage = {"discount"}
+                  discountPage={"discount"}
                   sub_property={decryLandType}
                 />
                 <PlotMediaDepartment
@@ -372,7 +463,7 @@ const ViewVerifyDetails = () => {
                   status={"complete"}
                   sub_property={decryLandType}
                   // pagetype={"reminder"}
-                  discountPage = {"discount"}
+                  discountPage={"discount"}
                 />
                 <WholeMediaDptHouse
                   eid={decryEid}
@@ -433,7 +524,7 @@ const ViewVerifyDetails = () => {
                   eid={decryEid}
                   status={"complete"}
                   // pagetype={"reminder"}
-                  discountPage = {"discount"}
+                  discountPage={"discount"}
                 />
                 <WholeMediaDptLayour
                   eid={decryEid}
@@ -509,7 +600,7 @@ const ViewVerifyDetails = () => {
                   status={"complete"}
                   subtype={decryLandType}
                   // pagetype={"reminder"}
-                  discountPage = {"discount"}
+                  discountPage={"discount"}
                 />
                 <WholeMediaDptCommercial
                   eid={decryEid}
@@ -562,7 +653,7 @@ const ViewVerifyDetails = () => {
                   eid={decryEid}
                   status={"complete"}
                   // pagetype={"reminder"}
-                  discountPage = {"discount"}
+                  discountPage={"discount"}
                 />
                 <WholeMediaDptAP
                   eid={decryEid}

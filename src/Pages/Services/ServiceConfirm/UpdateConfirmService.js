@@ -5,7 +5,7 @@ import WholeServiceConfirmation from "./ServiceComponent/WholeServiceConfirmatio
 import { decryptData } from "../../../Utils/encrypt";
 import { useParams } from "react-router-dom";
 import LocationSelectService from "../LocationService/Locations/LocationSelectService";
-import ReminderDocumentVerification from "../DocumentService/Reusable/ReminderDocumentVerification";
+import WholeDocGetPatta from "../DocumentService/GetPattaComponents/WholeDocGetPatta";
 
 const UpdateConfirmService = () => {
   const { eid, id, status } = useParams();
@@ -28,12 +28,13 @@ const UpdateConfirmService = () => {
               />
             </TabPanel>
             <TabPanel header="Remainder">
-              <ReminderDocumentVerification
+              {/* <ReminderDocumentVerification
                 id={decryid}
                 eid={decryEid}
                 status={decryStatus}
                 pagetype="reminder"
-              />
+              /> */}
+              <WholeDocGetPatta eid={decryEid} id={decryid} status={decryStatus} pagetype="reminder" />
               <LocationSelectService
                 eid={decryEid}
                 id={decryid}

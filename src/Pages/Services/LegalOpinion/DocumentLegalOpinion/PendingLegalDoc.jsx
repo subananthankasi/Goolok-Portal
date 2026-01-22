@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
     GridComponent,
@@ -18,9 +18,9 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import API_BASE_URL from "../../../../Api/api";
 import ClosedProperty from "../../../../Utils/ClosedProperty";
-import { DateFormatcustom } from "../../../../Utils/DateFormatcustom";
 import { ButtonGroup, Button, Whisper, Popover, Dropdown, IconButton } from 'rsuite';
 import ArrowDownIcon from '@rsuite/icons/ArrowDown';
+import { encryptData } from "../../../../Utils/encrypt";
 const options = ['Progress', 'Closed'];
 
 const PendingLegalDoc = () => {
@@ -44,9 +44,11 @@ const PendingLegalDoc = () => {
             case "DefaultExport_csvexport":
                 gridInstance.csvExport();
                 break;
+            default:
+                break;
         }
     }
-    const staffid = JSON.parse(sessionStorage.getItem('token'));
+    const staffid = JSON.parse(localStorage.getItem('token'));
     const [enquiryDataFromWebsite, setenquiryDataFromWebsite] = useState([])
 
 
@@ -78,7 +80,8 @@ const PendingLegalDoc = () => {
 
     const handleRowSelect = (args) => {
         const rowData = args.data;
-        navigate(`/updatelegaldoc/${rowData.id}/${rowData.userid}/pending`);
+        // navigate(`/updatelegaldoc/${rowData.id}/${rowData.userid}/pending`);
+        navigate(`/update_document/${encryptData(rowData.id)}/${encryptData(rowData.userid)}/${encryptData('pending')}`);
 
 
     };

@@ -25,7 +25,7 @@ import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 
 const WaitingHub = () => {
 
-    const staffid = JSON.parse(sessionStorage.getItem('token'));
+    const staffid = JSON.parse(localStorage.getItem('token'));
     const [loading, setLoading] = useState(false);
     const [serviceData, setServiceData] = useState([])
     const [visible, setVisible] = useState(false)

@@ -13,7 +13,7 @@ import Toast from '../../../../Utils/Toast';
 
 const TitleProjectDetailsPlot = ({ data }) => {
 
-    const staffid = JSON.parse(sessionStorage.getItem("token"));
+    const staffid = JSON.parse(localStorage.getItem("token"));
     const dispatch = useDispatch();
 
 

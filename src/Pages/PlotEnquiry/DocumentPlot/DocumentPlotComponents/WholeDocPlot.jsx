@@ -29,7 +29,7 @@ import AnotherAddMorePlot from "./AnotherAddMorePlot";
 import FileView from "../../../../Utils/FileView/FileView";
 
 const WholeDocPlot = ({ eid, id, status, pagetype }) => {
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const dispatch = useDispatch();
   const [loadingPage, setLoadingPage] = useState(true);
   const [deleteDialog, setDeleteDialog] = useState(false);

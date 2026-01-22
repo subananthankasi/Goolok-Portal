@@ -13,13 +13,8 @@ import {
     Filter,
 } from "@syncfusion/ej2-react-grids";
 import Spinner from "react-bootstrap/Spinner";
-// import API_BASE_URL from "../../../Api/api";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
-// import ConfirmationModal from "../../../Utils/ConfirmationModal";
 import axios from "axios";
-// import Toast from "../../../Utils/Toast";
-// import { AgeCalculate } from "../../../Utils/AgeCalculate";
-// import { DateFormatcustom } from "../../../Utils/DateFormatcustom";
 import { Dialog } from 'primereact/dialog';
 import Button from '@mui/material/Button';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
@@ -28,12 +23,12 @@ import API_BASE_URL from "../../../../Api/api";
 import Toast from "../../../../Utils/Toast";
 import { fetchStaff } from "../../../../Redux/Actions/MasterPage/Staff";
 import ConfirmationModal from "../../../../Utils/ConfirmationModal";
-// import { fetchStaff } from "../../../Redux/Actions/MasterPage/Staff";
+
 
 
 function WaitingLawyerLegal() {
 
-    const staffid = JSON.parse(sessionStorage.getItem('token'));
+    const staffid = JSON.parse(localStorage.getItem('token'));
     const [loading, setLoading] = useState(true);
     const [visible, setVisible] = useState(false)
 
@@ -45,8 +40,8 @@ function WaitingLawyerLegal() {
             const response = await axios.get(`${API_BASE_URL}/lawyer/new`, {
                 headers: {
                     "Pr-Root": "land",
-                    "Level":"service",
-                    
+                    "Level": "service",
+
                 }
             })
             setLoading(false);
@@ -96,6 +91,8 @@ function WaitingLawyerLegal() {
                 break;
             case "DefaultExport_csvexport":
                 gridInstance.csvExport();
+                break;
+            default:
                 break;
         }
     }

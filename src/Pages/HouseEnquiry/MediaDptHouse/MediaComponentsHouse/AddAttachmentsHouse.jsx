@@ -27,7 +27,7 @@ const AddAttachmentsHouse = ({ eid, status, pagetype }) => {
     const [arUrl, setArUrl] = useState("");
     const [deleteDialog, setDeleteDialog] = useState(false);
     const [deleteId, setDeleteId] = useState(null);
-    const staffid = JSON.parse(sessionStorage.getItem("token"));
+    const staffid = JSON.parse(localStorage.getItem("token"));
     const enquiryDoumentData = useSelector(
         (state) => state.Enquiry.enquiryDocument
     );

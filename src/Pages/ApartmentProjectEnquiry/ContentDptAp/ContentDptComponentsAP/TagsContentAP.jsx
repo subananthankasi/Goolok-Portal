@@ -17,7 +17,7 @@ import API_BASE_URL from '../../../../Api/api';
 const TagsContentAP = ({ eid, id, status }) => {
     const dispatch = useDispatch()
     const [triggerChild, setTriggerChild] = useState(false);
-    const staffid = JSON.parse(sessionStorage.getItem('token'));
+    const staffid = JSON.parse(localStorage.getItem('token'));
     const enquiryDoumentData = useSelector(
         (state) => state.Enquiry.enquiryDocument
     );

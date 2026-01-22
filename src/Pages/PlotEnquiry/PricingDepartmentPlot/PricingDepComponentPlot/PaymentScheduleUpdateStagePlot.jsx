@@ -25,8 +25,7 @@ import Toast from "../../../../Utils/Toast";
 
 const PaymentScheduleUpdateStagePlot = ({ eid, status, pagetype }) => {
   const dispatch = useDispatch();
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
-
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const [newDialog, setNewDialog] = useState(false); const enquiryDoumentData = useSelector(
     (state) => state.Enquiry.enquiryDocument
   );

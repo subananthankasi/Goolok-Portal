@@ -24,7 +24,7 @@ import ConfirmationModal from "../../../Utils/ConfirmationModal";
 
 const WaitingPaymentCom = () => {
 
-    const staffid = JSON.parse(sessionStorage.getItem('token'));
+    const staffid = JSON.parse(localStorage.getItem('token'));
     const [loading, setLoading] = useState(true);
 
 
@@ -85,6 +85,8 @@ const WaitingPaymentCom = () => {
             case "DefaultExport_csvexport":
                 gridInstance.csvExport();
                 break;
+            default:
+                break;
         }
     }
 
@@ -118,7 +120,7 @@ const WaitingPaymentCom = () => {
 
     return (
         <>
-               <ConfirmationModal
+            <ConfirmationModal
                 isOpen={isModalTakeTask}
                 closeModal={closeModaTask}
                 onConfirm={handleConfirm}
@@ -165,7 +167,7 @@ const WaitingPaymentCom = () => {
                                                     width="150"
                                                 />
                                                 <ColumnDirective
-                                                    field="created_at" 
+                                                    field="created_at"
                                                     headerText="Date"
                                                     width="150"
                                                 />
@@ -175,7 +177,7 @@ const WaitingPaymentCom = () => {
                                                     width="150"
                                                 />
                                                 <ColumnDirective
-                                                    field="age" 
+                                                    field="age"
                                                     headerText="Age"
                                                     width="150"
                                                 />

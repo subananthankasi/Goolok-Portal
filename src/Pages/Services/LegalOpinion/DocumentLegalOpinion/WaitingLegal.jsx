@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import  { useEffect, useState } from 'react'
 import {
     GridComponent,
     ColumnsDirective,
@@ -18,10 +18,9 @@ import API_BASE_URL from '../../../../Api/api';
 import Toast from '../../../../Utils/Toast';
 import ConfirmationModal from '../../../../Utils/ConfirmationModal';
 import AlertPop from '../../../../Utils/AlertPop';
-import { DateFormatcustom } from '../../../../Utils/DateFormatcustom';
 
 const WaitingLegal = () => {
-    const staffid = JSON.parse(sessionStorage.getItem('token'));
+    const staffid = JSON.parse(localStorage.getItem('token'));
 
     const [loading, setLoading] = useState(false);
     const filterSettings = { type: "Excel" };

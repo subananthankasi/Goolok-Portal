@@ -6,7 +6,6 @@ import {
     useJsApiLoader,
     Autocomplete,
     Marker,
-    Polyline,
     Polygon,
     InfoWindow,
 } from "@react-google-maps/api";
@@ -14,7 +13,6 @@ import LocationSearchingIcon from "@mui/icons-material/LocationSearching";
 import Spinner from "react-bootstrap/Spinner";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { ThreeDots } from "react-loader-spinner";
 import { Dialog } from 'primereact/dialog';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import API_BASE_URL from "../../../../../Api/api";
@@ -57,7 +55,7 @@ const LocationSelectlegal = ({ eid, id, status, pagetype }) => {
         (state) => state.Enquiry.enquiryDocument
     );
     const autocompleteRef = useRef(null);
-    const staffid = JSON.parse(sessionStorage.getItem("token"));
+    const staffid = JSON.parse(localStorage.getItem("token"));
 
     const [mapMove, setMapMove] = useState(null);
     const [Location, setLocation] = useState();

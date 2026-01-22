@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
     GridComponent,
@@ -19,7 +19,7 @@ import { useNavigate } from "react-router-dom";
 import { ButtonGroup, Button, Whisper, Popover, Dropdown, IconButton } from 'rsuite';
 import API_BASE_URL from "../../../Api/api";
 import ClosedProperty from "../../../Utils/ClosedProperty";
- import ArrowDownIcon from '@rsuite/icons/ArrowDown';
+import ArrowDownIcon from '@rsuite/icons/ArrowDown';
 import { encryptData } from "../../../Utils/encrypt";
 
 
@@ -31,10 +31,8 @@ function PendingDocHouse() {
     // get the enquiry data
     const dispatch = useDispatch();
     const [enquiryDataFromWebsite, setenquiryDataFromWebsite] = useState([])
-
-
     // staff id 
-    const staffid = JSON.parse(sessionStorage.getItem('token'));
+    const staffid = JSON.parse(localStorage.getItem('token'));
 
 
     const fetch = async () => {
@@ -80,12 +78,14 @@ function PendingDocHouse() {
             case "DefaultExport_csvexport":
                 gridInstance.csvExport();
                 break;
+            default:
+                break;
         }
     }
     const navigate = useNavigate();
     const handleRowSelect = (args) => {
         const rowData = args.data;
-       navigate(`/house_document/${encryptData(rowData.id)}/${encryptData(rowData.userid)}/${encryptData("pending")}`);
+        navigate(`/house_document/${encryptData(rowData.id)}/${encryptData(rowData.userid)}/${encryptData("pending")}`);
     };
     const [action, setAction] = useState(0);
     const [visible, setVisible] = useState(false)
@@ -159,6 +159,11 @@ function PendingDocHouse() {
                                                     <ColumnDirective
                                                         field="customer"
                                                         headerText="Customer Name"
+                                                        width="150"
+                                                    />
+                                                    <ColumnDirective
+                                                        field="age"
+                                                        headerText="Age"
                                                         width="150"
                                                     />
                                                     <ColumnDirective

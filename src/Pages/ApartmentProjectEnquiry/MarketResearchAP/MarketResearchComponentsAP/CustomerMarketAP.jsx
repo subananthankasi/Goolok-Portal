@@ -1,21 +1,20 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import DataTable from "react-data-table-component";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Dialog } from "primereact/dialog";
 import EditIcon from "@mui/icons-material/Edit";
 import { useFormik } from "formik";
-import * as yup from "yup";
 import API_BASE_URL from "../../../../Api/api";
 import Toast from "../../../../Utils/Toast";
 import customStyle from "../../../../Utils/tableStyle";
-import { Input, InputGroup } from "rsuite";
+import {  InputGroup } from "rsuite";
 import { useSelector } from "react-redux";
 import Spinner from "react-bootstrap/Spinner";
 import MarketLocation from "../../../Enquiry/Reusable/MarketLocation";
 
 const CustomerMarketAP = ({ eid, marketid, status, pagetype }) => {
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const [customerdata, setCustomerdata] = useState([]);
   const [getLoading, setGetLoading] = useState(false);
   const [newDialog, setNewDialog] = useState(false);

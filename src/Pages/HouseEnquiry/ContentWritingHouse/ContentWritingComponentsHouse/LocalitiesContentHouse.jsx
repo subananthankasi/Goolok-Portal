@@ -45,7 +45,6 @@ const center = {
 };
 
 const LocalitiesContentHouse = ({ eid, id, status }) => {
-  const [text, setText] = useState("");
   const [newDialog, setNewDialog] = useState(false);
   const [deleteDialog, setDeleteDialog] = useState(false);
   const [editDialog, setEditDialog] = useState(false);
@@ -61,8 +60,7 @@ const LocalitiesContentHouse = ({ eid, id, status }) => {
 
   const autocompleteRef = useRef(null);
   const dispatch = useDispatch();
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
-
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const [mapMove, setMapMove] = useState(null);
   const [Location, setLocation] = useState([]);
   const [division, setDivision] = useState({});

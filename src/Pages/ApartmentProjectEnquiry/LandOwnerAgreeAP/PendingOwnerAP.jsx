@@ -14,9 +14,7 @@ import {
 } from "@syncfusion/ej2-react-grids";
 import Spinner from "react-bootstrap/Spinner";
 import axios from "axios";
-
 import { useNavigate } from "react-router-dom";
-
 import { ButtonGroup, Button, Whisper, Popover, Dropdown, IconButton } from 'rsuite';
 import ArrowDownIcon from '@rsuite/icons/ArrowDown';
 import API_BASE_URL from "../../../Api/api";
@@ -29,7 +27,7 @@ const PendingOwnerAP = () => {
 
   const [loading, setLoading] = useState(true);
   // staff id 
-  const staffid = JSON.parse(sessionStorage.getItem('token'));
+  const staffid = JSON.parse(localStorage.getItem('token'));
   const [pendingWaitingData, setPendingWaitingData] = useState([]);
 
   const fetchData = async () => {

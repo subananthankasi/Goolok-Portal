@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useFormik } from "formik";
 import * as yup from "yup";
 import Button from "@mui/material/Button";
@@ -11,17 +11,15 @@ import { fetchVillage } from '../../../../../Redux/Actions/MasterPage/VillageAct
 import Toast from '../../../../../Utils/Toast';
 import axios from 'axios';
 import API_BASE_URL from '../../../../../Api/api';
-import Spinner from "react-bootstrap/Spinner";
 
 const TitleDetails = ({ data }) => {
-    const staffid = JSON.parse(sessionStorage.getItem("token"));
+    const staffid = JSON.parse(localStorage.getItem("token"));
     const dispatch = useDispatch();
     const StateData = useSelector((state) => state.State.StateNameData);
     const DistrictData = useSelector((state) => state.District.districtData);
     const talukData = useSelector((state) => state.Taluk.TalukData);
     const VillageData = useSelector((state) => state.Village.villageData);
     const [titeleData, setTitledata] = useState([])
-
     const [sroData, setSroData] = useState([])
 
     const fetchSro = async () => {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import  { useEffect, useState } from 'react'
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
     GridComponent,
@@ -12,8 +12,8 @@ import {
     Page,
     Filter,
 } from "@syncfusion/ej2-react-grids";
-import { useDispatch, useSelector } from 'react-redux';
-import {  pricingWaitingThunk } from '../../../Redux/Actions/Enquiry/PricingEnquiryThunk';
+import { useDispatch } from 'react-redux';
+import { pricingWaitingThunk } from '../../../Redux/Actions/Enquiry/PricingEnquiryThunk';
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -27,9 +27,6 @@ const WaitingPricingCom = () => {
 
     const dispatch = useDispatch()
     const [WaitingData, setWaitingData] = useState([])
-    const navigate = useNavigate()
-
-
     useEffect(() => {
         dispatch(pricingWaitingThunk())
     }, [])
@@ -56,9 +53,7 @@ const WaitingPricingCom = () => {
 
     const statusPopup = StatusModalOpen;
 
-    const staffid = JSON.parse(sessionStorage.getItem('token'));
-
-
+    const staffid = JSON.parse(localStorage.getItem('token'));
     const toolbarOptions = ["ExcelExport", "PdfExport", "Search"];
 
     let gridInstance;
@@ -74,6 +69,8 @@ const WaitingPricingCom = () => {
             case "DefaultExport_csvexport":
                 gridInstance.csvExport();
                 break;
+            default:
+                break;
         }
     }
     const filterSettings = { type: "Excel" };
@@ -87,27 +84,27 @@ const WaitingPricingCom = () => {
     };
 
 
-    const fetchData = async() =>{ 
-        try{
-            const response = await axios.get(`${API_BASE_URL}/pricingdpt/new`,{
-                headers : {
-                    "Pr-Root" : "commercial"
+    const fetchData = async () => {
+        try {
+            const response = await axios.get(`${API_BASE_URL}/pricingdpt/new`, {
+                headers: {
+                    "Pr-Root": "commercial"
                 }
             })
             // setLoading(false); 
             setWaitingData(
-              response.data?.map((data, index) => ({
-                ...data,
-                sno: index + 1
-              })))
-        }catch(error){
+                response.data?.map((data, index) => ({
+                    ...data,
+                    sno: index + 1
+                })))
+        } catch (error) {
             // setLoading(false); 
             console.error(error)
-        } 
-}
-  useEffect(() => {
-    fetchData()
-  }, []);
+        }
+    }
+    useEffect(() => {
+        fetchData()
+    }, []);
 
 
 
@@ -124,7 +121,7 @@ const WaitingPricingCom = () => {
             fetchData()
             Toast({ message: "Successfully Updated", type: "success" })
         } catch (error) {
-        
+
             Toast({ message: "Failed to update", type: "error" })
         }
     }

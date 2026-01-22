@@ -13,7 +13,6 @@ import {
     Filter,
 } from "@syncfusion/ej2-react-grids";
 import Spinner from "react-bootstrap/Spinner";
-import { useDispatch, useSelector } from "react-redux";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import axios from "axios";
@@ -22,16 +21,11 @@ import Toast from "../../../Utils/Toast";
 import ConfirmationModal from "../../../Utils/ConfirmationModal";
 import AlertPop from "../../../Utils/AlertPop";
 import FileView from "../../../Utils/FileView/FileView";
-// import API_BASE_URL, { IMG_PATH } from "../../../../Api/api";
-// import Toast from "../../../../Utils/Toast";
-// import ConfirmationModal from "../../../../Utils/ConfirmationModal";
-// import AlertPop from "../../../../Utils/AlertPop";
-// import FileView from "../../../../Utils/FileView/FileView";
 
 
 const WaitingDocPlot = () => {
 
-    const staffid = JSON.parse(sessionStorage.getItem('token'));
+    const staffid = JSON.parse(localStorage.getItem('token'));
     const [loading, setLoading] = useState(true);
 
 
@@ -110,6 +104,8 @@ const WaitingDocPlot = () => {
                 break;
             case "DefaultExport_csvexport":
                 gridInstance.csvExport();
+                break;
+            default:
                 break;
         }
     }
@@ -231,6 +227,11 @@ const WaitingDocPlot = () => {
                                                     <ColumnDirective
                                                         field="customer"
                                                         headerText="Customer Name"
+                                                        width="150"
+                                                    />
+                                                    <ColumnDirective
+                                                        field="age"
+                                                        headerText="Age"
                                                         width="150"
                                                     />
                                                     <ColumnDirective

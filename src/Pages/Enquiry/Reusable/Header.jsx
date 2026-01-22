@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchEnquiryDocument } from "../../../Redux/Actions/Enquiry/enquiryReportAction";
 import { useNavigate } from "react-router-dom";
@@ -6,13 +6,12 @@ import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import Spinner from "react-bootstrap/Spinner";
 import sold from "../../../Assets/images/sold.png";
 import booking from "../../../Assets/images/booking.png";
-import live from "../../../Assets/images/live.webp";
+
 
 export const Header = ({ eid }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const [loadingPage, setLoadingPage] = useState(false);
 
   const enquiryDoumentData = useSelector(

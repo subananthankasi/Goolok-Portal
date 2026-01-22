@@ -1,23 +1,17 @@
-import React, { useRef, useState } from "react";
+import  { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { pricingConfirmThunk } from "../../../../Redux/Actions/Enquiry/pricingConfirmThunk";
 import Toast from "../../../../Utils/Toast";
-import { ProjectDetailsOwnerPricingCom } from "./ProjectDetailsOwnerPricingCom";
 import PricingDepartmentCom from "./PricingDepartmentCom";
-import PaymentSchedulePricingCom from "./PaymentSchedulePricingCom";
 import PaymentScheduleDaysCom from "./PaymentScheduleDaysCom";
-import { OtherProjectPricingCom } from "./OtherProjectPricingCom";
-import PhaseCostPricingCom from "./PhaseCostPricingCom";
 import ConfirmationModal from "../../../../Utils/ConfirmationModal";
-import NewPricingDepartment from "./NewPricingDepartment";
 
 
 const WholePricingDptCommercial = ({ eid, status, id, pagetype, subtype, discountPage }) => {
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const toast = useRef();
   const confirmLoading = useSelector((state) => state.pricingConfirm?.loading)
   const [verifyConfirm, setIsVerifyConfirm] = useState(false);
   const handleConfirm = async () => {

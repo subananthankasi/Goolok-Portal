@@ -1,12 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
+import  { useEffect, useRef, useState } from "react";
 import DataTable from "react-data-table-component";
-import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { Dialog } from "primereact/dialog";
 import Button from "@mui/material/Button";
-import { DateFormatcustom } from "../../../../Utils/DateFormatcustom";
 import customStyle from "../../../../Utils/tableStyle";
 import API_BASE_URL, { IMG_PATH } from "../../../../Api/api";
 import axios from "axios";
@@ -23,12 +21,11 @@ import FileViewUtils from "../../../../Utils/FileView/FileViewUtils";
 import { useSelector } from "react-redux";
 
 const PattaComponent = ({ eid, id, status, pagetype }) => {
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const pattaref = useRef(null)
   const [editing, setEditing] = useState(false)
   const [fillDialog, setFillDialog] = useState(false);
   const [visible, setVisible] = useState(false)
-  const [editDialog, setEditDialog] = useState(false);
   const [deleteDialog, setDeleteDialog] = useState(false)
   const [deleteId, setdeleteId] = useState(null)
   const [getData, setGetData] = useState([])

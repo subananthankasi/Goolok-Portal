@@ -29,7 +29,7 @@ function CompleteDocHouse() {
   const dispatch = useDispatch();
   const [enquiryDataFromWebsite, setenquiryDataFromWebsite] = useState([])
   // staff id 
-  const staffid = JSON.parse(sessionStorage.getItem('token'));
+  const staffid = JSON.parse(localStorage.getItem('token'));
 
   useEffect(() => {
     const fetchData = async () => {
@@ -72,6 +72,8 @@ function CompleteDocHouse() {
       case "DefaultExport_csvexport":
         gridInstance.csvExport();
         break;
+      default:
+        break;
     }
   }
 
@@ -83,7 +85,7 @@ function CompleteDocHouse() {
 
   const handleRowSelect = (args) => {
     const rowData = args.data;
-     navigate(`/house_document/${encryptData(rowData.id)}/${encryptData(rowData.userid)}/${encryptData("complete")}`);
+    navigate(`/house_document/${encryptData(rowData.id)}/${encryptData(rowData.userid)}/${encryptData("complete")}`);
   };
 
 
@@ -139,6 +141,11 @@ function CompleteDocHouse() {
                           <ColumnDirective
                             field="customer"
                             headerText="Customer Name"
+                            width="150"
+                          />
+                          <ColumnDirective
+                            field="age"
+                            headerText="Age"
                             width="150"
                           />
                           <ColumnDirective

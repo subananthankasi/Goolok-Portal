@@ -3,7 +3,7 @@ import AdminTicketTele from './AdminTicketTele';
 import StaffTicketsTele from './StaffTicketsTele';
 
 const RegistrationTicketTele = () => {
-   const staffid = JSON.parse(sessionStorage.getItem("token"));
+   const staffid = JSON.parse(localStorage.getItem("token"));
   return (
     <div>
     {staffid.Login ==="admin" ?(<AdminTicketTele/> ):(<StaffTicketsTele/> )}

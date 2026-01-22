@@ -28,7 +28,7 @@ import { Link } from "react-router-dom";
 
 function WaitingRegAsale() {
 
-    const staffid = JSON.parse(sessionStorage.getItem('token'));
+    const staffid = JSON.parse(localStorage.getItem('token'));
     const [loading, setLoading] = useState(true);
 
 

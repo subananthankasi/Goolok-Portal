@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
 import Button from "@mui/material/Button";
 import { Dialog } from "primereact/dialog";
 import { useFormik } from "formik";
@@ -8,7 +7,7 @@ import * as yup from "yup";
 import axios from "axios";
 import API_BASE_URL from "../../../../Api/api";
 import Toast from "../../../../Utils/Toast";
-import { Table, Pagination } from "rsuite";
+import { Table } from "rsuite";
 const { Column, ColumnGroup, HeaderCell, Cell } = Table;
 
 export const ProjectDetailsOwnerPricingLayout = ({
@@ -17,7 +16,7 @@ export const ProjectDetailsOwnerPricingLayout = ({
   status,
   pagetype,
 }) => {
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
 
   const [newDialog, setNewDialog] = useState(false);
   const [deleteDialog, setDeleteDialog] = useState(false);

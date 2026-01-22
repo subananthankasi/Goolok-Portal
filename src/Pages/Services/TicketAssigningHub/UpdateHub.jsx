@@ -1,8 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   enquiryStatusUpdate,
-  fetchEnquiryDocument,
 } from "../../../Redux/Actions/Enquiry/enquiryReportAction";
 import API_BASE_URL, { IMG_PATH } from "../../../Api/api";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
@@ -17,11 +16,8 @@ import { DateFormatcustom } from "../../../Utils/DateFormatcustom";
 import ConfirmationModal from "../../../Utils/ConfirmationModal";
 import Spinner from "react-bootstrap/Spinner";
 import Toast from "../../../Utils/Toast";
-import { AgeCalculate } from "../../../Utils/AgeCalculate";
 import AlertPop from "../../../Utils/AlertPop";
-import AddIcon from "@mui/icons-material/Add";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import { decryptData } from "../../../Utils/encrypt";
 import { Dialog } from "primereact/dialog";
 import { useFormik } from "formik";
 import * as yup from "yup";
@@ -39,16 +35,9 @@ import TicketAssigning from "./TicketComponent/TicketAssigning";
 const UpdateHub = ({ pagetype }) => {
   const dispatch = useDispatch();
   const { eid, id, status } = useParams();
-  const decryEid = decryptData(eid);
-
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const [loadingPage, setLoadingPage] = useState(true);
   const [isAddMoreDetails, setIsAddMoreDetails] = useState(false);
-  const [isAddMoreDetailsView, setIsAddMoreDetailsView] = useState(false);
-
-  // const enquiryDoumentData = useSelector(
-  //     (state) => state.Enquiry.enquiryDocument
-  // );
   const [enquiryDoumentData, setEnquiryDocumentData] = useState([]);
 
   const [loading, setLoading] = useState(true);
@@ -229,12 +218,6 @@ const UpdateHub = ({ pagetype }) => {
               <button
                 type="button"
                 className="btn btn-primary rounded-0"
-                // onClick={() => {
-                //   if (row.document) {
-                //     setIsModalAddMoreView(true);
-                //     setDocId(row);
-                //   }
-                // }}
                 onClick={handleClickView}
               >
                 View
@@ -883,9 +866,7 @@ const AddDocumentModel = ({
   eid,
   fetchWholedata,
 }) => {
-  // const staffid = JSON.parse(sessionStorage.getItem("token"));
 
-  const dispatch = useDispatch();
   const fileInputRef = useRef(null);
 
   const [loading, setLoading] = useState(false);

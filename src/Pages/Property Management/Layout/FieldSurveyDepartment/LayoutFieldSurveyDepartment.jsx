@@ -30,7 +30,7 @@ function LayoutFieldSurveyDepartment() {
     const pid = queryParams.get("pid");
     const status = queryParams.get("status");
     
-    const staffid = JSON.parse(sessionStorage.getItem('token')); 
+    const staffid = JSON.parse(localStorage.getItem('token')); 
    useEffect(() => {
     const fetchData = async () => {
       try {

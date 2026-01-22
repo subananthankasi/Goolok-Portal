@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useMemo } from "react";
+import { useEffect, useState, useRef, useMemo } from "react";
 import DataTable from "react-data-table-component";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import VisibilityIcon from "@mui/icons-material/Visibility";
@@ -7,7 +7,6 @@ import Select from "react-select";
 import Spinner from "react-bootstrap/Spinner";
 import axios from "axios";
 import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import logo from "../../../Assets/images/Goolok Final Logo.png";
@@ -20,7 +19,7 @@ import Toast from "../../../Utils/Toast";
 import customStyle from "../../../Utils/tableStyle";
 
 export const LegalDetailsTele = ({ eid, id, status, pagetype }) => {
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const contentRef = useRef();
   const [invoiceData, setInvoiceData] = useState([]);
 

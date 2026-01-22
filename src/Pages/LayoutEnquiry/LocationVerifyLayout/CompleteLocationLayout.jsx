@@ -23,7 +23,7 @@ import { encryptData } from "../../../Utils/encrypt";
 
 const CompleteLocationLayout = () => {
 
-  const staffid = JSON.parse(sessionStorage.getItem('token'));
+  const staffid = JSON.parse(localStorage.getItem('token'));
   const [loading, setLoading] = useState(true);
   const [completeData, setCompleteData] = useState([]);
 

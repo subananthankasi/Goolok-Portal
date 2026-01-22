@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
     GridComponent,
     ColumnsDirective,
@@ -13,17 +13,13 @@ import {
 } from "@syncfusion/ej2-react-grids";
 import Spinner from "react-bootstrap/Spinner";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
-// import ServiceWaitingPopup from '../../../Utils/ServiceWaitingPopup';
-// import ConfirmationModal from '../../../Utils/ConfirmationModal';
-// import Toast from '../../../Utils/Toast';
 import axios from 'axios';
 import API_BASE_URL from '../../../../Api/api';
 import Toast from '../../../../Utils/Toast';
 import ConfirmationModal from '../../../../Utils/ConfirmationModal';
-// import API_BASE_URL from '../../../Api/api';
 
 const WaitingLocSurvey = () => {
-    const staffid = JSON.parse(sessionStorage.getItem('token'));
+    const staffid = JSON.parse(localStorage.getItem('token'));
     const [loading, setLoading] = useState(false);
     const [locationWaitingData, setLocationWaitingData] = useState([])
 
@@ -83,6 +79,8 @@ const WaitingLocSurvey = () => {
                 break;
             case "DefaultExport_csvexport":
                 gridInstance.csvExport();
+                break;
+            default:
                 break;
         }
     }
@@ -203,7 +201,7 @@ const WaitingLocSurvey = () => {
                                                     />
                                                     <ColumnDirective field='service_cat' headerText='Service' width='150' />
 
-                                                    {staffid?.logintype == "staff" &&
+                                                    {staffid?.logintype === "staff" &&
                                                         <ColumnDirective
                                                             headerText="Take task"
                                                             width="160"

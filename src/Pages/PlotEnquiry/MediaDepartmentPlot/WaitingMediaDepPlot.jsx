@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
     GridComponent,
@@ -13,11 +13,8 @@ import {
     Filter,
 } from "@syncfusion/ej2-react-grids";
 import { useDispatch, useSelector } from 'react-redux';
-
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
-
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 import API_BASE_URL from '../../../Api/api';
 import Toast from '../../../Utils/Toast';
 import { mediaWaitingThunk } from '../../../Redux/Actions/Enquiry/MediaDptEnq/MediaDptEnqThunk';
@@ -28,17 +25,12 @@ import ConfirmationModal from '../../../Utils/ConfirmationModal';
 
 const WaitingMediaDepPlot = () => {
 
-    const staffid = JSON.parse(sessionStorage.getItem('token'));
+    const staffid = JSON.parse(localStorage.getItem('token'));
     const dispatch = useDispatch()
-
-
     const toolbarOptions = ["ExcelExport", "PdfExport", "Search"];
-
-
     const [WaitingData, setWaitingData] = useState([])
     const [docId, setDocId] = useState("");
     const [isModalTakeTask, setIsModalTakeTask] = useState(false);
-    const navigate = useNavigate()
     let gridInstance;
 
 

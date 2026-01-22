@@ -15,7 +15,7 @@ import DescriptionIcon from "@mui/icons-material/Description";
 import { ThreeCircles } from "react-loader-spinner";
 
 const InvoiceScheduleAsale = ({ eid, bookingid, status,pagetype }) => {
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const [invoiceData, setInvoiceData] = useState([]);
   const [fillView, setFillView] = useState(false);
   const [editFillView, setEditFillView] = useState(false);

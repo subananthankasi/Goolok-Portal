@@ -1,6 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import DataTable from "react-data-table-component";
-import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useFormik } from "formik";
 import * as yup from "yup";
@@ -17,12 +16,11 @@ import AlertPop from "../../../../../Utils/AlertPop";
 import customStyle from "../../../../../Utils/tableStyle";
 import FileViewUtils from "../../../../../Utils/FileView/FileViewUtils";
 import ApplicationDetailSurvey from "./ApplicationDetailSurvey";
-import SurveyNoSurvey from "./SurveyNoSurvey";
 import TalukDetailsSurvey from "./TalukDetailsSurvey";
 import { useSelector } from "react-redux";
 
 const PattaComponentSurvey = ({ eid, id, status, pagetype }) => {
-    const staffid = JSON.parse(sessionStorage.getItem("token"));
+    const staffid = JSON.parse(localStorage.getItem("token"));
     const pattaref = useRef(null);
     const [editing, setEditing] = useState(false);
     const [fillDialog, setFillDialog] = useState(false);

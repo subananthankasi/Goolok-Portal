@@ -23,6 +23,7 @@ import { ButtonGroup, Button, Whisper, Popover, Dropdown, IconButton } from 'rsu
 import ArrowDownIcon from '@rsuite/icons/ArrowDown';
 import API_BASE_URL from "../../../../Api/api";
 import ClosedProperty from "../../../../Utils/ClosedProperty";
+import { encryptData } from "../../../../Utils/encrypt";
 const options = ['Progress', 'Closed'];
 
 const PendingDocValuation = () => {
@@ -45,9 +46,11 @@ const PendingDocValuation = () => {
             case "DefaultExport_csvexport":
                 gridInstance.csvExport();
                 break;
+            default:
+                break;
         }
     }
-    const staffid = JSON.parse(sessionStorage.getItem('token'));
+    const staffid = JSON.parse(localStorage.getItem('token'));
     const [enquiryDataFromWebsite, setenquiryDataFromWebsite] = useState([])
 
 
@@ -79,9 +82,8 @@ const PendingDocValuation = () => {
 
     const handleRowSelect = (args) => {
         const rowData = args.data;
-        navigate(`/update_document_valuation/${rowData.id}/${rowData.userid}/pending`);
-
-
+        // navigate(`/update_document_valuation/${rowData.id}/${rowData.userid}/pending`);
+        navigate(`/update_document/${encryptData(rowData.id)}/${encryptData(rowData.userid)}/${encryptData('pending')}`);
     };
     const [action, setAction] = useState(0);
     const [visible, setVisible] = useState(false)
@@ -92,7 +94,7 @@ const PendingDocValuation = () => {
     }
     return (
         <>
-             <ClosedProperty
+            <ClosedProperty
                 visible={visible}
                 onHide={() => { setVisible(false); setAction(0) }}
                 id={rowId}

@@ -12,9 +12,10 @@ export const validateLogin = async (formData) => {
                 }
             });
             const token = response.data;
-            sessionStorage.setItem('logintype', token.logintype);
-            sessionStorage.setItem('token', JSON.stringify(token));
+            localStorage.setItem('logintype', token.logintype);
             localStorage.setItem('token', JSON.stringify(token));
+            document.title =
+                token.logintype === "staff" ? "Goolok | Staff" : "Goolok | Admin";
             return { isValid: true };
         } catch (error) {
             return { isValid: false, errorMessage: "Login failed. Please try again later." };

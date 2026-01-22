@@ -1,14 +1,11 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-// import Toast from "../../../Utils/Toast";
-// import ConfirmationModal from "../../../Utils/ConfirmationModal";
 import {
     GoogleMap,
     useJsApiLoader,
     Autocomplete,
     Marker,
-    Polyline,
     Polygon,
     InfoWindow,
 } from "@react-google-maps/api";
@@ -16,7 +13,6 @@ import LocationSearchingIcon from "@mui/icons-material/LocationSearching";
 import Spinner from "react-bootstrap/Spinner";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { ThreeDots } from "react-loader-spinner";
 import { Dialog } from "primereact/dialog";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import API_BASE_URL from "../../../../../Api/api";
@@ -24,10 +20,7 @@ import ConfirmationModal from "../../../../../Utils/ConfirmationModal";
 import AlertPop from "../../../../../Utils/AlertPop";
 import Toast from "../../../../../Utils/Toast";
 import { useSelector } from "react-redux";
-// import API_BASE_URL from "../../../../Api/api";
-// import Toast from "../../../../Utils/Toast";
-// import ConfirmationModal from "../../../../Utils/ConfirmationModal";
-// import AlertPop from "../../../../Utils/AlertPop";
+
 
 const containerStyle = {
     width: "100%",
@@ -54,10 +47,8 @@ const GoogleLocationSelect = ({ eid, id, status, pagetype }) => {
     const [map, setMap] = useState(null);
     const [clickedLatLng, setClickedLatLng] = useState({});
     const [center, setCenter] = useState(initialCenter);
-
     const autocompleteRef = useRef(null);
-    const staffid = JSON.parse(sessionStorage.getItem("token"));
-
+    const staffid = JSON.parse(localStorage.getItem("token"));
     const [mapMove, setMapMove] = useState(null);
     const [Location, setLocation] = useState();
     const enquiryDoumentData = useSelector(

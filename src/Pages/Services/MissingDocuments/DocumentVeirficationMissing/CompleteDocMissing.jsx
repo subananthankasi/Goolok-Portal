@@ -41,6 +41,8 @@ const CompleteDocMissing = () => {
             case "DefaultExport_csvexport":
                 gridInstance.csvExport();
                 break;
+            default:
+                break;
         }
     }
 
@@ -55,7 +57,7 @@ const CompleteDocMissing = () => {
     const dispatch = useDispatch();
     const [enquiryDataFromWebsite, setenquiryDataFromWebsite] = useState([])
     // staff id 
-    const staffid = JSON.parse(sessionStorage.getItem('token'));
+    const staffid = JSON.parse(localStorage.getItem('token'));
 
     const fetchData = async () => {
         try {

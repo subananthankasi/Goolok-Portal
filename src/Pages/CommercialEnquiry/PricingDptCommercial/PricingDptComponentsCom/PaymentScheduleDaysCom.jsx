@@ -25,8 +25,7 @@ import Toast from "../../../../Utils/Toast";
 
 const PaymentScheduleDaysCom = ({ eid, status, pagetype }) => {
   const dispatch = useDispatch();
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
-
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const [newDialog, setNewDialog] = useState(false);
   const [deleteDialog, setDeleteDialog] = useState(false);
   const [deleteId, setDeleteId] = useState(null);

@@ -13,11 +13,8 @@ import ViewCancelPayment from "./ViewCancelPayment";
 
   ////for Model
 
-  
-
 function CancelPayment() {
 
-  
 
   const columns1 = [
     {

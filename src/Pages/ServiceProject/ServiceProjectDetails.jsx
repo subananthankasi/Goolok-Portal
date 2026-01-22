@@ -1,21 +1,18 @@
 import React from 'react'
 import { useParams } from 'react-router-dom';
 import { Header } from '../Enquiry/Reusable/Header';
-import ReminderDocumentVerification from '../Services/DocumentService/Reusable/ReminderDocumentVerification';
 import LocationSelectService from '../Services/LocationService/Locations/LocationSelectService';
 import WholeServiceConfirmation from '../Services/ServiceConfirm/ServiceComponent/WholeServiceConfirmation';
 import InvoiceComponent from '../Services/InvoiceService/InvoiceComponet/InvoiceComponent';
 import PattaComponent from '../Services/PattaApplication/PattaComponent/PattaComponent';
 import UpdateHub from '../Services/TicketAssigningHub/UpdateHub';
 import { LawyerOpinionUploadStage } from '../Services/LegalOpinion/LegalOpinionByLawyer/LawyerComponent/LawyerOpinionUploadStage';
-import ReminderDocVerifySurvey from '../Services/LandSurvey/DocumentLandSurvey/DocResubleSurvey/ReminderDocVerifySurvey';
 import LocationSurveySelect from '../Services/LandSurvey/LocationLandSurvey/LocSurveyResuble/LocationSurveySelect';
 import WholeServiceSurvey from '../Services/LandSurvey/ServiceConfirmSurvey/ConfirmSurvey/WholeServiceSurvey';
 import InvoiceComponentSurvey from '../Services/LandSurvey/InvoicePaymentSurvey/Component/InvoiceComponentSurvey';
 import PattaComponentSurvey from '../Services/LandSurvey/PattaApplication/PattaApplicationSurvey/PattaComponentSurvey';
 import { WholeMandatoryComponent } from '../Services/LandSurvey/MandodaryDocsSurvey/WholeManComponent/WholeMandatoryComponent';
 import WholeTicketSurvey from '../Services/LandSurvey/TicketAssignSurvey/TicketSurveyComponent/WholeTicketSurvey';
-import ReminderDocVerifyValution from '../Services/PropertyValuation/DocumentVerifyValuation/ValuationComponents/ReminderDocVerifyValution';
 import LocationSelectValuation from '../Services/PropertyValuation/LocationVerifyValuation/LocValComponent/LocationSelectValuation';
 import WholeServiceValuation from '../Services/PropertyValuation/ServiceConfirmationValuation/ServiceComponentValuation/WholeServiceValuation';
 import InvoiceComponentValuation from '../Services/PropertyValuation/InvoiceVerificationValuation/InvoiceValuComponent/InvoiceComponentValuation';
@@ -25,6 +22,7 @@ import LocationSelectMissingDocument from '../Services/MissingDocuments/Location
 import WholeServiceMissingComponent from '../Services/MissingDocuments/ServiceConfirmationMissing/ServiceComponentMissing/WholeServiceMissingComponent';
 import InvoiceComponentMissing from '../Services/MissingDocuments/InvoicePaymentMissing/InvoiceMissingComponent/InvoiceComponentMissing';
 import WholeTicketHubMissing from '../Services/MissingDocuments/TicketAssigningHubMissing/TicketComponentMissing/WholeTicketHubMissing';
+import WholeDocGetPatta from '../Services/DocumentService/GetPattaComponents/WholeDocGetPatta';
 
 const ServiceProjectDetails = () => {
     const { eid, id, status, category, } = useParams();
@@ -34,7 +32,8 @@ const ServiceProjectDetails = () => {
                 {category?.toLowerCase() === "find your property google map location" ? (
                     <>
                         <Header eid={eid} />
-                        <ReminderDocumentVerification id={id} eid={eid} status={status} />
+                        {/* <ReminderDocumentVerification id={id} eid={eid} status={status} /> */}
+                        <WholeDocGetPatta eid={eid} id={id} status={status} pagetype="reminder" />
                         <LocationSelectService
                             eid={eid}
                             id={id}
@@ -45,7 +44,8 @@ const ServiceProjectDetails = () => {
                 ) : category?.toLowerCase() === "get patta for your property" ? (
                     <>
                         <Header eid={eid} />
-                        <ReminderDocumentVerification id={id} eid={eid} status={status} />
+                        {/* <ReminderDocumentVerification id={id} eid={eid} status={status} /> */}
+                        <WholeDocGetPatta eid={eid} id={id} status={status} pagetype="reminder" />
                         <LocationSelectService
                             eid={eid}
                             id={id}
@@ -75,7 +75,8 @@ const ServiceProjectDetails = () => {
                 ) : category?.toLowerCase() === "legal opinion" ? (
                     <>
                         <Header eid={eid} />
-                        <ReminderDocumentVerification id={id} eid={eid} status={status} />
+                        {/* <ReminderDocumentVerification id={id} eid={eid} status={status} /> */}
+                        <WholeDocGetPatta eid={eid} id={id} status={status} pagetype="reminder" />
                         <LocationSelectService
                             eid={eid}
                             id={id}
@@ -103,7 +104,8 @@ const ServiceProjectDetails = () => {
                 ) : category?.toLowerCase() === "land survey" ? (
                     <>
                         <Header eid={eid} />
-                        <ReminderDocVerifySurvey id={id} eid={eid} status={status} />
+                        {/* <ReminderDocVerifySurvey id={id} eid={eid} status={status} /> */}
+                        <WholeDocGetPatta eid={eid} id={id} status={status} pagetype="reminder" />
                         <LocationSurveySelect
                             eid={eid}
                             id={id}
@@ -134,7 +136,8 @@ const ServiceProjectDetails = () => {
                 ) : category?.toLowerCase() === "property valuation" ? (
                     <>
                         <Header eid={eid} />
-                        <ReminderDocVerifyValution id={id} eid={eid} status={status} />
+                        {/* <ReminderDocVerifyValution id={id} eid={eid} status={status} /> */}
+                        <WholeDocGetPatta eid={eid} id={id} status={status} pagetype="reminder" />
                         <LocationSelectValuation
                             eid={eid}
                             id={id}

@@ -14,7 +14,7 @@ import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import { useSelector } from "react-redux";
 
 const SurveyVideo = ({ eid, id, status, pagetype }) => {
-    const staffid = JSON.parse(sessionStorage.getItem("token"));
+    const staffid = JSON.parse(localStorage.getItem("token"));
     const [editing, setEditing] = useState(false);
     const [newDialog, setNewDialog] = useState(false);
     const [editDialog, setEditDialog] = useState(false);

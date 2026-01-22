@@ -2,7 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import API_BASE_URL from "../../../../Api/api";
 
-const staffid = JSON.parse(sessionStorage.getItem('token'));
+const staffid = JSON.parse(localStorage.getItem('token'));
 
 export const contentWritingWaitingThunk = createAsyncThunk('contentWritingWaitingThunk/data',
     async () => {

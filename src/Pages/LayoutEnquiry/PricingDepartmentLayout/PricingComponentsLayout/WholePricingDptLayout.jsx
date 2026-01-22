@@ -1,20 +1,17 @@
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { pricingConfirmThunk } from "../../../../Redux/Actions/Enquiry/pricingConfirmThunk";
 import Toast from "../../../../Utils/Toast";
-import { ProjectDetailsOwnerPricingLayout } from "./ProjectDetailsOwnerPricingLayout";
 import PricingDepartmentLayout from "./PricingDepartmentLayout";
-import PaymentSchedulePricingLayout from "./PaymentSchedulePricingLayout";
 import PaymentScheduleDaysLayout from "./PaymentScheduleDaysLayout";
 import PhaseCostPricingLayout from "./PhaseCostPricingLayout";
 import ConfirmationModal from "../../../../Utils/ConfirmationModal";
 
 const WholePricingDptLayout = ({ eid, status, id, pagetype, discountPage }) => {
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const toast = useRef();
   const confirmLoading = useSelector((state) => state.pricingConfirm?.loading)
   const [verifyConfirm, setIsVerifyConfirm] = useState(false);
   const handleConfirm = async () => {
@@ -25,13 +22,9 @@ const WholePricingDptLayout = ({ eid, status, id, pagetype, discountPage }) => {
     try {
       const response = await dispatch(pricingConfirmThunk(payload));
       if (pricingConfirmThunk.fulfilled.match(response)) {
-        const message = response.payload.data;
         Toast({ message: "Successfully Submited", type: "success" });
         navigate("/layout_pricing#Complete");
       } else if (pricingConfirmThunk.rejected.match(response)) {
-        const errorPayload =
-          response?.payload?.reason?.response?.data?.messages?.error;
-
         Toast({ message: "rejected", type: "error" });
       }
     } catch (error) {

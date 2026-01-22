@@ -1,7 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import axios from "axios";
 import EditIcon from "@mui/icons-material/Edit";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
@@ -18,7 +16,6 @@ import { fetchTaluk } from "../../../../Redux/Actions/MasterPage/TalukAction";
 import { fetchVillage } from "../../../../Redux/Actions/MasterPage/VillageAction";
 import Toast from "../../../../Utils/Toast";
 import customStyle from "../../../../Utils/tableStyle";
-import { Input, InputGroup } from "rsuite";
 import { ThreeDots } from "react-loader-spinner";
 import GeneralState from "../../../../Utils/Dropdown/GeneralState";
 import GeneralDistrict from "../../../../Utils/Dropdown/GeneralDistrict";
@@ -30,7 +27,7 @@ import GeneralSroDropdown from "../../../../Utils/Dropdown/GeneralSroDropdown";
 
 
 const LandOwnerDraftAP = ({ eid, id, status, subtype, pagetype }) => {
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const [newDialog, setNewDialog] = useState(false);
   const [editDialog, setEditDialog] = useState(false);
   const [isEditing, setIsEditing] = useState(false);

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
   GridComponent,
@@ -11,7 +11,6 @@ import {
   Sort,
   Page,
   Filter,
-  colGroup,
 } from "@syncfusion/ej2-react-grids";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -23,14 +22,10 @@ import { encryptData } from "../../../Utils/encrypt";
 
 const CompleteLocCom = () => {
 
-  const staffid = JSON.parse(sessionStorage.getItem('token'));
+  const staffid = JSON.parse(localStorage.getItem('token'));
   const [loading, setLoading] = useState(true);
   const [completeData, setCompleteData] = useState([]);
-
-  const dispatch = useDispatch()
   const navigate = useNavigate();
-
-
   const fetchData = async () => {
     try {
       const response = await axios.get(`${API_BASE_URL}/location?id=${staffid.loginid}&status=complete`, {

@@ -298,7 +298,7 @@ const PropertyCharges = ({basicDetails,surveyDetails,statusType}) => {
 
   };
 
-  const staffid = JSON.parse(sessionStorage.getItem('token')); 
+  const staffid = JSON.parse(localStorage.getItem('token')); 
 
   return (
     <div>

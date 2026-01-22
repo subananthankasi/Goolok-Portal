@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
   GridComponent,
@@ -19,30 +19,30 @@ import { useNavigate } from "react-router-dom";
 import API_BASE_URL from "../../../Api/api";
 import { encryptData } from "../../../Utils/encrypt";
 
-
-
-
 function CompleteDocCom() {
   const [loading, setLoading] = useState(true);
 
-
   const dispatch = useDispatch();
-  const [enquiryDataFromWebsite, setenquiryDataFromWebsite] = useState([])
-  // staff id 
-  const staffid = JSON.parse(sessionStorage.getItem('token'));
-
+  const [enquiryDataFromWebsite, setenquiryDataFromWebsite] = useState([]);
+  // staff id
+  const staffid = JSON.parse(localStorage.getItem("token"));
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${API_BASE_URL}/enquiryreport?id=${staffid.loginid}&status=complete`, {
-          headers: {
-            "Gl-status": 'commercial'
+        const response = await axios.get(
+          `${API_BASE_URL}/enquiryreport?id=${staffid.loginid}&status=complete`,
+          {
+            headers: {
+              "Gl-status": "commercial",
+            },
           }
-        })
-        setenquiryDataFromWebsite(response.data?.map((data, index) => ({
-          ...data,
-          sno: index + 1
-        })))
+        );
+        setenquiryDataFromWebsite(
+          response.data?.map((data, index) => ({
+            ...data,
+            sno: index + 1,
+          }))
+        );
         setLoading(false);
       } catch (error) {
         setLoading(false);
@@ -51,10 +51,6 @@ function CompleteDocCom() {
 
     fetchData();
   }, [dispatch, staffid.loginid]);
-
-
-
-
 
   const filterSettings = { type: "Excel" };
   const toolbarOptions = ["ExcelExport", "PdfExport", "Search"];
@@ -75,21 +71,19 @@ function CompleteDocCom() {
     }
   }
 
-
-
-
-
   const navigate = useNavigate();
 
   const handleRowSelect = (args) => {
     const rowData = args.data;
-     navigate(`/commercial_document/${encryptData(rowData.id)}/${encryptData(rowData.userid)}/${encryptData("complete")}`);
+    navigate(
+      `/commercial_document/${encryptData(rowData.id)}/${encryptData(
+        rowData.userid
+      )}/${encryptData("complete")}`
+    );
   };
-
 
   return (
     <>
-
       <section className="section1">
         <div className=" ">
           <div className="row">
@@ -142,6 +136,11 @@ function CompleteDocCom() {
                             width="150"
                           />
                           <ColumnDirective
+                            field="age"
+                            headerText="Age"
+                            width="150"
+                          />
+                          <ColumnDirective
                             field="mobile"
                             headerText="Mobile"
                             width="150"
@@ -166,7 +165,6 @@ function CompleteDocCom() {
                             headerText="Sub Property"
                             width="150"
                           />
-
                         </ColumnsDirective>
                         <Inject
                           services={[
@@ -192,5 +190,3 @@ function CompleteDocCom() {
 }
 
 export default CompleteDocCom;
-
-

@@ -16,7 +16,7 @@ import { DatePicker } from "antd";
 import dayjs from "dayjs";
 
 const LandOwnerAgreeDetailsLayout = ({ eid, id, status, pagetype }) => {
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
 
   const [newDialog, setNewDialog] = useState(false);
   const [deleteDialog, setDeleteDialog] = useState(false);

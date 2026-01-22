@@ -32,7 +32,7 @@ function LayoutMediaDepartment() {
   const id = queryParams.get("id");
   const status = queryParams.get("status");
   const projectid = queryParams.get("projectid");
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
 
   const columns = [
     {

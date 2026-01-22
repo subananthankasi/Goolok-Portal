@@ -25,20 +25,15 @@ export const CleranceDateLawyer = (props) => {
     const filterSettings = { type: "Excel" };
     const toolbarOptions = [options];
 
-    // const editSettings = {
-    //   allowEditing: props.data.status == "complete" ? false : true,
-    //   mode: 'Dialog',
-    //   template: dialogTemplate,
-    // };
-    const staffid = JSON.parse(sessionStorage.getItem("token"));
+    const staffid = JSON.parse(localStorage.getItem("token"));
     const enquiryDoumentData = useSelector(
         (state) => state.Enquiry.enquiryDocument
     );
     const editSettings = {
         allowEditing:
-            props.data.status == "pending" ||
-                (props.data.status == "complete" &&
-                    staffid.Login == "staff" &&
+            props.data.status === "pending" ||
+                (props.data.status === "complete" &&
+                    staffid.Login === "staff" &&
                     enquiryDoumentData?.status !== "live")
                 ? true
                 : false,

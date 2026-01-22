@@ -135,7 +135,7 @@ const DescriptionContentAP = ({ eid, id, status }) => {
     updateDataAsync();
   }, [triggerChild]);
 
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
 
   return (
     <>

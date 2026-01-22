@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Button from "@mui/material/Button";
@@ -9,17 +9,12 @@ import axios from "axios";
 import API_BASE_URL from "../../../../../../Api/api";
 import Toast from "../../../../../../Utils/Toast";
 import { useSelector } from "react-redux";
-// import API_BASE_URL from '../../../../../Api/api';
-// import Toast from '../../../../../Utils/Toast';
+
 
 const UploadFmp = ({ eid, id, rowId, status, pagetype }) => {
-    const staffid = JSON.parse(sessionStorage.getItem("token"));
-
-    const [newDialog, setNewDialog] = useState(false);
+    const staffid = JSON.parse(localStorage.getItem("token"));
     const [deleteDialog, setDeleteDialog] = useState(false);
     const [deleteId, setDeleteId] = useState(null);
-    const [editDialog, setEditDialog] = useState(false);
-    const [editing, setEditing] = useState(false);
     const [getData, setGetData] = useState([]);
     const [showForm, setShowForm] = useState(false);
     const enquiryDoumentData = useSelector(

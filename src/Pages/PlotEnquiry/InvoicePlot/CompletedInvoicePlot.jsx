@@ -22,7 +22,7 @@ import { encryptData } from "../../../Utils/encrypt";
 // import { encryptData } from "../../../../Utils/encrypt";
 
 const CompletedInvoicePlot = () => {
-    const staffid = JSON.parse(sessionStorage.getItem('token'));
+    const staffid = JSON.parse(localStorage.getItem('token'));
 
     const [completeData, setCompleteData] = useState([]);
 

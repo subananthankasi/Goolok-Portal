@@ -9,7 +9,7 @@ import axios from 'axios';
 
 
 const AadharDetailsLayout = ({ data, clearFormRef, isOpen }) => {
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const [isLoading, setIsLoading] = useState(true);
   const [aadharData, setAadharData] = useState([]);
 

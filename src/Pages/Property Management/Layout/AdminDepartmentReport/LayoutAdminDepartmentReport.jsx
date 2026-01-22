@@ -30,7 +30,7 @@ function LayoutAdminDepartmentReport() {
     }));
     setLoading(true)
 }, [location.search]);
-  const staffid = JSON.parse(sessionStorage.getItem('token'));
+  const staffid = JSON.parse(localStorage.getItem('token'));
  
   const [data, setData] = useState([]); 
   

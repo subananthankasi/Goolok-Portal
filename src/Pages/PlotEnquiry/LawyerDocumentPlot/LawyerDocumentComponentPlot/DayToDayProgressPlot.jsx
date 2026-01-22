@@ -14,7 +14,7 @@ import dayjs from "dayjs";
 import { useSelector } from "react-redux";
 
 export const DayToDayProgressPlot = (props) => {
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const enquiryDoumentData = useSelector(
     (state) => state.Enquiry.enquiryDocument
   );

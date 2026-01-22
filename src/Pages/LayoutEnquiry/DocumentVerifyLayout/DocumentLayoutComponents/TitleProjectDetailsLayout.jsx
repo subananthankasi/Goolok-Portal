@@ -10,7 +10,7 @@ import API_BASE_URL from "../../../../Api/api";
 import Toast from "../../../../Utils/Toast";
 
 const TitleProjectDetailsLayout = ({ data }) => {
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const dispatch = useDispatch();
 
   const [prDetails, setPrDetails] = useState([]);

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -7,10 +7,6 @@ import * as yup from "yup";
 import { Dialog } from "primereact/dialog";
 import Button from "@mui/material/Button";
 import axios from "axios";
-// import API_BASE_URL from "../../../../Api/api";
-// import Toast from "../../../../Utils/Toast";
-// import { DateFormatcustom } from "../../../../Utils/DateFormatcustom";
-// import customStyle from "../../../../Utils/tableStyle";
 import DatePicker from "react-datepicker";
 import { ThreeCircles } from "react-loader-spinner";
 import { DateFormatcustom } from "../../../Utils/DateFormatcustom";
@@ -26,7 +22,7 @@ const CustomerDateTele = ({
   bookingid,
   pagetype,
 }) => {
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const [editing, setEditing] = useState(false);
   const [newDialog, setNewDialog] = useState(false);
   const [editDialog, setEditDialog] = useState(false);

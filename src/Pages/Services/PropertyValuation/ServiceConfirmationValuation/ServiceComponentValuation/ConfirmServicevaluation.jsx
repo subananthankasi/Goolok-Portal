@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -14,7 +14,7 @@ import customStyle from "../../../../../Utils/tableStyle";
 import { useSelector } from "react-redux";
 
 const ConfirmServicevaluation = ({ eid, id, status, pagetype }) => {
-    const staffid = JSON.parse(sessionStorage.getItem("token"));
+    const staffid = JSON.parse(localStorage.getItem("token"));
     const [editing, setEditing] = useState(false);
     const [newDialog, setNewDialog] = useState(false);
     const [editDialog, setEditDialog] = useState(false);

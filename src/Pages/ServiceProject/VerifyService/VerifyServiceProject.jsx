@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+import { Link } from "react-router-dom";
 import "react-circular-progressbar/dist/styles.css";
 import {
   GridComponent,
@@ -17,34 +16,26 @@ import {
 import axios from "axios";
 import API_BASE_URL from "../../../Api/api";
 import Spinner from "react-bootstrap/Spinner";
-// import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
 import "primereact/resources/themes/lara-light-cyan/theme.css";
 import { useDispatch, useSelector } from "react-redux";
 import {
   projectServiceVerifyThunk,
-  projectVerifyThunk,
 } from "../../../Redux/Actions/ProjectThunk/ProjectThunk";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
-// import { Dialog } from "primereact/dialog";
 import Button from "@mui/material/Button";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import Toast from "../../../Utils/Toast";
 import {
-  projectStatusThunk,
   ServiceProjectStatusThunk,
 } from "../../../Redux/Actions/ProjectThunk/ProjectStatusThunk";
 
 const VerifyServiceProject = () => {
-  const { eid, id, status } = useParams();
-
   const [data, SetData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [confirmDialog, setConfirmDialog] = useState(false);
   const [enqId, setEnqId] = useState("");
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const fetchData = async () => {
@@ -149,12 +140,6 @@ const VerifyServiceProject = () => {
     fetchData();
   }, []);
 
-  const finalData = data?.map((item, index) => {
-    return {
-      ...item,
-      sno: (index + 1).toString(),
-    };
-  });
 
   const ProjectID = gridUrlTemplate;
   const statusPopup = renderStatusButton;

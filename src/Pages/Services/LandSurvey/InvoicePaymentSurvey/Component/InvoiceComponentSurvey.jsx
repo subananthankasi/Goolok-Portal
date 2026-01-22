@@ -1,17 +1,12 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import DataTable from "react-data-table-component";
 import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { Dialog } from "primereact/dialog";
 import Button from "@mui/material/Button";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-// import DatePicker from "react-datepicker";
-// import "react-datepicker/dist/react-datepicker.css";
 import DownloadIcon from "@mui/icons-material/Download";
-import logo from "../../../../../Assets/images/Goolok Final Logo.png";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import { DateFormatcustom } from "../../../../../Utils/DateFormatcustom";
@@ -24,14 +19,11 @@ import { DatePicker } from "antd";
 import { useSelector } from "react-redux";
 
 const InvoiceComponentSurvey = ({ eid, id, status, pagetype }) => {
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const [editing, setEditing] = useState(false);
   const [newDialog, setNewDialog] = useState(false);
   const [editDialog, setEditDialog] = useState(false);
-  const [deleteDialog, setDeleteDialog] = useState(false);
-  const [deleteId, setdeleteId] = useState(null);
   const [getData, setGetData] = useState([]);
-
   const contentRef = useRef(null);
 
   const calculateTotals = () => {

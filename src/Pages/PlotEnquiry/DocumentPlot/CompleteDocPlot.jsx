@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
   GridComponent,
@@ -18,8 +18,6 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import API_BASE_URL from "../../../Api/api";
 import { encryptData } from "../../../Utils/encrypt";
-// import API_BASE_URL from "../../../../Api/api";
-// import { encryptData } from "../../../../Utils/encrypt";
 
 
 
@@ -30,7 +28,7 @@ function CompleteDocPlot() {
   const dispatch = useDispatch();
   const [enquiryDataFromWebsite, setenquiryDataFromWebsite] = useState([])
   // staff id 
-  const staffid = JSON.parse(sessionStorage.getItem('token'));
+  const staffid = JSON.parse(localStorage.getItem('token'));
 
   useEffect(() => {
     const fetchData = async () => {
@@ -84,7 +82,7 @@ function CompleteDocPlot() {
 
   const handleRowSelect = (args) => {
     const rowData = args.data;
-     navigate(`/plot_document/${encryptData(rowData.id)}/${encryptData(rowData.userid)}/${encryptData("complete")}`);
+    navigate(`/plot_document/${encryptData(rowData.id)}/${encryptData(rowData.userid)}/${encryptData("complete")}`);
   };
 
 
@@ -140,6 +138,11 @@ function CompleteDocPlot() {
                           <ColumnDirective
                             field="customer"
                             headerText="Customer Name"
+                            width="150"
+                          />
+                          <ColumnDirective
+                            field="age"
+                            headerText="Age"
                             width="150"
                           />
                           <ColumnDirective

@@ -1,6 +1,5 @@
-import React, { useEffect, useState, useRef } from "react";
-import { Table, Button, IconButton, Input, DatePicker, InputNumber } from 'rsuite';
-import { VscEdit, VscSave, VscRemove } from 'react-icons/vsc';
+import  { useEffect, useState, useRef } from "react";
+import { Table } from 'rsuite';
 import axios from "axios";
 import API_BASE_URL from "../../../../Api/api";
 import Toast from "../../../../Utils/Toast";
@@ -19,19 +18,10 @@ import { fetchCategory } from "../../../../Redux/Actions/MasterPage/CategoryActi
 import { fetchSubCategory } from "../../../../Redux/Actions/MasterPage/SubCategoryAction";
 import logos from "../../../../Assets/images/Goolok Final Logo.png"
 
-const { Column, HeaderCell, Cell } = Table;
-const styles = `
-.table-cell-editing .rs-table-cell-content {
-  padding: 4px;
-}
-.table-cell-editing .rs-input {
-  width: 100%;
-}
-`;
+
 export const ApartmentPaymentLegalOpinion = ({ eid, id, status,pagetype }) => {
 
-
-    const staffid = JSON.parse(sessionStorage.getItem("token"));
+    const staffid = JSON.parse(localStorage.getItem("token"));
     const contentRef = useRef();
     const [invoiceData, setInvoiceData] = useState([]);
   

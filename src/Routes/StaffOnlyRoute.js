@@ -1,8 +1,7 @@
-import React from 'react';
 import { Navigate } from 'react-router-dom';
 
 const StaffOnlyRoute = ({ element: Component }) => {
-  const isAuthenticated = sessionStorage.getItem('logintype'); 
+  const isAuthenticated = localStorage.getItem('logintype'); 
   const allow = isAuthenticated === "staff" 
   return allow  ? <Component /> : <Navigate to="/" />;
 };

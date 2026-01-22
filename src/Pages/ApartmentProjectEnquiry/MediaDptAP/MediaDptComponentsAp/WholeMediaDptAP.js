@@ -1,7 +1,6 @@
-import React, { useRef, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { ThreeDots } from "react-loader-spinner";
+import { useSelector } from "react-redux";
 import { TabView, TabPanel } from "primereact/tabview";
 import Toast from "../../../../Utils/Toast";
 import API_BASE_URL from "../../../../Api/api";
@@ -13,16 +12,13 @@ import AddPhotosAP from "./AddPhotosAP";
 import AddAttachmentsAP from "./AddAttachmentsAP";
 
 const WholeMediaDptAP = ({ eid, id, status, pagetype }) => {
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const [verifyConfirm, setIsVerifyConfirm] = useState(false);
-  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const toast = useRef();
   const enquiryDoumentData = useSelector(
     (state) => state.Enquiry.enquiryDocument
   );
 
-  // const confirmLoading = useSelector((state) => state.mediaDptConfirm?.loading);
 
   const [postLoading, setPostLoading] = useState(false)
   const handleConfirm = async () => {

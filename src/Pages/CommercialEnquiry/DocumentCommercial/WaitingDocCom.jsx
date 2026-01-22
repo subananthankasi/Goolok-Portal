@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
     GridComponent,
@@ -25,10 +25,8 @@ import FileView from "../../../Utils/FileView/FileView";
 
 const WaitingDocCom = () => {
 
-    const staffid = JSON.parse(sessionStorage.getItem('token'));
+    const staffid = JSON.parse(localStorage.getItem('token'));
     const [loading, setLoading] = useState(true);
-
-
     const [enquiryDataFromWebsite, setEnquiryDataFromWebsite] = useState([])
     const fetchData = async () => {
         try {
@@ -225,6 +223,11 @@ const WaitingDocCom = () => {
                                                     <ColumnDirective
                                                         field="customer"
                                                         headerText="Customer Name"
+                                                        width="150"
+                                                    />
+                                                    <ColumnDirective
+                                                        field="age"
+                                                        headerText="Age"
                                                         width="150"
                                                     />
                                                     <ColumnDirective

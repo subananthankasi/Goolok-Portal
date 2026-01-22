@@ -23,7 +23,7 @@ const CompleteManSurvey = () => {
 
     const [loading, setLoading] = useState(true);
     // staff id 
-    const staffid = JSON.parse(sessionStorage.getItem('token'));
+    const staffid = JSON.parse(localStorage.getItem('token'));
     const [pendingWaitingData, setPendingWaitingData] = useState([]);
 
     const fetchData = async () => {
@@ -67,6 +67,8 @@ const CompleteManSurvey = () => {
                 break;
             case "DefaultExport_csvexport":
                 gridInstance.csvExport();
+                break;
+            default:
                 break;
         }
     }

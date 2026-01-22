@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Tabs } from 'rsuite';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -14,7 +14,7 @@ import TagesContentCom from './TagesContentCom';
 const WholeContentWritingCommercial = ({ eid, id, status, pagetype, subtype }) => {
 
   const navigate = useNavigate()
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const [verifyConfirm, setIsVerifyConfirm] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false)
 

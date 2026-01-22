@@ -21,7 +21,7 @@ const TicketClosingLawyerHouse = ({
   sub_property,
   pagetype,
 }) => {
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const [editDialog, setEditDialog] = useState(false);
   const enquiryDoumentData = useSelector(
     (state) => state.Enquiry.enquiryDocument

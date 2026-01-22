@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -11,12 +11,10 @@ import API_BASE_URL from "../../../../Api/api";
 import Toast from "../../../../Utils/Toast";
 import customStyle from "../../../../Utils/tableStyle";
 import { useSelector } from "react-redux";
-// import API_BASE_URL from "../../../../../Api/api";
-// import Toast from "../../../../../Utils/Toast";
-// import customStyle from "../../../../../Utils/tableStyle";
+
 
 const PhasePricingCostAP = ({ eid, id, status, pagetype }) => {
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const enquiryDoumentData = useSelector(
     (state) => state.Enquiry.enquiryDocument
   );

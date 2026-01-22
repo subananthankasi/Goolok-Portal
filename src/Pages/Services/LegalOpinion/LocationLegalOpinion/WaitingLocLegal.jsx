@@ -20,7 +20,7 @@ import ConfirmationModal from '../../../../Utils/ConfirmationModal';
 
 
 const WaitingLocLegal = () => {
-    const staffid = JSON.parse(sessionStorage.getItem('token'));
+    const staffid = JSON.parse(localStorage.getItem('token'));
     const [loading, setLoading] = useState(false);
     const [locationWaitingData, setLocationWaitingData] = useState([])
 

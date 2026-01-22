@@ -22,7 +22,7 @@ export const WholeMarketResearchHouse = ({
   status,
   pagetype,
 }) => {
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const [step, setStep] = useState(1);
   const [pageLoading, setPageLoading] = useState(true);
   // tab 1 ------------------------------------------------------------------------------------------------------

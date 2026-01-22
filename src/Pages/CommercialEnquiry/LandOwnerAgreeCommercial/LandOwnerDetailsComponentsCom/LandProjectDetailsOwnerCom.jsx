@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
 import Button from "@mui/material/Button";
 import { Dialog } from "primereact/dialog";
 import { useFormik } from "formik";
@@ -8,12 +7,12 @@ import * as yup from "yup";
 import axios from "axios";
 import API_BASE_URL from "../../../../Api/api";
 import Toast from "../../../../Utils/Toast";
-import { Table, Pagination } from "rsuite";
+import { Table } from "rsuite";
 import { useSelector } from "react-redux";
 const { Column, ColumnGroup, HeaderCell, Cell } = Table;
 
 export const LandProjectDetailsOwnerCom = ({ eid, id, status, pagetype }) => {
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const enquiryDoumentData = useSelector(
     (state) => state.Enquiry.enquiryDocument
   );

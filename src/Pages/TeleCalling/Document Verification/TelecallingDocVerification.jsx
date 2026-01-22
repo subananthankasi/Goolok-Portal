@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import  { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
   GridComponent,
@@ -17,7 +17,6 @@ import { useDispatch } from "react-redux";
 import axios from "axios";
 import API_BASE_URL from "../../../Api/api";
 import { useNavigate } from "react-router-dom";
-import { DateFormatcustom } from "../../../Utils/DateFormatcustom";
 import ClosedProperty from "../../../Utils/ClosedProperty";
 import {
   ButtonGroup,
@@ -38,7 +37,7 @@ function TelecallingDocVerification() {
   const [enquiryDataFromWebsite, setenquiryDataFromWebsite] = useState([]);
 
   // staff id
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
 
   const fetch = async () => {
     try {
@@ -48,10 +47,10 @@ function TelecallingDocVerification() {
         response = await axios.put(
           `${API_BASE_URL}/telecalldocument/all`);
       } else {
-        response = await axios.get(`${API_BASE_URL}/telecalldocument`,{
-         headers:{
-          "Gl-Status":"progress"
-         }
+        response = await axios.get(`${API_BASE_URL}/telecalldocument`, {
+          headers: {
+            "Gl-Status": "progress"
+          }
         });
       }
 
@@ -91,6 +90,8 @@ function TelecallingDocVerification() {
         break;
       case "DefaultExport_csvexport":
         gridInstance.csvExport();
+        break;
+      default:
         break;
     }
   }

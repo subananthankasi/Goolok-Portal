@@ -3,13 +3,13 @@ import { TabView, TabPanel } from "primereact/tabview";
 import { useParams } from "react-router-dom";
 import { decryptData } from "../../../../Utils/encrypt";
 import { Header } from "../../../Enquiry/Reusable/Header";
-import ReminderDocVerifySurvey from "../DocumentLandSurvey/DocResubleSurvey/ReminderDocVerifySurvey";
 import LocationSurveySelect from "../LocationLandSurvey/LocSurveyResuble/LocationSurveySelect";
 import WholeServiceSurvey from "../ServiceConfirmSurvey/ConfirmSurvey/WholeServiceSurvey";
 import InvoiceComponentSurvey from "../InvoicePaymentSurvey/Component/InvoiceComponentSurvey";
 import PattaComponentSurvey from "../PattaApplication/PattaApplicationSurvey/PattaComponentSurvey";
 import { WholeMandatoryComponent } from "../MandodaryDocsSurvey/WholeManComponent/WholeMandatoryComponent";
 import WholeTicketSurvey from "./TicketSurveyComponent/WholeTicketSurvey";
+import WholeDocGetPatta from "../../DocumentService/GetPattaComponents/WholeDocGetPatta";
 
 const UpdateTicketSurvey = () => {
   const { eid, id, status } = useParams();
@@ -28,7 +28,8 @@ const UpdateTicketSurvey = () => {
               <WholeTicketSurvey id={id} eid={eid} status={status} />
             </TabPanel>
             <TabPanel header="Remainder">
-              <ReminderDocVerifySurvey id={id} eid={eid} status={status} pagetype="reminder" />
+              {/* <ReminderDocVerifySurvey id={id} eid={eid} status={status} pagetype="reminder" /> */}
+              <WholeDocGetPatta eid={decryEid} id={decryid} status={decryStatus} pagetype="reminder" />
               <LocationSurveySelect
                 eid={eid}
                 id={id}

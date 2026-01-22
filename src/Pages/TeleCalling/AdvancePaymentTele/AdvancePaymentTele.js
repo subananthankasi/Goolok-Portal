@@ -42,13 +42,13 @@ const AdvancePaymentTele = () => {
 
 
 
- const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const fetch = async () => {
     try {
-      const response = await axios.get(`${API_BASE_URL}/advancepay`,{
-          headers: {
-            ...(staffid.Login === "admin" && { "Gl-Status": "admin" }),
-          },
+      const response = await axios.get(`${API_BASE_URL}/advancepay`, {
+        headers: {
+          ...(staffid.Login === "admin" && { "Gl-Status": "admin" }),
+        },
       });
       const data = response?.data?.map((item, index) => ({
         ...item, sno: index + 1
@@ -82,6 +82,8 @@ const AdvancePaymentTele = () => {
         break;
       case "DefaultExport_csvexport":
         gridInstance.csvExport();
+        break;
+      default:
         break;
     }
   }

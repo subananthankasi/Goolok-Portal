@@ -1,13 +1,11 @@
 import axios from "axios";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import API_BASE_URL, { IMG_PATH } from "../../../../Api/api";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Dialog } from "primereact/dialog";
 import DataTable from "react-data-table-component";
-// import CustomerMarketResearch from "../../MarketResearch/CustomerMarketResearch";
 import { useNavigate } from "react-router-dom";
 import customStyle from "../../../../Utils/tableStyle";
-import NearbyMarketResearch from "../../MarketResearch/NearbyMarketResearch";
 import ConfirmationModal from "./ConfirmationModal";
 import AlertPop from "../../../../Utils/AlertPop";
 import { DateFormatcustom } from "../../../../Utils/DateFormatcustom";
@@ -18,7 +16,7 @@ import Toast from "../../../../Utils/Toast";
 
 export const ApartmentMarketResearch = ({ eid, marketid, status, pagetype }) => {
 
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const [step, setStep] = useState(1);
   const [pageLoading, setPageLoading] = useState(true)
   // tab 1 ------------------------------------------------------------------------------------------------------

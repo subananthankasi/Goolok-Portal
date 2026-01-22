@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import  { useEffect, useState } from 'react'
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
     GridComponent,
@@ -13,7 +13,6 @@ import {
     Filter,
 } from "@syncfusion/ej2-react-grids";
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import { ButtonGroup, Button, Whisper, Popover, Dropdown, IconButton } from 'rsuite';
 import ArrowDownIcon from '@rsuite/icons/ArrowDown';
@@ -23,10 +22,8 @@ import ClosedProperty from '../../../Utils/ClosedProperty';
 const options = ['Progress', 'Closed'];
 
 const PendingContentCom = () => {
-    const staffid = JSON.parse(sessionStorage.getItem('token'));
+    const staffid = JSON.parse(localStorage.getItem('token'));
     const [pendingWaitingData, setPendingWaitingData] = useState([]);
-    const dispatch = useDispatch()
-
     const filterSettings = { type: "Excel" };
     const toolbarOptions = ["ExcelExport", "PdfExport", "Search"];
 

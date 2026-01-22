@@ -2,12 +2,12 @@ import React from "react";
 import { Header } from "../../Enquiry/Reusable/Header";
 import { useParams } from "react-router-dom";
 import UpdateHub from "./UpdateHub";
-import ReminderDocumentVerification from "../DocumentService/Reusable/ReminderDocumentVerification";
 import LocationSelectService from "../LocationService/Locations/LocationSelectService";
 import WholeServiceConfirmation from "../ServiceConfirm/ServiceComponent/WholeServiceConfirmation";
 import InvoiceComponent from "../InvoiceService/InvoiceComponet/InvoiceComponent";
 import { TabView, TabPanel } from "primereact/tabview";
 import PattaComponent from "../PattaApplication/PattaComponent/PattaComponent";
+import WholeDocGetPatta from "../DocumentService/GetPattaComponents/WholeDocGetPatta";
 const DocumentSetHub = () => {
   const { eid, id, status } = useParams();
   return (
@@ -21,7 +21,8 @@ const DocumentSetHub = () => {
               <UpdateHub />
             </TabPanel>
             <TabPanel header="Remainder">
-              <ReminderDocumentVerification id={id} eid={eid} status={status} />
+              {/* <ReminderDocumentVerification id={id} eid={eid} status={status} /> */}
+              <WholeDocGetPatta eid={eid} id={id} status={status} pagetype="reminder" />
               <LocationSelectService
                 eid={eid}
                 id={id}

@@ -26,7 +26,7 @@ function CompleteLawyerLegal() {
 
     const [loading, setLoading] = useState(true);
     // staff id 
-    const staffid = JSON.parse(sessionStorage.getItem('token'));
+    const staffid = JSON.parse(localStorage.getItem('token'));
     const [pendingWaitingData, setPendingWaitingData] = useState([]);
 
     const fetchData = async () => {
@@ -34,7 +34,7 @@ function CompleteLawyerLegal() {
             const response = await axios.get(`${API_BASE_URL}/lawyer?id=${staffid.loginid}&status=complete`, {
                 headers: {
                     "Pr-Root": "land",
-                    "Level":"service",
+                    "Level": "service",
                 }
             });
             setLoading(false);
@@ -69,6 +69,8 @@ function CompleteLawyerLegal() {
                 break;
             case "DefaultExport_csvexport":
                 gridInstance.csvExport();
+                break;
+            default:
                 break;
         }
     }

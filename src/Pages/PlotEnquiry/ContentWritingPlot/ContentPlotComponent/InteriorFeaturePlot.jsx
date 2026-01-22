@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import DataTable from "react-data-table-component";
@@ -22,7 +22,7 @@ const InteriorFeaturePlot = ({ eid, id, status }) => {
     const [editDialog, setEditDialog] = useState(false);
     const [deleteId, setDeleteId] = useState("");
     const [editing, setEditing] = useState(false);
-    const staffid = JSON.parse(sessionStorage.getItem("token"));
+    const staffid = JSON.parse(localStorage.getItem("token"));
     const enquiryDoumentData = useSelector(
         (state) => state.Enquiry.enquiryDocument
     );

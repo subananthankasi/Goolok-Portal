@@ -37,7 +37,7 @@ function LandOwner() {
     const id = queryParams.get("id");
     const status = queryParams.get("status");
     
-    const staffid = JSON.parse(sessionStorage.getItem('token')); 
+    const staffid = JSON.parse(localStorage.getItem('token')); 
     const [loading,setLoading] = useState(true)
 
    useEffect(() => {

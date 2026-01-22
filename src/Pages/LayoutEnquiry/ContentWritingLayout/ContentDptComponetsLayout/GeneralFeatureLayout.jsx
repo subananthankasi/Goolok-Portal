@@ -13,7 +13,7 @@ import customStyle from '../../../../Utils/tableStyle';
 
 
 const GeneralFeatureLayout = ({ eid, id, status }) => {
-    const staffid = JSON.parse(sessionStorage.getItem('token'));
+    const staffid = JSON.parse(localStorage.getItem('token'));
 
     const [newDialog, setNewDialog] = useState(false)
     const [deleteDialog, setDeleteDialog] = useState(false)

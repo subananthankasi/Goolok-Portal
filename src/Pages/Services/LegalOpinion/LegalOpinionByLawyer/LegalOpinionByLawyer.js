@@ -1,7 +1,5 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import DeleteIcon from "@mui/icons-material/Delete";
-import DataTable from "react-data-table-component";
 import "react-toastify/dist/ReactToastify.css";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useNavigate } from "react-router-dom";
@@ -12,7 +10,7 @@ import CompleteLawyerLegal from "./CompleteLawyerLegal";
 
 function LegalOpinionByLawyer() {
 
-  const staffid = JSON.parse(sessionStorage.getItem('token'));
+  const staffid = JSON.parse(localStorage.getItem('token'));
 
   const [step, setStep] = useState(() => {
     if (staffid?.Login === "admin") {

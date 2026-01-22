@@ -28,7 +28,7 @@ const PendingPattaApplication = () => {
 
   const [loading, setLoading] = useState(true);
   // staff id 
-  const staffid = JSON.parse(sessionStorage.getItem('token'));
+  const staffid = JSON.parse(localStorage.getItem('token'));
   const [pendingData, setPendingData] = useState([]);
 
   const fetchData = async () => {

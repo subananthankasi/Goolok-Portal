@@ -24,7 +24,7 @@ const cellStyle = {
 };
 
 const ReminderBlockingBooking = () => {
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const [getData, setGetData] = useState([]);
   const [loading, setLoading] = useState(false);
 

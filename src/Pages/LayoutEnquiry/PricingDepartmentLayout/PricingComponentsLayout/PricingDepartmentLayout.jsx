@@ -1,10 +1,9 @@
-import React, { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import Button from "@mui/material/Button";
 import { Toast } from "primereact/toast";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
-import { InputNumber } from "primereact/inputnumber";
 import AutoDeleteIcon from "@mui/icons-material/AutoDelete";
 import { Dialog } from "primereact/dialog";
 import { ThreeDots } from "react-loader-spinner";
@@ -14,7 +13,7 @@ import {
 } from "../../../../Redux/Actions/Enquiry/PricingEnquiryThunk";
 import { pricingGetThunk } from "../../../../Redux/Actions/MasterPage/PricingThunk";
 import DiscountPage from "../../../../Utils/Offers/DiscountPage";
-import { Input, InputGroup } from "rsuite";
+import { InputGroup } from "rsuite";
 const PricingDepartmentLayout = ({
   eid,
   status,
@@ -22,7 +21,7 @@ const PricingDepartmentLayout = ({
   pagetype,
   discountPage,
 }) => {
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const [unit, setUnit] = useState(false);
   const [getOption, setGetOption] = useState([]);
   const [invoiceData, setInvoiceData] = useState([]);

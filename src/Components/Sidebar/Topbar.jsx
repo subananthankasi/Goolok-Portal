@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { Box, IconButton, Menu, MenuItem } from "@mui/material";
-import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
+import { useEffect, useState } from "react";
+import { Box, Menu, MenuItem } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { findBreadcrumb } from "../../common/BreadCrump";
 import { useBreadcrumb } from "../../common/BreadCrumpProvider";
 import { Breadcrumb } from "antd";
+
+
 const Topbar = ({ menuTree }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const { pathname } = useLocation();
@@ -22,14 +23,14 @@ const Topbar = ({ menuTree }) => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    sessionStorage.clear();
     navigate('/');
     localStorage.removeItem("breadcrumb");
     handleClose();
-
     setBreadcrumb([])
+    localStorage.removeItem('logintype')
+    localStorage.removeItem('token')
   };
-  const userName = sessionStorage.getItem("token");
+  const userName = localStorage.getItem("token");
   const parsedUser = userName ? JSON.parse(userName) : null;
   const loginName = parsedUser?.Login === "admin" ? "Admin" : parsedUser?.staff
   const { breadcrumb, setBreadcrumb } = useBreadcrumb();
@@ -49,26 +50,22 @@ const Topbar = ({ menuTree }) => {
       p={2}
       backgroundColor="#e4e5e5"
     >
-      {/* LEFT: Breadcrumb */}
+      {/*  Breadcrumb */}
       <Breadcrumb
-        style={{ fontFamily: "roboto",fontWeight:"bold",fontSize:"16px" }}
+        style={{ fontFamily: "roboto", fontWeight: "bold", fontSize: "16px" }}
         items={[
-          // ...[breadcrumb.biggestparent, breadcrumb.bigparent, breadcrumb.parent]
-          //   .filter(Boolean)
-          //   .map((item) => ({ title: item })),
-
           { title: breadcrumb.title ?? "Dashboard" }
         ]}
       />
 
-      {/* RIGHT: User Profile */}
+      {/* User Profile */}
       <Box display="flex" alignItems="center">
         <AccountCircleIcon
           sx={{ fontSize: 35, cursor: "pointer" }}
           onClick={handleClick}
         />
         {parsedUser && (
-          <span style={{ marginLeft: "8px", fontWeight: "600",fontSize:"14px" }}>
+          <span style={{ marginLeft: "8px", fontWeight: "600", fontSize: "14px" }}>
             {loginName ?? ""}
           </span>
         )}
@@ -78,29 +75,6 @@ const Topbar = ({ menuTree }) => {
       </Box>
     </Box>
 
-    // <Box display="flex" justifyContent="end" p={2} backgroundColor="#e4e5e5">
-    //   <Breadcrumb
-    //     style={{ fontFamily: "roboto" }}
-    //     items={[
-    //       ...[breadcrumb.biggestparent, breadcrumb.bigparent, breadcrumb.parent]
-    //         .filter(Boolean)
-    //         .map((item) => ({ title: item })),
-
-    //       { title: breadcrumb.title }
-    //     ]}
-    //   />
-    //   <Box display="">
-    //     <AccountCircleIcon sx={{ fontSize: 35, cursor: "pointer" }} onClick={handleClick} />
-    //     {parsedUser && <span style={{ marginLeft: "8px", fontWeight: "bold" }}>{loginName ?? ""}</span>}
-    //     <Menu
-    //       anchorEl={anchorEl}
-    //       open={Boolean(anchorEl)}
-    //       onClose={handleClose}
-    //     >
-    //       <MenuItem onClick={handleLogout}>Logout</MenuItem>
-    //     </Menu>
-    //   </Box>
-    // </Box>
   );
 };
 

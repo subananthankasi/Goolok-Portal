@@ -21,7 +21,7 @@ import dayjs from "dayjs";
 import { DatePicker } from "antd";
 
 const TitleDetailsCommercial = ({ data, setStep }) => {
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const dispatch = useDispatch();
   const StateData = useSelector((state) => state.State.StateNameData);
   const DistrictData = useSelector((state) => state.District.districtData);

@@ -1,9 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
+import  { useEffect, useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import DataTable from "react-data-table-component";
 import { Dialog } from "primereact/dialog";
 import { useFormik } from "formik";
-import * as yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { ThreeDots } from "react-loader-spinner";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
@@ -27,7 +26,7 @@ const AddAttachementsCom = ({ eid, status, pagetype }) => {
     const [arUrl, setArUrl] = useState("");
     const [deleteDialog, setDeleteDialog] = useState(false);
     const [deleteId, setDeleteId] = useState(null);
-    const staffid = JSON.parse(sessionStorage.getItem("token"));
+    const staffid = JSON.parse(localStorage.getItem("token"));
     const enquiryDoumentData = useSelector(
         (state) => state.Enquiry.enquiryDocument
     );

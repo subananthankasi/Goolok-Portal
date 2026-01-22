@@ -22,7 +22,7 @@ import { RedoModel } from "../../../Enquiry/Reusable/RedoStatus";
 
 export const LawyerAddDocumentPlot = (props) => {
   const dispatch = useDispatch();
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const [loadingPage, setLoadingPage] = useState(true);
   const [enquiryDoumentData, setEnquiryDoumentData] = useState([]);
 

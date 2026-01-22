@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useRef, useState } from "react";
+import  { useEffect, useRef, useState } from "react";
 import API_BASE_URL,{ IMG_PATH } from "../../../../Api/api";
 import customStyle from "../../../../Utils/tableStyle";
 import Toast from "../../../../Utils/Toast";
@@ -10,8 +10,7 @@ import DataTable from "react-data-table-component";
 
 
 export const ApartmentPriceProposal = ({ eid, id, status,pagetype }) => {
-const staffid = JSON.parse(sessionStorage.getItem("token"));
-
+const staffid = JSON.parse(localStorage.getItem("token"));
 const [editData, setEditData] = useState({})
 
 const columns = [

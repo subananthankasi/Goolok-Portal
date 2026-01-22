@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
     GridComponent,
@@ -28,7 +28,7 @@ import { fetchStaff } from "../../../Redux/Actions/MasterPage/Staff";
 
 const WaitingLawyerAP = () => {
 
-    const staffid = JSON.parse(sessionStorage.getItem('token'));
+    const staffid = JSON.parse(localStorage.getItem('token'));
     const [loading, setLoading] = useState(true);
     const [visible, setVisible] = useState(false)
 

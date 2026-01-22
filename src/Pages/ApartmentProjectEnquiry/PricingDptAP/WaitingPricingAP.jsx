@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
     GridComponent,
@@ -12,11 +12,10 @@ import {
     Page,
     Filter,
 } from "@syncfusion/ej2-react-grids";
-import { useDispatch, useSelector } from 'react-redux';
-import {  pricingWaitingThunk } from '../../../Redux/Actions/Enquiry/PricingEnquiryThunk';
+import { useDispatch } from 'react-redux';
+import { pricingWaitingThunk } from '../../../Redux/Actions/Enquiry/PricingEnquiryThunk';
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 import API_BASE_URL from '../../../Api/api';
 import Toast from '../../../Utils/Toast';
 import ConfirmationModal from '../../../Utils/ConfirmationModal';
@@ -27,18 +26,13 @@ const WaitingPricingAP = () => {
 
     const dispatch = useDispatch()
     const [WaitingData, setWaitingData] = useState([])
-    const navigate = useNavigate()
 
 
     useEffect(() => {
         dispatch(pricingWaitingThunk())
     }, [])
 
-
-
     const [docId, setDocId] = useState("");
-    const [taken, setTaken] = useState('')
-
     function StatusModalOpen(props) {
         return (
             <button
@@ -55,10 +49,7 @@ const WaitingPricingAP = () => {
     }
 
     const statusPopup = StatusModalOpen;
-
-    const staffid = JSON.parse(sessionStorage.getItem('token'));
-
-
+    const staffid = JSON.parse(localStorage.getItem('token'));
     const toolbarOptions = ["ExcelExport", "PdfExport", "Search"];
 
     let gridInstance;
@@ -74,6 +65,8 @@ const WaitingPricingAP = () => {
             case "DefaultExport_csvexport":
                 gridInstance.csvExport();
                 break;
+            default:
+                break;
         }
     }
     const filterSettings = { type: "Excel" };
@@ -87,27 +80,27 @@ const WaitingPricingAP = () => {
     };
 
 
-    const fetchData = async() =>{ 
-        try{
-            const response = await axios.get(`${API_BASE_URL}/pricingdpt/new`,{
-                headers : {
-                    "Pr-Root" : "apartment project"
+    const fetchData = async () => {
+        try {
+            const response = await axios.get(`${API_BASE_URL}/pricingdpt/new`, {
+                headers: {
+                    "Pr-Root": "apartment project"
                 }
             })
             // setLoading(false); 
             setWaitingData(
-              response.data?.map((data, index) => ({
-                ...data,
-                sno: index + 1
-              })))
-        }catch(error){
+                response.data?.map((data, index) => ({
+                    ...data,
+                    sno: index + 1
+                })))
+        } catch (error) {
             // setLoading(false); 
             console.error(error)
-        } 
-}
-  useEffect(() => {
-    fetchData()
-  }, []);
+        }
+    }
+    useEffect(() => {
+        fetchData()
+    }, []);
 
 
 
@@ -124,7 +117,7 @@ const WaitingPricingAP = () => {
             fetchData()
             Toast({ message: "Successfully Updated", type: "success" })
         } catch (error) {
-        
+
             Toast({ message: "Failed to update", type: "error" })
         }
     }

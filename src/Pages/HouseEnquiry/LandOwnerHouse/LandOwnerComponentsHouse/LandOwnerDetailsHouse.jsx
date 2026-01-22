@@ -13,13 +13,11 @@ import Toast from "../../../../Utils/Toast";
 import customStyle from "../../../../Utils/tableStyle";
 import dayjs from "dayjs";
 import { DatePicker } from "antd";
-import { ThreeDots } from "react-loader-spinner";
 import { useSelector } from "react-redux";
 
 
 const LandOwnerDetailsHouse = ({ eid, id, status, pagetype }) => {
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
-  const [loading, setLoading] = useState(false)
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const [newDialog, setNewDialog] = useState(false);
   const [deleteDialog, setDeleteDialog] = useState(false);
   const [deleteId, setDeleteId] = useState(null);

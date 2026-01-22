@@ -11,14 +11,9 @@ import DataTable from "react-data-table-component";
 import { DateFormatcustom } from "../../../../../Utils/DateFormatcustom";
 
 
-
-
-
 export const ApartDayToDayProgress = (props) => {
 
-
-    const staffid = JSON.parse(sessionStorage.getItem("token"));
-  
+    const staffid = JSON.parse(localStorage.getItem("token"));
     //   day to day progress
     const column1 = [
       {
@@ -41,7 +36,7 @@ export const ApartDayToDayProgress = (props) => {
         selector: (row) => DateFormatcustom(row.next_date),
         sortable: true,
       },
-      ...(staffid.Login == "staff" && (props.data.status === "pending" || props.data.status === "complete") &&  props.data.pagetype !== "reminder"
+      ...(staffid.Login === "staff" && (props.data.status === "pending" || props.data.status === "complete") &&  props.data.pagetype !== "reminder"
         ? [
           {
             name: "Actions",

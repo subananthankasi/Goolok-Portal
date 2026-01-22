@@ -1,6 +1,6 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { TabView, TabPanel } from "primereact/tabview";
 import Toast from "../../../../Utils/Toast";
 import API_BASE_URL from "../../../../Api/api";
@@ -12,11 +12,9 @@ import AddPhotosHouse from "./AddPhotosHouse";
 import AddAttachmentsHouse from "./AddAttachmentsHouse";
 
 const WholeMediaDptHouse = ({ eid, id, status, pagetype }) => {
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const [verifyConfirm, setIsVerifyConfirm] = useState(false);
-  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const toast = useRef();
   const enquiryDoumentData = useSelector(
     (state) => state.Enquiry.enquiryDocument
   );

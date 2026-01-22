@@ -1,9 +1,7 @@
 import { useFormik } from "formik";
-import * as yup from "yup";
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import axios from "axios";
 import DataTable from "react-data-table-component";
-import Spinner from "react-bootstrap/Spinner";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Dialog } from "primereact/dialog";
 import EditIcon from "@mui/icons-material/Edit";
@@ -18,7 +16,7 @@ const NearbyMarketAP = ({ eid, status, marketid, pagetype }) => {
         (state) => state.Enquiry.enquiryDocument
     );
 
-    const staffid = JSON.parse(sessionStorage.getItem("token"));
+    const staffid = JSON.parse(localStorage.getItem("token"));
     const [newDialog, setNewDialog] = useState(false);
     const [editDialog, setEditDialog] = useState(false);
     const [deleteDialog, setDeleteDialog] = useState(false);

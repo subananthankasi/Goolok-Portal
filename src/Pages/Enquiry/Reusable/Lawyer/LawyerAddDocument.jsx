@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import DataTable from "react-data-table-component";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import API_BASE_URL, { IMG_PATH } from "../../../../Api/api";
@@ -24,9 +24,8 @@ import { Dialog } from 'primereact/dialog';
 
 export const LawyerAddDocument = (props) => {
 
-
   const dispatch = useDispatch()
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const [loadingPage, setLoadingPage] = useState(true);
   const [enquiryDoumentData, setEnquiryDoumentData] = useState([]);
 

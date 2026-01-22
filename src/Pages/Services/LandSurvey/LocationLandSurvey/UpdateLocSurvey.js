@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { decryptData } from "../../../../Utils/encrypt";
 import { Header } from "../../../Enquiry/Reusable/Header";
 import LocationSurveySelect from "./LocSurveyResuble/LocationSurveySelect";
-import ReminderDocVerifySurvey from "../DocumentLandSurvey/DocResubleSurvey/ReminderDocVerifySurvey";
+import WholeDocGetPatta from "../../DocumentService/GetPattaComponents/WholeDocGetPatta";
 
 
 const UpdateLocSurvey = () => {
@@ -28,12 +28,13 @@ const UpdateLocSurvey = () => {
               />
             </TabPanel>
             <TabPanel header="Remainder">
-              <ReminderDocVerifySurvey
+              {/* <ReminderDocVerifySurvey
                 id={decryLocation}
                 eid={decryEid}
                 status={decryStatus}
                 pagetype="reminder"
-              />
+              /> */}
+              <WholeDocGetPatta eid={decryEid} id={decryLocation} status={decryStatus} pagetype="reminder" />
             </TabPanel>
           </TabView>
         </div>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useMemo } from "react";
+import { useEffect, useState, useRef, useMemo } from "react";
 import DataTable from "react-data-table-component";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import VisibilityIcon from "@mui/icons-material/Visibility";
@@ -10,19 +10,16 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
-import logo from "../../../../Assets/images/Goolok Final Logo.png";
 import { Table } from "rsuite";
 import API_BASE_URL from "../../../../Api/api";
 import customStyle from "../../../../Utils/tableStyle";
 import Toast from "../../../../Utils/Toast";
-import { fetchCategory } from "../../../../Redux/Actions/MasterPage/CategoryAction";
-import { fetchSubCategory } from "../../../../Redux/Actions/MasterPage/SubCategoryAction";
 import { fetchPropertyType } from "../../../../Redux/Actions/PropertyTypeAction";
 import { fetchSubPropertyType } from "../../../../Redux/Actions/SubPropertyAction";
 import InvoiceDownload from "../../../Enquiry/Reusable/InvoiceDownload";
 
 export const WholePaymentLegalCommercial = ({ eid, id, status, pagetype }) => {
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const contentRef = useRef();
   const [invoiceData, setInvoiceData] = useState([]);
   const enquiryDoumentData = useSelector(

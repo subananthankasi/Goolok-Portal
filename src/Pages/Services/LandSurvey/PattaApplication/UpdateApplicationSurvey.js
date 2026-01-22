@@ -1,13 +1,13 @@
 import React from "react";
 import { TabView, TabPanel } from "primereact/tabview";
 import { useParams } from "react-router-dom";
-import ReminderDocVerifySurvey from "../DocumentLandSurvey/DocResubleSurvey/ReminderDocVerifySurvey";
 import LocationSurveySelect from "../LocationLandSurvey/LocSurveyResuble/LocationSurveySelect";
 import WholeServiceSurvey from "../ServiceConfirmSurvey/ConfirmSurvey/WholeServiceSurvey";
 import InvoiceComponentSurvey from "../InvoicePaymentSurvey/Component/InvoiceComponentSurvey";
 import { Header } from "../../../Enquiry/Reusable/Header";
 import { decryptData } from "../../../../Utils/encrypt";
 import PattaComponentSurvey from "./PattaApplicationSurvey/PattaComponentSurvey";
+import WholeDocGetPatta from "../../DocumentService/GetPattaComponents/WholeDocGetPatta";
 
 const UpdateApplicationSurvey = () => {
   const { eid, id, status } = useParams();
@@ -29,12 +29,13 @@ const UpdateApplicationSurvey = () => {
               />
             </TabPanel>
             <TabPanel header="Remainder">
-              <ReminderDocVerifySurvey
+              {/* <ReminderDocVerifySurvey
                 id={decryid}
                 eid={decryEid}
                 status={decryStatus}
                 pagetype="reminder"
-              />
+              /> */}
+              <WholeDocGetPatta eid={decryEid} id={decryid} status={decryStatus} pagetype="reminder" />
               <LocationSurveySelect
                 eid={decryEid}
                 id={decryid}

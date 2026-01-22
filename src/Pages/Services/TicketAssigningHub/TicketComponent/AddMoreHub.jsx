@@ -1,20 +1,11 @@
-import React, { useEffect, useState, useRef } from "react";
+import  { useEffect, useState } from "react";
 import API_BASE_URL, { IMG_PATH } from "../../../../Api/api";
-// import DataTable from "react-data-table-component";
-import customStyle from "../../../../Utils/tableStyle";
 import FileViewUtils from "../../../../Utils/FileView/FileViewUtils";
 import axios from "axios";
 import Spinner from "react-bootstrap/Spinner";
-// import Toast from "../../../Utils/Toast";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ConfirmationModal from "../../../../Utils/ConfirmationModal";
-import SuccessMessage from "../../../../Utils/SuccessMessage";
-import Snackbar, { SnackbarCloseReason } from "@mui/material/Snackbar";
-import Alert from "@mui/material/Alert";
-// import { Toast } from 'primereact/toast';
-import { FaCheckCircle } from "react-icons/fa";
 import Toast from "../../../../Utils/Toast";
-// import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -26,7 +17,6 @@ import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
 import { TableFooter } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchState } from "../../../../Redux/Actions/MasterPage/StateAction";
 import StateDropDown, {
   useStateOptions,
 } from "../../../../Utils/SelectDropDown/StateDropDown";
@@ -47,102 +37,13 @@ import { Row } from "primereact/row";
 import dayjs from "dayjs";
 import { DatePicker, Select } from "antd";
 import Common from "../../../../common/Common";
-import { current } from "@reduxjs/toolkit";
+
 
 const AddMoreHub = ({ isOpen, closeModal, id }) => {
   const [step, setStep] = useState(1);
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const { classification } = Common();
 
-  const columns = [
-    {
-      name: "S.no",
-      cell: (row, index) => row.sno,
-      sortable: true,
-    },
-    {
-      name: "Survey No",
-      selector: (row) => row.survey_no,
-      sortable: true,
-      wrap: true,
-    },
-    {
-      name: "Sub division",
-      selector: (row) => row.sub_division,
-      sortable: true,
-    },
-    {
-      name: "Hectare-Are",
-      selector: (row) => row.hectare,
-      sortable: true,
-    },
-    {
-      name: "Actions",
-      cell: (row) => (
-        <div className="d-flex">
-          <button
-            className="btn btn-outline-danger delete"
-            data-tooltip-id="delete"
-            onClick={() => {
-              openModalConfirm();
-              setDeleteId(row.id);
-            }}
-          >
-            <DeleteIcon />
-          </button>
-        </div>
-      ),
-    },
-  ];
-
-  const columns1 = [
-    {
-      name: "S.no",
-      cell: (row, index) => index + 1,
-      sortable: true,
-    },
-    {
-      name: "Survey No",
-      selector: (row) => row.survey_no,
-      sortable: true,
-      wrap: true,
-    },
-    {
-      name: "Sub division",
-      selector: (row) => row.sub_division,
-      sortable: true,
-    },
-    {
-      name: "Extent",
-      selector: (row) => row.extent,
-      sortable: true,
-    },
-    {
-      name: "Units",
-      // selector: (row) => row.units,
-      selector: (row, index) =>
-        deedData.length > 0 ? deedData[0].units : row.units,
-      sortable: true,
-    },
-
-    {
-      name: "Actions",
-      cell: (row) => (
-        <div className="d-flex">
-          <button
-            className="btn btn-outline-danger delete"
-            data-tooltip-id="delete"
-            onClick={() => {
-              openModalConfirm();
-              setDeleteId(row.id);
-            }}
-          >
-            <DeleteIcon />
-          </button>
-        </div>
-      ),
-    },
-  ];
 
   const [isLoading, setIsLoading] = useState("");
 
@@ -182,44 +83,8 @@ const AddMoreHub = ({ isOpen, closeModal, id }) => {
     closeModal(false);
     setStep(1);
     fetchPatta();
-
-    // setPattaFormData({
-    //     pattano: "",
-    //     pattaname: "",
-    //     father_name: "",
-    //     date: "",
-    //     state: "",
-    //     district: "",
-    //     taluk: "",
-    //     village: "",
-    //     classification: "",
-    //     type: "Rural_patta",
-    //     ward: "",
-    //     block: "",
-    // });
-    // setPreviousdata('')
-    // setSelectedState(null);
-    // setSelectedDistrict(null);
-    // setSelectedTaluk(null);
-    // setSelectedVillage(null);
-    // setPattaData([]);
   };
-  // useEffect(() => {
-  //     const fetchPatta = async () => {
-  //         try {
-  //             const response = await axios.get(`${API_BASE_URL}/enquirypatta/${id.id}`);
-  //             setPreviousdata(response.data);
-  //         } catch (error) {
 
-  //             if (error.response && error.response.data.status === 404) {
-  //                 setPreviousdata('');
-  //             } else {
-  //                 console.error("Error fetching patta:", error);
-  //             }
-  //         }
-  //     };
-  //     fetchPatta();
-  // }, [id, isOpen]);
 
   const handleStateSelect = (state) => {
     setSelectedState(state);

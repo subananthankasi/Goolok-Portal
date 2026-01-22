@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useFormik } from "formik";
-import * as yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { MultiSelect } from "primereact/multiselect";
 import { Editor } from "primereact/editor";
@@ -15,7 +14,7 @@ import API_BASE_URL from "../../../../Api/api";
 const TagesContentCom = ({ eid, id, status }) => {
   const dispatch = useDispatch();
   const [triggerChild, setTriggerChild] = useState(false);
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
 
   const enquiryDoumentData = useSelector(
     (state) => state.Enquiry.enquiryDocument

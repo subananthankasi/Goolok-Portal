@@ -22,7 +22,7 @@ const InteriorFeatureContentAp = ({ eid, id, status }) => {
   const [editDialog, setEditDialog] = useState(false);
   const [deleteId, setDeleteId] = useState("");
   const [editing, setEditing] = useState(false);
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const enquiryDoumentData = useSelector(
     (state) => state.Enquiry.enquiryDocument
   );

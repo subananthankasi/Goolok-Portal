@@ -18,7 +18,7 @@ import { Spinner } from 'react-bootstrap';
 
 const TitleSurveyPlot = ({ data }) => {
 
-    const staffid = JSON.parse(sessionStorage.getItem("token"));
+    const staffid = JSON.parse(localStorage.getItem("token"));
     const [surveyData, setSurveyData] = useState([]);
     const dispatch = useDispatch()
     const unitData = useSelector(state => state.Unit.Unit);

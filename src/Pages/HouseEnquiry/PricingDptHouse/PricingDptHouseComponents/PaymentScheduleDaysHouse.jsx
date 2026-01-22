@@ -11,8 +11,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { paymentSchedulGetThunk } from "../../../../Redux/Actions/MasterPage/PaymentScheduleThunk";
 import {
   paymentScheduleEnqDeleteThunk,
-  paymentScheduleEnqPostThunk,
-  paymentScheduleEnqUpdateThunk,
   paymentSchedulEnqGetThunk,
 } from "../../../../Redux/Actions/Enquiry/PaymentScheduleEnqThunk";
 import IconButton from "@mui/material/IconButton";
@@ -25,8 +23,7 @@ import Toast from "../../../../Utils/Toast";
 
 const PaymentScheduleDaysHouse = ({ eid, status, pagetype }) => {
   const dispatch = useDispatch();
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
-
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const [newDialog, setNewDialog] = useState(false);
   const [deleteDialog, setDeleteDialog] = useState(false);
   const [deleteId, setDeleteId] = useState(null);

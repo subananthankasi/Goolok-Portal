@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
     GridComponent,
@@ -14,7 +14,6 @@ import {
 } from "@syncfusion/ej2-react-grids";
 import Spinner from "react-bootstrap/Spinner";
 import { useNavigate } from "react-router-dom";
-import { encryptData } from "../../../Utils/encrypt";
 import axios from "axios";
 import API_BASE_URL from "../../../Api/api";
 
@@ -22,7 +21,7 @@ const CompleteHub = () => {
 
     const [loading, setLoading] = useState(true);
     // staff id 
-    const staffid = JSON.parse(sessionStorage.getItem('token'));
+    const staffid = JSON.parse(localStorage.getItem('token'));
     const [completeData, setCompleteData] = useState([]);
 
     const fetchData = async () => {
@@ -66,6 +65,8 @@ const CompleteHub = () => {
                 break;
             case "DefaultExport_csvexport":
                 gridInstance.csvExport();
+                break;
+            default:
                 break;
         }
     }

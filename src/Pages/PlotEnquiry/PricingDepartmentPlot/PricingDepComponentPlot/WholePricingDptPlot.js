@@ -1,19 +1,16 @@
-import React, { useRef, useState } from "react";
-// import Toast from "../../../Utils/Toast";
+import  { useRef, useState } from "react";
 import PriceDepartmentPlot from "./PriceDepartmentPlot";
 import PaymentScheduleUpdateStagePlot from "./PaymentScheduleUpdateStagePlot";
-import PaymentScheduleStagePlot from "./PaymentScheduleStagePlot";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { pricingConfirmThunk } from "../../../../Redux/Actions/Enquiry/pricingConfirmThunk";
 import Toast from "../../../../Utils/Toast";
 import { ProjectDetailsOwnerPlot } from "../../LandOwnerAgreementPlot/LandOwnerComponentPlot/ProjectDetailsOwnerPlot";
-import { PriceDetailsPlot } from "./PriceDetailsPlot";
 import ConfirmationModal from "../../../../Utils/ConfirmationModal";
 
 const WholePricingDptPlot = ({ eid, status, id, pagetype, discountPage }) => {
 
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const toast = useRef();

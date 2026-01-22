@@ -15,7 +15,7 @@ import customStyle from "../../../../Utils/tableStyle";
 import { useSelector } from "react-redux";
 
 const DayToDayprogress = (props) => {
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
 
   //   day to day progress
   const enquiryDoumentData = useSelector(

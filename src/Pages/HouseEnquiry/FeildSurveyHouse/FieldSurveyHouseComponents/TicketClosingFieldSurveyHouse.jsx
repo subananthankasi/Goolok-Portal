@@ -1,7 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import DataTable from "react-data-table-component";
-import DeleteIcon from "@mui/icons-material/Delete";
 import { Dialog } from "primereact/dialog";
 import EditIcon from "@mui/icons-material/Edit";
 import { useFormik } from "formik";
@@ -10,12 +9,10 @@ import API_BASE_URL from "../../../../Api/api";
 import Toast from "../../../../Utils/Toast";
 import customStyle from "../../../../Utils/tableStyle";
 import { useSelector } from "react-redux";
-// import API_BASE_URL from "../../../../../Api/api";
-// import Toast from "../../../../../Utils/Toast";
-// import customStyle from "../../../../../Utils/tableStyle";
+
 
 const TicketClosingFieldSurveyHouse = ({ eid, marketid, status, pagetype }) => {
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const [customerdata, setCustomerdata] = useState([]);
   const [newDialog, setNewDialog] = useState(false);
   const [editing, setEditing] = useState(false);

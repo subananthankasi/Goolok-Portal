@@ -15,7 +15,7 @@ const DayToDayProgressLayout = (props) => {
     const enquiryDoumentData = useSelector(
         (state) => state.Enquiry.enquiryDocument
     );
-    const staffid = JSON.parse(sessionStorage.getItem("token"));
+    const staffid = JSON.parse(localStorage.getItem("token"));
 
     //   day to day progress
     const column1 = [

@@ -27,7 +27,7 @@ const options = ['Progress', 'Closed'];
 
 const PendingHubMissing = () => {
     const [loading, setLoading] = useState(true);
-    const staffid = JSON.parse(sessionStorage.getItem('token'));
+    const staffid = JSON.parse(localStorage.getItem('token'));
     const [pendingData, setPendingData] = useState([]);
 
     const fetchData = async () => {

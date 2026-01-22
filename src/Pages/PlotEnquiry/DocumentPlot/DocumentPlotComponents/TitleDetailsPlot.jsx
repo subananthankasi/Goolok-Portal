@@ -22,12 +22,8 @@ import GeneralVillageDropdown from "../../../../Utils/Dropdown/GeneralVillageDro
 import GeneralSroDropdown from "../../../../Utils/Dropdown/GeneralSroDropdown";
 
 const TitleDetailsPlot = ({ data, setStep }) => {
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const dispatch = useDispatch();
-  const StateData = useSelector((state) => state.State.StateNameData);
-  const DistrictData = useSelector((state) => state.District.districtData);
-  const talukData = useSelector((state) => state.Taluk.TalukData);
-  const VillageData = useSelector((state) => state.Village.villageData);
   const [titeleData, setTitledata] = useState([]);
 
   const [sroData, setSroData] = useState([]);

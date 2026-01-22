@@ -1,4 +1,3 @@
-import React from "react";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -7,7 +6,6 @@ import Toast from "../../../../Utils/Toast";
 import ConfirmationModal from "../../../../Utils/ConfirmationModal";
 import AlertPop from "../../../../Utils/AlertPop";
 import { LawyerAddDocumentCom } from "./LawyerAddDocumentCom";
-import { subDays } from "rsuite/esm/utils/dateUtils";
 import { LandClearanceDateCom } from "./LandClearanceDateCom";
 import { OtherClearanceDateCom } from "./OtherClearanceDateCom";
 import DayToDayProgressLawyerCom from "./DayToDayProgressLawyerCom";
@@ -18,7 +16,7 @@ import TicketClosingLawyerCom from "./TicketClosingLawyerCom";
 
 export const WholeLawyerDocumentCommercial = (props) => {
   const navigate = useNavigate();
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const [verifyConfirm, setIsVerifyConfirm] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false)
 

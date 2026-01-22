@@ -1,22 +1,18 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import Button from "@mui/material/Button";
-import DatePicker from "react-datepicker";
-import { useDispatch, useSelector } from "react-redux";
+import {  useSelector } from "react-redux";
 import axios from "axios";
-import Spinner from "react-bootstrap/Spinner";
 import API_BASE_URL from "../../../../Api/api";
 import Toast from "../../../../Utils/Toast";
 import customStyle from "../../../../Utils/tableStyle";
 import DataTable from "react-data-table-component";
 import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
-import { DateFormatcustom } from "../../../../Utils/DateFormatcustom";
 import { Dialog } from "primereact/dialog";
 
 const TicketClosingLawyerCom = ({ eid, id, status, subtype, pagetype }) => {
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const [editDialog, setEditDialog] = useState(false);
   const enquiryDoumentData = useSelector(
     (state) => state.Enquiry.enquiryDocument

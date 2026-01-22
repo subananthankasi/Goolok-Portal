@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import { Dialog } from "primereact/dialog";
 import { useFormik } from "formik";
 import * as yup from "yup";
@@ -12,7 +12,7 @@ import AutoDeleteIcon from "@mui/icons-material/AutoDelete";
 
 
 const InvestmentStragieHouse = ({ eid, id, status }) => {
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const [newDialog, setNewDialog] = useState(false);
   const [editDialog, setEditDialog] = useState(false);
   const [temporaryStorage, setTemporaryStorage] = useState([]);

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import  { useEffect, useState } from 'react'
 import {
     GridComponent,
     ColumnsDirective,
@@ -21,7 +21,7 @@ import ConfirmationModal from '../../../../Utils/ConfirmationModal';
 
 const WaitingInvoiceSurvey = () => {
 
-    const staffid = JSON.parse(sessionStorage.getItem('token'));
+    const staffid = JSON.parse(localStorage.getItem('token'));
     const [loading, setLoading] = useState(false);
     const [WaitingData, setWaitingData] = useState([])
 

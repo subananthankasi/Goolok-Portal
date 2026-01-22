@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
     GridComponent,
@@ -13,7 +13,6 @@ import {
     Filter,
 } from "@syncfusion/ej2-react-grids";
 import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { Spinner } from 'react-bootstrap';
 import { ButtonGroup, Button, Whisper, Popover, Dropdown, IconButton } from 'rsuite';
@@ -29,7 +28,7 @@ function PendingLocCom() {
     const options = ['Progress', 'Closed'];
 
     // staff id 
-    const staffid = JSON.parse(sessionStorage.getItem('token'));
+    const staffid = JSON.parse(localStorage.getItem('token'));
     const [pendingWaitingData, setPendingWaitingData] = useState([]);
 
     const fetchData = async () => {

@@ -38,7 +38,7 @@ function PendingDocAP() {
   const [enquiryDataFromWebsite, setenquiryDataFromWebsite] = useState([]);
 
   // staff id
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
 
   const fetch = async () => {
     try {

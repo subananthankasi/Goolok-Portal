@@ -4,7 +4,6 @@ import axios from "axios";
 import API_BASE_URL from "../../../../../Api/api";
 import Toast from "../../../../../Utils/Toast";
 import AlertPop from "../../../../../Utils/AlertPop";
-import TicketAssignValuation from "../TicketAssignValuation";
 import ConfirmationModal from "../../../../Enquiry/Reusable/AppartResuable/ConfirmationModal";
 import TicketHubValuation from "./TicketHubValuation";
 import ValutionDateConfirmations from "./ValutionDateConfirmations";
@@ -12,7 +11,7 @@ import MediaValutaion from "./MediaValuation/MediaValutaion";
 
 const WholeTicketHubValuation = ({ eid, id, status }) => {
   const navigate = useNavigate();
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const [verifyConfirm, setIsVerifyConfirm] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false)
 

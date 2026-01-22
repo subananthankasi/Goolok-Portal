@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import API_BASE_URL, { IMG_PATH } from "../../../Api/api";
 import FileViewUtils from "../../../Utils/FileView/FileViewUtils";
 import axios from "axios";
@@ -6,7 +6,6 @@ import Spinner from "react-bootstrap/Spinner";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ConfirmationModal from "../../../Utils/ConfirmationModal";
 import Toast from "../../../Utils/Toast";
-// import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -17,7 +16,6 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
 import { TableFooter } from "@mui/material";
-
 import { useDispatch, useSelector } from "react-redux";
 import StateDropDown, {
   useStateOptions,
@@ -42,10 +40,8 @@ import Common from "../../../common/Common";
 
 export const AddMore = ({ isOpen, closeModal, id }) => {
   const { classification, allowOnlyLetters } = Common();
-
   const [step, setStep] = useState(1);
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
-
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const handleClose = () => {
     closeModal(false);
     setStep(1);

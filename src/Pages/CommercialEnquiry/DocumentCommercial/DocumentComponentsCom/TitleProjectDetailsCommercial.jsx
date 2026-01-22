@@ -1,18 +1,14 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import Button from "@mui/material/Button";
-import DatePicker from "react-datepicker";
-import { useDispatch } from "react-redux";
 import axios from "axios";
-import Spinner from "react-bootstrap/Spinner";
 import API_BASE_URL from "../../../../Api/api";
 import Toast from "../../../../Utils/Toast";
 
 const TitleProjectDetailsCommercial = ({ data }) => {
 
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
-  const dispatch = useDispatch();
+  const staffid = JSON.parse(localStorage.getItem("token"));
 
   const [prDetails, setPrDetails] = useState([]);
   const fetchDetails = async (eid) => {

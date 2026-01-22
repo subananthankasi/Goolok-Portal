@@ -1,27 +1,20 @@
-import React, { useEffect, useRef, useState } from "react";
-import DeleteIcon from "@mui/icons-material/Delete";
+import { useEffect, useRef, useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import { useDispatch, useSelector } from "react-redux";
 import DataTable from "react-data-table-component";
-import Button from "@mui/material/Button";
 import axios from "axios";
 import Spinner from "react-bootstrap/Spinner";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { Dialog } from "primereact/dialog";
-import { TabView, TabPanel } from "primereact/tabview";
-import { useNavigate, useParams } from "react-router-dom";
 import API_BASE_URL, { IMG_PATH } from "../../../Api/api";
 import Toast from "../../../Utils/Toast";
 import {
-  enquiryStatusUpdate,
   fetchEnquiryDocument,
 } from "../../../Redux/Actions/Enquiry/enquiryReportAction";
 import { fetchDoc } from "../../../Redux/Actions/MasterPage/LawyerDocumentAction";
-import ConfirmationModal from "../../../Utils/ConfirmationModal";
-import AlertPop from "../../../Utils/AlertPop";
 import FileView from "../../../Utils/FileView/FileView";
 import customStyle from "../../../Utils/tableStyle";
 import { Skeleton } from "primereact/skeleton";
@@ -29,10 +22,8 @@ import { Skeleton } from "primereact/skeleton";
 
 
 const UploadDocumentsTele = ({ eid, id }) => {
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const dispatch = useDispatch();
-  const [deleteId, setDeleteId] = useState(null);
-
   const enquiryDoumentData = useSelector(
     (state) => state.Enquiry.enquiryDocument
   );
@@ -78,11 +69,6 @@ const UploadDocumentsTele = ({ eid, id }) => {
     setAddDocModal(false);
   };
 
-  const [isModalDoc, setIsModalDoc] = useState(false);
-
-  const closeModalDoc = () => {
-    setIsModalDoc(false);
-  };
 
   //........................................................................................
 

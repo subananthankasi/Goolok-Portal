@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import WaitingTicketSurvey from "./WaitingTicketSurvey";
@@ -6,7 +6,7 @@ import PendingTicketSurvey from "./PendingTicketSurvey";
 import CompleteTicketSurvey from "./CompleteTicketSurvey";
 
 const TicketAssigningSurvey = () => {
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
 
   const [step, setStep] = useState(() => {
     if (staffid?.Login === "admin") {

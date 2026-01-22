@@ -53,7 +53,7 @@ const WholeLocationLayout = ({ eid, id, status, pagetype }) => {
     (state) => state.Enquiry.enquiryDocument
   );
   const autocompleteRef = useRef(null);
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
 
   const [mapMove, setMapMove] = useState(null);
   const [Location, setLocation] = useState();

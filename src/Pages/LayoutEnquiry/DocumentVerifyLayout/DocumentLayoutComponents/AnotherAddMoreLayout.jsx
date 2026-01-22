@@ -9,7 +9,7 @@ import FileViewUtils from '../../../../Utils/FileView/FileViewUtils';
 
 
 const AnotherAddMoreLayout = ({ isOpen, closeModal, data }) => {
-    const staffid = JSON.parse(sessionStorage.getItem("token"));
+    const staffid = JSON.parse(localStorage.getItem("token"));
     const [pageLoading, setPageLoadingPage] = useState(true);
     const [fetchData, setFetchData] = useState([]);
     const [isfetchInputData, setFetchInputData] = useState([]);

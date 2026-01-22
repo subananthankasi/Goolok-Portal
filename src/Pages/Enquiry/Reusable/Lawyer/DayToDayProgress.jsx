@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import customStyle from "../../../../Utils/tableStyle";
 import axios from "axios";
@@ -14,7 +14,7 @@ import { DatePicker } from "antd";
 import { useSelector } from "react-redux";
 
 export const DayToDayProgress = (props) => {
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
  const enquiryDoumentData = useSelector(
     (state) => state.Enquiry.enquiryDocument
   );

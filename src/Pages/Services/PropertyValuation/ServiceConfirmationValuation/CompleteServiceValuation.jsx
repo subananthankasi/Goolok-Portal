@@ -22,7 +22,7 @@ import { encryptData } from "../../../../Utils/encrypt";
 const CompleteServiceValuation = () => {
     const [loading, setLoading] = useState(true);
     // staff id 
-    const staffid = JSON.parse(sessionStorage.getItem('token'));
+    const staffid = JSON.parse(localStorage.getItem('token'));
     const [completeData, setCompleteData] = useState([]);
 
     const fetchData = async () => {
@@ -66,6 +66,8 @@ const CompleteServiceValuation = () => {
                 break;
             case "DefaultExport_csvexport":
                 gridInstance.csvExport();
+                break;
+            default:
                 break;
         }
     }

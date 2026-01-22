@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
     GridComponent,
@@ -13,16 +13,13 @@ import {
     Filter,
 } from "@syncfusion/ej2-react-grids";
 import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import API_BASE_URL from '../../../Api/api';
 import { encryptData } from '../../../Utils/encrypt';
-// import API_BASE_URL from '../../../../Api/api';
-// import { encryptData } from '../../../../Utils/encrypt';
 
 const PendingMarketPlot = () => {
 
-    const staffid = JSON.parse(sessionStorage.getItem('token'));
+    const staffid = JSON.parse(localStorage.getItem('token'));
     const [pendingWaitingData, setPendingWaitingData] = useState([]);
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate()

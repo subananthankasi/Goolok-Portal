@@ -20,7 +20,7 @@ import { encryptData } from '../../../Utils/encrypt';
 
 const PendingMarketLayout = () => {
 
-    const staffid = JSON.parse(sessionStorage.getItem('token'));
+    const staffid = JSON.parse(localStorage.getItem('token'));
     const [pendingWaitingData, setPendingWaitingData] = useState([]);
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate()

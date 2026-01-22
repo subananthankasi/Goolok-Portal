@@ -14,7 +14,7 @@ import customStyle from "../../../../../Utils/tableStyle";
 import { useSelector } from "react-redux";
 
 const CustomerFollowSurvey = ({ eid, id, status, pagetype }) => {
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const [editing, setEditing] = useState(false);
   const [newDialog, setNewDialog] = useState(false);
   const [editDialog, setEditDialog] = useState(false);

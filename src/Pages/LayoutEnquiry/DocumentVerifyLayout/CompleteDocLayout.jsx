@@ -29,7 +29,7 @@ function CompleteDocLayout() {
   const dispatch = useDispatch();
   const [enquiryDataFromWebsite, setenquiryDataFromWebsite] = useState([])
   // staff id 
-  const staffid = JSON.parse(sessionStorage.getItem('token'));
+  const staffid = JSON.parse(localStorage.getItem('token'));
 
   useEffect(() => {
     const fetchData = async () => {
@@ -83,7 +83,7 @@ function CompleteDocLayout() {
 
   const handleRowSelect = (args) => {
     const rowData = args.data;
-     navigate(`/layout_document/${encryptData(rowData.id)}/${encryptData(rowData.userid)}/${encryptData("complete")}`);
+    navigate(`/layout_document/${encryptData(rowData.id)}/${encryptData(rowData.userid)}/${encryptData("complete")}`);
   };
 
 
@@ -139,6 +139,11 @@ function CompleteDocLayout() {
                           <ColumnDirective
                             field="customer"
                             headerText="Customer Name"
+                            width="150"
+                          />
+                          <ColumnDirective
+                            field="age"
+                            headerText="Age"
                             width="150"
                           />
                           <ColumnDirective

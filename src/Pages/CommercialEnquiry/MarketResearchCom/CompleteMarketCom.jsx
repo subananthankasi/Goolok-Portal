@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
   GridComponent,
@@ -13,15 +13,12 @@ import {
   Filter,
 } from "@syncfusion/ej2-react-grids";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import axios from "axios";
 import API_BASE_URL from "../../../Api/api";
 import { encryptData } from "../../../Utils/encrypt";
 
 const CompleteMarketCom = () => {
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
-
-  const dispatch = useDispatch();
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [pendingWaitingData, setPendingWaitingData] = useState([]);

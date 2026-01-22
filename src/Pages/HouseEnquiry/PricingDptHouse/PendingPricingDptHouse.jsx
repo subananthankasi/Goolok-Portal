@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
     GridComponent,
@@ -13,13 +13,7 @@ import {
     Filter,
 } from "@syncfusion/ej2-react-grids";
 import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { pricingPendingThunk } from '../../../Redux/Actions/Enquiry/PricingEnquiryThunk';
-import { DateFormatcustom } from '../../../Utils/DateFormatcustom';
-import { AgeCalculate } from '../../../Utils/AgeCalculate';
-
 import axios from 'axios';
-
 import { ButtonGroup, Button, Whisper, Popover, Dropdown, IconButton } from 'rsuite';
 import ArrowDownIcon from '@rsuite/icons/ArrowDown';
 import API_BASE_URL from '../../../Api/api';
@@ -29,16 +23,10 @@ import ClosedProperty from '../../../Utils/ClosedProperty';
 const options = ['Progress', 'Closed'];
 
 const PendingPricingDptHouse = () => {
-
-
-    const dispatch = useDispatch()
     const [pendingWaitingData, setPendingWaitingData] = useState([]);
-
     const filterSettings = { type: "Excel" };
     const toolbarOptions = ["ExcelExport", "PdfExport", "Search"];
-
-
-    const staffid = JSON.parse(sessionStorage.getItem('token'));
+    const staffid = JSON.parse(localStorage.getItem('token'));
     const fetchData = async () => {
         try {
             const response = await axios.get(`${API_BASE_URL}/pricingdpt?id=${staffid.loginid}&status=pending`, {
@@ -46,8 +34,6 @@ const PendingPricingDptHouse = () => {
                     "Pr-Root": "house"
                 }
             });
-            //   setLoading(false);
-
             setPendingWaitingData(
                 response.data?.map((data, index) => ({
                     ...data,
@@ -55,7 +41,6 @@ const PendingPricingDptHouse = () => {
                 }))
             );
         } catch (error) {
-            //   setLoading(false);
         }
     };
     useEffect(() => {
@@ -74,6 +59,8 @@ const PendingPricingDptHouse = () => {
                 break;
             case "DefaultExport_csvexport":
                 gridInstance.csvExport();
+                break;
+            default:
                 break;
         }
     }

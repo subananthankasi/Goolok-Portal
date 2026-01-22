@@ -31,7 +31,7 @@ const PaymentDetailsAfterSale = ({
   loading,
   setLoading,
 }) => {
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
 
   const [deleteDialog, setDeleteDialog] = useState(false);
   const [newDialog, setNewDialog] = useState(false);

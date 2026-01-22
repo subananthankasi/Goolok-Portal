@@ -1,7 +1,7 @@
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import 'react-circular-progressbar/dist/styles.css';
 import { GridComponent, ColumnsDirective, ColumnDirective, Inject, Toolbar, ExcelExport, PdfExport, Sort, Filter } from '@syncfusion/ej2-react-grids';
 import axios from "axios";
@@ -12,10 +12,7 @@ import { Dialog } from 'primereact/dialog';
 import "primereact/resources/themes/lara-light-cyan/theme.css";
 import { useDispatch } from "react-redux";
 import { projectVerifyThunk } from "../../../Redux/Actions/ProjectThunk/ProjectThunk";
-// import { Badge } from 'primereact/badge';
-import Badge from '@mui/material/Badge';
-import { useLocation } from 'react-router-dom';
-import { encryptData } from "../../../Utils/encrypt";
+
 
 
 const VacantReport = () => {
@@ -45,6 +42,8 @@ const VacantReport = () => {
             case 'DefaultExport_csvexport':
                 gridInstance.csvExport();
                 break;
+            default:
+                break;
         }
     }
 
@@ -62,12 +61,6 @@ const VacantReport = () => {
 
     const renderStatusButton = (props) => {
         return (
-
-            // <button
-            //     className="btn-success"
-            // >
-            //     <b>{props.status} </b>
-            // </button>
             <button
                 style={{
                     backgroundColor: '#17a2b8',
@@ -89,47 +82,26 @@ const VacantReport = () => {
 
         )
     };
-    const openSubmit = (id) => {
-        setConfirmDialog(true)
-        setEnqId(id)
-    }
 
 
-const fetchData = async () => {
-    try {
-        const response = await axios.get(`${API_BASE_URL}/vacantreport`, {
-            headers: {
-                "Gl-Status": "Vacant"
-            },
-        });
-        SetData(response.data);
-        setLoading(false);
-    } catch (error) {
-        setLoading(false);
-        console.error('Error fetching data:', error);
-    }
-};
+    const fetchData = async () => {
+        try {
+            const response = await axios.get(`${API_BASE_URL}/vacantreport`, {
+                headers: {
+                    "Gl-Status": "Vacant"
+                },
+            });
+            SetData(response.data);
+            setLoading(false);
+        } catch (error) {
+            setLoading(false);
+            console.error('Error fetching data:', error);
+        }
+    };
 
-useEffect(() => {
-    fetchData();
-}, []);
-
-    // const fetchData = async () => {
-    //     try {
-    //         const response = await axios.get(`${API_BASE_URL}/vacantreport`);
-    //         SetData(response.data)
-    //         setLoading(false)
-    //     } catch (error) {
-    //         setLoading(false)
-    //         console.error('Error fetching data:', error);
-    //     }
-    // };
-
-    // useEffect(() => {
-    //     fetchData();
-    // }, []);
-
-
+    useEffect(() => {
+        fetchData();
+    }, []);
 
     const finalData = data?.map((item, index) => {
         return {
@@ -203,6 +175,8 @@ useEffect(() => {
                                                     <ColumnDirective field='sno' headerText='S.no' width='150' />
                                                     <ColumnDirective field='vacant_id' headerText='Vacant ID' width='150' template={ProjectID} />
                                                     <ColumnDirective field='age' headerText='Age ' width='150' />
+                                                    <ColumnDirective field='propertyName' headerText='Property Name ' width='180' />
+                                                    <ColumnDirective field='propertyid' headerText='Property ID ' width='150' />
                                                     <ColumnDirective
                                                         field="property_type"
                                                         headerText="Category "
@@ -210,7 +184,7 @@ useEffect(() => {
                                                     />
                                                     <ColumnDirective field='subpro_name' headerText='Sub Category' width='150' />
                                                     <ColumnDirective field='live_date' headerText='Live Date' width='150' />
-                                                    <ColumnDirective  headerText='Property Status' width='150' template={statusPopup} />
+                                                    <ColumnDirective headerText='Property Status' width='150' template={statusPopup} />
                                                 </ColumnsDirective>
                                                 <Inject services={[Toolbar, ExcelExport, PdfExport, Sort, Filter]} />
                                             </GridComponent>

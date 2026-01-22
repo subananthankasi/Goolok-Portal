@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -16,8 +16,7 @@ import dayjs from "dayjs";
 import { DatePicker } from "antd";
 
 const AgreementPeriodOwnerCom = ({ eid, id, status, pagetype }) => {
-    const staffid = JSON.parse(sessionStorage.getItem("token"));
-
+    const staffid = JSON.parse(localStorage.getItem("token"));
     const [newDialog, setNewDialog] = useState(false);
     const [deleteDialog, setDeleteDialog] = useState(false);
     const [deleteId, setDeleteId] = useState(null);

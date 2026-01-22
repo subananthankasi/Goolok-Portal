@@ -1,8 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
-// import API_BASE_URL, { IMG_PATH } from "../../../../Api/api";
-// import FileViewUtils from "../../../../Utils/FileView/FileViewUtils";
-// import Toast from "../../../../Utils/Toast";
+import  { useEffect, useState } from "react";
 import Spinner from "react-bootstrap/Spinner";
 import API_BASE_URL, { IMG_PATH } from "../../../../../Api/api";
 import Toast from "../../../../../Utils/Toast";
@@ -11,7 +8,7 @@ import { useSelector } from "react-redux";
 
 export const AddMoreDocDetailsLawyer = ({ isOpen, closeModal, id, props }) => {
 
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const [pageLoading, setPageLoadingPage] = useState(true);
   const [fetchData, setFetchData] = useState([]);
   const [isfetchInputData, setFetchInputData] = useState([]);

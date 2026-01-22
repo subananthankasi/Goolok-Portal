@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import  { useEffect, useState } from 'react'
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
     GridComponent,
@@ -13,7 +13,6 @@ import {
     Filter,
 } from "@syncfusion/ej2-react-grids";
 import { useDispatch, useSelector } from 'react-redux';
-
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -27,7 +26,7 @@ import ConfirmationModal from '../../../Utils/ConfirmationModal';
 
 const WaitingMediaAp = () => {
 
-    const staffid = JSON.parse(sessionStorage.getItem('token'));
+    const staffid = JSON.parse(localStorage.getItem('token'));
     const dispatch = useDispatch()
 
 

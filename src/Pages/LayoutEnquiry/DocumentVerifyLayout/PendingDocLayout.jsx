@@ -19,7 +19,7 @@ import { useNavigate } from "react-router-dom";
 import { ButtonGroup, Button, Whisper, Popover, Dropdown, IconButton } from 'rsuite';
 import API_BASE_URL from "../../../Api/api";
 import ClosedProperty from "../../../Utils/ClosedProperty";
- import ArrowDownIcon from '@rsuite/icons/ArrowDown';
+import ArrowDownIcon from '@rsuite/icons/ArrowDown';
 import { encryptData } from "../../../Utils/encrypt";
 
 
@@ -34,7 +34,7 @@ function PendingDocLayout() {
 
 
     // staff id 
-    const staffid = JSON.parse(sessionStorage.getItem('token'));
+    const staffid = JSON.parse(localStorage.getItem('token'));
 
 
     const fetch = async () => {
@@ -80,12 +80,14 @@ function PendingDocLayout() {
             case "DefaultExport_csvexport":
                 gridInstance.csvExport();
                 break;
+            default:
+                break;
         }
     }
     const navigate = useNavigate();
     const handleRowSelect = (args) => {
         const rowData = args.data;
-       navigate(`/layout_document/${encryptData(rowData.id)}/${encryptData(rowData.userid)}/${encryptData("pending")}`);
+        navigate(`/layout_document/${encryptData(rowData.id)}/${encryptData(rowData.userid)}/${encryptData("pending")}`);
     };
     const [action, setAction] = useState(0);
     const [visible, setVisible] = useState(false)
@@ -162,6 +164,11 @@ function PendingDocLayout() {
                                                         width="150"
                                                     />
                                                     <ColumnDirective
+                                                        field="age"
+                                                        headerText="Age"
+                                                        width="150"
+                                                    />
+                                                    <ColumnDirective
                                                         field="mobile"
                                                         headerText="Mobile"
                                                         width="150"
@@ -186,29 +193,6 @@ function PendingDocLayout() {
                                                         headerText="Sub Property"
                                                         width="150"
                                                     />
-                                                    {/* <ColumnDirective
-                            headerText="Status"
-                            width="150"
-                            template={(props) => (
-                              <button
-                                onClick={(event) => {
-                                  event.stopPropagation();
-                                  handleDelete(props.id);
-                                }}
-                                style={{
-                                  backgroundColor: "blue",
-                                  color: "white",
-                                  border: "none",
-                                  padding: "5px 10px",
-                                  borderRadius: "5px",
-                                  cursor: "pointer",
-                                }}
-                              >
-                                progress
-                              </button>
-
-                            )}
-                          /> */}
                                                     <ColumnDirective
                                                         headerText="Status"
                                                         width="190"
@@ -245,12 +229,9 @@ function PendingDocLayout() {
                                                                         <IconButton appearance="primary" color="green" onClick={(event) => event.stopPropagation()} icon={<ArrowDownIcon />} />
                                                                     </Whisper>
                                                                 </ButtonGroup>
-
                                                             </div>
                                                         )}
                                                     />
-
-
                                                 </ColumnsDirective>
                                                 <Inject
                                                     services={[
@@ -271,30 +252,6 @@ function PendingDocLayout() {
                     </div>
                 </div>
             </section>
-
-            {/* <Dialog header="Confirmation" visible={visible} style={{ width: '30vw' }} onHide={() => { if (!visible) return; setVisible(false); setRemark("") }}>
-        <form autoComplete="off">
-          <div>
-            <p style={{ fontWeight: "600" }}> <ErrorOutlineIcon sx={{ fontSize: 25 }} /> Are you sure you want to proceed ?</p>
-          </div>
-          <div className="form-group">
-            <label htmlFor="docname" className="form-label">Remark :  </label>
-            <textarea
-              type="text"
-              name="remark"
-              className="form-control"
-              placeholder="Enter remark...."
-              value={remark}
-              onChange={(e) => setRemark(e.target.value)}
-            />
-
-          </div>
-          <div className="d-flex justify-content-end mt-3 gap-3">
-            <Button variant="outlined" color="error" onClick={() => setVisible(false)} >No</Button>
-            <Button variant="contained" onClick={submit}>Yes</Button>
-          </div>
-        </form>
-      </Dialog> */}
         </>
     );
 }

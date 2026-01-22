@@ -1,23 +1,18 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-// import Toast from "../../../Utils/Toast";
-// import ConfirmationModal from "../../../Utils/ConfirmationModal";
 import {
     GoogleMap,
     useJsApiLoader,
     Autocomplete,
     Marker,
-    Polyline,
     Polygon,
     InfoWindow,
 } from "@react-google-maps/api";
 import LocationSearchingIcon from "@mui/icons-material/LocationSearching";
 import Spinner from "react-bootstrap/Spinner";
-// import AlertPop from "../../../Utils/AlertPop";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { ThreeDots } from "react-loader-spinner";
 import { Dialog } from 'primereact/dialog';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import API_BASE_URL from "../../../../Api/api";
@@ -58,7 +53,7 @@ const LocationSelectService = ({ eid, id, status, pagetype }) => {
         (state) => state.Enquiry.enquiryDocument
     );
     const autocompleteRef = useRef(null);
-    const staffid = JSON.parse(sessionStorage.getItem("token"));
+    const staffid = JSON.parse(localStorage.getItem("token"));
 
     const [mapMove, setMapMove] = useState(null);
     const [Location, setLocation] = useState();
@@ -101,10 +96,6 @@ const LocationSelectService = ({ eid, id, status, pagetype }) => {
             }
         }
     };
-
-
-
-
 
     const [isLoading, setIsLoading] = useState(false);
 

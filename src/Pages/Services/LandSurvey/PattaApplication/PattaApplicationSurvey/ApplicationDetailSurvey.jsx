@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -6,17 +6,8 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { Dialog } from "primereact/dialog";
 import Button from "@mui/material/Button";
-// import { DateFormatcustom } from "../../../../Utils/DateFormatcustom";
-// import customStyle from "../../../../Utils/tableStyle";
-// import API_BASE_URL from "../../../../Api/api";
 import axios from "axios";
-// import Toast from "../../../../Utils/Toast";
-import { TabView, TabPanel } from "primereact/tabview";
 import { useDispatch, useSelector } from "react-redux";
-// import { fetchDistrict } from "../../../../Redux/Actions/MasterPage/DistrictAction";
-// import { fetchTaluk } from "../../../../Redux/Actions/MasterPage/TalukAction";
-// import { fetchVillage } from "../../../../Redux/Actions/MasterPage/VillageAction";
-// import { fetchSRODetails } from "../../../../Redux/Actions/MasterPage/SRODetailsAction";
 import Spinner from "react-bootstrap/Spinner";
 import { fetchDistrict } from "../../../../../Redux/Actions/MasterPage/DistrictAction";
 import { fetchTaluk } from "../../../../../Redux/Actions/MasterPage/TalukAction";
@@ -28,7 +19,7 @@ import customStyle from "../../../../../Utils/tableStyle";
 
 const ApplicationDetailSurvey = ({ eid, id, status, rowId, pagetype }) => {
 
-    const staffid = JSON.parse(sessionStorage.getItem("token"));
+    const staffid = JSON.parse(localStorage.getItem("token"));
     const dispatch = useDispatch();
     const [editing, setEditing] = useState(false)
     const [deleteDialog, setDeleteDialog] = useState(false)

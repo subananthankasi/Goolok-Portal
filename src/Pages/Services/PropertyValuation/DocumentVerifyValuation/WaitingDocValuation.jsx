@@ -21,7 +21,7 @@ import AlertPop from '../../../../Utils/AlertPop';
 
 
 const WaitingDocValuation = () => {
-    const staffid = JSON.parse(sessionStorage.getItem('token'));
+    const staffid = JSON.parse(localStorage.getItem('token'));
 
     const [loading, setLoading] = useState(false);
     const filterSettings = { type: "Excel" };
@@ -40,6 +40,8 @@ const WaitingDocValuation = () => {
             case "DefaultExport_csvexport":
                 gridInstance.csvExport();
                 break;
+            default:
+                break;
         }
     }
 
@@ -49,7 +51,7 @@ const WaitingDocValuation = () => {
             const response = await axios.get(`${API_BASE_URL}/landservice`, {
                 headers: {
                     "Gl-status": 'land',
-                    "Level":"Property Valuation"
+                    "Level": "Property Valuation"
                 }
             })
             setLoading(false);

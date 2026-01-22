@@ -16,8 +16,7 @@ import Toast from "../../../../Utils/Toast";
 
 const PaymentSchedulePricingHouse = ({ eid, id, status, pagetype }) => {
   const [newDialog, setNewDialog] = useState(false);
-  const [isCreateButtonVisible, setIsCreateButtonVisible] = useState(true);
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
 
   const [initialValues, setInitialValues] = useState({
     fullPayment: false,
@@ -100,10 +99,10 @@ const PaymentSchedulePricingHouse = ({ eid, id, status, pagetype }) => {
     (value) => value === true
   );
   useEffect(() => {
-    sessionStorage.setItem("isAnyOptionSelected", isAnyOptionSelected);
+    localStorage.setItem("isAnyOptionSelected", isAnyOptionSelected);
   }, []);
 
-  const valueFalse = sessionStorage.getItem("isAnyOptionSelected");
+  const valueFalse = localStorage.getItem("isAnyOptionSelected");
 
   const handleAdd = async () => {
     setNewDialog(true);

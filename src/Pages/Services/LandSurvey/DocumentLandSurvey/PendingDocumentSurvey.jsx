@@ -20,6 +20,7 @@ import ArrowDownIcon from '@rsuite/icons/ArrowDown';
 import API_BASE_URL from "../../../../Api/api";
 import { useNavigate } from "react-router-dom";
 import ClosedProperty from "../../../../Utils/ClosedProperty";
+import { encryptData } from "../../../../Utils/encrypt";
 const options = ['Progress', 'Closed'];
 
 const PendingDocumentSurvey = () => {
@@ -42,9 +43,11 @@ const PendingDocumentSurvey = () => {
             case "DefaultExport_csvexport":
                 gridInstance.csvExport();
                 break;
+            default:
+                break;
         }
     }
-    const staffid = JSON.parse(sessionStorage.getItem('token'));
+    const staffid = JSON.parse(localStorage.getItem('token'));
     const [enquiryDataFromWebsite, setenquiryDataFromWebsite] = useState([])
 
 
@@ -76,7 +79,8 @@ const PendingDocumentSurvey = () => {
 
     const handleRowSelect = (args) => {
         const rowData = args.data;
-        navigate(`/updatedocsurvey/${rowData.id}/${rowData.userid}/pending`);
+        // navigate(`/updatedocsurvey/${rowData.id}/${rowData.userid}/pending`);
+        navigate(`/update_document/${encryptData(rowData.id)}/${encryptData(rowData.userid)}/${encryptData('pending')}`);
 
 
     };

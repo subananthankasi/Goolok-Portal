@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   GridComponent,
   ColumnsDirective,
@@ -18,11 +18,10 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import API_BASE_URL, { IMG_PATH } from "../../../../Api/api";
 import Toast from "../../../../Utils/Toast";
 import { useSelector } from "react-redux";
-// import API_BASE_URL, { IMG_PATH } from '../../../../../Api/api';
-// import Toast from '../../../../../Utils/Toast';
+
 
 export const OtherClearanceDateCom = (props) => {
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const enquiryDoumentData = useSelector(
     (state) => state.Enquiry.enquiryDocument
   );

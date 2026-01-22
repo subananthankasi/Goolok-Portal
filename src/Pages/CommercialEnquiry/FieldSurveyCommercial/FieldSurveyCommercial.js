@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import  { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import WaitingFieldCom from "./WaitingFieldCom";
@@ -7,10 +7,7 @@ import CompleteFieldCom from "./CompleteFieldCom";
 
 
 const FieldSurveyCommercial = () => {
-
-
-  const staffid = JSON.parse(sessionStorage.getItem('token'));
-
+  const staffid = JSON.parse(localStorage.getItem('token'));
   const [step, setStep] = useState(() => {
     if (staffid?.Login === "admin") {
       return 1;

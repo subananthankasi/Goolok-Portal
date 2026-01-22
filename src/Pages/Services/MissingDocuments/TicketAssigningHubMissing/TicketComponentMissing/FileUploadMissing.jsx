@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import DataTable from "react-data-table-component";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -11,14 +11,13 @@ import API_BASE_URL, { IMG_PATH } from "../../../../../Api/api";
 import Toast from "../../../../../Utils/Toast";
 import customStyle from "../../../../../Utils/tableStyle";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
-import DatePicker from "react-datepicker";
 import { Calendar } from "primereact/calendar";
 import { InputText } from "primereact/inputtext";
 import { FloatLabel } from "primereact/floatlabel";
 import { useSelector } from "react-redux";
 
 const FileUploadMissing = ({ eid, id, status, pagetype }) => {
-    const staffid = JSON.parse(sessionStorage.getItem("token"));
+    const staffid = JSON.parse(localStorage.getItem("token"));
     const [editing, setEditing] = useState(false);
     const [newDialog, setNewDialog] = useState(false);
     const [editDialog, setEditDialog] = useState(false);

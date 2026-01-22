@@ -2,10 +2,10 @@ import React from "react";
 import { TabView, TabPanel } from "primereact/tabview";
 import { useParams } from "react-router-dom";
 import LocationSurveySelect from "../LocationLandSurvey/LocSurveyResuble/LocationSurveySelect";
-import ReminderDocVerifySurvey from "../DocumentLandSurvey/DocResubleSurvey/ReminderDocVerifySurvey";
 import { Header } from "../../../Enquiry/Reusable/Header";
 import { decryptData } from "../../../../Utils/encrypt";
 import WholeServiceSurvey from "./ConfirmSurvey/WholeServiceSurvey";
+import WholeDocGetPatta from "../../DocumentService/GetPattaComponents/WholeDocGetPatta";
 
 const UpdateConfirmSurvey = () => {
   const { eid, id, status } = useParams();
@@ -28,12 +28,13 @@ const UpdateConfirmSurvey = () => {
               />
             </TabPanel>
             <TabPanel header="Remainder">
-              <ReminderDocVerifySurvey
+              {/* <ReminderDocVerifySurvey
                 id={decryid}
                 eid={decryEid}
                 status={decryStatus}
                 pagetype="reminder"
-              />
+              /> */}
+              <WholeDocGetPatta eid={decryEid} id={decryid} status={decryStatus} pagetype="reminder" />
               <LocationSurveySelect
                 eid={decryEid}
                 id={decryid}

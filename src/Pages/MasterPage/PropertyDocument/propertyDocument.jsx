@@ -24,9 +24,6 @@ import CustomLoder from "../../../Components/customLoader/CustomLoder";
 import Common from "../../../common/Common";
 
 function PropertyDocument() {
-  // const PropertyDocumentData = useSelector(
-  //   (state) => state.PropertyDocument.PropertyDocumentData
-  // );
   const {
     isLoading,
     addLoading,
@@ -47,7 +44,6 @@ function PropertyDocument() {
     status: "Enable",
   });
 
-  // dropdown set
   const [selectedProperty, setSelectedProperty] = useState(null);
   const [selectedSubProperty, setSelectedSubProperty] = useState(null);
 

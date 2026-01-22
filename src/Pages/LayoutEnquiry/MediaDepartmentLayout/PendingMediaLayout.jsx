@@ -28,7 +28,7 @@ const options = ['Progress', 'Closed'];
 
 
 const PendingMediaLayout = () => {
-    const staffid = JSON.parse(sessionStorage.getItem('token'));
+    const staffid = JSON.parse(localStorage.getItem('token'));
     const dispatch = useDispatch()
     const [pendingWaitingData, setPendingWaitingData] = useState([]);
 

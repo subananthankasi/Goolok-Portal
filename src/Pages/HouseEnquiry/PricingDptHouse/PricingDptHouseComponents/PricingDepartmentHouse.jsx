@@ -15,12 +15,12 @@ import {
 } from "../../../../Redux/Actions/Enquiry/PricingEnquiryThunk";
 import { pricingGetThunk } from "../../../../Redux/Actions/MasterPage/PricingThunk";
 import DiscountPage from "../../../../Utils/Offers/DiscountPage";
-import { Input, InputGroup } from "rsuite";
+import { InputGroup } from "rsuite";
 
 
 
 const PricingDepartmentHouse = ({ eid, status, id, pagetype ,discountPage }) => {
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const [unit, setUnit] = useState(false);
   const [getOption, setGetOption] = useState([]);
   const [invoiceData, setInvoiceData] = useState([]);

@@ -20,6 +20,7 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import API_BASE_URL from "../../../../Api/api";
 import { DateFormatcustom } from "../../../../Utils/DateFormatcustom";
+import { encryptData } from "../../../../Utils/encrypt";
 
 const CompleteMap = () => {
 
@@ -48,14 +49,15 @@ const CompleteMap = () => {
 
     const handleRowSelect = (args) => {
         const rowData = args.data;
-        navigate(`/Documentsetgooglemap/${rowData.id}/${rowData.userid}/complete`);
+        // navigate(`/Documentsetgooglemap/${rowData.id}/${rowData.userid}/complete`);
+          navigate(`/update_document/${encryptData(rowData.id)}/${encryptData(rowData.userid)}/${encryptData('complete')}`);
 
     };
 
     const dispatch = useDispatch();
     const [enquiryDataFromWebsite, setenquiryDataFromWebsite] = useState([])
     // staff id 
-    const staffid = JSON.parse(sessionStorage.getItem('token'));
+    const staffid = JSON.parse(localStorage.getItem('token'));
 
     const fetchData = async () => {
         try {

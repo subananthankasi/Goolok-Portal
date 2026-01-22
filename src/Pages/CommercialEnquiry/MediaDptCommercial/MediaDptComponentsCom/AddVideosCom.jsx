@@ -16,12 +16,11 @@ import {
 } from "../../../../Redux/Actions/Enquiry/MediaDptEnq/MediaDptEnqVideoThunk";
 import { IMG_PATH } from "../../../../Api/api";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
-import { ThreeDots } from "react-loader-spinner";
 import { Progress } from "antd";
 import Toast from "../../../../Utils/Toast";
 
 const AddVideosCom = ({ eid, status, pagetype }) => {
-    const staffid = JSON.parse(sessionStorage.getItem("token"));
+    const staffid = JSON.parse(localStorage.getItem("token"));
     const [videoDialog, setvideoDialog] = useState(false);
     const [editDialog, setEditDialog] = useState(false);
     const [textType, setTextType] = useState(false);

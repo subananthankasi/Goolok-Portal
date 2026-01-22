@@ -17,7 +17,7 @@ const CustomerMarketLayout = ({ eid, marketid, status, pagetype }) => {
   const enquiryDoumentData = useSelector(
     (state) => state.Enquiry.enquiryDocument
   );
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const [customerdata, setCustomerdata] = useState([]);
   const [newDialog, setNewDialog] = useState(false);
   const [mapVisible, setMapVisible] = useState(false);

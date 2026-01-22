@@ -1,20 +1,11 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { Dialog } from "primereact/dialog";
 import Button from "@mui/material/Button";
 import axios from "axios";
-// import API_BASE_URL from "../../../../Api/api";
-// import Toast from "../../../../Utils/Toast";
 import { useDispatch, useSelector } from "react-redux";
-// import { fetchSubPropertyType } from "../../../../Redux/Actions/MasterPage/SubPropertyAction";
-// import { fetchPropertyType } from "../../../../Redux/Actions/MasterPage/PropertyTypeAction";
-// import { fetchSRODetails } from "../../../../Redux/Actions/MasterPage/SRODetailsAction";
-// import { fetchState } from "../../../../Redux/Actions/MasterPage/StateAction";
-// import { fetchTaluk } from "../../../../Redux/Actions/MasterPage/TalukAction";
-// import { fetchVillage } from "../../../../Redux/Actions/MasterPage/VillageAction";
-// import { fetchDistrict } from "../../../../Redux/Actions/MasterPage/DistrictAction";
 import { ThreeCircles } from "react-loader-spinner";
 import { fetchSubPropertyType } from "../../../Redux/Actions/SubPropertyAction";
 import { fetchPropertyType } from "../../../Redux/Actions/PropertyTypeAction";
@@ -50,7 +41,7 @@ const RegTikcketDetailsTele = ({
   bookingid,
   pagetype,
 }) => {
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const [editing, setEditing] = useState(false);
   const [newDialog, setNewDialog] = useState(false);
   const [editDialog, setEditDialog] = useState(false);

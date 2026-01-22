@@ -1,22 +1,14 @@
 import React from "react";
-// import { LawyerDocumentsUploadStages } from "./LawyerDocumentsUploadStages";
-// import { Header } from "../Reusable/Header";
-// import { InvoiceDetails } from "../Reusable/InvoiceDetails";
-// import LocationSelect from "../Reusable/LocationSelect";
-// import { MarketResearch } from "../Reusable/MarketResearch";
-// import { Priceproposal } from "../Reusable/Priceproposal";
-// import { PaymentLegalOpinion } from "../Reusable/PaymentLegalOpinion";
 import { useParams } from "react-router-dom";
-// import { DocumentVerification } from "../Reusable/DocumentVerification";
 import { TabView, TabPanel } from "primereact/tabview";
 import { decryptData } from "../../../../Utils/encrypt";
 import { LawyerOpinionUploadStage } from "./LawyerComponent/LawyerOpinionUploadStage";
 import { Header } from "../../../Enquiry/Reusable/Header";
-import ReminderDocLegal from "../DocumentLegalOpinion/LegalDocResuble/ReminderDocLegal";
 import LocationSelectlegal from "../LocationLegalOpinion/legalLocComponent/LocationSelectlegal";
 import WholeServiceConfirmLegal from "../ServiceConfirmation/ServiceConfirmComponent/WholeServiceConfirmLegal";
 import PaymentLegalComponent from "../PaymentForLegalOpinion/PaymentLegalComponent/PaymentLegalComponent";
-// import { decryptData } from "../../../Utils/encrypt";
+import WholeDocGetPatta from "../../DocumentService/GetPattaComponents/WholeDocGetPatta";
+
 
 function UpdateOpinionByLawyer() {
   const { eid, id, status } = useParams();
@@ -39,12 +31,13 @@ function UpdateOpinionByLawyer() {
                 />
               </TabPanel>
               <TabPanel header="Remainder" key="remainder">
-                <ReminderDocLegal
+                {/* <ReminderDocLegal
                   id={decryId}
                   eid={decryEid}
                   status={decryStatus}
                   pagetype="reminder"
-                />
+                /> */}
+                <WholeDocGetPatta eid={decryEid} id={decryId} status={decryStatus} pagetype="reminder" />
                 <LocationSelectlegal
                   eid={decryEid}
                   id={decryId}

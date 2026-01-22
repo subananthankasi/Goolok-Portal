@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
   GridComponent,
@@ -44,7 +44,7 @@ const WaitingContentWriting = () => {
     fetchData();
   }, []);
 
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
 
   const toolbarOptions = ["ExcelExport", "PdfExport", "Search"];
   const [docId, setDocId] = useState("");

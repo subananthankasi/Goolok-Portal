@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import API_BASE_URL, { IMG_PATH } from "../../../../Api/api";
 import FileViewUtils from "../../../../Utils/FileView/FileViewUtils";
 import Toast from "../../../../Utils/Toast";
@@ -12,7 +12,7 @@ export const AddMoreLawyerDocumentDetails = ({
   id,
   props,
 }) => {
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const [pageLoading, setPageLoadingPage] = useState(true);
   const [fetchData, setFetchData] = useState([]);
   const [isfetchInputData, setFetchInputData] = useState([]);
@@ -23,46 +23,52 @@ export const AddMoreLawyerDocumentDetails = ({
     (state) => state.Enquiry.enquiryDocument
   );
 
-  const existingData = isfetchInputData?.details
-    ? JSON.parse(isfetchInputData.details)
-    : {};
-
-  const fetch = async () => {
-    try {
-      const response = await axios.get(
-        `${API_BASE_URL}/lawyer/${id.lawyer_doc}/edit`
-      );
-      setFetchData(response.data);
-    } catch (error) {
-      console.error("Error fetching data", error);
-    } finally {
-      setPageLoadingPage(false);
-    }
-  };
-
-  const fetchInputData = async () => {
-    try {
-      const response = await axios.get(`${API_BASE_URL}/alldetails/${id.id}`);
-      setFetchInputData(response.data);
-    } catch (error) {
-      console.error("Error fetching data", error);
-    }
-  };
 
   useEffect(() => {
-    if (isOpen) {
-      fetch();
-      fetchInputData();
-    }
-  }, [isOpen]);
+    if (!isOpen) return;
 
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `${API_BASE_URL}/lawyer/${id.lawyer_doc}/edit`
+        );
+        setFetchData(response.data);
+      } catch (error) {
+        console.error("Error fetching data", error);
+      } finally {
+        setPageLoadingPage(false);
+      }
+    };
+
+    const fetchInputData = async () => {
+      try {
+        const response = await axios.get(
+          `${API_BASE_URL}/alldetails/${id.id}`
+        );
+        setFetchInputData(response.data);
+      } catch (error) {
+        console.error("Error fetching data", error);
+      }
+    };
+
+    fetchData();
+    fetchInputData();
+  }, [isOpen, id.lawyer_doc, id.id]);
+
+
+  // useEffect(() => {
+  //   if (isfetchInputData) {
+  //     setFormData({
+  //       ...existingData,
+  //     });
+  //   }
+  // }, [isfetchInputData,existingData]);
   useEffect(() => {
-    if (isfetchInputData) {
-      setFormData({
-        ...existingData,
-      });
-    }
-  }, [isfetchInputData]);
+  if (isfetchInputData?.details) {
+    const parsedData = JSON.parse(isfetchInputData.details);
+    setFormData(parsedData);
+  }
+}, [isfetchInputData]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -171,7 +177,7 @@ export const AddMoreLawyerDocumentDetails = ({
                       <>
                         {(props?.status === "pending" ||
                           props?.status === "complete") &&
-                          staffid.Login == "staff" ? (
+                          staffid.Login === "staff" ? (
                           <div className="row">
                             {fetchData?.map((item, index) => (
                               <div className="col-md-6 mb-3" key={index}>
@@ -205,9 +211,9 @@ export const AddMoreLawyerDocumentDetails = ({
                                 </div>
                               </div>
                             ))}
-                            {staffid.Login == "staff" &&
-                              (props.status == "pending" ||
-                                props.status == "complete") &&
+                            {staffid.Login === "staff" &&
+                              (props.status === "pending" ||
+                                props.status === "complete") &&
                               props.pagetype !== "reminder" && enquiryDoumentData?.status !== "booking" && (
                                 <div className="text-end">
                                   <button

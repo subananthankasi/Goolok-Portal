@@ -1,17 +1,16 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import axios from 'axios';
 import API_BASE_URL from '../../../../Api/api';
 
 
 const AddMoreDocumentViewHub = ({ isOpen, closeModal, data }) => {
-     const staffid = JSON.parse(sessionStorage.getItem("token"));
+     const staffid = JSON.parse(localStorage.getItem("token"));
         const [pageLoading, setPageLoadingPage] = useState(true);
         const [fetchData, setFetchData] = useState([]);
         const [isfetchInputData, setFetchInputData] = useState([]);
         const [formData, setFormData] = useState({});
         const [errors, setErrors] = useState({});
-        const [loading, setLoading] = useState(false);
-    
+
     
         const existingData = isfetchInputData?.details ? JSON.parse(isfetchInputData.details) : {};
     

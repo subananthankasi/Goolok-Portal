@@ -1,10 +1,6 @@
-import React, { useState } from "react";
-// import ConfirmationModal from '../../../../Utils/ConfirmationModal';
+import  { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-// import API_BASE_URL from '../../../../Api/api';
-// import Toast from '../../../../Utils/Toast';
-// import AlertPop from '../../../../Utils/AlertPop';
 import ConfirmServiceSurvey from "./ConfirmServiceSurvey";
 import AddServiceSurvey from "./AddServiceSurvey";
 import API_BASE_URL from "../../../../../Api/api";
@@ -13,7 +9,7 @@ import ConfirmationModal from "../../../../../Utils/ConfirmationModal";
 import AlertPop from "../../../../../Utils/AlertPop";
 
 const WholeServiceSurvey = ({ eid, id, status, pagetype }) => {
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
 
   const [verifyConfirm, setIsVerifyConfirm] = useState(false);
   const [postLoading, setPostLoading] = useState(false)

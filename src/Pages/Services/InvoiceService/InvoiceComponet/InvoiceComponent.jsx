@@ -27,12 +27,10 @@ import { DatePicker } from "antd";
 import { useSelector } from "react-redux";
 
 const InvoiceComponent = ({ eid, id, status, pagetype }) => {
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const [editing, setEditing] = useState(false);
   const [newDialog, setNewDialog] = useState(false);
   const [editDialog, setEditDialog] = useState(false);
-  const [deleteDialog, setDeleteDialog] = useState(false);
-  const [deleteId, setdeleteId] = useState(null);
   const [getData, setGetData] = useState([]);
   const [loading, setLoading] = useState(false);
   const enquiryDoumentData = useSelector(

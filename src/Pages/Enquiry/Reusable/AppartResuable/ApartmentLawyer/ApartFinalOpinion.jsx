@@ -12,9 +12,7 @@ import { FileDownload } from "../../../../../Utils/FileDownload";
 
 export const ApartFinalOpinion = (props) => {
 
-    const staffid = JSON.parse(sessionStorage.getItem("token"));
-  
-  
+    const staffid = JSON.parse(localStorage.getItem("token"));
     const column = [
       {
         name: "S.no",

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
   GridComponent,
@@ -13,8 +13,7 @@ import {
   Filter,
 } from "@syncfusion/ej2-react-grids";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-
+import {  useSelector } from "react-redux";
 import axios from "axios";
 import API_BASE_URL from "../../../Api/api";
 import { encryptData } from "../../../Utils/encrypt";
@@ -22,17 +21,10 @@ import { encryptData } from "../../../Utils/encrypt";
 
 const CompletedPricingDepPlot = () => {
 
-  const staffid = JSON.parse(sessionStorage.getItem('token'));
+  const staffid = JSON.parse(localStorage.getItem('token'));
   const [completeData, setCompletedata] = useState([]);
-  const dispatch = useDispatch()
-
   const filterSettings = { type: "Excel" };
   const toolbarOptions = ["ExcelExport", "PdfExport", "Search"];
-
-  // useEffect(() => {
-  //   dispatch(pricingCompletedThunk())
-  // }, [])
-  // url: `${API_BASE_URL}/pricingdpt?id=${staffid.loginid}&status=complete`,
 
   const fetchData = async () => {
     try {

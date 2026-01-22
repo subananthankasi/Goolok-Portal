@@ -3,13 +3,13 @@ import axios from "axios"
 import API_BASE_URL from "../../../../Api/api"
 
  
-const staffid = JSON.parse(sessionStorage.getItem('token'));
+const staffid = JSON.parse(localStorage.getItem('token'));
 
 export const mediaWaitingThunk = createAsyncThunk('mediaWaitingThunk/data',
     async () => {
         const response = await axios({
             method: 'get',
-            url: API_BASE_URL + '/' + 'mediadpt/new',
+            url: `${API_BASE_URL}/mediadpt/new`,
         })
         return response.data
     }

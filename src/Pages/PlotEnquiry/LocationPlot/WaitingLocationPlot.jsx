@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
     GridComponent,
@@ -12,11 +12,8 @@ import {
     Page,
     Filter,
 } from "@syncfusion/ej2-react-grids";
-import { useDispatch, useSelector } from 'react-redux';
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
-// import ApartmentConfirmModal from '../../../../Utils/ApartmentConfirmModal';
 import axios from 'axios';
-
 import { Spinner } from 'react-bootstrap';
 import API_BASE_URL from '../../../Api/api';
 import Toast from '../../../Utils/Toast';
@@ -26,7 +23,7 @@ import ConfirmationModal from '../../../Utils/ConfirmationModal';
 
 const WaitingLocationPlot = () => {
 
-const staffid = JSON.parse(sessionStorage.getItem('token'));
+const staffid = JSON.parse(localStorage.getItem('token'));
 const [loading, setLoading] = useState(true);
 
 

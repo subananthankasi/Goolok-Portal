@@ -1,15 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import Toast from '../../../../../Utils/Toast';
-import Button from "@mui/material/Button";
 import Spinner from "react-bootstrap/Spinner";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import API_BASE_URL from '../../../../../Api/api';
 import axios from 'axios';
-import Common from '../../../../../common/Common';
+
 
 const AadharDetails = ({ data, clearFormRef, isOpen }) => {
-    const staffid = JSON.parse(sessionStorage.getItem("token"));
+    const staffid = JSON.parse(localStorage.getItem("token"));
     const [isLoading, setIsLoading] = useState(true);
     const [aadharData, setAadharData] = useState([]);
 

@@ -29,7 +29,7 @@ import AddMoreLayout from "./AddMoreLayout";
 import AnotherAddMoreLayout from "./AnotherAddMoreLayout";
 
 const WholeDocumentLayout = ({ eid, id, status, pagetype }) => {
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const dispatch = useDispatch();
   const [loadingPage, setLoadingPage] = useState(true);
   const [deleteDialog, setDeleteDialog] = useState(false);

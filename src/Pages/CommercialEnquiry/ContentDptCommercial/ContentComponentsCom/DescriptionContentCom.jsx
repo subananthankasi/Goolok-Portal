@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import { Editor } from "primereact/editor";
 import Button from "@mui/material/Button";
 import { useDispatch, useSelector } from "react-redux";
@@ -138,7 +138,7 @@ const DescriptionContentCom = ({ eid, id, status, subtype }) => {
     updateDataAsync();
   }, [triggerChild]);
 
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
 
   return (
     <>

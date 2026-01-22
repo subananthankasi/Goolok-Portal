@@ -1,16 +1,13 @@
-import React, { useEffect, useState } from 'react'
-    ;
+import  { useEffect, useState } from 'react'
 import axios from 'axios';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { ColumnGroup } from 'primereact/columngroup';
 import { Row } from 'primereact/row';
 import { useDispatch, useSelector } from 'react-redux';
-
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useFormik } from "formik";
 import * as yup from "yup";
-
 import { Dialog } from "primereact/dialog";
 import Button from "@mui/material/Button";
 import API_BASE_URL from '../../../../Api/api';
@@ -21,7 +18,7 @@ import { Spinner } from 'react-bootstrap';
 
 const TitleSurveyHouse = ({ data }) => {
 
-    const staffid = JSON.parse(sessionStorage.getItem("token"));
+    const staffid = JSON.parse(localStorage.getItem("token"));
     const [surveyData, setSurveyData] = useState([]);
     const dispatch = useDispatch()
     const unitData = useSelector(state => state.Unit.Unit);

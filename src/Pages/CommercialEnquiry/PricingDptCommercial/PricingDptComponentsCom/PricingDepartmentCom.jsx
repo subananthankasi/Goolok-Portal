@@ -17,7 +17,7 @@ import DiscountPage from "../../../../Utils/Offers/DiscountPage";
 import { Input, InputGroup } from "rsuite";
 
 const PricingDepartmentCom = ({ eid, status, id, pagetype, discountPage }) => {
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const [unit, setUnit] = useState(false);
   const [getOption, setGetOption] = useState([]);
   const [invoiceData, setInvoiceData] = useState([]);

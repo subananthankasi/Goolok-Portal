@@ -72,9 +72,7 @@ function Amenities({id,save,oldData,status}) {
     updateDataAsync();
   }, [save]);
 
- 
- 
-  const staffid = JSON.parse(sessionStorage.getItem('token')); 
+  const staffid = JSON.parse(localStorage.getItem('token')); 
   return (
     <div>
  

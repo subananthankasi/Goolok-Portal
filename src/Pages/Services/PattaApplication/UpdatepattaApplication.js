@@ -4,10 +4,10 @@ import { Header } from "../../Enquiry/Reusable/Header";
 import { TabView, TabPanel } from "primereact/tabview";
 import { decryptData } from "../../../Utils/encrypt";
 import { useParams } from "react-router-dom";
-import ReminderDocumentVerification from "../DocumentService/Reusable/ReminderDocumentVerification";
 import LocationSelectService from "../LocationService/Locations/LocationSelectService";
 import WholeServiceConfirmation from "../ServiceConfirm/ServiceComponent/WholeServiceConfirmation";
 import InvoiceComponent from "../InvoiceService/InvoiceComponet/InvoiceComponent";
+import WholeDocGetPatta from "../DocumentService/GetPattaComponents/WholeDocGetPatta";
 
 const UpdatepattaApplication = () => {
   const { eid, id, status } = useParams();
@@ -29,12 +29,13 @@ const UpdatepattaApplication = () => {
               />
             </TabPanel>
             <TabPanel header="Remainder">
-              <ReminderDocumentVerification
+              {/* <ReminderDocumentVerification
                 id={decryid}
                 eid={decryEid}
                 status={decryStatus}
                 pagetype="reminder"
-              />
+              /> */}
+              <WholeDocGetPatta eid={decryEid} id={decryid} status={decryStatus} pagetype="reminder" />
               <LocationSelectService
                 eid={decryEid}
                 id={decryid}

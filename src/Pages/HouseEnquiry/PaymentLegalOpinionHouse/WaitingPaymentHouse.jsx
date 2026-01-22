@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
     GridComponent,
@@ -20,11 +20,9 @@ import Toast from "../../../Utils/Toast";
 import ConfirmationModal from "../../../Utils/ConfirmationModal";
 
 
-
-
 const WaitingPaymentHouse = () => {
 
-    const staffid = JSON.parse(sessionStorage.getItem('token'));
+    const staffid = JSON.parse(localStorage.getItem('token'));
     const [loading, setLoading] = useState(true);
 
 

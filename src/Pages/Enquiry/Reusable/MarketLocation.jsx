@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import {
     GoogleMap,
     useJsApiLoader,
@@ -30,10 +30,8 @@ const MarketLocation = ({ mapVisible, setMapVisible, setLoc }) => {
     const [map, setMap] = useState(null);
     const [clickedLatLng, setClickedLatLng] = useState({});
     const [center, setCenter] = useState(initialCenter);
-
     const autocompleteRef = useRef(null);
-    const staffid = JSON.parse(sessionStorage.getItem("token"));
-
+    const staffid = JSON.parse(localStorage.getItem("token"));
     const [mapMove, setMapMove] = useState(null);
     const [Location, setLocation] = useState();
 

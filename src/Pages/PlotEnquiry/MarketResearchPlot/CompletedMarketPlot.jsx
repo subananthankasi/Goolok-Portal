@@ -13,17 +13,12 @@ import {
   Filter,
 } from "@syncfusion/ej2-react-grids";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import API_BASE_URL from "../../../Api/api";
 import { encryptData } from "../../../Utils/encrypt";
-// import API_BASE_URL from "../../../../Api/api";
-// import { encryptData } from "../../../../Utils/encrypt";
 
 const CompletedMarketPlot = () => {
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
-
-  const dispatch = useDispatch();
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
 

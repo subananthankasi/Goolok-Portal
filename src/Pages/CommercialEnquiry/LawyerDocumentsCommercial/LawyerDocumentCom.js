@@ -6,7 +6,7 @@ import PendingLawyerCom from "./PendingLawyerCom";
 import CompleteLawyerCom from "./CompleteLawyerCom";
 
 const LawyerDocumentCom = () => {
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
 
   const [step, setStep] = useState(() => {
     if (staffid?.Login === "admin") {

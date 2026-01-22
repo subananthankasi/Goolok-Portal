@@ -14,7 +14,7 @@ import customStyle from "../../../Utils/tableStyle";
 import { Skeleton } from "primereact/skeleton";
 
 const FollowupDateTele = ({ eid, id, status, telePageType }) => {
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
 
   const [newDialog, setNewDialog] = useState(false);
   const [deleteDialog, setDeleteDialog] = useState(false);
@@ -23,7 +23,7 @@ const FollowupDateTele = ({ eid, id, status, telePageType }) => {
   const [editing, setEditing] = useState(false);
   const [detailsData, setDetailsData] = useState([]);
 
-  const token = sessionStorage.getItem("token");
+  const token = localStorage.getItem("token");
   const parsedUser = token ? JSON.parse(token) : null;
   const userId = parsedUser ? parsedUser.loginid : null;
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
     GridComponent,
     ColumnsDirective,
@@ -13,12 +13,8 @@ import {
 } from "@syncfusion/ej2-react-grids";
 import Spinner from "react-bootstrap/Spinner";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
-// import ConfirmationModal from '../../../Utils/ConfirmationModal';
-// import Toast from '../../../Utils/Toast';
 import axios from 'axios';
-// import API_BASE_URL from '../../../Api/api';
 import { useDispatch, useSelector } from 'react-redux';
-// import { fetchStaff } from '../../../Redux/Actions/MasterPage/Staff';
 import Button from '@mui/material/Button';
 import { Dialog } from 'primereact/dialog';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
@@ -29,7 +25,7 @@ import { fetchStaff } from '../../../../Redux/Actions/MasterPage/Staff';
 
 const WaitingTicketSurvey = () => {
 
-    const staffid = JSON.parse(sessionStorage.getItem('token'));
+    const staffid = JSON.parse(localStorage.getItem('token'));
     const [loading, setLoading] = useState(false);
     const [serviceData, setServiceData] = useState([])
     const [visible, setVisible] = useState(false)

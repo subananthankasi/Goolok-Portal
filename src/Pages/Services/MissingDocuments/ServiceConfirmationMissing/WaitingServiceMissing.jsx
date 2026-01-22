@@ -21,7 +21,7 @@ import ConfirmationModal from '../../../Enquiry/Reusable/AppartResuable/Confirma
 
 const WaitingServiceMissing = () => {
 
-    const staffid = JSON.parse(sessionStorage.getItem('token'));
+    const staffid = JSON.parse(localStorage.getItem('token'));
     const [loading, setLoading] = useState(false);
     const [serviceData, setServiceData] = useState([])
 

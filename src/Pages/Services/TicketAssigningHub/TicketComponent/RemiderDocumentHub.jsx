@@ -1,21 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import {
-//     fetchEnquiryDocument,
-// } from "../../../Redux/Actions/Enquiry/enquiryReportAction";
-import { useNavigate } from "react-router-dom";
 import DataTable from "react-data-table-component";
-// import customStyle from "../../../Utils/tableStyle";
-// import { DateFormatcustom } from "../../../Utils/DateFormatcustom";
 import Spinner from "react-bootstrap/Spinner";
-// import { AgeCalculate } from "../../../Utils/AgeCalculate";
-// import { RedoModel } from "../Reusable/RedoStatus";
-// import API_BASE_URL, { IMG_PATH } from "../../../Api/api";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
-// import FileView from "../../../Utils/FileView/FileView";
-// import { AddMoreView } from "./AddMoreView";
-// import { AddMore } from "./AddMore";
-// import AddMoreDocumentDetails from "../DocumentVerification/AddMoreDocumentDetails";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import AddIcon from "@mui/icons-material/Add";
 import axios from "axios";
@@ -30,9 +17,8 @@ import Toast from "../../../../Utils/Toast";
 
 const RemiderDocumentHub = ({ eid, status }) => {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
-    const staffid = JSON.parse(sessionStorage.getItem("token"));
+    const staffid = JSON.parse(localStorage.getItem("token"));
     const [loadingPage, setLoadingPage] = useState(true);
     const [isAddMoreDetails, setIsAddMoreDetails] = useState(false);
     const [isModalAddMoreView, setIsModalAddMoreView] = useState(false);
@@ -348,11 +334,10 @@ id={docId}
 export default RemiderDocumentHub
 
 const AddDocumentModel = ({ isOpen, closeModal, uploadDocData, staff, eid }) => {
-    // const staffid = JSON.parse(sessionStorage.getItem("token"));
+
 
     const dispatch = useDispatch()
     const fileInputRef = useRef(null);
-
     const [loading, setLoading] = useState(false);
     const [selectedFile, setSelectedFile] = useState(null);
     const [error, setError] = useState("");

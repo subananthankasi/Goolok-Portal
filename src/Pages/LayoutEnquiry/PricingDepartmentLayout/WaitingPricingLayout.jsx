@@ -58,9 +58,7 @@ const WaitingPricingLayout = () => {
 
     const statusPopup = StatusModalOpen;
 
-    const staffid = JSON.parse(sessionStorage.getItem('token'));
-
-
+    const staffid = JSON.parse(localStorage.getItem('token'));
     const toolbarOptions = ["ExcelExport", "PdfExport", "Search"];
 
     let gridInstance;
@@ -76,6 +74,8 @@ const WaitingPricingLayout = () => {
             case "DefaultExport_csvexport":
                 gridInstance.csvExport();
                 break;
+            default:
+                break;
         }
     }
     const filterSettings = { type: "Excel" };
@@ -89,27 +89,27 @@ const WaitingPricingLayout = () => {
     };
 
 
-    const fetchData = async() =>{ 
-        try{
-            const response = await axios.get(`${API_BASE_URL}/pricingdpt/new`,{
-                headers : {
-                    "Pr-Root" : "layout"
+    const fetchData = async () => {
+        try {
+            const response = await axios.get(`${API_BASE_URL}/pricingdpt/new`, {
+                headers: {
+                    "Pr-Root": "layout"
                 }
             })
             // setLoading(false); 
             setWaitingData(
-              response.data?.map((data, index) => ({
-                ...data,
-                sno: index + 1
-              })))
-        }catch(error){
+                response.data?.map((data, index) => ({
+                    ...data,
+                    sno: index + 1
+                })))
+        } catch (error) {
             // setLoading(false); 
             console.error(error)
-        } 
-}
-  useEffect(() => {
-    fetchData()
-  }, []);
+        }
+    }
+    useEffect(() => {
+        fetchData()
+    }, []);
 
 
 
@@ -126,7 +126,7 @@ const WaitingPricingLayout = () => {
             fetchData()
             Toast({ message: "Successfully Updated", type: "success" })
         } catch (error) {
-        
+
             Toast({ message: "Failed to update", type: "error" })
         }
     }

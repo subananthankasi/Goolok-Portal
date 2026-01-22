@@ -1,9 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import DataTable from "react-data-table-component";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-// import customStyle from "../../../../Utils/tableStyle";
-// import API_BASE_URL, { IMG_PATH } from "../../../../Api/api";
 import axios from "axios";
 import EditIcon from "@mui/icons-material/Edit";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
@@ -12,11 +10,10 @@ import FileView from "../../../../../Utils/FileView/FileView";
 import { FileDownload } from "../../../../../Utils/FileDownload";
 import customStyle from "../../../../../Utils/tableStyle";
 import { useSelector } from "react-redux";
-// import FileView from "../../../../Utils/FileView/FileView";
-// import { FileDownload } from "../../../../Utils/FileDownload";
+
 
 export const FinalOpinionLawyer = (props) => {
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const enquiryDoumentData = useSelector(
     (state) => state.Enquiry.enquiryDocument
   );

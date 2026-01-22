@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import DataTable from "react-data-table-component";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import Select from "react-select";
@@ -19,12 +19,11 @@ import ConfirmationModal from "../../../../../Utils/ConfirmationModal";
 import AlertPop from "../../../../../Utils/AlertPop";
 import { fetchDoc } from "../../../../../Redux/Actions/MasterPage/LawyerDocumentAction";
 import customStyle from "../../../../../Utils/tableStyle";
-import { AddMoreLawyerDocumentDetails } from "../../../../Enquiry/Reusable/Lawyer/AddMoreLawyerDocumentDetails";
 import { AddMoreDocDetailsLawyer } from "./AddMoreDocDetailsLawyer";
 
 export const AddDocOpinionLawyer = (props) => {
   const dispatch = useDispatch();
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const [loadingPage, setLoadingPage] = useState(true);
   const [enquiryDoumentData, setEnquiryDoumentData] = useState([]);
 

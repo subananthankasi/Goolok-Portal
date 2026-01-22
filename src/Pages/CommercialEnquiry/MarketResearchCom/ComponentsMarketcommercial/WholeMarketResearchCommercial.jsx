@@ -1,11 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import  { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import DataTable from "react-data-table-component";
-import Spinner from "react-bootstrap/Spinner";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useNavigate } from "react-router-dom";
 import { Dialog } from "primereact/dialog";
-import EditIcon from "@mui/icons-material/Edit";
 import API_BASE_URL, { IMG_PATH } from "../../../../Api/api";
 import { DateFormatcustom } from "../../../../Utils/DateFormatcustom";
 import Toast from "../../../../Utils/Toast";
@@ -23,7 +21,7 @@ export const WholeMarketResearchCommercial = ({
   subtype,
   pagetype,
 }) => {
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const [step, setStep] = useState(1);
   const [pageLoading, setPageLoading] = useState(true);
   // tab 1 ------------------------------------------------------------------------------------------------------

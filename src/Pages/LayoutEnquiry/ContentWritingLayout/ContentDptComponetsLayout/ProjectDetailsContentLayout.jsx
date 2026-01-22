@@ -26,7 +26,7 @@ const ProjectDetailsContentLayout = ({
   sub_property,
   pagetype,
 }) => {
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const [newDialog, setNewDialog] = useState(false);
   const [editDialog, setEditDialog] = useState(false);
   const [isEditing, setIsEditing] = useState(false);

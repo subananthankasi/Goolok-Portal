@@ -4,8 +4,8 @@ import { useParams } from "react-router-dom";
 import WholeServiceConfirmLegal from "./ServiceConfirmComponent/WholeServiceConfirmLegal";
 import { decryptData } from "../../../../Utils/encrypt";
 import { Header } from "../../../Enquiry/Reusable/Header";
-import ReminderDocLegal from "../DocumentLegalOpinion/LegalDocResuble/ReminderDocLegal";
 import LocationSelectlegal from "../LocationLegalOpinion/legalLocComponent/LocationSelectlegal";
+import WholeDocGetPatta from "../../DocumentService/GetPattaComponents/WholeDocGetPatta";
 
 const UpdateConfirmServiceLegal = () => {
   const { eid, id, status } = useParams();
@@ -28,12 +28,7 @@ const UpdateConfirmServiceLegal = () => {
               />
             </TabPanel>
             <TabPanel header="Remainder">
-              <ReminderDocLegal
-                id={decryid}
-                eid={decryEid}
-                status={decryStatus}
-                pagetype="reminder"
-              />
+              <WholeDocGetPatta eid={decryEid} id={decryid} status={decryStatus} pagetype="reminder" />
               <LocationSelectlegal
                 eid={decryEid}
                 id={decryid}

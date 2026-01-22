@@ -23,7 +23,7 @@ import { encryptData } from "../../../Utils/encrypt";
 const CompleteMediaLayout = () => {
 
 
-    const staffid = JSON.parse(sessionStorage.getItem('token'));
+    const staffid = JSON.parse(localStorage.getItem('token'));
     const [pendingWaitingData, setPendingWaitingData] = useState([]);
     const [completeData, setCompletedata] = useState([])
 

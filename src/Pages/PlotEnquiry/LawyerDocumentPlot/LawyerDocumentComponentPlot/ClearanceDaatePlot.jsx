@@ -22,7 +22,7 @@ import { useSelector } from "react-redux";
 
 export const ClearanceDaatePlot = (props) => {
   // const options = props.data.status === "complete" ? " " : "Edit"
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
 
   const options = props.data.pagetype === "reminder" || staffid.Login === "admin" ? " " : "Edit"
 

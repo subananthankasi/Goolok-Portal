@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
   GridComponent,
@@ -13,27 +13,18 @@ import {
   Filter,
 } from "@syncfusion/ej2-react-grids";
 import Spinner from "react-bootstrap/Spinner";
-
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import axios from "axios";
 import API_BASE_URL from "../../../Api/api";
 import Toast from "../../../Utils/Toast";
 import ConfirmationModal from "../../../Utils/ConfirmationModal";
-// import API_BASE_URL from "../../../Api/api";
-// import Toast from "../../../Utils/Toast";
-// import ConfirmationModal from "../../../Utils/ConfirmationModal";
-
 
 
 const WaitingOwnerLayout = () => {
 
-  const staffid = JSON.parse(sessionStorage.getItem('token'));
-
+  const staffid = JSON.parse(localStorage.getItem('token'));
   const [loading, setLoading] = useState(true);
-
-
   const [WaitingData, setWaitingData] = useState([])
-
   const fetchData = async () => {
     try {
       const response = await axios.get(`${API_BASE_URL}/enquirylandowner/new`,{

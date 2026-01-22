@@ -13,7 +13,7 @@ import { useSelector } from "react-redux";
 const { Column, ColumnGroup, HeaderCell, Cell } = Table;
 
 export const OwnerProjectDetailsContentLayout = ({ eid, id, status, pagetype }) => {
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
 
   const [newDialog, setNewDialog] = useState(false);
   const [deleteDialog, setDeleteDialog] = useState(false);

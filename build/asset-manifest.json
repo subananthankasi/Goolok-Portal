@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/goolokadmindemo/static/css/main.a08489ea.css",
-    "main.js": "/goolokadmindemo/static/js/main.0d5b1b3a.js",
+    "main.css": "/goolokadmindemo/static/css/main.867d3204.css",
+    "main.js": "/goolokadmindemo/static/js/main.c147f09c.js",
     "static/js/611.47755473.chunk.js": "/goolokadmindemo/static/js/611.47755473.chunk.js",
     "static/js/82.fde9d870.chunk.js": "/goolokadmindemo/static/js/82.fde9d870.chunk.js",
     "static/js/790.00f55937.chunk.js": "/goolokadmindemo/static/js/790.00f55937.chunk.js",
@@ -19,11 +19,10 @@
     "static/media/sold.png": "/goolokadmindemo/static/media/sold.fe01abda0ff64d05d5a5.png",
     "static/media/primeicons.woff2": "/goolokadmindemo/static/media/primeicons.024b32cc7bf399b1a847.woff2",
     "static/media/LOGO1.png": "/goolokadmindemo/static/media/LOGO1.91f45cc01e2293e61011.png",
-    "static/media/live.webp": "/goolokadmindemo/static/media/live.2118d699b031ffc4bff4.webp",
     "index.html": "/goolokadmindemo/index.html"
   },
   "entrypoints": [
-    "static/css/main.a08489ea.css",
-    "static/js/main.0d5b1b3a.js"
+    "static/css/main.867d3204.css",
+    "static/js/main.c147f09c.js"
   ]
 }

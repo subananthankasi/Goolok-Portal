@@ -19,7 +19,7 @@ import API_BASE_URL from "../../../Api/api";
 import { encryptData } from "../../../Utils/encrypt";
 
 const CompleteRegTicket = () => {
-    const staffid = JSON.parse(sessionStorage.getItem("token"));
+    const staffid = JSON.parse(localStorage.getItem("token"));
     const [completeData, setCompleteData] = useState([]);
 
     const filterSettings = { type: "Excel" };

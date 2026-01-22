@@ -21,7 +21,7 @@ const ExteriorFeatureContentLayout = ({ eid, id, status }) => {
   const [deleteDialog, setDeleteDialog] = useState(false);
   const [editDialog, setEditDialog] = useState(false);
   const [editing, setEditing] = useState(false);
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const [deleteId, setDeleteId] = useState("");
   const dispatch = useDispatch();
   const enquiryDoumentData = useSelector(

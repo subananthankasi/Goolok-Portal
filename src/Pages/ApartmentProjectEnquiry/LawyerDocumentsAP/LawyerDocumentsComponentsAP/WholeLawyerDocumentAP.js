@@ -1,4 +1,3 @@
-import React from "react";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -12,11 +11,11 @@ import DayToDayProgresslawyerAP from "./DayToDayProgresslawyerAP";
 import { ProjectDetailsLawyerAP } from "./ProjectDetailsLawyerAP";
 import { FinalOpinionLawyerAP } from "./FinalOpinionLawyerAP";
 import TicketClosingLawyerAP from "./TicketClosingLawyerAP";
-// import { LawyerAddDocumentCom } from "./LawyerAddDocumentCom";
+
 
 export const WholeLawyerDocumentAP = (props) => {
   const navigate = useNavigate();
-  const staffid = JSON.parse(sessionStorage.getItem("token"));
+  const staffid = JSON.parse(localStorage.getItem("token"));
   const [verifyConfirm, setIsVerifyConfirm] = useState(false);
   const [postLoading, setPostLoading] = useState(false)
 
