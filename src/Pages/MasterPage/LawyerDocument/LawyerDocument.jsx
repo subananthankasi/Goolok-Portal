@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "../mastercss.css";
 import DataTable from "react-data-table-component";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -11,21 +11,26 @@ import { useDispatch, useSelector } from "react-redux";
 import Toast from "../../../Utils/Toast";
 import { validateFormData } from "./LawyerDocumentValidation";
 import customStyle from "../../../Utils/tableStyle";
-import LawyerDocumentEdit from "./LawyerDocumentEdit";
 import {
   addlawDoc,
   deleteLawDoc,
   fetchDoc,
+  updateLawDoc,
 } from "../../../Redux/Actions/MasterPage/LawyerDocumentAction";
 import CustomLoder from "../../../Components/customLoader/CustomLoder";
 import Common from "../../../common/Common";
-import { useFormik } from "formik";
-import * as yup from 'yup'
+import { Dialog } from "primereact/dialog";
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 
 function LawyerDocument() {
   const LawyerDocument = useSelector((state) => state.LawyerDocument.lawyerDoc);
   const isLoading = useSelector((state) => state.LawyerDocument.isLoading);
   const addLoading = useSelector((state) => state.LawyerDocument.addLoading);
+  const updateLoading = useSelector(
+    (state) => state.LawyerDocument.updateLoading
+  );
+  const [visible, setVisible] = useState(false)
+  const [deleteModal, setDeleteModal] = useState(false)
   const dispatch = useDispatch();
   const { cleanText } = Common();
 
@@ -37,19 +42,7 @@ function LawyerDocument() {
     document: " ",
     status: "Enable",
   });
-  const onSubmit = async () => {
-    console.log('ok')
-  }
-  const formik = useFormik({
-    initialValues: {
-      document: "",
-      status: "Enable"
-    },
-    validationSchema: yup.object().shape({
-      document: yup.string().required("document is required !!"),
-    }),
-    onSubmit
-  })
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -78,6 +71,7 @@ function LawyerDocument() {
         Toast({ message: "Added successfully", type: "success" });
         setErrors("");
         setFormData({ document: "", status: "Enable" });
+        setVisible(false)
       } else {
         setErrors(res?.error);
       }
@@ -86,6 +80,28 @@ function LawyerDocument() {
     }
   };
 
+  const handleUpdateSubmit = async (e) => {
+    e.preventDefault();
+
+    const validationResult = validateFormData(formData);
+    if (validationResult.isValid) {
+      const newData = {
+        ...formData,
+        document: cleanText(formData?.document),
+      };
+      const res = await dispatch(updateLawDoc(newData));
+      if (res?.success) {
+        setVisible(false)
+        setErrors("");
+        Toast({ message: "Updated Successfully", type: "success" });
+      } else {
+        setErrors(res?.error);
+      }
+    } else {
+      setErrors(validationResult.errors);
+    }
+  };
+  const [deleteId, setDeleteId] = useState(null)
   const columns = [
     {
       name: "S.no",
@@ -116,7 +132,7 @@ function LawyerDocument() {
             data-tooltip-id="edit"
             onClick={() => {
               handleEdit(row);
-              openModal();
+              setVisible(true)
             }}
           >
             <EditIcon />
@@ -124,7 +140,7 @@ function LawyerDocument() {
           <button
             className="btn btn-outline-danger delete"
             data-tooltip-id="delete"
-            onClick={() => handleDelete(row)}
+            onClick={() => { setDeleteId(row); setDeleteModal(true) }}
           >
             <DeleteIcon />
           </button>
@@ -142,41 +158,26 @@ function LawyerDocument() {
   const filterdata = SearchData(LawyerDocument, filterText, searchColumns);
   /////////////////////////////////////
 
-  const [editData, setEditData] = useState();
+
 
   const handleEdit = (row) => {
-    setEditData(row);
+    setFormData(row);
   };
 
-  const handleDelete = (row) => {
-    const shouldDelete = window.confirm("Are you sure you want to delete?");
-    if (shouldDelete) {
-      try {
-        dispatch(deleteLawDoc(row.id));
-        Toast({ message: "Successfully Deleted", type: "success" });
-      } catch (error) {
-        console.error("Error deleting item:", error);
-      }
+  const handleDelete = () => {
+    try {
+      dispatch(deleteLawDoc(deleteId.id));
+      Toast({ message: "Successfully Deleted", type: "success" });
+      setDeleteModal(false)
+    } catch (error) {
+      console.error("Error deleting item:", error);
     }
   };
 
-  // editing modal
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
 
   return (
     <>
-      {/* <Topbar /> */}
-      <LawyerDocumentEdit
-        isOpen={isModalOpen}
-        closeModal={closeModal}
-        editData={editData}
-      />
+    
       <section className="section">
         <div className="container-fluid">
           <div className="row">
@@ -227,8 +228,7 @@ function LawyerDocument() {
                     </div>
 
                     <div className="text-end py-3 px-3">
-                      <a
-                        href="javascript:void(0);"
+                      <button
                         className="btn1 text-dark me-1"
                         onClick={() => {
                           setFormData({ document: "", status: "Enable" });
@@ -236,7 +236,7 @@ function LawyerDocument() {
                         }}
                       >
                         Clear
-                      </a>
+                      </button>
                       <button type="submit" className="btn1">
                         {addLoading ? "Processing..." : "Add"}
                       </button>
@@ -299,6 +299,88 @@ function LawyerDocument() {
         content="Delete"
         style={{ fontSize: "10px" }}
       />
+
+      <Dialog
+        visible={visible}
+        style={{ width: "32rem" }}
+        breakpoints={{ "960px": "75vw", "641px": "90vw" }}
+        header="Edit Lawyer Document"
+        modal
+        onHide={() => setVisible(false)}
+      >
+        <form onSubmit={handleUpdateSubmit}>
+          <div className="row">
+            <div className="col-md-12 mb-3 ">
+              <label htmlFor="lastName" className="form-label">
+                Document
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                name="document"
+                value={formData.document}
+                onChange={handleChange}
+              />
+              {errors.document && (
+                <div className="validation_msg">{errors.document}</div>
+              )}
+            </div>
+          </div>
+
+          <div className="mb-3 col-md-12">
+            <label className="form-label" htmlFor="inputState">
+              Status
+            </label>
+            <select
+              className="form-select"
+              name="status"
+              value={formData.status}
+              onChange={handleChange}
+            >
+              <option value="Enable">Enable</option>
+              <option value="Disable">Disable</option>
+            </select>
+            {errors.status && (
+              <div className="validation_msg">{errors.status}</div>
+            )}
+          </div>
+
+          <div className="text-end py-3 px-3">
+            <button
+              type="button"
+              className="btn1 me-1"
+              onClick={() => setVisible(false)}
+            >
+              Cancel
+            </button>
+            <button type="submit" className="btn1">
+              {updateLoading ? "Updating..." : "Update"}
+            </button>
+          </div>
+        </form>
+      </Dialog>
+      <Dialog
+        visible={deleteModal}
+        style={{ width: "32rem" }}
+        breakpoints={{ "960px": "75vw", "641px": "90vw" }}
+        header="Confirm"
+        modal
+        onHide={() => setDeleteModal(false)}
+      >
+        <p >Are you sure you want to delete? <ErrorOutlineIcon sx={{ fontSize: 23 }} /> </p>
+        <div className="text-end py-3 px-3">
+          <button
+            type="button"
+            className="btn1 me-1"
+            onClick={() => setDeleteModal(false)}
+          >
+            No
+          </button>
+          <button type="button" className="btn1" onClick={handleDelete}>
+            Yes
+          </button>
+        </div>
+      </Dialog>
     </>
   );
 }

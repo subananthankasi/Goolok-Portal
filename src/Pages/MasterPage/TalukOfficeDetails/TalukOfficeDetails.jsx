@@ -1,5 +1,5 @@
 import { useFormik } from "formik";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import * as yup from "yup";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -9,12 +9,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { Dialog } from "primereact/dialog";
 import Button from "@mui/material/Button";
 import { SearchData } from "../../../Utils/Search";
-import {
-  offerDeleteThunk,
-  offerGetThunk,
-  offerPostThunk,
-  offerUpdateThunk,
-} from "../../../Redux/Actions/MasterPage/OfferThunk/OfferThunk";
 import { fetchTaluk } from "../../../Redux/Actions/MasterPage/TalukAction";
 import {
   talukDetailsDeleteThunk,
@@ -37,9 +31,6 @@ const TalukOfficeDetails = () => {
   const postLoading = useSelector(
     (state) => state.talukDetailsData.post.loading
   );
-  const deleteLoading = useSelector(
-    (state) => state.talukDetailsData.delete.loading
-  );
   const updateLoading = useSelector(
     (state) => state.talukDetailsData.update.loading
   );
@@ -52,7 +43,6 @@ const TalukOfficeDetails = () => {
   }, []);
 
   const TalukData = useSelector((state) => state.Taluk.TalukData);
-
   const Getdata = useSelector((state) => state.talukDetailsData.get.data);
   const filterdata = SearchData(Getdata, filterText, searchColumns);
 
@@ -238,15 +228,14 @@ const TalukOfficeDetails = () => {
                     </div>
 
                     <div className="text-end py-3 px-3">
-                      <a
-                        href="javascript:void(0);"
+                      <button
                         className="btn1 text-dark me-1"
                         onClick={() => {
                           formik.resetForm();
                         }}
                       >
                         Clear
-                      </a>
+                      </button>
                       <button
                         type="submit"
                         className="btn1"
@@ -282,7 +271,6 @@ const TalukOfficeDetails = () => {
                       data={filterdata}
                       customStyles={customStyle}
                       pagination
-                      // selectableRows
                       persistTableHead={true}
                       fixedHeader
                       progressPending={isLoading}
@@ -400,15 +388,14 @@ const TalukOfficeDetails = () => {
           </div>
 
           <div className="text-end py-3 px-3">
-            <a
-              href="javascript:void(0);"
+            <button
               className="btn1 text-dark me-1"
               onClick={() => {
                 formik.resetForm();
               }}
             >
               Clear
-            </a>
+            </button>
             <button
               type="submit"
               className="btn1"

@@ -11,11 +11,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import { deleteStaff, fetchStaff } from "../../../Redux/Actions/MasterPage/Staff";
 import customStyle from "../../../Utils/tableStyle";
 import { DeleteById } from "../../../Utils/DeleteById";
+import { Dialog } from "primereact/dialog";
+import StaffCreation from "../NewStaff/StaffCreation";
 
 function StaffReport() {
 
   const staffdata = useSelector(state => state.staff.staff);
   const dispatch = useDispatch();
+  const [editModal, setEditModal] = useState(false)
 
   useEffect(() => {
     dispatch(fetchStaff());
@@ -139,7 +142,8 @@ function StaffReport() {
             className="btn btn-outline-info me-1 edit" data-tooltip-id="edit"
             onClick={() => {
               handleEdit(row);
-              openModal();
+              // openModal();
+              setEditModal(true)
             }}
           >
             <EditIcon />
@@ -232,6 +236,18 @@ function StaffReport() {
       </section>
       <ReactTooltip id="edit" place="bottom" content="Edit" style={{ fontSize: "10px" }} />
       <ReactTooltip id="delete" place="bottom" content="Delete" style={{ fontSize: "10px" }} />
+
+      <Dialog
+        visible={editModal}
+        style={{ width: "62rem" }}
+        breakpoints={{ "960px": "75vw", "641px": "90vw" }}
+        header="Edit Staff Creations"
+        modal
+        className="p-fluid"
+        onHide={() => setEditModal(false)}
+      >
+        <StaffCreation editData={editData} visible={editModal} setEditModal={setEditModal} />
+      </Dialog>
     </>
   );
 }

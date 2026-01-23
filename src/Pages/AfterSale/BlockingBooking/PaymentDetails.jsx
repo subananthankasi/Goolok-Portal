@@ -6,7 +6,6 @@ import API_BASE_URL from "../../../Api/api";
 
 const PaymentDetails = ({ bookingData, block_id }) => {
 
-console.log("bookingdata",bookingData)
   const columns = [
     {
       name: "S.no",
@@ -53,7 +52,6 @@ console.log("bookingdata",bookingData)
     } catch (error) { }
   };
 
-  console.log("bookingDataddddd", bookingData)
 
   useEffect(() => {
     fetchPaymentDetails(bookingData?.block_id);

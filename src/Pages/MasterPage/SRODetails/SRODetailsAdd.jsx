@@ -4,13 +4,10 @@ import { addSRODetails } from "../../../Redux/Actions/MasterPage/SRODetailsActio
 import VillageDropDown from "../../../Utils/SelectDropDown/VillageDropDown";
 import PincodeDropDown from "../../../Utils/SelectDropDown/PincodeDropDown";
 import StateDropDown, {
-  useStateOptions,
 } from "../../../Utils/SelectDropDown/StateDropDown";
 import DistrictDropDown, {
-  useDistrictOptions,
 } from "../../../Utils/SelectDropDown/DistrictDropDown";
 import TalukDropDown, {
-  useTalukOptions,
 } from "../../../Utils/SelectDropDown/TalukDropDown";
 import { FormValidation } from "./FormValidation";
 import Toast from "../../../Utils/Toast";
@@ -82,19 +79,6 @@ const SRODetailsAdd = ({ isOpen, closeModal }) => {
     selectedVillage,
     selectedPincode,
   ]);
-
-  // const handleChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setFormData({
-  //     ...formData,
-  //     [name]: value,
-  //   });
-  //   setErrors((pre) => ({
-  //     ...pre,
-  //     [name]: "",
-  //   }));
-  // };
-
 
   const handleChange = (e) => {
     const { name, value } = e.target;

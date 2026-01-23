@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import StateDropDown, {
   useStateOptions,
@@ -113,7 +113,7 @@ const PincodeEdit = ({ isOpen, closeModal, editData }) => {
     });
   }, [selectedState, selectedDistrict, selectedTaluk, selectedVillage]);
 
-  const [errors, setErrors] = useState({}); //validation messages
+  const [errors, setErrors] = useState({}); 
 
   const onSubmit = (e) => {
     e.preventDefault();

@@ -1,9 +1,8 @@
 import { useFormik } from 'formik'
-import React, { useEffect, useRef, useState } from 'react'
+import { useEffect} from 'react'
 import * as yup from "yup";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useDispatch, useSelector } from 'react-redux';
-import { SearchData } from '../../../Utils/Search';
 import { fetchSRODetails } from '../../../Redux/Actions/MasterPage/SRODetailsAction';
 import { contactPersonTalukGetThunk, contactPersonTalukPostThunk } from '../../../Redux/Actions/MasterPage/ContactPersonTalukThunk';
 import Toast from '../../../Utils/Toast';
@@ -13,28 +12,14 @@ import { talukDetailsGetThunk } from '../../../Redux/Actions/MasterPage/TalukDet
 
 const TalukTab = () => {
     const dispatch = useDispatch()
-    const toast = useRef(null);
-    const [deleteDialog, setDeleteDialog] = useState(false)
-    const [deleteId, setDeleteId] = useState(null)
-    const [editDialog, setEditDialog] = useState(false)
-    const [editing, setEditing] = useState(false)
-    const [filterText, setFilterText] = useState("");
-
-
-    const searchColumns = ["sno", "contact_number", "contact_person", "status"];
-
     useEffect(() => {
         dispatch(fetchSRODetails());
         dispatch(contactPersonTalukGetThunk())
         dispatch(talukDetailsGetThunk())
-    }, [])
+    }, [dispatch])
 
-    const SRODetailsData = useSelector((state) => state.SRODetails.SRODetailsData);
     const talukOffice = useSelector((state) => state.talukDetailsData.get.data)
-    const contactPersonData = useSelector((state) => state.contactPersonTalukData.get.data)
     const postLoading = useSelector((state) => state.contactPersonTalukData.post.loading)
-
-    const filterdata = SearchData(contactPersonData, filterText, searchColumns);
 
     const onSubmit = async (values) => {
 
@@ -47,10 +32,8 @@ const TalukTab = () => {
             dispatch(contactPersonTalukPostThunk(payload)).then(() => {
                 dispatch(contactPersonTalukGetThunk())
             })
-
             if (values.id) {
                 Toast({ message: "Successfully Updated", type: "success" })
-                setEditDialog(false)
             } else {
                 Toast({ message: "Successfully Submited", type: "success" })
             }
@@ -68,9 +51,6 @@ const TalukTab = () => {
         },
         validationSchema: yup.object().shape({
             talukoffice: yup.string().required('talukoffice is required!'),
-            // contactsName: yup.array().of(
-            //     yup.string().required('Contact name is required!')
-            // ),
             contactsName: yup.array().of(
                 yup.string()
                     .matches(/^[A-Za-z\s]+$/, "Only letters allowed")
@@ -141,7 +121,6 @@ const TalukTab = () => {
                                 className="form-control"
                                 placeholder={index === 0 ? "Enter Contact Person Name" : `Enter Contact Person Name ${index}`}
                                 value={contact}
-                                // onChange={formik.handleChange}
                                 onChange={(e) => {
                                     if (/^[A-Za-z ]*$/.test(e.target.value)) {
                                         formik.handleChange(e);
@@ -151,11 +130,6 @@ const TalukTab = () => {
                                 }}
                                 onBlur={formik.handleBlur}
                             />
-                            {/* {formik.errors.contactsName && formik.errors.contactsName[index] && formik.touched.contactsName && formik.touched.contactsName[index] && (
-                                <p style={{ color: 'red', fontSize: '12px' }}>
-                                    {formik.errors.contactsName[index]}
-                                </p>
-                            )} */}
                             {formik.errors.contactsName &&
                                 formik.errors.contactsName[index] &&
                                 formik.touched.contactsName &&
@@ -177,10 +151,6 @@ const TalukTab = () => {
                                     </button>
                                 </div>
                             )}
-
-                            {/* <div className=" p-0 m-0">
-            <button className='btn  btn-outline-success me-1 edit' type='button' onClick={handleAdd}><AddIcon /> </button>
-        </div> */}
                             {index === formik.values.contactsName.length - 1 && (
                                 <div className="p-0 m-0">
                                     <button
@@ -196,8 +166,6 @@ const TalukTab = () => {
                     </div>
                 ))}
 
-
-
             </div>
             <div className="row">
                 <label htmlFor="discount" className="form-label">
@@ -212,8 +180,6 @@ const TalukTab = () => {
                                 className="form-control"
                                 placeholder={index === 0 ? "Enter Contact Person No" : `Enter Contact Person No ${index}`}
                                 value={contact}
-                                // onChange={formik.handleChange}
-
                                 onChange={(e) => {
                                     const value = e.target.value;
                                     if (/^\d*$/.test(value) && value.length <= 10) {
@@ -222,39 +188,8 @@ const TalukTab = () => {
                                         formik.setFieldError(`contactsNo[${index}]`, "Only numbers allowed & max 10 digits");
                                     }
                                 }}
-
-                                // onChange={(e) => {
-                                //     const value = e.target.value;
-                                //     if (/[^0-9]/.test(value)) {
-                                //         formik.setFieldError(`contactsNo[${index}]`, "Only numbers allowed");
-                                //         return;
-                                //     }
-                                //     if (value.length > 10) {
-                                //         formik.setFieldError(`contactsNo[${index}]`, "Only 10 digits allowed");
-                                //         return;
-                                //     }
-                                //     formik.setFieldValue(`contactsNo[${index}]`, value);
-                                //     formik.setFieldError(`contactsNo[${index}]`, "");
-                                // }}
-                                // onPaste={(e) => {
-                                //     e.preventDefault();
-                                //     const paste = e.clipboardData.getData("text/plain").replace(/\D/g, "").slice(0, 10);
-                                //     formik.setFieldValue(`contactsNo[${index}]`, paste);
-                                //     if (paste.length === 0) {
-                                //         formik.setFieldError(`contactsNo[${index}]`, "Only numbers allowed");
-                                //     } else if (paste.length < 10) {
-                                //         formik.setFieldError(`contactsNo[${index}]`, "Only 10 digits allowed");
-                                //     } else {
-                                //         formik.setFieldError(`contactsNo[${index}]`, "");
-                                //     }
-                                // }}
                                 onBlur={formik.handleBlur}
                             />
-                            {/* {formik.errors.contactsNo && formik.errors.contactsNo[index] && formik.touched.contactsNo && formik.touched.contactsNo[index] && (
-                                <p style={{ color: 'red', fontSize: '12px' }}>
-                                    {formik.errors.contactsNo[index]}
-                                </p>
-                            )} */}
                             {formik.errors.contactsNo &&
                                 formik.errors.contactsNo[index] &&
                                 formik.touched.contactsNo &&
@@ -282,39 +217,18 @@ const TalukTab = () => {
                                 </div>
                             )}
                         </div>
-                        {/* {index !== 0 && (
-        <div className="col-md-2">
-            <button
-                type="button"
-                className="btn btn-danger"
-                onClick={() => deletePersonNo(index)}
-            >
-                Delete
-            </button>
-        </div>
-    )} */}
-
-
-                        {/* <div className="col-md-2">
-        <button className='btn1' type='button' onClick={personNoAdd}>Add</button>
-    </div> */}
                     </div>
                 ))}
-
-
-
             </div>
-
             <div className="text-end py-3 px-3">
-                <a
-                    href="javascript:void(0);"
+                <button
                     className="btn1 text-dark me-1"
                     onClick={() => {
                         formik.resetForm()
                     }}
                 >
                     Clear
-                </a>
+                </button>
                 <button type="submit" className="btn1" disabled={postLoading}>
                     {postLoading ? "Submitting..." : "Submit"}
                 </button>

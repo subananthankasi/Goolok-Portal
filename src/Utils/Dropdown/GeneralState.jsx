@@ -20,7 +20,7 @@ const GeneralState = ({
         if (!data || data.length === 0) {
             dispatch(stateGetThunk());
         }
-    }, [dispatch]);
+    }, [dispatch,data]);
 
     const options = data?.map((item) => ({
         value: item.id,

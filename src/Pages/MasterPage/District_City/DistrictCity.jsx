@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "../mastercss.css";
 import DataTable from "react-data-table-component";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -19,11 +19,9 @@ import {
 import Select from "react-select";
 import {
   DistrictvalidateFormData,
-  DistrictvalidateFormDatas,
 } from "./validation";
 import Toast from "../../../Utils/Toast";
 import { DeleteById } from "../../../Utils/DeleteById";
-import ExcelFileUpload from "../../../Utils/ExcelFileUpload";
 import { fetchState } from "../../../Redux/Actions/MasterPage/StateAction";
 import CustomLoder from "../../../Components/customLoader/CustomLoder";
 import * as XLSX from "xlsx";
@@ -33,7 +31,7 @@ import Common from "../../../common/Common";
 
 
 function District() {
-  // get a district datas from store
+
   const updata = useRef(null);
   const districtData = useSelector((state) => state.District.districtData);
   const stateData = useSelector((state) => state.State.StateNameData);
@@ -82,25 +80,6 @@ function District() {
   };
 
   const [errors, setErrors] = useState({});
-
-  // const onSubmit = async (e) => {
-  //   e.preventDefault();
-  //   const jsonArray = [formData];
-  //   const validationResult = DistrictvalidateFormData(formData);
-  //   if (validationResult.isValid) {
-  //     const res = await dispatch(addDistrict(jsonArray));
-  //     Toast({ message: "Added successfully", type: "success" });
-  //     setErrors("");
-  //     setFormData({ state_type: "", district: "", status: "Enable" });
-  //     setSelectedOption(null);
-  //   } else {
-  //     setErrors(validationResult.errors);
-  //   }
-  // };
-
-  // edit  district
-
-
   const { cleanText } = Common()
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -143,40 +122,11 @@ function District() {
     setIsModalOpen(false);
   };
 
-  // bulk upload data get
-  const fileUploadRef = useRef(null);
-  const [excelData, setExcelData] = useState([]);
   const [bulkFormData, setBulkFormData] = useState({
     state_type: "",
     district: "",
     status: "Enable",
   });
-
-  // convert json format
-  // const bulkData = excelData.map((data) => ({
-  //   state_type: bulkFormData.state_type,
-  //   district: data.District,
-  //   status: bulkFormData.status,
-  // }));
-
-  // const [errorMessageBulk, setErrorMessageBulk] = useState("");
-
-  // const bulkSubmit = (e) => {
-  //   e.preventDefault();
-
-  //   const validationResult = DistrictvalidateFormDatas(bulkData[0]);
-
-  //   if (validationResult.isValid) {
-  //     fileUploadRef.current.value = "";
-  //     Toast({ message: "Added successfully", type: "success" });
-  //     setExcelData([]);
-  //     setSelectedOption(null);
-  //     setErrorMessageBulk("");
-  //     dispatch(addDistrict(bulkData));
-  //   } else {
-  //     setErrorMessageBulk(validationResult.errorMessage);
-  //   }
-  // };
 
   const [uploadedData, setUploadedData] = useState([]);
   const [duplicateList, setDuplicateList] = useState([]);

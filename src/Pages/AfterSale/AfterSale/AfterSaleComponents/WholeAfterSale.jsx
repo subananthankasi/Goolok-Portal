@@ -155,7 +155,6 @@ const WholeAfterSale = ({
     "area",
     "patta_doc",
   ];
-  console.log("registerData[0]?.enq_status", registerData[0]?.enq_status)
   const column1 = [
     {
       name: "S.no",

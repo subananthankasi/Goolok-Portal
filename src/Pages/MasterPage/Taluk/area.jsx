@@ -21,17 +21,14 @@ import StateDropDown from "../../../Utils/SelectDropDown/StateDropDown";
 import { TalukvalidateFormData, TalukvalidateFormDatas } from "./ares";
 import Toast from "../../../Utils/Toast";
 import { DeleteById } from "../../../Utils/DeleteById";
-import ExcelFileUpload from "../../../Utils/ExcelFileUpload";
 import CustomLoder from "../../../Components/customLoader/CustomLoder";
 import { Dialog } from "primereact/dialog";
 import * as XLSX from "xlsx";
 import { message } from "antd";
 import Common from "../../../common/Common";
 
-
-
 function Area() {
-  // getting needed data
+
   const dispatch = useDispatch();
   const TalukData = useSelector((state) => state.Taluk.TalukData);
   const isLoading = useSelector((state) => state.Taluk.isLoading);
@@ -151,9 +148,6 @@ function Area() {
     DeleteById(row.id, deleteTaluk, dispatch);
   };
 
-  // bulk upload data get
-  const fileUploadRef = useRef(null);
-  const [excelData, setExcelData] = useState([]);
   const [bulkFormData, setBulkFormData] = useState({
     taluk_state: "",
     taluk_district: "",
@@ -161,31 +155,9 @@ function Area() {
     status: "Enable",
   });
 
-  // convert json format
-  // const bulkData = excelData.map((data) => ({
-  //   taluk_state: bulkFormData.taluk_state,
-  //   taluk_district: bulkFormData.taluk_district,
-  //   taluk_name: data.Taluk,
-  //   status: bulkFormData.status,
-  // }));
 
   const [errorMessageBulk, setErrorMessageBulk] = useState("");
 
-  // const BulkSubmit = (e) => {
-  //   e.preventDefault();
-  //   const validationResult = TalukvalidateFormDatas(bulkData[0]);
-
-  //   if (validationResult.isValid) {
-  //     fileUploadRef.current.value = "";
-  //     Toast({ message: "Added successfully", type: "success" });
-  //     setExcelData([]);
-  //     handleResetSelected();
-  //     setErrorMessageBulk("");
-  //     dispatch(addTaluk(bulkData));
-  //   } else {
-  //     setErrorMessageBulk(validationResult.errorMessage);
-  //   }
-  // };
   const updata = useRef(null);
   const [uploadedData, setUploadedData] = useState([]);
   const [duplicateList, setDuplicateList] = useState([]);

@@ -16,6 +16,7 @@ import { StaffValidation } from "./StaffValidation";
 import BranchDropDown from "../../../Utils/SelectDropDown/BranchDropDown";
 import Toast from "../../../Utils/Toast";
 import Common from "../../../common/Common";
+import StaffCreation from "./StaffCreation";
 
 function NewStaff() {
   const dispatch = useDispatch();
@@ -328,7 +329,7 @@ function NewStaff() {
                 </div>
                 <div className="card-body">
                   <div className="col-lg-12 ">
-                    <form onSubmit={handleSubmit} autoComplete="off">
+                    {/* <form onSubmit={handleSubmit} autoComplete="off">
                       <div className="row">
                         <div className="col-md-12 col-lg-6 mb-3  ">
                           <label htmlFor="lastName" className="form-label">
@@ -608,7 +609,8 @@ function NewStaff() {
                           </button>
                         </div>
                       </div>
-                    </form>
+                    </form> */}
+                    <StaffCreation />
                   </div>
                 </div>
               </div>

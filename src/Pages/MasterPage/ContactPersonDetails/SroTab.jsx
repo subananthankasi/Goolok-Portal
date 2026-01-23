@@ -1,9 +1,8 @@
 import { useFormik } from "formik";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect } from "react";
 import * as yup from "yup";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useDispatch, useSelector } from "react-redux";
-import { SearchData } from "../../../Utils/Search";
 import { fetchSRODetails } from "../../../Redux/Actions/MasterPage/SRODetailsAction";
 import Toast from "../../../Utils/Toast";
 import AddIcon from "@mui/icons-material/Add";
@@ -247,21 +246,19 @@ const SroTab = () => {
         </div>
 
         <div className="text-end py-3 px-3">
-          <a
-            href="javascript:void(0);"
+          <button
             className="btn1 text-dark me-1"
             onClick={() => {
               formik.resetForm();
             }}
           >
             Clear
-          </a>
+          </button>
           <button type="submit" className="btn1" disabled={postLoading}>
             {postLoading ? "Submitting..." : "Submit"}
           </button>
         </div>
       </form>
-      {/* =================== Add Model Form end ================== */}
     </>
   );
 };

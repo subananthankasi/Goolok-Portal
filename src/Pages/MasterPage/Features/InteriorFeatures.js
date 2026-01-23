@@ -1,6 +1,6 @@
 import { useFormik } from "formik";
 import * as yup from "yup";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import customStyle from "../../../Utils/tableStyle";
@@ -17,7 +17,11 @@ import { SearchData } from "../../../Utils/Search";
 import CustomLoder from "../../../Components/customLoader/CustomLoder";
 import Common from "../../../common/Common";
 import Toast from "../../../Utils/Toast";
+
+
 const Features = () => {
+
+
   const [editDialog, setEditDialog] = useState(false);
   const [editing, setEditing] = useState();
   const [filterText, setFilterText] = useState("");
@@ -228,19 +232,14 @@ const Features = () => {
                     </div>
 
                     <div className="text-end py-3 px-3">
-                      <a
-                        href="javascript:void(0);"
+                      <button
                         className="btn1 text-dark me-1"
-                        // onClick={() => {
-                        //     setFormData({ document: "", status: "Enable" });
-                        //     setErrors("");
-                        // }}
                         onClick={() => {
                           formik.resetForm();
                         }}
                       >
                         Clear
-                      </a>
+                      </button>
                       <button
                         type="submit"
                         className="btn1"

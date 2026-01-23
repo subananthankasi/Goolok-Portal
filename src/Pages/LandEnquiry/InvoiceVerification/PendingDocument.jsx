@@ -96,7 +96,6 @@ function PendingDocument() {
   const handleRowSelect = (args) => {
     const rowData = args.data;
     // navigate(`/invoice_report/${encryptData(rowData.enqid)}/${encryptData(rowData.status)}`);
-    console.log("rowData", rowData)
     navigate(
       `/invoice_report/${encryptData(rowData.enqid)}/${encryptData(
         rowData.id
@@ -268,7 +267,7 @@ function PendingDocument() {
                               </button>
                             )}
                           />
-                          <ColumnDirective
+                          {/* <ColumnDirective
                             headerText="Download"
                             width="150"
                             template={(props) => (
@@ -283,7 +282,7 @@ function PendingDocument() {
                                 <FileDownloadIcon />
                               </button>
                             )}
-                          />
+                          /> */}
                           <ColumnDirective
                             headerText="Status"
                             width="170"

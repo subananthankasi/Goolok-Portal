@@ -1,17 +1,3 @@
-// export const BranchValidateFormData = (formData) => {  
-//     if (!formData) {
-//         return { isValid: false, errorMessage: "Form data is undefined" };
-//     }
-//     if (!formData.branch_state || !formData.branch_district || !formData.branch_taluk || !formData.branch_village || !formData.branch_pincode || !formData.branch_name || !formData.short_name || !formData.contact_person || !formData.mobile || !formData.email || !formData.geo_location || !formData.status) {
-//         return { isValid: false, errorMessage: "All fields are required" };
-//     }
-//     if (!formData.branch_state.trim() || !formData.branch_district.trim() || !formData.branch_taluk.trim() || !formData.branch_village.trim() || !formData.branch_pincode.trim() || !formData.branch_name.trim() || !formData.short_name.trim() || !formData.contact_person.trim() || !formData.mobile.trim() || !formData.email.trim() || !formData.geo_location.trim() || !formData.status.trim()) {
-//         return { isValid: false, errorMessage: "All fields are required" };
-//     }
-//     return { isValid: true };
-// };
-
-
 export const BranchValidateFormData = (formData) => {
     const errors = {};
 

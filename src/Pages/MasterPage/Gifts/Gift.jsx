@@ -188,7 +188,7 @@ const Gift = () => {
     try {
       const response = await axios.get(`${API_BASE_URL}/fetchpropertyid`);
       setPropId(response.data);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   const [getData, setGetData] = useState([]);
@@ -221,12 +221,12 @@ const Gift = () => {
 
   const handleDelete = async () => {
     try {
-      const response = await axios.delete(
+      await axios.delete(
         `${API_BASE_URL}/giftdeals/${deleteId}`
       );
       fetchData();
       setDeleteDialog(false);
-    } catch (error) {}
+    } catch (error) { }
   };
   const onSubmit = async (values) => {
     const newData = {
@@ -236,7 +236,7 @@ const Gift = () => {
 
     setPostLoading(true);
     try {
-      const response = await axios.post(`${API_BASE_URL}/giftdeals`, newData, {
+      await axios.post(`${API_BASE_URL}/giftdeals`, newData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -290,17 +290,17 @@ const Gift = () => {
 
   const data = formik.values.applicable_property
     ? propId
-        ?.filter(
-          (prId) => prId.property_type === formik.values.applicable_property
-        )
-        .map((item) => ({
-          label: item.property_id,
-          value: item.id,
-        }))
-    : propId.map((item) => ({
+      ?.filter(
+        (prId) => prId.property_type === formik.values.applicable_property
+      )
+      .map((item) => ({
         label: item.property_id,
         value: item.id,
-      }));
+      }))
+    : propId.map((item) => ({
+      label: item.property_id,
+      value: item.id,
+    }));
 
   return (
     <>

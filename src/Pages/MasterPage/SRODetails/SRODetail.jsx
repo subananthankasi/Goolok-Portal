@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import  { useState, useEffect } from "react";
 import "../mastercss.css";
 import DataTable from "react-data-table-component";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -9,9 +9,7 @@ import ExportButton from "../../../Utils/ExportButton";
 import { SearchData } from "../../../Utils/Search";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 import AddIcon from "@mui/icons-material/Add";
-
 import { useDispatch, useSelector } from "react-redux";
-import Toast from "../../../Utils/Toast";
 import { DeleteById } from "../../../Utils/DeleteById";
 import {
   deleteSRODetails,
@@ -22,7 +20,6 @@ import customStyle from "../../../Utils/tableStyle";
 import CustomLoder from "../../../Components/customLoader/CustomLoder";
 
 function SRODetails() {
-  ///////Fetch Data from DB////////
   const SRODetailsData = useSelector(
     (state) => state.SRODetails.SRODetailsData
   );
@@ -177,8 +174,6 @@ function SRODetails() {
       ),
     },
   ];
-
-
 
   // search function
   const [filterText, setFilterText] = useState("");

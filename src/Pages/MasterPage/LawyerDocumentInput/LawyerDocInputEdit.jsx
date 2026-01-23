@@ -9,7 +9,6 @@ import Common from "../../../common/Common";
 
 const LawyerDocInputEdit = ({ isOpen, closeModal, editData }) => {
   const { cleanText } = Common();
-
   const dispatch = useDispatch();
   const LawyerDocument = useSelector((state) => state.LawyerDocument.lawyerDoc);
   const updateLoading = useSelector(

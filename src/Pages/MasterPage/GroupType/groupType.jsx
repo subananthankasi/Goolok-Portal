@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "../mastercss.css";
 import DataTable from "react-data-table-component";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -12,8 +12,6 @@ import Toast from "../../../Utils/Toast";
 import customStyle from "../../../Utils/tableStyle";
 import { validateFormData } from "./GroupTypeFormValidation";
 import { TagPicker } from "rsuite";
-
-////fetch data from redux/////
 import { useDispatch, useSelector } from "react-redux";
 import {
   addGroupType,
@@ -55,18 +53,6 @@ function GroupType() {
     });
   };
   const [errors, setErrors] = useState({});
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   const validationResult = validateFormData(formData);
-  //   if (validationResult.isValid) {
-  //     Toast({ message: "Added successfully", type: "success" });
-  //     setErrors({});
-  //     setFormData({ group_name: "", status: "Enable" });
-  //     await dispatch(addGroupType(formData));
-  //   } else {
-  //     setErrors(validationResult.errors);
-  //   }
-  // };
   const { cleanText } = Common()
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -187,11 +173,8 @@ function GroupType() {
   };
   const filterdata = SearchData(GroupTypeData, filterText, searchColumns);
 
-  /////////////////////////////////////
-
   const [editData, setEditData] = useState();
   const handleEdit = (row) => {
-    // setEditData(row);
     setIsEditing(true);
     setFormData({
       group_name: row.group_name || "",
@@ -213,11 +196,7 @@ function GroupType() {
     }
   };
 
-  // editing modal
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
   const closeModal = () => {
     setIsModalOpen(false);
   };
@@ -325,8 +304,7 @@ function GroupType() {
                     </div>
 
                     <div className="text-end py-3 px-3">
-                      <a
-                        href="javascript:void(0);"
+                      <button
                         className="btn1 text-dark me-1"
                         onClick={() => {
                           setFormData({
@@ -339,7 +317,7 @@ function GroupType() {
                         }}
                       >
                         {isEditing ? "Cancel" : "Clear"}
-                      </a>
+                      </button>
 
                       <button
                         type="submit"

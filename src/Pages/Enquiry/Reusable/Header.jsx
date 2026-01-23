@@ -1,8 +1,8 @@
-import  { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchEnquiryDocument } from "../../../Redux/Actions/Enquiry/enquiryReportAction";
 import { useNavigate } from "react-router-dom";
-import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+import { CircularProgressbar, CircularProgressbarWithChildren, buildStyles } from "react-circular-progressbar";
 import Spinner from "react-bootstrap/Spinner";
 import sold from "../../../Assets/images/sold.png";
 import booking from "../../../Assets/images/booking.png";
@@ -37,7 +37,6 @@ export const Header = ({ eid }) => {
     fetchData();
   }, [dispatch, eid, staffid.loginid]);
 
-
   return (
     <>
       {loadingPage ? (
@@ -65,7 +64,7 @@ export const Header = ({ eid }) => {
                     style={{ fontSize: "1.5rem", cursor: "pointer" }}
                   ></i>
                   <div style={{ width: 130, height: 130, margin: "auto" }}>
-                    <CircularProgressbar
+                    {/* <CircularProgressbar
                       value={"100"}
                       text={enquiryDoumentData.age}
                       styles={buildStyles({
@@ -75,7 +74,21 @@ export const Header = ({ eid }) => {
                         trailColor: "#d6d6d6",
                         backgroundColor: "#3e98c7",
                       })}
-                    />
+                    /> */}
+                    <CircularProgressbarWithChildren
+                      value={100}
+                      styles={buildStyles({
+                        pathColor: "#ffae42",
+                        textColor: "black",
+                        trailColor: "#d6d6d6",
+                        backgroundColor: "#3e98c7",
+                      })}
+                    >
+                      <div style={{ textAlign: "center", lineHeight: "1.2" }}>
+                        <div style={{ fontSize: "33px", fontWeight: "bold" }}>{enquiryDoumentData?.age?.split(" ")[0]} </div>
+                        <div style={{ fontSize: "17px" }}>{enquiryDoumentData?.age?.split(" ")[1]}</div>
+                      </div>
+                    </CircularProgressbarWithChildren>
                   </div>
                 </div>
                 <div className="col-4">
@@ -146,7 +159,7 @@ export const Header = ({ eid }) => {
                           right: "-10px",
                         }}
                       />
-                    )  : null}
+                    ) : null}
                   </div>
                 </div>
               </div>

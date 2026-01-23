@@ -1,5 +1,5 @@
 import { useFormik } from "formik";
-import React, { useEffect, useState, useRef } from "react";
+import  { useEffect, useState,} from "react";
 import * as yup from "yup";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -12,9 +12,7 @@ import {
   paymentScheduleUpdateThunk,
   paymentSchedulGetThunk,
 } from "../../../Redux/Actions/MasterPage/PaymentScheduleThunk";
-// import { Toast } from "primereact/toast";
 import { Dialog } from "primereact/dialog";
-import { Button } from "primereact/button";
 import { SearchData } from "../../../Utils/Search";
 import CustomLoder from "../../../Components/customLoader/CustomLoder";
 import Common from "../../../common/Common";
@@ -22,7 +20,6 @@ import Toast from "../../../Utils/Toast";
 
 const PaymentSchedule = () => {
   const dispatch = useDispatch();
-  // const toast = useRef(null);
   const [deleteDialog, setDeleteDialog] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
   const [editDialog, setEditDialog] = useState(false);
@@ -52,14 +49,7 @@ const PaymentSchedule = () => {
       const response = await dispatch(paymentScheduleUpdateThunk(newData));
 
       if (paymentScheduleUpdateThunk.fulfilled.match(response)) {
-        // toast.current.show({
-        //   severity: "success",
-        //   summary: "Updated",
-        //   detail: "Successfully Updated",
-        //   life: 3000,
-        // });
         Toast({ message: "Successfully Submited", type: "success" });
-
         setEditDialog(false);
         formik.resetForm();
         dispatch(paymentSchedulGetThunk());
@@ -73,12 +63,6 @@ const PaymentSchedule = () => {
       const response = await dispatch(paymentSchedulePostThunk(newData));
 
       if (paymentSchedulePostThunk.fulfilled.match(response)) {
-        // toast.current.show({
-        //   severity: "success",
-        //   summary: "Created",
-        //   detail: "Successfully Created",
-        //   life: 3000,
-        // });
         Toast({ message: "Successfully Created", type: "success" });
         formik.resetForm();
         dispatch(paymentSchedulGetThunk());
@@ -120,21 +104,6 @@ const PaymentSchedule = () => {
   };
   const deleteUnitsDialogFooter = (
     <div className=" d-flex gap-1 justify-content-end">
-      {/* <Button
-        label="No"
-        icon="pi pi-times"
-        outlined
-        style={{ borderRadius: "7px" }}
-        onClick={() => setDeleteDialog(false)}
-      />
-      <Button
-        loading={deleteLoading}
-        label="Yes"
-        icon="pi pi-check"
-        severity="danger"
-        style={{ borderRadius: "7px" }}
-        onClick={deletePricing}
-      /> */}
       <button type="button" className="btn1" onClick={() => setDeleteDialog(false)} disabled={updateLoading}>
         No
       </button>

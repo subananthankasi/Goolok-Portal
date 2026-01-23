@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "../mastercss.css";
 import DataTable from "react-data-table-component";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -26,12 +26,11 @@ import {
 } from "./Validation";
 import Toast from "../../../Utils/Toast";
 import { DeleteById } from "../../../Utils/DeleteById";
-import ExcelFileUpload from "../../../Utils/ExcelFileUpload";
 import CustomLoder from "../../../Components/customLoader/CustomLoder";
 import { Dialog } from "primereact/dialog";
 import * as XLSX from "xlsx";
 import { message } from "antd";
-import Common from "../../../common/Common";
+
 
 
 function Pincode() {
@@ -167,9 +166,6 @@ function Pincode() {
     setEditData(row);
   };
 
-  // bulkUpload
-  const fileUploadRef = useRef(null);
-  const [excelData, setExcelData] = useState([]);
   const [bulkFormData, setBulkFormData] = useState({
     pin_state: " ",
     pin_district: " ",
@@ -178,33 +174,8 @@ function Pincode() {
     pincode: "",
     status: "Enable",
   });
-  // convert json format
-  // const bulkData = excelData.map((data) => ({
-  //   pin_state: bulkFormData.pin_state,
-  //   pin_district: bulkFormData.pin_district,
-  //   pin_taluk: bulkFormData.pin_taluk,
-  //   pin_village: bulkFormData.pin_village,
-  //   pincode: data.Pincode,
-  //   status: bulkFormData.status,
-  // }));
 
   const [errorMessageBulk, setErrorMessageBulk] = useState("");
-
-  // const BulkSubmit = (e) => {
-  //   e.preventDefault();
-  //   const validationResult = PincodeValidateFormDatas(bulkData[0]);
-  //   if (validationResult.isValid) {
-  //     fileUploadRef.current.value = "";
-  //     Toast({ message: "Added successfully", type: "success" });
-  //     setExcelData([]);
-  //     handleResetSelected();
-  //     dispatch(addPincode(bulkData));
-  //   } else {
-  //     setErrorMessageBulk(validationResult.errorMessage);
-  //   }
-  // };
-
-
 
   const updata = useRef(null);
   const [uploadedData, setUploadedData] = useState([]);
@@ -823,7 +794,7 @@ function Pincode() {
 
           {duplicateList.length > 0 && (
             <p className="text-center" style={{ color: "#d9534f", fontWeight: "600" }}>
-              your uploaded Taluk name already excist
+              your uploaded pincode already excist
             </p>
           )}
         </div>

@@ -557,6 +557,7 @@ import ContentWritingApart from "./Pages/ApartmentEnquiry/ContentWritingApart/Co
 import UpdateContentWriting from "./Pages/ApartmentEnquiry/ContentWritingApart/UpdateContentWriting";
 import UpdateDocLand from "./Pages/LandEnquiry/DocumentVerificationLand/UpdateDocLand";
 import UpdateDocApart from "./Pages/ApartmentEnquiry/ApartDocumentVerification/UpdateDocApart";
+import StaffCreation from "./Pages/Staff/NewStaff/StaffCreation";
 // import DocumentService from "./Pages/Services/GetPattaForProperty/DocumentService/DocumentService";
 // import PricingDeptUpdate from "./Pages/LandEnquiry/PricingDepartment/PricingDeptUpdate";
 // import PricingDeptUpdate from "./Pages/LandEnquiry/PricingDepartment/PricingDeptUpdate";
@@ -695,6 +696,7 @@ function App() {
                         path="/new_staff"
                         element={<PrivateRoute element={NewStaff} />}
                       />
+                    
                       <Route
                         path="/staff_report"
                         element={<PrivateRoute element={StaffReport} />}

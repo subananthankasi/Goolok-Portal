@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { validateFormData } from "./stateValidation";
 import { useDispatch, useSelector } from "react-redux";
 import { updateState } from "../../../Redux/Actions/MasterPage/StateAction";
@@ -18,7 +18,7 @@ const StateEdit = ({ isOpen, closeModal, editData }) => {
     if (editData) {
       setFormData({
         state_name: editData.state_name,
-        status: editData.status == "" ? "Enable" : editData.status,
+        status: editData.status === "" ? "Enable" : editData.status,
       });
     }
   }, [editData]);

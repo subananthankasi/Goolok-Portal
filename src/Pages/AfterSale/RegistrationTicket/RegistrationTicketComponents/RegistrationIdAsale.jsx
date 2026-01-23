@@ -184,7 +184,6 @@ const RegistrationIdAsale = ({
     onSubmit,
   });
 
-  console.log("registerData", registerData)
   return (
     <>
       <div className="col-12 mt-4">

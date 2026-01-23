@@ -1,4 +1,3 @@
-import React from 'react'
 import { TabView, TabPanel } from 'primereact/tabview';
 import Suitable from './Suitable';
 import Property from './Property';
@@ -10,14 +9,11 @@ const Tag = () => {
             <TabView>
                 <TabPanel header="Suitable " >
                     <Suitable/>
-
                 </TabPanel>
                 <TabPanel header="Property">
                     <Property/>
-
                 </TabPanel>
             </TabView>
-
         </>
     )
 }

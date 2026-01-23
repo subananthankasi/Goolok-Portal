@@ -355,10 +355,6 @@ const Pricing = () => {
                       <a
                         href="javascript:void(0);"
                         className="btn1 text-dark me-1"
-                        // onClick={() => {
-                        //     setFormData({ document: "", status: "Enable" });
-                        //     setErrors("");
-                        // }}
                         onClick={() => {
                           formik.resetForm();
                         }}

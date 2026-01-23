@@ -1,5 +1,5 @@
 import { useFormik } from "formik";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import * as yup from "yup";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -36,9 +36,6 @@ const ExteriorFeatures = () => {
   const updateLoading = useSelector(
     (state) => state.exteriorFeatureData?.update?.loading
   );
-  const deleteLoading = useSelector(
-    (state) => state.exteriorFeatureData?.delete?.loading
-  );
 
   const openDelete = (row) => {
     setDeleteDialog(true);
@@ -46,7 +43,7 @@ const ExteriorFeatures = () => {
   };
   useEffect(() => {
     dispatch(eFeatureGetThunk());
-  }, []);
+  }, [dispatch]);
   const handleDelete = () => {
     dispatch(eFeatureDeleteThunk(deleteId)).then(() => {
       dispatch(eFeatureGetThunk());
@@ -226,19 +223,14 @@ const ExteriorFeatures = () => {
                     </div>
 
                     <div className="text-end py-3 px-3">
-                      <a
-                        href="javascript:void(0);"
+                      <button
                         className="btn1 text-dark me-1"
-                        // onClick={() => {
-                        //     setFormData({ document: "", status: "Enable" });
-                        //     setErrors("");
-                        // }}
                         onClick={() => {
                           formik.resetForm();
                         }}
                       >
                         Clear
-                      </a>
+                      </button>
                       <button
                         type="submit"
                         className="btn1"

@@ -7,7 +7,6 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import StateEdit from "./StateEdit";
 import * as XLSX from "xlsx";
 import Moment from "moment";
-// import { format } from 'date-fns';
 import { SearchData } from "../../../Utils/Search";
 import ExportButton from "../../../Utils/ExportButton";
 import { Tooltip as ReactTooltip } from "react-tooltip";
@@ -19,7 +18,7 @@ import {
   fetchState,
 } from "../../../Redux/Actions/MasterPage/StateAction";
 import Toast from "../../../Utils/Toast";
-import { validateFormData, validateFormDataBulk } from "./stateValidation";
+import { validateFormData } from "./stateValidation";
 import customStyle from "../../../Utils/tableStyle";
 import CustomLoder from "../../../Components/customLoader/CustomLoder";
 import Common from "../../../common/Common";
@@ -32,11 +31,7 @@ function State() {
   const StateNameData = useSelector((state) => state.State.StateNameData);
   const isLoading = useSelector((state) => state.State.isLoading);
   const addLoading = useSelector((state) => state.State.addLoading);
-  const updateLoading = useSelector((state) => state.State.updateLoading);
-  const deleteLoading = useSelector((state) => state.State.deleteLoading);
   const { cleanText } = Common();
-
-
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchState());
@@ -46,14 +41,6 @@ function State() {
     status: "Enable",
   });
 
-  const [stateName, setStateName] = useState();
-
-  const newName = stateName
-    ? stateName.map((data) => ({
-      state_name: data.State,
-      status: "Enable",
-    }))
-    : "";
 
   const stateChange = (e) => {
     const { name, value } = e.target;
@@ -68,33 +55,6 @@ function State() {
   };
 
   const [errorsBulk, setErrorsBulk] = useState();
-
-  // const handleFileUpload = async (event) => {
-  //   const file = event.target.files[0];
-  //   const binaryStr = await file.arrayBuffer();
-  //   const workbook = XLSX.read(binaryStr, { type: "array" });
-  //   const sheetName = workbook.SheetNames[0];
-  //   const sheet = workbook.Sheets[sheetName];
-  //   const jsonData = XLSX.utils.sheet_to_json(sheet, { defval: "" });
-  //   setStateName(jsonData);
-  // };
-  // const bulkSubmit = async (e) => {
-  //   const result = validateFormDataBulk(newName[0]);
-  //   if (result.isValid) {
-  //     setErrorsBulk("");
-  //     const res = await dispatch(addState(newName));
-  //     if (res.success) {
-  //       Toast({ message: "Added successfully", type: "success" });
-  //       updata.current.value = "";
-  //       setStateName([]);
-  //     } else {
-  //       message.warning(res?.error?.error);
-  //     }
-  //   } else {
-  //     setErrorsBulk(result.errorMessage);
-  //   }
-  // };
-
   const [uploadedData, setUploadedData] = useState([]);
   const [duplicateList, setDuplicateList] = useState([]);
 

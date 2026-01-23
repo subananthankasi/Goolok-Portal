@@ -11,7 +11,7 @@ import { Tooltip as ReactTooltip } from "react-tooltip";
 import { useDispatch, useSelector } from "react-redux";
 import Toast from "../../../Utils/Toast";
 import customStyle from "../../../Utils/tableStyle";
-import { validateFormData } from "./Validation";
+import { validateFormData, validateFormDataUpdate } from "./Validation";
 import { DeleteById } from "../../../Utils/DeleteById";
 import LawyerDocInputEdit from "./LawyerDocInputEdit";
 import { fetchDoc } from "../../../Redux/Actions/MasterPage/LawyerDocumentAction";
@@ -19,15 +19,22 @@ import {
   addlawDocInput,
   deleteLawDocInput,
   fetchDocInput,
+  updateLawDocInput,
 } from "../../../Redux/Actions/MasterPage/LawyerDocumentInputAction";
 import CustomLoder from "../../../Components/customLoader/CustomLoder";
 import Common from "../../../common/Common";
+import { Dialog } from "primereact/dialog";
 
 function LawyerDocInput() {
   const dispatch = useDispatch();
   const LawyerDocument = useSelector((state) => state.LawyerDocument.lawyerDoc);
   const isLoading = useSelector((state) => state.LawyerDocumentInput.isLoading);
+  const updateLoading = useSelector(
+    (state) => state.LawyerDocumentInput.updateLoading
+  );
   const { cleanText } = Common();
+  const [visible, setVisible] = useState(false)
+
 
   const addLoading = useSelector(
     (state) => state.LawyerDocumentInput.addLoading
@@ -147,7 +154,8 @@ function LawyerDocInput() {
             data-tooltip-id="edit"
             onClick={() => {
               handleEdit(row);
-              openModal();
+              // openModal();
+              setVisible(true)
             }}
           >
             <EditIcon />
@@ -180,9 +188,16 @@ function LawyerDocInput() {
   /////////////////////////////////////
 
   const [editData, setEditData] = useState();
-
   const handleEdit = (row) => {
     setEditData(row);
+    setFormData(row);
+    const defaultOption = LawyerDocument.find(
+      (option) => option.id === row.document
+    );
+    setSelectedData({
+      value: defaultOption.id,
+      label: defaultOption.document,
+    });
   };
 
   const handleDelete = (row) => {
@@ -191,11 +206,29 @@ function LawyerDocInput() {
 
   // editing modal
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
   const closeModal = () => {
     setIsModalOpen(false);
+  };
+  const handleUpdateSubmit = async (e) => {
+    e.preventDefault();
+    const validationResult = validateFormDataUpdate(formData);
+    if (validationResult.isValid) {
+      const newData = {
+        ...formData,
+        documentsub: cleanText(formData.documentsub),
+      };
+      const res = await dispatch(updateLawDocInput(newData));
+      if (res.success) {
+        Toast({ message: "Updated Successfully", type: "success" });
+        // closeModal();
+        setVisible(false)
+        setErrors("");
+      } else {
+        setErrors(res.error);
+      }
+    } else {
+      setErrors(validationResult.errors);
+    }
   };
 
   return (
@@ -284,8 +317,7 @@ function LawyerDocInput() {
                     </div>
 
                     <div className="text-end py-3 px-3">
-                      <a
-                        href="javascript:void(0);"
+                      <button
                         className="btn1 text-dark me-1"
                         onClick={() => {
                           setFormData({ subname: "", status: "Enable" });
@@ -294,7 +326,7 @@ function LawyerDocInput() {
                         }}
                       >
                         Clear
-                      </a>
+                      </button>
                       <button
                         type="submit"
                         className="btn1"
@@ -361,6 +393,92 @@ function LawyerDocInput() {
         content="Delete"
         style={{ fontSize: "10px" }}
       />
+
+      <Dialog
+        visible={visible}
+        style={{ width: "32rem" }}
+        breakpoints={{ "960px": "75vw", "641px": "90vw" }}
+        header="Edit Lawyer Document"
+        modal
+        onHide={() => setVisible(false)}
+      >
+        <form onSubmit={handleUpdateSubmit}>
+          <div className="row">
+            <div className="col-md-12 mb-3 ">
+              <label htmlFor="lastName" className="form-label">
+                Property Type
+              </label>
+              <Select
+                options={options}
+                value={selectedData}
+                onChange={handleSelect}
+                styles={{
+                  control: (baseStyles, state) => ({
+                    ...baseStyles,
+                    borderColor: state.isFocused ? "#e7e7e7" : "#e7e7e7",
+                    fontSize: "13px",
+                  }),
+                  option: (baseStyles, state) => ({
+                    ...baseStyles,
+                    fontSize: "12px",
+                    color: "black",
+                  }),
+                }}
+              />
+              {errors.document && (
+                <div className="validation_msg">{errors.document}</div>
+              )}
+            </div>
+
+            <div className="col-md-12 mb-3 ">
+              <label htmlFor="lastName" className="form-label">
+                Sub Property
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                name="documentsub"
+                value={formData.documentsub}
+                onChange={handleChange}
+              />
+              {errors.documentsub && (
+                <div className="validation_msg">{errors.documentsub}</div>
+              )}
+            </div>
+          </div>
+
+          <div className="mb-3 col-md-12">
+            <label className="form-label" htmlFor="inputState">
+              Status
+            </label>
+            <select
+              className="form-select"
+              name="status"
+              value={formData.status}
+              onChange={handleChange}
+            >
+              <option value="Enable">Enable</option>
+              <option value="Disable">Disable</option>
+            </select>
+            {errors.status && (
+              <div className="validation_msg">{errors.status}</div>
+            )}
+          </div>
+
+          <div className="text-end py-3 px-3">
+            <button
+              type="button"
+              className="btn1 me-1"
+              onClick={() => setVisible(false)}
+            >
+              Cancel
+            </button>
+            <button type="submit" className="btn1" disabled={updateLoading}>
+              {updateLoading ? "Updating..." : "Update"}
+            </button>
+          </div>
+        </form>
+      </Dialog>
     </>
   );
 }

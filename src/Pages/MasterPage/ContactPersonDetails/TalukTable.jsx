@@ -1,5 +1,5 @@
 import { useFormik } from "formik";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import * as yup from "yup";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -23,7 +23,6 @@ const TalukTable = () => {
   const [deleteDialog, setDeleteDialog] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
   const [editDialog, setEditDialog] = useState(false);
-  const [editing, setEditing] = useState(false);
   const [filterText, setFilterText] = useState("");
 
   const searchColumns = [
@@ -39,11 +38,8 @@ const TalukTable = () => {
 
   useEffect(() => {
     dispatch(contactPersonTalukGetThunk());
-  }, []);
+  }, [dispatch]);
 
-  const SRODetailsData = useSelector(
-    (state) => state.SRODetails.SRODetailsData
-  );
   const talukOffice = useSelector((state) => state.talukDetailsData.get.data);
   const contactPersonData = useSelector(
     (state) => state.contactPersonTalukData.get.data
@@ -417,35 +413,10 @@ const TalukTable = () => {
                     </div>
                   )}
                 </div>
-                {/* {index !== 0 && (
-                                                        <div className="col-md-2">
-                                                            <button
-                                                                type="button"
-                                                                className="btn btn-danger"
-                                                                onClick={() => deletePersonNo(index)}
-                                                            >
-                                                                Delete
-                                                            </button>
-                                                        </div>
-                                                    )} */}
-
-                {/* <div className="col-md-2">
-                                                        <button className='btn1' type='button' onClick={personNoAdd}>Add</button>
-                                                    </div> */}
               </div>
             ))}
           </div>
-
           <div className="text-end py-3 px-3">
-            {/* <a
-                            href="javascript:void(0);"
-                            className="btn1 text-dark me-1"
-                            onClick={() => {
-                                formik.resetForm()
-                            }}
-                        >
-                            Clear
-                        </a> */}
             <button type="submit" className="btn1" disabled={updateLoading}>
               {updateLoading ? "Updating..." : "Update"}
             </button>

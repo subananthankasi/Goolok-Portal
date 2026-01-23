@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "../mastercss.css";
-import Footerbar from "../../../Components/footer/footer";
 import DataTable from "react-data-table-component";
 import "bootstrap/dist/css/bootstrap.min.css";
 import EditIcon from "@mui/icons-material/Edit";
@@ -19,11 +18,13 @@ import {
 import { DeleteById } from "../../../Utils/DeleteById";
 import BranchAdd from "./branchAdd";
 import CustomLoder from "../../../Components/customLoader/CustomLoder";
+import BranchCreation from "./BranchCreation";
 
 function Branch() {
   const branchData = useSelector((state) => state.Branch.BranchData);
   const isLoading = useSelector((state) => state.Branch.isLoading);
-
+  const [visible, setVisible] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -34,16 +35,6 @@ function Branch() {
   const [editData, setEditData] = useState();
   const handleEdit = (row) => {
     setEditData(row);
-  };
-
-  // add
-  const handleAdd = () => {
-    setEditData(null);
-  };
-
-  const handleButtonClick = () => {
-    openModal();
-    handleAdd();
   };
 
   // delete
@@ -154,7 +145,9 @@ function Branch() {
             data-tooltip-id="edit"
             onClick={() => {
               handleEdit(row);
-              openModal();
+              // openModal();
+              setVisible(true);
+              setIsEditing(true);
             }}
           >
             <EditIcon />
@@ -197,7 +190,8 @@ function Branch() {
   // add and edit in same modal
   const [isAddModalOpen, setAddModalOpen] = useState(false);
   const openModalAdd = () => {
-    setAddModalOpen(true);
+    // setAddModalOpen(true);
+    setVisible(true);
   };
   const closeModalAdd = () => {
     setAddModalOpen(false);
@@ -219,6 +213,12 @@ function Branch() {
         editData={editData}
       />
       <BranchAdd isOpen={isAddModalOpen} closeModal={closeModalAdd} />
+      <BranchCreation
+        setVisible={setVisible}
+        visible={visible}
+        isEditing={isEditing}
+        editData={editData}
+      />
       <section className="section">
         <div className="container">
           <div className="row">

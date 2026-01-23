@@ -53,21 +53,6 @@ export const InvoiceDetails = ({ id, status }) => {
             sortable: true,
         },
         {
-            name: "Download",
-            cell: (row) => (
-                <>
-                    <button
-                        type="button"
-                        className="btn btn-outline-primary delete"
-                        onClick={() => downloadPdf(row.id)}
-                    >
-                        <FileDownloadIcon />
-                    </button>
-                </>
-            ),
-            sortable: true,
-        },
-        {
             name: "Payment status",
             cell: (row) => (
                 <>
@@ -83,6 +68,27 @@ export const InvoiceDetails = ({ id, status }) => {
             ),
             sortable: true,
         },
+
+        ...(
+            status === "success"
+                ? [
+                    {
+                        name: "Download",
+                        cell: (row) => (
+                            <>
+                                <button
+                                    type="button"
+                                    className="btn btn-outline-primary delete"
+                                    onClick={() => downloadPdf(row.id)}
+                                >
+                                    <FileDownloadIcon />
+                                </button>
+                            </>
+                        ),
+                        sortable: true,
+                    },
+                ]
+                : []),
     ];
 
     const calculateTotals = () => {

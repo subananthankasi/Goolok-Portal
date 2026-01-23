@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  addSRODetails,
   updateSRODetails,
 } from "../../../Redux/Actions/MasterPage/SRODetailsAction";
 
@@ -48,7 +47,6 @@ const SRODetailsEdit = ({ isOpen, closeModal, editData }) => {
     status: "",
   });
 
-  // data set
 
   useEffect(() => {
     if (editData) {
@@ -116,33 +114,6 @@ const SRODetailsEdit = ({ isOpen, closeModal, editData }) => {
     setSelectedPincode(pincode);
   };
 
-  // useEffect(() => {
-  //   if (editData) {
-  //     setFormData({
-  //       ...formData,
-  //       id: editData.id,
-  //       sroTitle: editData.sro_title,
-  //       sroLandline: editData.sro_landline,
-  //       sroMobile: editData.sro_mobile,
-  //       sroAddress: editData.sro_address,
-  //       sroEmail: editData.sro_email,
-  //       sroLocation: editData.sro_location,
-  //       status: editData.status,
-  //       sroState: selectedState ? selectedState.value : "",
-  //       sroDistrict: selectedDistrict ? selectedDistrict.value : "",
-  //       sroTaluk: selectedTaluk ? selectedTaluk.value : "",
-  //       sroArea: selectedVillage ? selectedVillage.value : "",
-  //       sroPincode: selectedPincode ? selectedPincode.value : "",
-  //     });
-  //   }
-  // }, [
-  //   editData,
-  //   selectedState,
-  //   selectedDistrict,
-  //   selectedTaluk,
-  //   selectedVillage,
-  //   selectedPincode,
-  // ]);
   useEffect(() => {
     if (editData) {
       setFormData(prev => ({
@@ -164,17 +135,6 @@ const SRODetailsEdit = ({ isOpen, closeModal, editData }) => {
     }
   }, [editData, selectedState, selectedDistrict, selectedTaluk, selectedVillage, selectedPincode]);
 
-  // const handleChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setFormData({
-  //     ...formData,
-  //     [name]: value,
-  //   });
-  //   setErrors((pre) => ({
-  //     ...pre,
-  //     [name]: "",
-  //   }));
-  // };
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name === "sroMobile") {
@@ -223,22 +183,6 @@ const SRODetailsEdit = ({ isOpen, closeModal, editData }) => {
     }
   };
 
-  // const clearForm = () => {
-  //   setFormData({
-  //     sroTitle: "",
-  //     sroLandline: "",
-  //     sroMobile: "",
-  //     sroAddress: "",
-  //     sroEmail: "",
-  //     sroState: "",
-  //     sroDistrict: "",
-  //     sroLocation: "",
-  //     sroTaluk: "",
-  //     sroArea: "",
-  //     sroPincode: "",
-  //     status: "",
-  //   });
-  // };
   const clearForm = () => {
     setFormData({
       sroTitle: "",

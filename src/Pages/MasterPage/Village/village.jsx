@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "../mastercss.css";
 import DataTable from "react-data-table-component";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -25,7 +25,6 @@ import {
 } from "./valiadation";
 import Toast from "../../../Utils/Toast";
 import { DeleteById } from "../../../Utils/DeleteById";
-import ExcelFileUpload from "../../../Utils/ExcelFileUpload";
 import CustomLoder from "../../../Components/customLoader/CustomLoder";
 import { Dialog } from "primereact/dialog";
 import * as XLSX from "xlsx";
@@ -60,19 +59,6 @@ function Village() {
 
   const [errors, setErrors] = useState({});
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   const result = VillageValidateFormData(formData);
-  //   if (result.isValid) {
-  //     Toast({ message: "Added successfully", type: "success" });
-  //     dispatch(addVillage([formData]));
-  //     setErrors("");
-  //     handleResetSelected();
-  //     setFormData({ village_name: "", status: "Enable" });
-  //   } else {
-  //     setErrors(result.errors);
-  //   }
-  // };
   const handleSubmit = async (e) => {
     e.preventDefault();
     const newData = {
@@ -245,9 +231,6 @@ function Village() {
     DeleteById(row.id, deleteVillage, dispatch);
   };
 
-  // bulk upload data get
-  const fileUploadRef = useRef(null);
-  const [excelData, setExcelData] = useState([]);
   const [bulkFormData, setBulkFormData] = useState({
     village_state: " ",
     village_district: " ",
@@ -255,15 +238,6 @@ function Village() {
     village_name: "",
     status: "Enable",
   });
-
-  // convert json format
-  // const bulkData = excelData.map((data) => ({
-  //   village_state: bulkFormData.village_state,
-  //   village_district: bulkFormData.village_district,
-  //   village_taluk: bulkFormData.village_taluk,
-  //   village_name: data["Village Name"],
-  //   status: bulkFormData.status,
-  // }));
 
   const [errorMessageBulk, setErrorMessageBulk] = useState(""); const updata = useRef(null);
   const [uploadedData, setUploadedData] = useState([]);
@@ -338,24 +312,6 @@ function Village() {
       type: "success",
     });
   };
-
-  // const BulkSubmit = (e) => {
-  //   e.preventDefault();
-  //   const validationResult = VillageValidateFormDatas(bulkData[0]);
-
-  //   if (validationResult.isValid) {
-  //     fileUploadRef.current.value = "";
-  //     Toast({ message: "Added successfully", type: "success" });
-  //     setExcelData([]);
-  //     handleResetSelected();
-  //     setErrorMessageBulk("");
-  //     dispatch(addVillage(bulkData));
-  //   } else {
-  //     setErrorMessageBulk(validationResult.errorMessage);
-  //   }
-  // };
-
-
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const openModal = () => {
@@ -761,7 +717,7 @@ function Village() {
 
           {duplicateList.length > 0 && (
             <p className="text-center" style={{ color: "#d9534f", fontWeight: "600" }}>
-              your uploaded Taluk name already excist
+              your uploaded village name already excist
             </p>
           )}
         </div>

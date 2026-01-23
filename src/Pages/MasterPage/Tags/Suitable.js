@@ -102,7 +102,7 @@ const Suitable = () => {
 
   useEffect(() => {
     dispatch(suitableGetThunk());
-  }, []);
+  }, [dispatch]);
 
   const data = useSelector((state) => state.suitableData?.get?.data);
 
@@ -233,19 +233,14 @@ const Suitable = () => {
                     </div>
 
                     <div className="text-end py-3 px-3">
-                      <a
-                        href="javascript:void(0);"
+                      <button
                         className="btn1 text-dark me-1"
-                        // onClick={() => {
-                        //     setFormData({ document: "", status: "Enable" });
-                        //     setErrors("");
-                        // }}
                         onClick={() => {
                           formik.resetForm();
                         }}
                       >
                         Clear
-                      </a>
+                      </button>
                       <button
                         type="submit"
                         className="btn1"

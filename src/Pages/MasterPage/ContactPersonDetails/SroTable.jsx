@@ -1,5 +1,5 @@
 import { useFormik } from "formik";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import * as yup from "yup";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -25,9 +25,7 @@ const SroTable = () => {
   const [deleteDialog, setDeleteDialog] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
   const [editDialog, setEditDialog] = useState(false);
-  const [editing, setEditing] = useState(false);
   const [filterText, setFilterText] = useState("");
-
   const isLoading = useSelector((state) => state.SRODetails.isLoading);
   const updateLoading = useSelector((state) => state.SRODetails.updateLoading);
 
@@ -48,7 +46,6 @@ const SroTable = () => {
   const SRODetailsData = useSelector(
     (state) => state.SRODetails.SRODetailsData
   );
-  const talukOffice = useSelector((state) => state.talukDetailsData.get.data);
   const contactPersonData = useSelector(
     (state) => state.contactPersonSroData.get.data
   );
@@ -227,7 +224,6 @@ const SroTable = () => {
           data={filterdata}
           customStyles={customStyle}
           pagination
-          // selectableRows
           persistTableHead={true}
           fixedHeader
           progressPending={isLoading}
@@ -275,7 +271,6 @@ const SroTable = () => {
           formik.resetForm();
         }}
       >
-        {/* =================== Edit Model Form start ================== */}
         <form onSubmit={formik.handleSubmit}>
           <div className="row">
             <div className="col-md-12 mb-3 ">
@@ -346,10 +341,6 @@ const SroTable = () => {
                       </button>
                     </div>
                   )}
-
-                  {/* <div className=" p-0 m-0">
-                                                            <button className='btn  btn-outline-success me-1 edit' type='button' onClick={handleAdd}><AddIcon /> </button>
-                                                        </div> */}
                   {index === formik.values.contactsName.length - 1 && (
                     <div className="p-0 m-0">
                       <button
@@ -418,41 +409,17 @@ const SroTable = () => {
                     </div>
                   )}
                 </div>
-                {/* {index !== 0 && (
-                                                        <div className="col-md-2">
-                                                            <button
-                                                                type="button"
-                                                                className="btn btn-danger"
-                                                                onClick={() => deletePersonNo(index)}
-                                                            >
-                                                                Delete
-                                                            </button>
-                                                        </div>
-                                                    )} */}
-
-                {/* <div className="col-md-2">
-                                                        <button className='btn1' type='button' onClick={personNoAdd}>Add</button>
-                                                    </div> */}
               </div>
             ))}
           </div>
 
           <div className="text-end py-3 px-3">
-            {/* <a
-                            href="javascript:void(0);"
-                            className="btn1 text-dark me-1"
-                            onClick={() => {
-                                formik.resetForm()
-                            }}
-                        >
-                            Clear
-                        </a> */}
             <button type="submit" className="btn1" disabled={updateLoading}>
               {updateLoading ? "Updating..." : "Update"}
             </button>
           </div>
         </form>
-        {/* =================== Edit Model Form End ================== */}
+
       </Dialog>
     </>
   );

@@ -8,9 +8,7 @@ export const pricingPostThunk = createAsyncThunk(
     try {
       const response = await axios({
         method: "post",
-        // url: URL + '/' +'charges',
         url: `${API_BASE_URL}/charges`,
-
         data: values,
       });
       return response.data;
