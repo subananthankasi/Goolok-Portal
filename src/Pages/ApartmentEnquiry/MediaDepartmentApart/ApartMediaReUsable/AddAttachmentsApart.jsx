@@ -36,7 +36,7 @@ const AddAttachmentsApart = ({ eid, status, pagetype }) => {
 
     useEffect(() => {
         dispatch(mediaAttachmentGetThunk(eid));
-    }, []);
+    }, [dispatch]);
 
     const mediaData = useSelector(
         (state) => state.mediaAttachmentData?.get?.data
@@ -54,21 +54,14 @@ const AddAttachmentsApart = ({ eid, status, pagetype }) => {
         (state) => state.mediaAttachmentData?.delete?.loading
     );
 
-    const openDelete = (row) => {
-        setDeleteDialog(true);
-        setDeleteId(row.id);
-    };
     const handleDelete = async () => {
         try {
             const response = await dispatch(mediaAttachmentDeleteThunk(deleteId));
-
             if (mediaAttachmentDeleteThunk.fulfilled.match(response)) {
-                const message = response.payload.data;
                 setDeleteDialog(false);
                 formik.resetForm();
                 await dispatch(mediaAttachmentGetThunk(eid));
             } else if (mediaAttachmentDeleteThunk.rejected.match(response)) {
-                const errorPayload = response;
             }
         } catch (error) {
             console.error(error);
@@ -395,6 +388,7 @@ const AddAttachmentsApart = ({ eid, status, pagetype }) => {
                             controls
                             className="mt-1 mb-1 rounded-circle"
                             src={imgFileUrl}
+                            alt="mapping"
                         />
                     );
                 } else {

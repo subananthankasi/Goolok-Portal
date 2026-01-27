@@ -10,23 +10,10 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 import ReceiptOutlinedIcon from "@mui/icons-material/ReceiptOutlined";
-import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
-import logo from "../../Assets/images/logo.png";
 import logo1 from "../../Assets/images/Goolok Final Logo.png";
 import AccountTreeIcon from "@mui/icons-material/AccountTree";
-import CabinIcon from "@mui/icons-material/Cabin";
-import SupportAgentIcon from "@mui/icons-material/SupportAgent";
-import PaymentsIcon from "@mui/icons-material/Payments";
-import PaidIcon from "@mui/icons-material/Paid";
-import AddCardIcon from "@mui/icons-material/AddCard";
-import LandslideIcon from "@mui/icons-material/Landslide";
-import CropLandscapeIcon from "@mui/icons-material/CropLandscape";
-import AlignHorizontalCenterIcon from "@mui/icons-material/AlignHorizontalCenter";
 import ApartmentIcon from "@mui/icons-material/Apartment";
-import HolidayVillageIcon from "@mui/icons-material/HolidayVillage";
-import HouseSidingIcon from "@mui/icons-material/HouseSiding";
-import MapsHomeWorkIcon from "@mui/icons-material/MapsHomeWork";
 import "./sidebarcss.css";
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import SummarizeIcon from "@mui/icons-material/Summarize";
@@ -58,7 +45,6 @@ import SearchIcon from "@mui/icons-material/Search";
 import ArticleIcon from "@mui/icons-material/Article";
 import DomainAddIcon from "@mui/icons-material/DomainAdd";
 import NaturePeopleIcon from "@mui/icons-material/NaturePeople";
-import AbcIcon from "@mui/icons-material/Abc";
 import DynamicFeedIcon from "@mui/icons-material/DynamicFeed";
 import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
@@ -74,38 +60,6 @@ import TimelapseIcon from "@mui/icons-material/Timelapse";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import CancelPresentationIcon from "@mui/icons-material/CancelPresentation";
 import { useBreadcrumb } from "../../common/BreadCrumpProvider";
-
-// const Item = ({
-//   title,
-//   parent,
-//   biggestparent,
-//   bigparent,
-//   to,
-//   icon,
-//   selected,
-//   setSelected,
-// }) => {
-//   const { setBreadcrumb } = useBreadcrumb();
-//   const handleClick = () => {
-//     setSelected(to);
-//     const data = { title, parent, bigparent, biggestparent };
-//     localStorage.setItem("breadcrumb", JSON.stringify(data));
-//     setBreadcrumb(data);
-//   };
-
-//   return (
-//     <ProMenuItem
-//       className={`sidenav ${selected === to ? "active-menu-item" : ""}`}
-//       // onClick={() => {setSelected(to);setBreadcrumb({ title, parent,biggestparent,bigparent });}}
-//       onClick={handleClick}
-//       icon={icon}
-//       component={<Link to={to} />}
-//     >
-//       <Typography>{title}</Typography>
-//     </ProMenuItem>
-//   );
-// };
-
 
 const Item = ({
   title,

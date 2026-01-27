@@ -7,9 +7,7 @@ import jsPDF from "jspdf";
 import API_BASE_URL from "../../../../Api/api";
 import customStyle from "../../../../Utils/tableStyle";
 import InvoiceDownload from "../../../Enquiry/Reusable/InvoiceDownload";
-// import API_BASE_URL from "../../../../../Api/api";
-// import customStyle from "../../../../../Utils/tableStyle";
-// import InvoiceDownload from "../../../Reusable/InvoiceDownload";
+
 
 export const InvoiceApart = ({ id, status }) => {
   const contentRef = useRef();
@@ -30,6 +28,8 @@ export const InvoiceApart = ({ id, status }) => {
 
     input.style.display = "none";
   };
+
+  console.log("status", status)
   const columns = [
     {
       name: "S.no",
@@ -57,29 +57,13 @@ export const InvoiceApart = ({ id, status }) => {
       sortable: true,
     },
     {
-      name: "Download",
-      cell: (row) => (
-        <>
-          <button
-            type="button"
-            className="btn btn-outline-primary delete"
-            onClick={() => downloadPdf(row.id)}
-          >
-            <FileDownloadIcon />
-          </button>
-        </>
-      ),
-      sortable: true,
-    },
-    {
       name: "Payment status",
       cell: (row) => (
         <>
           <button
             type="button"
-            className={`badge rounded-pill btnhover btn p-2 ${
-              row.status == "success" ? "bg-success" : "bg-danger"
-            }`}
+            className={`badge rounded-pill btnhover btn p-2 ${row.status === "success" ? "bg-success" : "bg-danger"
+              }`}
             style={{ width: "60px" }}
           >
             {row.status}
@@ -88,6 +72,27 @@ export const InvoiceApart = ({ id, status }) => {
       ),
       sortable: true,
     },
+    ...(
+      status === "success"
+        ? [
+          {
+            name: "Download",
+            cell: (row) => (
+              <>
+                <button
+                  type="button"
+                  className="btn btn-outline-primary delete"
+                  onClick={() => downloadPdf(row.id)}
+                >
+                  <FileDownloadIcon />
+                </button>
+              </>
+            ),
+            sortable: true,
+          },
+        ]
+        : []),
+
   ];
 
   const calculateTotals = () => {

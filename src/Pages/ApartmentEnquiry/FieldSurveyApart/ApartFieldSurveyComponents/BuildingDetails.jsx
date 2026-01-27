@@ -1,11 +1,11 @@
-import React, { useEffect,useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import DataTable from "react-data-table-component";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Dialog } from "primereact/dialog";
 import EditIcon from "@mui/icons-material/Edit";
 import { useFormik } from "formik";
-import * as yup from "yup";   
+import * as yup from "yup";
 import { useSelector } from "react-redux";
 import API_BASE_URL from "../../../../Api/api";
 import Toast from "../../../../Utils/Toast";
@@ -15,9 +15,7 @@ const BuildingDetails = ({ eid, marketid, status, pagetype }) => {
     const staffid = JSON.parse(localStorage.getItem("token"));
     const [buildingData, setBuildingData] = useState([]);
     const [newDialog, setNewDialog] = useState(false);
-    const [editing, setEditing] = useState(false);
     const [loading, setloading] = useState(false);
-    const [editDialog, setEditDialog] = useState(false);
     const [deleteDialog, setDeleteDialog] = useState(false);
     const [deleteId, setDeleteId] = useState(null);
     const [isEditing, setIsEditing] = useState(false);
@@ -90,7 +88,7 @@ const BuildingDetails = ({ eid, marketid, status, pagetype }) => {
             sortable: true,
         },
 
-        ...(staffid.logintype == "staff" &&
+        ...(staffid.logintype === "staff" &&
             (status === "complete" || status === "pending") &&
             pagetype !== "reminder" && enquiryDoumentData?.status !== "booking"
             ? [
@@ -125,7 +123,6 @@ const BuildingDetails = ({ eid, marketid, status, pagetype }) => {
             await axios.post(`${API_BASE_URL}/addbuilding`, values);
             setloading(false);
             setNewDialog(false);
-            setEditDialog(false);
             fetchBuildingData();
             Toast({ message: "Successfully added", type: "success" });
             formik.resetForm();
@@ -408,7 +405,6 @@ const BuildingDetails = ({ eid, marketid, status, pagetype }) => {
                         <button
                             className="btn1"
                             type="submit"
-                            onClick={() => setEditing(true)}
                             disabled={loading}
                         >
                             {loading ? "Processing..." : isEditing ? "Update" : "Save"}

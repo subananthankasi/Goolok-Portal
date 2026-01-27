@@ -125,21 +125,26 @@ export const WholePaymentLegalCommercial = ({ eid, id, status, pagetype }) => {
         },
       ]
       : []),
-    {
-      name: "Invoice",
-      cell: (row) => (
-        <>
-          <button
-            type="button"
-            className="btn1 btn-sm"
-            onClick={() => downloadPdf(row.id)}
-          >
-            <FileDownloadIcon />
-          </button>
-        </>
-      ),
-      sortable: true,
-    },
+
+    ...(status === "complete"
+      ? [
+        {
+          name: "Invoice",
+          cell: (row) => (
+            <>
+              <button
+                type="button"
+                className="btn1 btn-sm"
+                onClick={() => downloadPdf(row.id)}
+              >
+                <FileDownloadIcon />
+              </button>
+            </>
+          ),
+          sortable: true,
+        },
+      ]
+      : []),
   ];
 
   const downloadPdf = () => {
@@ -193,7 +198,6 @@ export const WholePaymentLegalCommercial = ({ eid, id, status, pagetype }) => {
       );
       setEditAndViewData(response.data);
       setInvoiceData(response.data);
-      // setInvoiceData(Array.isArray(response.data) ? response.data : []);
     } catch (error) { }
   };
   useEffect(() => {
@@ -204,9 +208,6 @@ export const WholePaymentLegalCommercial = ({ eid, id, status, pagetype }) => {
   const [isModalInvoice, setIsModalInvoice] = useState(false);
   const [isModalViewInvoice, setIsModalViewInvoice] = useState(false);
 
-  const [visible, setVisible] = useState(false);
-
-  const { Column, HeaderCell, Cell } = Table;
 
   return (
     <>
@@ -266,133 +267,6 @@ export const WholePaymentLegalCommercial = ({ eid, id, status, pagetype }) => {
         ""
       )}
 
-      {/* <article
-        className="p-5"
-        ref={contentRef}
-        style={{ background: "#fff", display: "none" }}
-      >
-        <h1 className="text-center" style={{ fontWeight: "800" }}>
-          {" "}
-          INVOICE{" "}
-        </h1>
-        <hr />
-        <div className="d-flex justify-content-between ">
-          <div className="mt-5 mb-5">
-            <img
-              src={logo}
-              alt="goolok"
-              style={{ width: "150px", height: "50px" }}
-            />
-            <nav className="header--logo mt-3">
-              <div className="header--logo-text">Goolok Pvt ltd</div>
-              <div className="logo--address">
-                2nd Floor, 129, <br />
-                <strong>Nungambakkam, Chennai, </strong>
-                <br />
-                <strong>Tamil Nadu 600034</strong>
-              </div>
-            </nav>
-          </div>
-          {[invoiceData].map((item) => {
-            return (
-              <div className="mt-5 mb-5">
-                <p className="p-0 m-0">
-                  <b>Invoice no : </b> {item.invoice_id}{" "}
-                </p>
-                <p className="p-0 m-0">
-                  <b> Name: </b> {item.customer}{" "}
-                </p>
-                <hr />
-                <div className="mt-1">
-                  <h6 className="p-0">Customer Details :</h6>
-                  <p className="p-0 m-0">
-                    <b> Date:</b> {item.invoice_date}{" "}
-                  </p>
-                  <p className="p-0 m-0">
-                    <b> Email:</b>
-                    {item.email_id}{" "}
-                  </p>
-                  <p className="p-0 m-0">
-                    <b> Mobile:</b>
-                    {item.mobile}{" "}
-                  </p>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-        <section className="line-items  ">
-          <table className="items--table w-100 mt-5 p-2 table-bordered">
-            <thead className="p-2">
-              <tr className="p-3">
-                <th className="p-2 text-center">S.NO</th>
-                <th className="text-center">Qty</th>
-                <th className="text-center">Description</th>
-                <th className="text-center"> Amount</th>
-              </tr>
-            </thead>
-            <tbody>
-              {invoiceData?.quantity?.map((item, index) => (
-                <>
-                  <tr className="p-3">
-                    <td className="p-2 text-center"> {index + 1} </td>
-                    <td className="text-center">1</td>
-                    <td className="text-center">{item.remark} </td>
-                    <td className="text-center">₹ {item.amount} </td>
-                  </tr>
-                </>
-              ))}
-            </tbody>
-            <tfoot>
-              <tr>
-                <td colspan="3" className="text-end p-2">
-                  Sub Total
-                </td>
-                <td colSpan="2" className="text-center">
-                  {calculateTotals().subtotal}{" "}
-                </td>
-              </tr>
-              <tr>
-                <td colspan="3" className="text-end p-2">
-                  {" "}
-                  GST(0%)
-                </td>
-                <td colSpan="2" className="text-center">
-                  0.00{" "}
-                </td>
-              </tr>
-              <tr>
-                <td
-                  colspan="3"
-                  className="text-end p-2"
-                  style={{ fontWeight: "600" }}
-                >
-                  Total
-                </td>
-                <td
-                  colSpan="2"
-                  className="text-center"
-                  style={{ fontWeight: "600" }}
-                >
-                  ₹ {calculateTotals().total}{" "}
-                </td>
-              </tr>
-            </tfoot>
-          </table>
-          <div className="mt-5 mb-5 w-50">
-            <h6 className="fw-bold">Terms & Conditions</h6>
-            <p>
-              payment deadlines, acceptable payment methods, late payment
-              penalties, and other important clauses.
-            </p>
-          </div>
-          <div className="mt-5">
-            <h4 className="text-center mt-5">
-              Thank You For Your Bussiness !{" "}
-            </h4>
-          </div>
-        </section>
-      </article> */}
       <InvoiceDownload
         ref={contentRef}
         invoiceData={[invoiceData]}

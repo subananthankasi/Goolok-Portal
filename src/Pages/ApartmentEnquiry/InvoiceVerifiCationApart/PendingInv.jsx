@@ -263,7 +263,7 @@ function PendingInv() {
                               </button>
                             )}
                           />
-                          <ColumnDirective
+                          {/* <ColumnDirective
                             headerText="Download"
                             width="150"
                             template={(props) => (
@@ -278,7 +278,7 @@ function PendingInv() {
                                 <FileDownloadIcon />
                               </button>
                             )}
-                          />
+                          /> */}
                           <ColumnDirective
                             headerText="Status"
                             width="170"

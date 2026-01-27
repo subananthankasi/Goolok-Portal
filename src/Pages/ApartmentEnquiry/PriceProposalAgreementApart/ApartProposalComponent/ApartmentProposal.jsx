@@ -59,6 +59,7 @@ export const ApartmentProposal = ({ eid, id, status, pagetype }) => {
                         class="btn btn-warning ms-2"
                         download="download"
                         target="_blank"
+                        rel="noopener noreferrer"
                     >
                         <RemoveRedEyeIcon />
                     </a>

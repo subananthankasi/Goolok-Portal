@@ -1,21 +1,14 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import { Dialog } from "primereact/dialog";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
-// import Toast from "../../../../Utils/Toast";
-// import { strategyGetThunk } from "../../../../Redux/Actions/MasterPage/StrategyThunk/StrategyThunk";
 import Button from "@mui/material/Button";
 import axios from "axios";
-// import API_BASE_URL from "../../../../Api/api";
 import AutoDeleteIcon from "@mui/icons-material/AutoDelete";
 import { strategyGetThunk } from "../../../../Redux/Actions/MasterPage/StrategyThunk/StrategyThunk";
 import API_BASE_URL from "../../../../Api/api";
 import Toast from "../../../../Utils/Toast";
-// import { getDate } from "rsuite/esm/utils/dateUtils";
-// import { strategyGetThunk } from "../../../../../Redux/Actions/MasterPage/StrategyThunk/StrategyThunk";
-// import API_BASE_URL from "../../../../../Api/api";
-// import Toast from "../../../../../Utils/Toast";
 
 const InvestmentStrategyContentApart = ({ eid, id, status }) => {
   const staffid = JSON.parse(localStorage.getItem("token"));

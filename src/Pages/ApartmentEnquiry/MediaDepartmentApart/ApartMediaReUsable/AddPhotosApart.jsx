@@ -173,7 +173,6 @@ const AddPhotosApart = ({ eid, status, pagetype }) => {
         {
             name: "Images",
             selector: (row) => row.gallery,
-
             sortable: true,
             cell: (row) => {
                 if (row.gallery) {
@@ -186,6 +185,7 @@ const AddPhotosApart = ({ eid, status, pagetype }) => {
                             controls
                             className="mt-1 mb-1 rounded-circle"
                             src={imgFileUrl}
+                            alt="media img"
                         />
                     );
                 } else {
@@ -275,20 +275,18 @@ const AddPhotosApart = ({ eid, status, pagetype }) => {
     }, [updateLoading]);
     return (
         <>
-
             <div className="mt-2">
                 <div className="d-flex justify-content-end mb-3">
                     {(status === "pending" || status === "complete") &&
                         staffid.Login === "staff" &&
                         pagetype !== "reminder" && enquiryDoumentData?.status !== "booking" && (
                             <div className="ms-2">
-                                <a
-                                    href="#"
+                                <button
                                     onClick={() => setPhotoDialog(true)}
                                     className="btn1 me-2"
                                 >
                                     + Add
-                                </a>
+                                </button>
                             </div>
                         )}
                 </div>
@@ -345,7 +343,6 @@ const AddPhotosApart = ({ eid, status, pagetype }) => {
                                 {" "}
                                 Description :<span style={{ color: "red" }}>*</span>{" "}
                             </label>
-
                             <textarea
                                 name="notes"
                                 id="notes"
@@ -356,7 +353,6 @@ const AddPhotosApart = ({ eid, status, pagetype }) => {
                                 value={formik.values.notes}
                                 style={{ height: "100px" }}
                             />
-
                             {formik.errors.notes && formik.touched.notes && (
                                 <p style={{ color: "red", fontSize: "12px" }}>
                                     {formik.errors.notes}

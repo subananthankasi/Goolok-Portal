@@ -4,8 +4,6 @@ import axios from "axios";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
-
-import logo from "../../../../Assets/images/Goolok Final Logo.png";
 import API_BASE_URL from "../../../../Api/api";
 import customStyle from "../../../../Utils/tableStyle";
 import InvoiceDownload from "../../../Enquiry/Reusable/InvoiceDownload";
@@ -29,15 +27,6 @@ export const WholeInvoiceLayout = ({ id, status }) => {
 
     input.style.display = "none";
   };
-  const datas = [
-    {
-      sno: "1",
-      amount: "ghjs",
-      invoice_date: "78/12/25",
-      age: "20",
-      customer: "rtyui",
-    },
-  ];
   const columns = [
     {
       name: "S.no",
@@ -65,28 +54,13 @@ export const WholeInvoiceLayout = ({ id, status }) => {
       sortable: true,
     },
     {
-      name: "Download",
-      cell: (row) => (
-        <>
-          <button
-            type="button"
-            className="btn btn-outline-primary delete"
-            onClick={() => downloadPdf(row.id)}
-          >
-            <FileDownloadIcon />
-          </button>
-        </>
-      ),
-      sortable: true,
-    },
-    {
       name: "Payment status",
       cell: (row) => (
         <>
           <button
             type="button"
             className={`badge rounded-pill btnhover btn p-2 ${
-              row.status == "success" ? "bg-success" : "bg-danger"
+              row.status === "success" ? "bg-success" : "bg-danger"
             }`}
             style={{ width: "60px" }}
           >
@@ -96,6 +70,26 @@ export const WholeInvoiceLayout = ({ id, status }) => {
       ),
       sortable: true,
     },
+
+    ...(status === "success"
+      ? [
+          {
+            name: "Download",
+            cell: (row) => (
+              <>
+                <button
+                  type="button"
+                  className="btn btn-outline-primary delete"
+                  onClick={() => downloadPdf(row.id)}
+                >
+                  <FileDownloadIcon />
+                </button>
+              </>
+            ),
+            sortable: true,
+          },
+        ]
+      : []),
   ];
 
   const calculateTotals = () => {
@@ -293,7 +287,7 @@ export const WholeInvoiceLayout = ({ id, status }) => {
           </div>
         </section>
       </article> */}
-       <InvoiceDownload
+      <InvoiceDownload
         ref={contentRef}
         invoiceData={invoiceData}
         calculateTotals={calculateTotals}

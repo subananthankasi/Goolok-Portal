@@ -4,8 +4,6 @@ import axios from "axios";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
-
-import logo from "../../../../Assets/images/Goolok Final Logo.png";
 import API_BASE_URL from "../../../../Api/api";
 import customStyle from "../../../../Utils/tableStyle";
 import InvoiceDownload from "../../../Enquiry/Reusable/InvoiceDownload";
@@ -27,7 +25,6 @@ export const WholeInvoiceHouse = ({ id, status }) => {
 
     input.style.display = "none";
   };
-
   const columns = [
     {
       name: "S.no",
@@ -55,28 +52,14 @@ export const WholeInvoiceHouse = ({ id, status }) => {
       sortable: true,
     },
     {
-      name: "Download",
-      cell: (row) => (
-        <>
-          <button
-            type="button"
-            className="btn btn-outline-primary delete"
-            onClick={() => downloadPdf(row.id)}
-          >
-            <FileDownloadIcon />
-          </button>
-        </>
-      ),
-      sortable: true,
-    },
-    {
       name: "Payment status",
       cell: (row) => (
         <>
           <button
             type="button"
-            className={`badge rounded-pill btnhover btn p-2 ${row.status == "success" ? "bg-success" : "bg-danger"
-              }`}
+            className={`badge rounded-pill btnhover btn p-2 ${
+              row.status === "success" ? "bg-success" : "bg-danger"
+            }`}
             style={{ width: "60px" }}
           >
             {row.status}
@@ -85,6 +68,25 @@ export const WholeInvoiceHouse = ({ id, status }) => {
       ),
       sortable: true,
     },
+    ...(status === "success"
+      ? [
+          {
+            name: "Download",
+            cell: (row) => (
+              <>
+                <button
+                  type="button"
+                  className="btn btn-outline-primary delete"
+                  onClick={() => downloadPdf(row.id)}
+                >
+                  <FileDownloadIcon />
+                </button>
+              </>
+            ),
+            sortable: true,
+          },
+        ]
+      : []),
   ];
 
   const calculateTotals = () => {

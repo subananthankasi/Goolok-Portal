@@ -177,7 +177,6 @@ const MarkingGmapApart = ({ eid, id, status, pagetype }) => {
     const [editDialog, setEditDialog] = useState(false)
 
     const onSubmit = async () => {
-
     }
 
     const formik = useFormik({
@@ -187,9 +186,7 @@ const MarkingGmapApart = ({ eid, id, status, pagetype }) => {
             enqid: eid
         },
         validationSchema: yup.object().shape({
-            // file: yup.string().required("file is required!!"),
             notes: yup.string().required("notes is required!!"),
-
         }),
         onSubmit
     })
