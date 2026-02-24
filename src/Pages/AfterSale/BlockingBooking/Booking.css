@@ -1,0 +1,64 @@
+.custom-timeline {
+    margin-left: 20px;
+}
+
+.custom-timeline .rs-timeline-item-custom-dot .rs-icon {
+    position: absolute;
+    background: #fff;
+    top: 2;
+    left: -2px;
+    border: 2px solid #ddd;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 18px;
+    color: #999;
+    margin-left: -13px;
+    justify-content: center;
+    padding: 8px;
+}
+
+.custom-timeline .rs-timeline-item-content {
+    margin-left: 24px;
+}
+
+.custom-timeline .rs-timeline-item-content p {
+    margin: 0;
+}
+
+.custom-timeline .rs-timeline-item:nth-child(1) .rs-timeline-item-tail {
+  background-color: green; 
+}
+
+.custom-timeline .rs-timeline-item:nth-child(2) .rs-timeline-item-tail {
+  background-color: #dfdfe4; 
+}
+
+.custom-timeline .rs-timeline-item:nth-child(3) .rs-timeline-item-tail {
+  background-color: #dfdfe4;
+}
+
+.custom-timeline .rs-timeline-item:nth-child(4) .rs-timeline-item-tail {
+  background-color: #dfdfe4; 
+}
+.custom-timeline .rs-timeline-item:nth-child(5) .rs-timeline-item-tail {
+  background-color: #dfdfe4; 
+}
+.custom-timeline .rs-timeline-item:nth-child(6) .rs-timeline-item-tail {
+  background-color: #dfdfe4; 
+}
+
+/* Basic connector line style */
+.p-timeline-event-content::before {
+  background-color: blue; /* default connector color */
+}
+
+/* Change connector color between step 1 and 2 */
+.p-timeline-event:nth-child(1)::after {
+  background-color: orange; /* example different connector color */
+}
+
+/* Change connector color for last step differently if needed */
+.p-timeline-event:last-child::after {
+  background-color: green;
+}

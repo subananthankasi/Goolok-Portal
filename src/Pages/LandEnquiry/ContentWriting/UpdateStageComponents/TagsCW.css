@@ -1,0 +1,19 @@
+.custom-multiselect .p-multiselect {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.custom-multiselect .p-multiselect-token {
+    flex: 0 1 auto; 
+    margin-bottom: 0.2rem; 
+}
+
+.custom-multiselect .p-multiselect-input-token {
+    flex: 1 1 auto;
+    min-width: 4rem;
+}
+
+.custom-multiselect .p-multiselect {
+    min-height: auto;
+}

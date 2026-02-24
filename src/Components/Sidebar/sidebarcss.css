@@ -1,0 +1,100 @@
+.rs-sidenav-default .rs-sidenav-item,
+.rs-sidenav-default .rs-dropdown-toggle,
+.rs-sidenav-default .rs-sidenav-toggle-button {
+  background-color: #f7f7fa;
+  background-color: #2f4f4f !important;
+  color: white !important;
+}
+
+.rs-sidenav-collapse-in .rs-dropdown .rs-dropdown-menu {
+  -webkit-animation-name: none;
+  animation-name: none;
+  background-color: #2f4f4f8c !important;
+  border-radius: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  display: block;
+  float: none;
+  padding: 0;
+  position: static;
+}
+.rs-btn {
+  justify-content: end !important;
+}
+
+.rs-sidenav-toggle-button {
+  border: none;
+  border-radius: 0;
+  color: inherit;
+  float: right;
+  height: 100%;
+  width: 100% !important;
+}
+
+ol,
+ul {
+  margin-bottom: 0px !important;
+  margin-top: 0;
+}
+
+.rs-sidenav-collapse-in .rs-dropdown-item:not(.rs-dropdown-item-submenu),
+.rs-sidenav-collapse-in .rs-dropdown-menu .rs-dropdown-menu-toggle {
+  white-space: normal;
+  width: 100%;
+  color: white !important;
+}
+.rs-sidenav-nav {
+  list-style: none;
+  padding: 0;
+  height: 90vh;
+  background: #2f4f4f !important;
+  overflow-y: auto;
+}
+
+.rs-sidenav-default .rs-sidenav-toggle {
+  border-top-color: #2f4f4f !important;
+}
+.rs-sidenav-toggle {
+  height: 20px !important;
+}
+.rs-sidenav-nav
+  > .rs-dropdown
+  .rs-dropdown-toggle
+  > .rs-icon:not(.rs-dropdown-toggle-caret),
+.rs-sidenav-nav > .rs-sidenav-item > .rs-icon:not(.rs-dropdown-toggle-caret) {
+  color: #ffae42ed;
+}
+
+.rs-sidenav-nav::-webkit-scrollbar {
+  width: 5px;
+}
+
+.rs-sidenav-nav::-webkit-scrollbar-track {
+  background: #ffae42;
+}
+
+.rs-sidenav-nav::-webkit-scrollbar-thumb {
+  background: #555;
+}
+.css-11xthqp > .ps-menu-button:hover {
+  background-color: #617978 !important;
+}
+.css-qgt4cf > .ps-menu-button:hover {
+  background-color: #617978 !important;
+}
+
+/* .e-pager .e-numericitem {
+    background: #fff;
+    color: #000;
+} */
+
+.css-1t8x7v1 > .ps-menu-button:hover {
+  background-color: transparent !important;
+}
+
+.css-5d14zs {
+  margin-bottom: 20px !important;
+  padding: 7px !important;
+  background-color: white !important;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px !important;
+}

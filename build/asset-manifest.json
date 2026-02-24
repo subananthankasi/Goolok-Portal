@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/static/css/main.82977285.css",
+    "main.js": "/static/js/main.1b03c51c.js",
+    "static/js/433.9edf3f55.chunk.js": "/static/js/433.9edf3f55.chunk.js",
+    "static/js/82.1b5cc4b9.chunk.js": "/static/js/82.1b5cc4b9.chunk.js",
+    "static/js/790.cfe51be4.chunk.js": "/static/js/790.cfe51be4.chunk.js",
+    "static/js/206.92d87557.chunk.js": "/static/js/206.92d87557.chunk.js",
+    "static/media/InterVariable-Italic.woff2": "/static/media/InterVariable-Italic.e295f70fe3e2df296c7b.woff2",
+    "static/media/InterVariable.woff2": "/static/media/InterVariable.a0e477f2f1f9d2376fde.woff2",
+    "static/media/primeicons.svg": "/static/media/primeicons.6ed59f962963a4a73af2.svg",
+    "static/media/banner.jpg": "/static/media/banner.ef8dae0dacdb5ad501e3.jpg",
+    "static/media/booking.png": "/static/media/booking.8394c26b23289f61214f.png",
+    "static/media/dummyProfile.png": "/static/media/dummyProfile.0bf0bc8757f59fe287b8.png",
+    "static/media/Goolok Final Logo.png": "/static/media/Goolok Final Logo.b72ab7da045d271d935b.png",
+    "static/media/primeicons.eot": "/static/media/primeicons.ff0c4cd79b2ffca2de54.eot",
+    "static/media/primeicons.woff": "/static/media/primeicons.8931fda1930c3bd21e96.woff",
+    "static/media/primeicons.ttf": "/static/media/primeicons.a5c2a53d1ff7a9ff5933.ttf",
+    "static/media/sold.png": "/static/media/sold.fe01abda0ff64d05d5a5.png",
+    "static/media/primeicons.woff2": "/static/media/primeicons.024b32cc7bf399b1a847.woff2",
+    "index.html": "/index.html"
+  },
+  "entrypoints": [
+    "static/css/main.82977285.css",
+    "static/js/main.1b03c51c.js"
+  ]
+}

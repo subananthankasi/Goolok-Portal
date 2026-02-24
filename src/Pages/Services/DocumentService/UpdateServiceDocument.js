@@ -1,0 +1,31 @@
+import React from "react";
+import { useParams } from "react-router-dom";
+import WholeDocGetPatta from "./GetPattaComponents/WholeDocGetPatta";
+import { decryptData } from "../../../Utils/encrypt";
+import { Header } from "../../Enquiry/Reusable/Header";
+
+
+
+
+function UpdateServiceDocument() {
+  const { eid, id, status } = useParams();
+  const decryptedEid = decryptData(eid);
+  const decryptedId = decryptData(id);
+  const decryptedStatus = decryptData(status);
+
+
+  return (
+    <>
+      <section className="section">
+        <div className="container-fluid">
+          <div className="row">
+            <Header eid={decryptedEid} />
+            <WholeDocGetPatta eid={decryptedEid} id={decryptedId} status={decryptedStatus} />
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}
+
+export default UpdateServiceDocument;
