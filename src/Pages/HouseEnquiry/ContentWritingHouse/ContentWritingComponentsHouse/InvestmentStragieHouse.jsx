@@ -263,8 +263,7 @@ const InvestmentStragieHouse = ({ eid, id, status }) => {
                     <tr>
                       <th
                         style={{
-                          backgroundColor: "rgb(47, 79, 79)",
-                          color: "white",
+                          backgroundColor: "#f2f2f2",
                           fontWeight: "300",
                         }}
                       >
@@ -272,8 +271,7 @@ const InvestmentStragieHouse = ({ eid, id, status }) => {
                       </th>
                       <th
                         style={{
-                          backgroundColor: "rgb(47, 79, 79)",
-                          color: "white",
+                          backgroundColor: "#f2f2f2",
                           fontWeight: "300",
                         }}
                       >
@@ -281,8 +279,7 @@ const InvestmentStragieHouse = ({ eid, id, status }) => {
                       </th>
                       <th
                         style={{
-                          backgroundColor: "rgb(47, 79, 79)",
-                          color: "white",
+                          backgroundColor: "#f2f2f2",
                           fontWeight: "300",
                         }}
                       >
@@ -402,32 +399,28 @@ const InvestmentStragieHouse = ({ eid, id, status }) => {
                 <tr>
                   <th
                     style={{
-                      backgroundColor: "rgb(47, 79, 79)",
-                      color: "white",
+                      backgroundColor: "#f2f2f2",
                     }}
                   >
                     S.NO
                   </th>
                   <th
                     style={{
-                      backgroundColor: "rgb(47, 79, 79)",
-                      color: "white",
+                      backgroundColor: "#f2f2f2",
                     }}
                   >
                     Strategy Button
                   </th>
                   <th
                     style={{
-                      backgroundColor: "rgb(47, 79, 79)",
-                      color: "white",
+                      backgroundColor: "#f2f2f2",
                     }}
                   >
                     Remark
                   </th>
                   <th
                     style={{
-                      backgroundColor: "rgb(47, 79, 79)",
-                      color: "white",
+                      backgroundColor: "#f2f2f2",
                     }}
                   >
                     Action
@@ -595,37 +588,33 @@ const InvestmentStragieHouse = ({ eid, id, status }) => {
           {temporaryStorage.length > 0 && (
             <table className="table table-bordered mt-3">
               <thead
-                style={{ backgroundColor: "rgb(47, 79, 79)", color: "white" }}
+                style={{  color: "white" }}
               >
                 <tr>
                   <th
                     style={{
-                      backgroundColor: "rgb(47, 79, 79)",
-                      color: "white",
+                      backgroundColor: "#f2f2f2",
                     }}
                   >
                     S.NO
                   </th>
                   <th
                     style={{
-                      backgroundColor: "rgb(47, 79, 79)",
-                      color: "white",
+                      backgroundColor: "#f2f2f2",
                     }}
                   >
                     Strategy Button
                   </th>
                   <th
                     style={{
-                      backgroundColor: "rgb(47, 79, 79)",
-                      color: "white",
+                      backgroundColor: "#f2f2f2",
                     }}
                   >
                     Remark
                   </th>
                   <th
                     style={{
-                      backgroundColor: "rgb(47, 79, 79)",
-                      color: "white",
+                      backgroundColor: "#f2f2f2",
                     }}
                   >
                     Action
@@ -724,7 +713,7 @@ const InvestmentStragieHouse = ({ eid, id, status }) => {
 
           {/* Save Button */}
           <div className="d-flex justify-content-end gap-2 mt-4">
-            <Button
+            {/* <Button
               variant="contained"
               color="success"
               type="button"
@@ -732,7 +721,8 @@ const InvestmentStragieHouse = ({ eid, id, status }) => {
               disabled={postLoding}
             >
               {postLoding ? "Processing..." : "Save"}
-            </Button>
+            </Button> */}
+              <button className="btn-submit" type="button"  disabled={postLoding}  onClick={handleEditSubmit}>Save</button>
           </div>
         </div>
       </Dialog>

@@ -52,7 +52,6 @@ const AddPhotosCom = ({ eid, status, pagetype }) => {
     const handleDelete = async () => {
         try {
             const response = await dispatch(mediaDeletePhotoThunk(deleteId));
-
             if (mediaDeletePhotoThunk.fulfilled.match(response)) {
                 const message = response.payload.data;
                 setDeleteDialog(false);
@@ -137,7 +136,6 @@ const AddPhotosCom = ({ eid, status, pagetype }) => {
 
                 } else if (mediaUpdatePhotoThunk.rejected.match(response)) {
                     const errorPayload = response.payload.error.reason;
-
                 }
             } catch (error) {
                 
@@ -180,10 +178,7 @@ const AddPhotosCom = ({ eid, status, pagetype }) => {
         setPhotoDialog(false);
         formik.resetForm();
     };
-    const hideEditDialog = () => {
-        setEditDialog(false);
-        formik.resetForm();
-    };
+
     const handleEdit = (row) => {
         setEditDialog(true);
         formik.setFieldValue("notes", row.notes);
@@ -215,6 +210,7 @@ const AddPhotosCom = ({ eid, status, pagetype }) => {
                             controls
                             className="mt-1 mb-1 rounded-circle"
                             src={imgFileUrl}
+                            alt="add img"
                         />
                     );
                 } else {
@@ -227,8 +223,8 @@ const AddPhotosCom = ({ eid, status, pagetype }) => {
             selector: (row) => row.notes,
             sortable: true,
         },
-        ...(staffid.Login == "staff" &&
-            (status == "pending" || status == "complete") &&
+        ...(staffid.Login === "staff" &&
+            (status === "pending" || status === "complete") &&
             pagetype !== "reminder" && enquiryDoumentData?.status !== "booking"
             ? [
                 {
@@ -307,17 +303,16 @@ const AddPhotosCom = ({ eid, status, pagetype }) => {
 
             <div className="mt-2">
                 <div className="d-flex justify-content-end mb-3">
-                    {(status == "pending" || status == "complete") &&
+                    {(status === "pending" || status === "complete") &&
                         staffid.Login === "staff" &&
                         pagetype !== "reminder" && enquiryDoumentData?.status !== "booking" && (
                             <div className="ms-2">
-                                <a
-                                    href="#"
+                                <button
                                     onClick={() => setPhotoDialog(true)}
                                     className="btn1 me-2"
                                 >
                                     + Add
-                                </a>
+                                </button>
                             </div>
                         )}
                 </div>

@@ -180,13 +180,12 @@ const ConfirmServiceSurvey = ({ eid, id, status, pagetype }) => {
                   (status === "complete" || status === "pending") &&
                   pagetype !== "reminder" && enquiryDoumentData?.status !== "live" && (
                     <div className="ms-2">
-                      <a
-                        href="#"
+                      <button
                         onClick={() => setNewDialog(true)}
                         className="btn1 me-2"
                       >
                         + Add
-                      </a>
+                      </button>
                     </div>
                   )}
               </div>

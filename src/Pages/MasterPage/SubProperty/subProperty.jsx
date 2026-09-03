@@ -104,16 +104,19 @@ function SubProperty() {
       selector: (row) => row.created_at,
       sortable: true,
       wrap: true,
+      width: "150px"
     },
     {
       name: "Property Type",
       selector: (row) => row.property_type,
       sortable: true,
+      width: "180px"
     },
     {
       name: "Sub Property",
       selector: (row) => row.subproperty,
       sortable: true,
+      width: "180px"
     },
     {
       name: "Short Form",
@@ -125,30 +128,30 @@ function SubProperty() {
     //   selector: (row) => row.status,
     //   sortable: true,
     // },
-    // {
-    //   name: "Actions",
-    //   cell: (row) => (
-    //     <div className="d-flex">
-    //       {/* <button
-    //         className="btn  btn-outline-info me-1 edit"
-    //         data-tooltip-id="edit"
-    //         onClick={() => {
-    //           handleEdit(row);
-    //           openModal();
-    //         }}
-    //       >
-    //         <EditIcon />
-    //       </button> */}
-    //       <button
-    //         className="btn btn-outline-danger delete"
-    //         data-tooltip-id="delete"
-    //         onClick={() => handleDelete(row)}
-    //       >
-    //         <DeleteIcon />
-    //       </button>
-    //     </div>
-    //   ),
-    // },
+    {
+      name: "Actions",
+      cell: (row) => (
+        <div className="d-flex">
+          <button
+            className="btn  btn-outline-info me-1 edit"
+            data-tooltip-id="edit"
+            onClick={() => {
+              handleEdit(row);
+              openModal();
+            }}
+          >
+            <EditIcon />
+          </button>
+          <button
+            className="btn btn-outline-danger delete"
+            data-tooltip-id="delete"
+            onClick={() => handleDelete(row)}
+          >
+            <DeleteIcon />
+          </button>
+        </div>
+      ),
+    },
   ];
 
   // search function
@@ -276,17 +279,17 @@ function SubProperty() {
                     </div>
 
                     <div className="text-end py-3 px-3">
-                      <a
-                        href="javascript:void(0);"
-                        className="btn1 text-dark me-1"
+                      <button
+                        className="btn1 me-1"
                         onClick={() => {
                           setFormData({ subproperty: "", status: "Enable" });
                           setSelectedProperty(null);
                           setErrors("");
                         }}
+                        type="button"
                       >
                         Clear
-                      </a>
+                      </button>
                       <button
                         type="submit"
                         className="btn1"

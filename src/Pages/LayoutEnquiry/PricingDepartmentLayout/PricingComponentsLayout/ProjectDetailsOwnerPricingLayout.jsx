@@ -73,6 +73,7 @@ export const ProjectDetailsOwnerPricingLayout = ({
     phase_no: yup.string().required("Phase No is required!"),
     plot_no: yup.string().required("Plot No is required!"),
     extent_sqft: yup.string().required("Extent (sqft) is required!"),
+    // price_per_unit: yup.string().required("Price per unit is required!"),
     facing_direction: yup.string().required("Facing direction is required!"),
     road_width: yup.string().required("Road width is required!"),
     plot_type: yup.string().required("Plot Type is required!"),
@@ -184,6 +185,7 @@ export const ProjectDetailsOwnerPricingLayout = ({
       phase_no: "",
       plot_no: "",
       extent_sqft: "",
+      price_per_unit: "",
       facing_direction: "",
       road_width: "",
       remarks: "",
@@ -226,7 +228,6 @@ export const ProjectDetailsOwnerPricingLayout = ({
     } finally {
       fetchDetails();
     }
-
     setDeleteDialog(false);
   };
 
@@ -244,6 +245,8 @@ export const ProjectDetailsOwnerPricingLayout = ({
       </Button>
     </div>
   );
+
+
   const hideDialog = () => {
     setNewDialog(false);
     formik.resetForm();
@@ -252,9 +255,24 @@ export const ProjectDetailsOwnerPricingLayout = ({
     setEditDialog(false);
     formik.resetForm();
   };
+  const [unitData, setUnitData] = useState([])
+
+  const fetch = async (enqid) => {
+    try {
+      const response = await axios.get(`${API_BASE_URL}/pricingperunit/${enqid}`);
+      setUnitData(response.data);
+    } catch (error) { }
+  };
+  useEffect(() => {
+    if (eid) {
+      fetch(eid);
+    }
+  }, [eid]);
 
   const handleEdit = (data) => {
     setNewDialog(true);
+    // formik.setFieldValue("price_per_unit", data.price_per_unit || null);
+    formik.setFieldValue("price_per_unit", unitData[0]?.price_per_unit || null);
     formik.setFieldValue("survey_no", data.survey_no || "");
     formik.setFieldValue("phase_no", data.phase_no || "");
     formik.setFieldValue("plot_no", data.plot_no || "");
@@ -273,6 +291,8 @@ export const ProjectDetailsOwnerPricingLayout = ({
       data.infrastructure_cost || null
     );
     formik.setFieldValue("plot_cost_total", data.plot_cost_total || null);
+    formik.setFieldValue("development_charges", data.development_charges || null);
+    formik.setFieldValue("infrastructure_cost", data.infrastructure_cost || null);
     formik.setFieldValue("corpus_amount", data.corpus_amount || null);
     formik.setFieldValue("maintenance_amount", data.maintenance_amount || null);
     formik.setFieldValue("misc_charges", data.misc_charges || null);
@@ -307,8 +327,12 @@ export const ProjectDetailsOwnerPricingLayout = ({
     if (decimal >= 0.5) return Math.ceil(value);
     return Math.floor(value) - 1;
   };
+
+
   useEffect(() => {
     const parse = (val) => parseFloat(val?.toString().replace(/,/g, "")) || 0;
+    const basic = parse(formik.values.price_per_unit) * parse(formik.values.extent_sqft);
+    formik.setFieldValue("basic_cost", basic.toFixed(2));
 
     const A_total =
       parse(formik.values.basic_cost) +
@@ -327,18 +351,10 @@ export const ProjectDetailsOwnerPricingLayout = ({
       if (decimal >= 0.5) return Math.ceil(value);
       return Math.floor(value) - 1;
     };
-    // const gstBase = corpus + maintenance + misc;
-    // const defaultGst = (gstBase * 0.18).toFixed(2);
 
-    // formik.setFieldValue("gst_amount", roundedGst);
-
-    // formik.setFieldValue("gst_amount", defaultGst);
     const gstBase = corpus + maintenance + misc;
-
     const gstRaw = gstBase * 0.18;
-
     let roundedGst = customRound(gstRaw);
-
     if (roundedGst < 0) roundedGst = 0;
 
     formik.setFieldValue("gst_amount", roundedGst);
@@ -372,6 +388,8 @@ export const ProjectDetailsOwnerPricingLayout = ({
     );
   }, [
     formik.values.basic_cost,
+    formik.values.price_per_unit,
+    formik.values.extent_sqft,
     formik.values.development_charges,
     formik.values.infrastructure_cost,
     formik.values.corpus_amount,
@@ -385,6 +403,7 @@ export const ProjectDetailsOwnerPricingLayout = ({
     formik.values.total_with_registration,
     formik.values.total_without_registration,
   ]);
+
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(1);
 
@@ -399,7 +418,6 @@ export const ProjectDetailsOwnerPricingLayout = ({
     return i >= start && i < end;
   });
 
-
   const heightMap = {
     1: 140,
     2: 190,
@@ -412,6 +430,7 @@ export const ProjectDetailsOwnerPricingLayout = ({
     9: 540,
     10: 570,
   };
+
   const tableHeight =
     getData?.length > 10
       ? 550
@@ -443,7 +462,7 @@ export const ProjectDetailsOwnerPricingLayout = ({
                 data={tableData}
                 rowClassName={(rowData) => {
                   if (rowData?.status === "booking") {
-                    console.log("yes")
+
                     return "booking-row";
                   }
                   return "";
@@ -460,6 +479,10 @@ export const ProjectDetailsOwnerPricingLayout = ({
                 <Column width={130} align="center">
                   <HeaderCell>Plot No</HeaderCell>
                   <Cell dataKey="plot_no" />
+                </Column>
+                <Column width={130} align="center">
+                  <HeaderCell>Price Per Unit</HeaderCell>
+                  <Cell dataKey="price_per_unit" />
                 </Column>
                 <Column width={130} align="center">
                   <HeaderCell>Extent in Sq.Ft</HeaderCell>
@@ -654,6 +677,7 @@ export const ProjectDetailsOwnerPricingLayout = ({
           </div>
         </div>
       </div>
+
       <Dialog
         visible={newDialog}
         style={{ width: "55rem" }}
@@ -706,6 +730,26 @@ export const ProjectDetailsOwnerPricingLayout = ({
                   {formik.errors.plot_no}
                 </p>
               ) : null}
+            </div>
+            <div className="form-group mt-2 col-6">
+              <label htmlFor="subdivision" className="form-label">
+                Price Per Unit <span style={{ color: "red" }}>*</span>
+              </label>
+              <input
+                id="price_per_unit"
+                type="text"
+                name="price_per_unit"
+                className="form-control"
+                placeholder="Enter Price Per Unit"
+                value={formik.values.price_per_unit}
+                onChange={formik.handleChange}
+                disabled
+              />
+              {/* {formik.errors.price_per_unit && formik.touched.price_per_unit ? (
+                <p style={{ color: "red", fontSize: "12px" }}>
+                  {formik.errors.price_per_unit}
+                </p>
+              ) : null} */}
             </div>
 
             <div className="form-group mt-2 col-6">
@@ -861,7 +905,7 @@ export const ProjectDetailsOwnerPricingLayout = ({
             <div className="form-group mt-2 col-6">
               <label htmlFor="north" className="form-label">
                 {" "}
-                Basic cost
+                Basic cost (price per unit * extent in sqft)
                 <span style={{ color: "red" }}>*</span>
               </label>
               <input
@@ -873,6 +917,7 @@ export const ProjectDetailsOwnerPricingLayout = ({
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 placeholder="Enter basic cost..."
+                disabled
               />
               {formik.touched.basic_cost && formik.errors.basic_cost && (
                 <p style={{ color: "red", fontSize: "12px" }}>
@@ -1221,499 +1266,14 @@ export const ProjectDetailsOwnerPricingLayout = ({
           </div>
 
           <div className="d-flex justify-content-end gap-2 mt-4">
-            <Button variant="contained" color="success" type="submit">
-              Save
-            </Button>
+            {/* <Button variant="contained" color="success" type="submit">
+              Savesss
+            </Button> */}
+            <button className="btn1" type="submit"  >  Save</button>
           </div>
         </form>
       </Dialog>
-      <Dialog
-        visible={editDialog}
-        style={{ width: "55rem" }}
-        breakpoints={{ "960px": "75vw", "641px": "90vw" }}
-        header="Update Plot  Details"
-        modal
-        className="p-fluid"
-        onHide={hideDialog}
-      >
-        <form onSubmit={formik.handleSubmit} autoComplete="off">
-          <div className="row">
-            <div className="form-group mt-2 col-6">
-              <label htmlFor="surveyno" className="form-label">
-                {" "}
-                Phase No
-                <span style={{ color: "red" }}>*</span>
-              </label>
-              <input
-                id="phase_no"
-                type="text"
-                name="phase_no"
-                className="form-control"
-                value={formik.values.phase_no}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                placeholder="Enter Phase No"
-              />
 
-              {formik.errors.phase_no && formik.touched.phase_no ? (
-                <p style={{ color: "red", fontSize: "12px" }}>
-                  {formik.errors.phase_no}
-                </p>
-              ) : null}
-            </div>
-            <div className="form-group mt-2 col-6">
-              <label htmlFor="subdivision" className="form-label">
-                Plot No <span style={{ color: "red" }}>*</span>
-              </label>
-              <input
-                id="plot_no"
-                type="text"
-                name="plot_no"
-                className="form-control"
-                placeholder="Enter Plot No"
-                value={formik.values.plot_no}
-                onChange={formik.handleChange}
-              />
-              {formik.errors.plot_no && formik.touched.plot_no ? (
-                <p style={{ color: "red", fontSize: "12px" }}>
-                  {formik.errors.plot_no}
-                </p>
-              ) : null}
-            </div>
-
-            <div className="form-group mt-2 col-6">
-              <label htmlFor="extent" className="form-label">
-                {" "}
-                Survey No
-                <span style={{ color: "red" }}>*</span>
-              </label>
-              <input
-                id="survey_no"
-                type="text"
-                name="survey_no"
-                className="form-control"
-                value={formik.values.survey_no}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                placeholder="Enter Survey No.,"
-              />
-
-              {formik.errors.survey_no && formik.touched.survey_no ? (
-                <p style={{ color: "red", fontSize: "12px" }}>
-                  {formik.errors.survey_no}
-                </p>
-              ) : null}
-            </div>
-            <div className="form-group mt-2 col-6">
-              <label htmlFor="extent" className="form-label">
-                {" "}
-                Extent in Sq.Ft.,
-                <span style={{ color: "red" }}>*</span>
-              </label>
-              <input
-                id="extent_sqft"
-                type="text"
-                name="extent_sqft"
-                className="form-control"
-                value={formik.values.extent_sqft}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                placeholder="Enter Extent in Sq.Ft.,"
-              />
-
-              {formik.errors.extent_sqft && formik.touched.extent_sqft ? (
-                <p style={{ color: "red", fontSize: "12px" }}>
-                  {formik.errors.extent_sqft}
-                </p>
-              ) : null}
-            </div>
-
-            <div className="form-group mt-2 col-6">
-              <label htmlFor="direction" className="form-label">
-                Facing Direction <span style={{ color: "red" }}>*</span>
-              </label>
-              <input
-                id="facing_direction"
-                type="text"
-                name="facing_direction"
-                className="form-control"
-                value={formik.values.facing_direction}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                placeholder="Enter Facing Direction"
-              />
-              {formik.errors.facing_direction &&
-                formik.touched.facing_direction ? (
-                <p style={{ color: "red", fontSize: "12px" }}>
-                  {formik.errors.facing_direction}
-                </p>
-              ) : null}
-            </div>
-
-            <div className="form-group mt-2 col-6">
-              <label htmlFor="remark" className="form-label">
-                {" "}
-                Road Width
-                <span style={{ color: "red" }}>*</span>
-              </label>
-              <input
-                id="road_width"
-                type="text"
-                name="road_width"
-                className="form-control "
-                value={formik.values.road_width}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                placeholder="Enter road width"
-              />
-
-              {formik.errors.road_width && formik.touched.road_width ? (
-                <p style={{ color: "red", fontSize: "12px" }}>
-                  {formik.errors.road_width}
-                </p>
-              ) : null}
-            </div>
-            <div className="form-group mt-2 col-6">
-              <label htmlFor="remark" className="form-label">
-                Plot Type
-                <span style={{ color: "red" }}>*</span>
-              </label>
-              <input
-                id="road_width"
-                type="text"
-                name="road_width"
-                className="form-control "
-                value={formik.values.road_width}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                placeholder="Enter road width"
-              />
-
-              {formik.errors.road_width && formik.touched.road_width ? (
-                <p style={{ color: "red", fontSize: "12px" }}>
-                  {formik.errors.road_width}
-                </p>
-              ) : null}
-            </div>
-          </div>
-
-          <hr />
-          <div className="d-flex justify-content-start">
-            <h6>Dimension</h6>
-          </div>
-          <div className="row">
-            <div className="form-group mt-2 col-6">
-              <label htmlFor="north" className="form-label">
-                {" "}
-                North
-                <span style={{ color: "red" }}>*</span>
-              </label>
-              <input
-                id="north"
-                type="text"
-                name="dimension_north"
-                className="form-control"
-                value={formik.values.dimension_north || ""}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                placeholder="Enter dimension north"
-              />
-              {formik.touched.dimension_north &&
-                formik.errors.dimension_north && (
-                  <p style={{ color: "red", fontSize: "12px" }}>
-                    {formik.errors.dimension_north}
-                  </p>
-                )}
-            </div>
-            <div className="form-group mt-2 col-6">
-              <label htmlFor="period" className="form-label">
-                {" "}
-                South
-                <span style={{ color: "red" }}>*</span>
-              </label>
-              <input
-                id="south"
-                type="text"
-                name="dimension_south"
-                className="form-control"
-                value={formik.values.dimension_south || ""}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                placeholder="Enter dimension south"
-              />
-            </div>
-          </div>
-          <div className="row">
-            <div className="form-group mt-2 col-6">
-              <label htmlFor="period" className="form-label">
-                {" "}
-                East
-                <span style={{ color: "red" }}>*</span>
-              </label>
-              <input
-                id="dimension_east"
-                type="text"
-                name="dimension_east"
-                className="form-control "
-                value={formik.values.dimension_east || ""}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                placeholder="Enter dimension East"
-              />
-
-              {formik.errors.dimension_east && formik.touched.dimension_east ? (
-                <p style={{ color: "red", fontSize: "12px" }}>
-                  {formik.errors.dimension_east}
-                </p>
-              ) : null}
-            </div>
-            <div className="form-group mt-2 col-6">
-              <label htmlFor="period" className="form-label">
-                {" "}
-                West
-                <span style={{ color: "red" }}>*</span>
-              </label>
-              <input
-                id="days"
-                type="text"
-                name="dimension_west"
-                className="form-control "
-                value={formik.values.dimension_west || ""}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                placeholder="Enter dimenstion west"
-              />
-
-              {formik.errors.dimension_west && formik.touched.dimension_west ? (
-                <p style={{ color: "red", fontSize: "12px" }}>
-                  {formik.errors.dimension_west}
-                </p>
-              ) : null}
-            </div>
-          </div>
-          <hr />
-          <div className="d-flex justify-content-start">
-            <h6>Boundary</h6>
-          </div>
-          <div className="row">
-            <div className="form-group mt-2 col-6">
-              <label htmlFor="period" className="form-label">
-                {" "}
-                North
-                <span style={{ color: "red" }}>*</span>
-              </label>
-              <input
-                id="days"
-                type="text"
-                name="boundry_north"
-                className="form-control "
-                value={formik.values.boundry_north || ""}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                placeholder="Enter boundary north"
-              />
-
-              {formik.errors.boundry_north && formik.touched.boundry_north ? (
-                <p style={{ color: "red", fontSize: "12px" }}>
-                  {formik.errors.boundry_north}
-                </p>
-              ) : null}
-            </div>
-            <div className="form-group mt-2 col-6">
-              <label htmlFor="period" className="form-label">
-                {" "}
-                South
-                <span style={{ color: "red" }}>*</span>
-              </label>
-              <input
-                id="days"
-                type="text"
-                name="boundry_south"
-                className="form-control "
-                value={formik.values.boundry_south || ""}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                placeholder="Enter boundary south"
-              />
-
-              {formik.errors.boundry_south && formik.touched.boundry_south ? (
-                <p style={{ color: "red", fontSize: "12px" }}>
-                  {formik.errors.boundry_south}
-                </p>
-              ) : null}
-            </div>
-          </div>
-          <div className="row">
-            <div className="form-group mt-2 col-6">
-              <label htmlFor="period" className="form-label">
-                {" "}
-                East
-                <span style={{ color: "red" }}>*</span>
-              </label>
-              <input
-                id="days"
-                type="text"
-                name="boundry_east"
-                className="form-control "
-                value={formik.values.boundry_east || ""}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                placeholder="Enter boundary East"
-              />
-              {formik.errors.boundry_east && formik.touched.boundry_east ? (
-                <p style={{ color: "red", fontSize: "12px" }}>
-                  {formik.errors.boundry_east}
-                </p>
-              ) : null}
-            </div>
-            <div className="form-group mt-2 col-6">
-              <label htmlFor="period" className="form-label">
-                {" "}
-                West
-                <span style={{ color: "red" }}>*</span>
-              </label>
-              <input
-                id="boundry_west"
-                type="text"
-                name="boundry_west"
-                className="form-control "
-                value={formik.values.boundry_west || ""}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                placeholder="Enter boundary west"
-              />
-
-              {formik.errors.boundry_west && formik.touched.boundry_west ? (
-                <p style={{ color: "red", fontSize: "12px" }}>
-                  {formik.errors.boundry_west}
-                </p>
-              ) : null}
-            </div>
-          </div>
-
-          <hr />
-          <div className="row">
-            <div className="form-group mt-2 col-6">
-              <label htmlFor="period" className="form-label">
-                {" "}
-                Others
-                <span style={{ color: "red" }}>*</span>
-              </label>
-              <input
-                id="others"
-                type="text"
-                name="others"
-                className="form-control "
-                value={formik.values.others || ""}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                placeholder="Enter Others"
-              />
-              {formik.errors.others && formik.touched.others ? (
-                <p style={{ color: "red", fontSize: "12px" }}>
-                  {formik.errors.others}
-                </p>
-              ) : null}
-            </div>
-            <div className="form-group mt-2 col-6">
-              <label htmlFor="period" className="form-label">
-                {" "}
-                Verification Status
-                <span style={{ color: "red" }}>*</span>
-              </label>
-              <input
-                id="verification_status"
-                type="text"
-                name="verification_status"
-                className="form-control "
-                value={formik.values.verification_status || ""}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                placeholder="Enter Verification Status"
-              />
-              {formik.errors.verification_status &&
-                formik.touched.verification_status ? (
-                <p style={{ color: "red", fontSize: "12px" }}>
-                  {formik.errors.verification_status}
-                </p>
-              ) : null}
-            </div>
-            <div className="form-group mt-2 col-6">
-              <label htmlFor="period" className="form-label">
-                {" "}
-                Dispute
-                <span style={{ color: "red" }}>*</span>
-              </label>
-              <input
-                id="dispute"
-                type="text"
-                name="dispute"
-                className="form-control "
-                value={formik.values.dispute || ""}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                placeholder="Enter Dispute"
-              />
-              {formik.errors.dispute && formik.touched.dispute ? (
-                <p style={{ color: "red", fontSize: "12px" }}>
-                  {formik.errors.dispute}
-                </p>
-              ) : null}
-            </div>
-            <div className="form-group mt-2 col-6">
-              <label htmlFor="period" className="form-label">
-                {" "}
-                Next Followup Date
-                <span style={{ color: "red" }}>*</span>
-              </label>
-              <input
-                id="next_followup_date"
-                type="date"
-                name="next_followup_date"
-                className="form-control "
-                value={formik.values.next_followup_date || ""}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-              />
-              {formik.errors.next_followup_date &&
-                formik.touched.next_followup_date ? (
-                <p style={{ color: "red", fontSize: "12px" }}>
-                  {formik.errors.next_followup_date}
-                </p>
-              ) : null}
-            </div>
-            <div className="form-group mt-2 col-6">
-              <label htmlFor="remark" className="form-label">
-                {" "}
-                Remark
-                <span style={{ color: "red" }}>*</span>
-              </label>
-              <textarea
-                id="remarks"
-                type="text"
-                name="remarks"
-                className="form-control "
-                value={formik.values.remarks}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                placeholder="Enter Remark"
-              />
-
-              {formik.errors.remarks && formik.touched.remarks ? (
-                <p style={{ color: "red", fontSize: "12px" }}>
-                  {formik.errors.remarks}
-                </p>
-              ) : null}
-            </div>
-          </div>
-
-          <div className="d-flex justify-content-end gap-2 mt-4">
-            <Button variant="contained" color="success" type="submit">
-              Update
-            </Button>
-          </div>
-        </form>
-      </Dialog>
 
       <Dialog
         visible={deleteDialog}

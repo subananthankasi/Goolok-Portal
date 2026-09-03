@@ -13,6 +13,7 @@ import Stack from "@mui/material/Stack";
 import MuiButton from "@mui/material/Button";
 import API_BASE_URL from "../../../../Api/api";
 import OpenPreviewImage from "../../../../Utils/OpenPreviewImage";
+import { Switch } from 'antd';
 
 const BannerImgService = () => {
   const [newDialog, setNewDialog] = useState(false);
@@ -36,13 +37,13 @@ const BannerImgService = () => {
       name: "S.no",
       selector: (row, index) => index + 1,
       sortable: true,
-      width:"120px"
+      width: "120px"
     },
     {
       name: "propertyId",
       selector: (row) => row.propertyid,
       sortable: true,
-      width:"150px"
+      width: "150px"
     },
     {
       name: "Image",
@@ -65,25 +66,31 @@ const BannerImgService = () => {
         ),
       wrap: true,
       sortable: false,
-      width:"150px"
+      width: "150px"
     },
     {
       name: "URL",
       selector: (row) => row.url,
       sortable: true,
-      width:"240px"
+      width: "240px"
     },
     {
       name: "title",
       selector: (row) => row.title,
       sortable: true,
-      width:"150px"
+      width: "150px"
+    },
+    {
+      name: "Theme",
+      selector: (row) => row.theme,
+      sortable: true,
+      width: "150px"
     },
     {
       name: "Status",
       selector: (row) => row.status,
       sortable: true,
-      width:"150px"
+      width: "150px"
     },
 
     {
@@ -111,7 +118,7 @@ const BannerImgService = () => {
           </button>
         </div>
       ),
-      width:"150px"
+      width: "150px"
     },
   ];
 
@@ -126,6 +133,7 @@ const BannerImgService = () => {
     formik.setFieldValue("status", row.status || "");
     formik.setFieldValue("url", row.url || "");
     formik.setFieldValue("property_id", row.property_id || "");
+    formik.setFieldValue("theme", row.theme || "");
   };
 
   const fetchRoles = async () => {
@@ -155,7 +163,7 @@ const BannerImgService = () => {
 
   const onSubmit = async (values) => {
     setIsSubmitting(true);
-
+    values.theme = values.theme || "light";
     try {
       const response = await axios.post(
         `${API_BASE_URL}/bannerimages`,
@@ -185,6 +193,7 @@ const BannerImgService = () => {
       url: "",
       status: "",
       old_image: "",
+      theme: "light",
     },
     // validationSchema: yup.object().shape({
     //   image: yup.string().required("image is required!"),
@@ -299,6 +308,16 @@ const BannerImgService = () => {
                 >
                   App
                 </label>
+              </div>
+
+              <div>
+                <label htmlFor="mx-1" className="form-label mx-1">Dark Theme :</label>
+                <Switch
+                  checked={formik.values.theme === "dark"}
+                  onChange={(checked) => {
+                    formik.setFieldValue("theme", checked ? "dark" : "light");
+                  }}
+                />
               </div>
             </div>
 

@@ -176,13 +176,12 @@ const TicketFollowDateMissing = ({ eid, id, status, pagetype }) => {
                                     (status === "complete" || status === "pending") &&
                                     pagetype !== "reminder" && enquiryDoumentData?.status !== "live" && (
                                         <div className="ms-2">
-                                            <a
-                                                href="#"
+                                            <button
                                                 onClick={() => setNewDialog(true)}
                                                 className="btn1 me-2"
                                             >
                                                 + Add
-                                            </a>
+                                            </button>
                                         </div>
                                     )}
                             </div>
@@ -277,14 +276,14 @@ const TicketFollowDateMissing = ({ eid, id, status, pagetype }) => {
                         ) : null}
                     </div>
                     <div className="d-flex justify-content-end mt-4">
-                        <Button
-                            variant="contained"
+                        <button
+                            className="btn1"
                             type="submit"
                             onClick={() => setEditing(false)}
                             disabled={postLoading}
                         >
                             {postLoading ? "Processing..." : "Save"}
-                        </Button>
+                        </button>
                     </div>
                 </form>
             </Dialog>
@@ -361,14 +360,14 @@ const TicketFollowDateMissing = ({ eid, id, status, pagetype }) => {
                         ) : null}
                     </div>
                     <div className="d-flex justify-content-end mt-4">
-                        <Button
-                            variant="contained"
+                        <button
+                            className="btn1"
                             type="submit"
                             onClick={() => setEditing(true)}
                             disabled={postLoading}
                         >
                             {postLoading ? "Processing..." : "Update"}
-                        </Button>
+                        </button>
                     </div>
                 </form>
             </Dialog>
@@ -389,16 +388,16 @@ const TicketFollowDateMissing = ({ eid, id, status, pagetype }) => {
                 </div>
 
                 <div className="d-flex justify-content-end mt-3 gap-3">
-                    <Button
-                        variant="outlined"
+                    <button
+                       className="btn1"
                         color="error"
                         onClick={() => setDeleteDialog(false)}
                     >
                         No
-                    </Button>
-                    <Button variant="contained" onClick={handleDelete}>
+                    </button>
+                    <button className="btn1" onClick={handleDelete}>
                         Yes
-                    </Button>
+                    </button>
                 </div>
             </Dialog>
         </>

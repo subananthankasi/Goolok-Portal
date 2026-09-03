@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Button from "@mui/material/Button";
@@ -22,26 +22,10 @@ export const OtherProjectPricingCom = ({
   const [newDialog, setNewDialog] = useState(false);
   const [deleteDialog, setDeleteDialog] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
-  const [editDialog, setEditDialog] = useState(false);
   const [getData, setGetData] = useState([]);
-  const [limit, setLimit] = React.useState(10);
-  const [page, setPage] = React.useState(1);
 
-  const handleChangeLimit = (dataKey) => {
-    setPage(1);
-    setLimit(dataKey);
-  };
 
-  const data = getData.filter((v, i) => {
-    const start = limit * (page - 1);
-    const end = start + limit;
-    return i >= start && i < end;
-  });
   const onSubmit = async (values) => {
-    const updateData = {
-      details: values,
-    };
-
     try {
       const response = await axios.post(
         `${API_BASE_URL}/shopunitcreate`,
@@ -272,6 +256,7 @@ export const OtherProjectPricingCom = ({
   const handleDelete = (row) => {
     setDeleteDialog(true);
   };
+
   const DeleteRow = async () => {
     try {
       const response = await axios.delete(
@@ -289,28 +274,11 @@ export const OtherProjectPricingCom = ({
     setDeleteDialog(false);
   };
 
-  const deleteUnitsDialogFooter = (
-    <div className=" d-flex gap-3 justify-content-end">
-      <Button
-        variant="outlined"
-        color="error"
-        onClick={() => setDeleteDialog(false)}
-      >
-        No
-      </Button>
-      <Button variant="contained" color="success" onClick={DeleteRow}>
-        Yes
-      </Button>
-    </div>
-  );
   const hideDialog = () => {
     setNewDialog(false);
     formik.resetForm();
   };
-  const editHide = () => {
-    setEditDialog(false);
-    formik.resetForm();
-  };
+
 
   const handleEdit = (data) => {
     setNewDialog(true);

@@ -14,6 +14,7 @@ import TicketClosingLawyerAP from "./TicketClosingLawyerAP";
 
 
 export const WholeLawyerDocumentAP = (props) => {
+
   const navigate = useNavigate();
   const staffid = JSON.parse(localStorage.getItem("token"));
   const [verifyConfirm, setIsVerifyConfirm] = useState(false);

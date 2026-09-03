@@ -753,7 +753,7 @@ const PaymentScheduleStage = ({ eid, status, pagetype }) => {
                             alignItems: "center",
                           }}
                         >
-                          <Button
+                          {/* <Button
                             variant="contained"
                             color="success"
                             size="small"
@@ -761,7 +761,8 @@ const PaymentScheduleStage = ({ eid, status, pagetype }) => {
                             onClick={formik1.handleSubmit}
                           >
                             Add
-                          </Button>
+                          </Button> */}
+                          <button type="button" className="btn1" onClick={formik1.handleSubmit}> Add</button>
                         </div>
                       )}
                     </div>
@@ -772,7 +773,11 @@ const PaymentScheduleStage = ({ eid, status, pagetype }) => {
               </section>
             )}
           <div className="d-flex justify-content-end gap-2 mt-4">
-            <div>
+            <button type="button" className="btn1" onClick={cancelDialog}> Cancel</button>
+            <button type="submit " className="btn1" onClick={() => setEditing(false)}
+              disabled={isAddSubmitDisabled} > Save</button>
+
+            {/* <div>
               <Button variant="outlined" onClick={cancelDialog}>
                 {" "}
                 Cancel{" "}
@@ -787,14 +792,15 @@ const PaymentScheduleStage = ({ eid, status, pagetype }) => {
               >
                 Save
               </Button>
-            </div>
+          </div> */}
           </div>
         </form>
-      </Dialog>
+      </Dialog >
       {/*..Delete Dialog */}
-      <Dialog
+      <Dialog Dialog
         visible={deleteDialog}
-        style={{ width: "32rem" }}
+        style={{ width: "32rem" }
+        }
         breakpoints={{ "960px": "75vw", "641px": "90vw" }}
         header="Confirm"
         modal
@@ -807,9 +813,9 @@ const PaymentScheduleStage = ({ eid, status, pagetype }) => {
             Are you sure you want to delete the selected Payment Schedule?
           </span>
         </div>
-      </Dialog>
+      </Dialog >
       {/*Edit dialog */}
-      <Dialog
+      < Dialog
         visible={editDialog}
         style={{ width: "32rem" }}
         breakpoints={{ "960px": "75vw", "641px": "90vw" }}
@@ -901,7 +907,7 @@ const PaymentScheduleStage = ({ eid, status, pagetype }) => {
             </Button>
           </div>
         </form>
-      </Dialog>
+      </Dialog >
 
       <Dialog
         visible={installmentView}

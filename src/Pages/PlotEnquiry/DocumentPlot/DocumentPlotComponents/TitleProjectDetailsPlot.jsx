@@ -69,7 +69,8 @@ const TitleProjectDetailsPlot = ({ data }) => {
             rerano: "",
             aprtno: "",
             builtarea: "",
-            approvaltype: ""
+            approvaltype: "",
+            location: "",
 
         },
         validationSchema: yup.object().shape({
@@ -78,6 +79,7 @@ const TitleProjectDetailsPlot = ({ data }) => {
             // rerano: yup.string().required("rerano is required !!"),
             builtarea: yup.string().required("extent unit  is required !!"),
             aprtno: yup.string().required("plot no is required !!"),
+            location: yup.string().required("location is required !!"),
 
 
         }),
@@ -92,6 +94,7 @@ const TitleProjectDetailsPlot = ({ data }) => {
             formik.setFieldValue("aprtno", prDetails.apartment_no)
             formik.setFieldValue("builtarea", prDetails.builtup_area)
             formik.setFieldValue("approvaltype", prDetails.approval_type)
+            formik.setFieldValue("location", prDetails.location)
             formik.setFieldValue("id", prDetails.id)
         }
     }, [prDetails])
@@ -272,15 +275,47 @@ const TitleProjectDetailsPlot = ({ data }) => {
                     </div>
 
 
+                    <div className="col-md-6 mb-3 ">
+                        <div className="row">
+                            <div className="col-4 mb-3 ">
+                                <label htmlFor="lastName" className="form-label">
+                                    Location
+                                </label>
+                            </div>
+                            <div className="col-8 mb-3 ">
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    name="location"
+                                    placeholder="Enter location ..."
+                                    value={formik.values.location}
+                                    onChange={formik.handleChange}
+                                    onBlur={formik.handleBlur}
+                                />
+
+                                {formik.errors.location && formik.touched.location ? (
+                                    <p style={{ color: "red", fontSize: "12px" }}>
+                                        {formik.errors.location}
+                                    </p>
+                                ) : null}
+                            </div>
+                        </div>
+                    </div>
+
+
                     <div className="text-end gap-3">
                         {staffid.Login === "staff" && (data.status === "pending" || data.status === "verify") && (
                             <>
-                                <Button variant="outlined" type="button" color="error" className='me-2' onClick={() => formik.resetForm()} >
+                                <div className="d-flex justify-content-end gap-2">
+                                    <button type="button" className="btn1" onClick={() => formik.resetForm()}> Clear</button>
+                                    <button type="submit " className="btn1"> Submit</button>
+                                </div>
+                                {/* <Button variant="outlined" type="button" color="error" className='me-2' onClick={() => formik.resetForm()} >
                                     Clear
                                 </Button>
                                 <Button variant="contained" type="submit"  >
                                     Submit
-                                </Button>
+                                </Button> */}
                             </>
                         )}
                     </div>

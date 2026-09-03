@@ -13,7 +13,6 @@ import {
   Filter,
 } from "@syncfusion/ej2-react-grids";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 import axios from "axios";
 import API_BASE_URL from "../../../Api/api";
 import { encryptData } from "../../../Utils/encrypt";
@@ -120,7 +119,7 @@ const CompletePricingCom = () => {
                         <ColumnDirective
                           field="customer"
                           headerText="Customer Name"
-                          width="150"
+                          width="170"
                         />
                         <ColumnDirective
                           headerText="Age"

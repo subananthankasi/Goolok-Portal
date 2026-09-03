@@ -288,13 +288,12 @@ const AddVideos = ({ eid, status, pagetype }) => {
                         staffid.Login == "staff" &&
                         pagetype !== "reminder" && enquiryDoumentData?.status !=="booking" && (
                             <div className="ms-2">
-                                <a
-                                    href="#"
+                                <button
                                     onClick={() => setvideoDialog(true)}
                                     className="btn1 me-2"
                                 >
                                     + Add
-                                </a>
+                                </button>
                             </div>
                         )}
                 </div>

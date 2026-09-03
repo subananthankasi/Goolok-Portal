@@ -97,6 +97,8 @@ const AddVideosHouse = ({ eid, status, pagetype }) => {
             }
         }
     };
+
+
     useEffect(() => {
         dispatch(mediaVideoGetThunk(eid));
     }, []);
@@ -142,11 +144,6 @@ const AddVideosHouse = ({ eid, status, pagetype }) => {
         if (formik?.values) {
             formik.resetForm();
         }
-    };
-
-    const hideEditDialog = () => {
-        setEditDialog(false);
-        formik.resetForm();
     };
 
     const cancelEditDialog = () => {
@@ -286,17 +283,16 @@ const AddVideosHouse = ({ eid, status, pagetype }) => {
         <>
             <div className="mt-4">
                 <div className="d-flex justify-content-end mb-3">
-                    {(status == "pending" || status == "complete") &&
-                        staffid.Login == "staff" &&
+                    {(status === "pending" || status === "complete") &&
+                        staffid.Login === "staff" &&
                         pagetype !== "reminder" && enquiryDoumentData?.status !== "booking" && (
                             <div className="ms-2">
-                                <a
-                                    href="#"
+                                <button
                                     onClick={() => setvideoDialog(true)}
                                     className="btn1 me-2"
                                 >
                                     + Add
-                                </a>
+                                </button>
                             </div>
                         )}
                 </div>

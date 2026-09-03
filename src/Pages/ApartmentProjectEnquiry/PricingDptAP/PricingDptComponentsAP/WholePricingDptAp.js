@@ -1,4 +1,4 @@
-import  { useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { pricingConfirmThunk } from "../../../../Redux/Actions/Enquiry/pricingConfirmThunk";
@@ -7,13 +7,21 @@ import PhasePricingCostAP from "./PhasePricingCostAP";
 import PricingDepartmentAP from "./PricingDepartmentAP";
 import PaymentScheduleDaysPricingAP from "./PaymentScheduleDaysPricingAP";
 import ConfirmationModal from "../../../../Utils/ConfirmationModal";
+import PricePerUnitComponent from "../../../Enquiry/Reusable/PricePerUnitComponent";
+import { ProjectDetailsLawyerAP } from "../../LawyerDocumentsAP/LawyerDocumentsComponentsAP/ProjectDetailsLawyerAP";
 
-
-const WholePricingDptAp = ({ eid, status, id, pagetype, subtype, discountPage }) => {
+const WholePricingDptAp = ({
+  eid,
+  status,
+  id,
+  pagetype,
+  subtype,
+  discountPage,
+}) => {
   const staffid = JSON.parse(localStorage.getItem("token"));
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const confirmLoading = useSelector((state) => state.pricingConfirm?.loading)
+  const confirmLoading = useSelector((state) => state.pricingConfirm?.loading);
   const [verifyConfirm, setIsVerifyConfirm] = useState(false);
   const handleConfirm = async () => {
     const payload = {
@@ -32,9 +40,7 @@ const WholePricingDptAp = ({ eid, status, id, pagetype, subtype, discountPage })
 
         Toast({ message: "rejected", type: "error" });
       }
-    } catch (error) {
-
-    }
+    } catch (error) {}
   };
   return (
     <>
@@ -45,19 +51,55 @@ const WholePricingDptAp = ({ eid, status, id, pagetype, subtype, discountPage })
         message={"Are you sure this has been verified?"}
         loading={confirmLoading}
       />
-      {/* <ProjectDetailsPricingAP eid={eid} id={id} status={status} pagetype = {pagetype}  />  */}
-      <PhasePricingCostAP eid={eid} id={id} status={status} pagetype={pagetype} />
-      <PricingDepartmentAP eid={eid} status={status} pagetype={pagetype} discountPage={discountPage} />
+      <PricePerUnitComponent
+        eid={eid}
+        id={id}
+        status={status}
+        pagetype={pagetype}
+      />
+      {/* <ProjectDetailsPricingA eid={eid} id={id} status={status} pagetype = {pagetype}  />  */}
+      <PhasePricingCostAP
+        eid={eid}
+        id={id}
+        status={status}
+        pagetype={pagetype}
+      />
+      {/* <PricingDepartmentAP
+        eid={eid}
+        status={status}
+        pagetype={pagetype}
+        discountPage={discountPage}
+      /> */}
       {/* <PaymentSchedulePricingAP eid={eid} id= {id} status={status} pagetype={pagetype}/> */}
-      <PaymentScheduleDaysPricingAP id={id} eid={eid} status={status} pagetype={pagetype} />
 
-      {staffid.logintype === "staff" && status === "pending" && pagetype !== "reminder" && (
-        <div className="text-end mt-3 mb-3">
-          <a href="#0" onClick={() => setIsVerifyConfirm(true)} className="btn1" disabled={confirmLoading}>
-            {confirmLoading ? "Processing..." : "Confirm"}
-          </a>
-        </div>
-      )}
+      <ProjectDetailsLawyerAP
+        id={id}
+        eid={eid}
+        status={status}
+        pagetype={pagetype}
+        department = "pricing"
+      />
+      <PaymentScheduleDaysPricingAP
+        id={id}
+        eid={eid}
+        status={status}
+        pagetype={pagetype}
+      />
+
+      {staffid.logintype === "staff" &&
+        status === "pending" &&
+        pagetype !== "reminder" && (
+          <div className="text-end mt-3 mb-3">
+            <a
+              href="#0"
+              onClick={() => setIsVerifyConfirm(true)}
+              className="btn1"
+              disabled={confirmLoading}
+            >
+              {confirmLoading ? "Processing..." : "Confirm"}
+            </a>
+          </div>
+        )}
     </>
   );
 };

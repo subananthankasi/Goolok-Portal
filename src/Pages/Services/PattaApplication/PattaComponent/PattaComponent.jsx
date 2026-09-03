@@ -67,7 +67,8 @@ const PattaComponent = ({ eid, id, status, pagetype }) => {
       cell: (row) => (
         <>
           <div className="d-flex">
-            <Button variant="outlined" onClick={() => { setFillDialog(true); setRowId(row.id); setDocument(row.document) }} > Fill Details </Button>
+            <button type="button" className="btn btn-primary" onClick={() => { setFillDialog(true); setRowId(row.id); setDocument(row.document) }} >Fill Details </button>
+            {/* <Button variant="outlined" onClick={() => { setFillDialog(true); setRowId(row.id); setDocument(row.document) }} > Fill Details </Button> */}
           </div>
         </>
       ),

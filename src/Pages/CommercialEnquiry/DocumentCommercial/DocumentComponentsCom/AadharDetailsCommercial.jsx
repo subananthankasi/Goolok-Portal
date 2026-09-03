@@ -256,7 +256,7 @@ const AadharDetailsCommercial = ({ data, clearFormRef, isOpen }) => {
                 Clear
               </button>
               <button className="btn1" type="submit">
-                {isLoading == 3 ? (
+                {isLoading === 3 ? (
                   <>
                     <Spinner animation="border" size="sm" />
                     <span className="ms-2">Please wait...</span>

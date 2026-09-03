@@ -173,7 +173,7 @@ const Bookingcomplete = () => {
                     <div className="row">
                         <div className="col-12">
                             <div className="card-body p-1">
-                                <h4 className="page_heading">Completed Booking Repors</h4>
+                                <h4 className="page_heading">Completed Booking Reports</h4>
                                 <div className="col-lg-12 mb-4 mt-4">
                                     <GridComponent
                                         id="DefaultExport"

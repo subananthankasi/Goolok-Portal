@@ -157,13 +157,12 @@ const DayToDayProgressPlot = (props) => {
                   staffid.Login === "staff" &&
                   props.props.pagetype !== "reminder" && enquiryDoumentData?.status !== "booking" && (
                     <div className="ms-2">
-                      <a
-                        href="#"
+                      <button
                         onClick={() => setIsModalDay(true)}
                         className="btn1 me-2"
                       >
                         + Add
-                      </a>
+                      </button>
                     </div>
                   )}
               </div>

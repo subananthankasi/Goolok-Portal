@@ -1,4 +1,4 @@
-import  { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import DataTable from "react-data-table-component";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -263,7 +263,7 @@ export const WholeMarketResearchAP = ({
       selector: (row) => DateFormatcustom(row.created_at),
       sortable: true,
     },
- 
+
     {
       name: "Video",
       cell: (row) => {
@@ -749,14 +749,13 @@ export const WholeMarketResearchAP = ({
                     <h6>Add Pictures</h6>
                     {staffid.logintype === "staff" &&
                       (status === "complete" || status === "pending") &&
-                      pagetype !== "reminder" &&  enquiryDoumentData?.status !== "booking" && (
-                        <a
-                          href="#0"
+                      pagetype !== "reminder" && enquiryDoumentData?.status !== "booking" && (
+                        <button
                           onClick={() => setVisible(true)}
                           className="btn1 me-2"
                         >
                           + Add
-                        </a>
+                        </button>
                       )}
                   </div>
                   <div className="mt-2">
@@ -776,13 +775,12 @@ export const WholeMarketResearchAP = ({
                     {staffid.logintype === "staff" &&
                       (status === "complete" || status === "pending") &&
                       pagetype !== "reminder" && enquiryDoumentData?.status !== "booking" && (
-                        <a
-                          href="#0"
+                        <button
                           onClick={() => setVideosVisible(true)}
                           className="btn1 me-2"
                         >
                           + Add
-                        </a>
+                        </button>
                       )}
                   </div>
 
@@ -919,7 +917,7 @@ export const WholeMarketResearchAP = ({
                 setErrorFile("");
               }}
             >
-              
+
               <form>
                 <div className="form-group">
                   <label htmlFor="img" className="form-label">
@@ -1015,13 +1013,12 @@ export const WholeMarketResearchAP = ({
                   {staffid.logintype === "staff" &&
                     (status === "complete" || status === "pending") &&
                     pagetype !== "reminder" && enquiryDoumentData?.status !== "booking" && (
-                      <a
-                        href="#0"
+                      <button
                         onClick={() => setNearVisible(true)}
                         className="btn1 me-2"
                       >
                         + Add
-                      </a>
+                      </button>
                     )}
                 </div>
                 <div className="mt-2">
@@ -1041,14 +1038,13 @@ export const WholeMarketResearchAP = ({
                   <h6>Add Videos</h6>
                   {staffid.logintype === "staff" &&
                     (status === "complete" || status === "pending") &&
-                    pagetype !== "reminder" && enquiryDoumentData?.status !== "booking" &&(
-                      <a
-                        href="#0"
+                    pagetype !== "reminder" && enquiryDoumentData?.status !== "booking" && (
+                      <button
                         onClick={() => setNearVideosVisible(true)}
                         className="btn1 me-2"
                       >
                         + Add
-                      </a>
+                      </button>
                     )}
                 </div>
 
@@ -1132,7 +1128,7 @@ export const WholeMarketResearchAP = ({
                   setErrorFile("");
                 }}
               >
-                
+
                 <form>
                   <div className="form-group">
                     <label htmlFor="img" className="form-label">

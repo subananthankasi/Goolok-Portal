@@ -90,7 +90,7 @@ const InvoiceComponentValuation = ({ eid, id, status, pagetype }) => {
           style={{ textAlign: "center" }}
         >
           <p
-            className={`badge ${row.status === "pending" ? "bg-danger" : "bg-success"
+            className={` ${row.status === "pending" ? "badge-danger" : "badge-success"
               }`}
             style={{ fontSize: "15px" }}
           >
@@ -243,13 +243,12 @@ const InvoiceComponentValuation = ({ eid, id, status, pagetype }) => {
                   getData.length === 0 && (
                     <div className="d-flex justify-content-center mb-3">
                       <div className="ms-2">
-                        <a
-                          href="#"
+                        <button
                           className="btn1 me-2"
                           onClick={() => setNewDialog(true)}
                         >
                           + Create invoice
-                        </a>
+                        </button>
                       </div>
                     </div>
                   )}

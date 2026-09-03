@@ -24,7 +24,7 @@ import {
 import axios from "axios";
 import API_BASE_URL from "../../../../Api/api";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
-import Button from "@mui/material/Button";
+// import Button from "@mui/material/Button";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import LocationSearchingIcon from "@mui/icons-material/LocationSearching";
 
@@ -250,6 +250,19 @@ const Localities = ({ eid, id, status }) => {
     formik.setFieldValue("description", row.description);
     formik.setFieldValue("location", row.location);
     formik.setFieldValue("id", row.id);
+
+    if (row.location) {
+    const [lat, lng] = row.location.split(",").map(Number);
+
+    const position = { lat, lng };
+
+    setClickedLatLng(position);
+
+    if (map) {
+      map.panTo(position);
+      map.setZoom(15);
+    }
+  }
   };
 
   const column1 = [
@@ -301,20 +314,20 @@ const Localities = ({ eid, id, status }) => {
   ];
   const deleteUnitsDialogFooter = (
     <div className=" d-flex gap-3 justify-content-end">
-      <Button
-        label="No"
-        icon="pi pi-times"
-        outlined
+      <button
+        className="btn1"
         style={{ borderRadius: "7px" }}
         onClick={() => setDeleteDialog(false)}
-      />
-      <Button
-        label="Yes"
-        icon="pi pi-check"
-        severity="danger"
+      >
+        Cancel
+      </button>
+      <button
+        className="btn1"
         style={{ borderRadius: "7px" }}
         onClick={handleDelete}
-      />
+      >
+        Delete
+      </button>
     </div>
   );
   const hideDeleteProductsDialog = () => {
@@ -594,7 +607,11 @@ const Localities = ({ eid, id, status }) => {
             </div>
           </div>
           <div className="d-flex justify-content-end gap-2 mt-4">
-            <Button variant="outlined" color="error" onClick={clearForm}>
+
+            <button type="button" className="btn1" onClick={clearForm}> Clear</button>
+            <button type="submit " className="btn1" onClick={() => setEditing(false)} > Submit</button>
+
+            {/* <Button variant="outlined" color="error" onClick={clearForm}>
               Clear
             </Button>
             <Button
@@ -603,7 +620,7 @@ const Localities = ({ eid, id, status }) => {
               onClick={() => setEditing(false)}
             >
               Submit
-            </Button>
+            </Button> */}
           </div>
         </form>
       </Dialog>
@@ -682,7 +699,7 @@ const Localities = ({ eid, id, status }) => {
             </div>
 
             <div>
-              {status === "pending" && (
+              {(status === "pending" || status === "complete") &&(
                 <div className="form-group mt-3">
                   <div className="row mb-3 align-items-center">
                     <div className="col-2">
@@ -826,13 +843,13 @@ const Localities = ({ eid, id, status }) => {
             </div>
           </div>
           <div className="d-flex justify-content-end gap-2 mt-4">
-            <Button
-              variant="contained"
+            <button
+              className="btn1"
               type="submit"
               onClick={() => setEditing(true)}
             >
               Update
-            </Button>
+            </button>
           </div>
         </form>
       </Dialog>

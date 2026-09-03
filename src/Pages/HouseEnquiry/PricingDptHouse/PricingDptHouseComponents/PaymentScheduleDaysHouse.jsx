@@ -478,14 +478,14 @@ const PaymentScheduleDaysHouse = ({ eid, status, pagetype }) => {
       setInstallmentView(false);
       setPostLoading(false)
 
-    } catch (error) { 
-    setPostLoading(false)
+    } catch (error) {
+      setPostLoading(false)
 
     }
   };
 
   const isSubmitDisabled =
-    loading ||postLoading ||
+    loading || postLoading ||
     installmentData.length === 0 ||
     installmentData.some((item) => !item.percentage_of_amount || !item.days);
 
@@ -757,7 +757,8 @@ const PaymentScheduleDaysHouse = ({ eid, status, pagetype }) => {
                             alignItems: "center",
                           }}
                         >
-                          <Button
+                          <button className="btn1" type="button" onClick={formik1.handleSubmit}>Cancel</button>
+                          {/* <Button
                             variant="contained"
                             color="success"
                             size="small"
@@ -765,7 +766,7 @@ const PaymentScheduleDaysHouse = ({ eid, status, pagetype }) => {
                             onClick={formik1.handleSubmit}
                           >
                             Add
-                          </Button>
+                          </Button> */}
                         </div>
                       )}
                     </div>
@@ -776,13 +777,15 @@ const PaymentScheduleDaysHouse = ({ eid, status, pagetype }) => {
               </section>
             )}
           <div className="d-flex justify-content-end gap-2 mt-4">
-            <div>
+            <button className="btn1" type="button" onClick={cancelDialog}>Cancel</button>
+            <button className="btn1" type="button" onClick={() => setEditing(false)} disabled={isAddSubmitDisabled}>Save</button>
+            {/* <div>
               <Button variant="outlined" onClick={cancelDialog}>
                 {" "}
                 Cancel{" "}
               </Button>
-            </div>
-            <div>
+            </div> */}
+            {/* <div>
               <Button
                 variant="contained"
                 type="submit"
@@ -791,7 +794,7 @@ const PaymentScheduleDaysHouse = ({ eid, status, pagetype }) => {
               >
                 Save
               </Button>
-            </div>
+            </div> */}
           </div>
         </form>
       </Dialog>

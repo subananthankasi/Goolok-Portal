@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import DataTable from "react-data-table-component";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
-
 import Select from "react-select";
 import axios from "axios";
 import Spinner from "react-bootstrap/Spinner";
@@ -40,7 +39,7 @@ export const LawyerAddDocumentsHouse = (props) => {
       setEnquiryDoumentData(response.data);
       setLoadingPage(false);
     } catch (error) {
-      
+
     }
   };
 
@@ -64,7 +63,7 @@ export const LawyerAddDocumentsHouse = (props) => {
       setDeleteDialog(false);
       fetchEnqData();
     } catch (error) {
-      
+
     }
   };
 
@@ -105,7 +104,7 @@ export const LawyerAddDocumentsHouse = (props) => {
       sortable: true,
     },
     {
-      name: "View",
+      name: "View & Upload",
       width: "150px",
       cell: (row) => (
         <>
@@ -115,8 +114,7 @@ export const LawyerAddDocumentsHouse = (props) => {
                 {row.document ? (
                   <button
                     type="button"
-                    className="btn btn-warning rounded-0"
-                    style={{ width: "70px" }}
+                    className="btn btn-primary"
                     onClick={() =>
                       viewFileUrl(`${IMG_PATH}/enquiry/${row.document}`)
                     }
@@ -126,7 +124,7 @@ export const LawyerAddDocumentsHouse = (props) => {
                 ) : (
                   <button
                     type="button"
-                    className="btn btn-primary rounded-0"
+                    className="btn btn-primary"
                     style={{ width: "70px" }}
                   >
                     No data
@@ -139,11 +137,12 @@ export const LawyerAddDocumentsHouse = (props) => {
                   staffid.Login == "staff" && enquiryDoumentData?.status !== "booking" && (
                     <button
                       type="button"
-                      className="btn btn-info rounded-0 ms-2"
+                      className="btn btn-primary me-2"
                       onClick={() => {
                         openAddDocModal();
                         setUploadDocData(row);
                       }}
+                      style={{ marginLeft: "5px" }}
                     >
                       <AddIcon />
                     </button>
@@ -154,8 +153,7 @@ export const LawyerAddDocumentsHouse = (props) => {
                 {row.document ? (
                   <button
                     type="button"
-                    className="btn btn-warning rounded-0"
-                    style={{ width: "70px" }}
+                    className="btn btn-primary"
                     onClick={() =>
                       viewFileUrl(`${IMG_PATH}/enquiry/${row.document}`)
                     }
@@ -165,8 +163,7 @@ export const LawyerAddDocumentsHouse = (props) => {
                 ) : (
                   <button
                     type="button"
-                    className="btn btn-primary rounded-0"
-                    style={{ width: "70px" }}
+                    className="btn btn-primary"
                   >
                     No data
                   </button>
@@ -185,8 +182,7 @@ export const LawyerAddDocumentsHouse = (props) => {
           {row.upload_type == "lawyer" ? (
             <button
               type="button"
-              className={`btn btn-primary rounded-0`}
-              style={{ marginLeft: "7px" }}
+              className={`btn btn-primary `}
               onClick={() => {
                 if (row.document) {
                   setIsModalAddMore(true);
@@ -204,7 +200,7 @@ export const LawyerAddDocumentsHouse = (props) => {
           ) : (
             <button
               type="button"
-              className={`btn btn-primary rounded-0`}
+              className={`btn btn-primary`}
               onClick={() => {
                 if (row.document) {
                   setIsModalAddMoreView(true);
@@ -225,9 +221,8 @@ export const LawyerAddDocumentsHouse = (props) => {
         <>
           <button
             type="button"
-            className={`badge rounded-pill btnhover btn p-2 ${row.status == "verify" ? "bg-success" : "bg-danger"
+            className={` ${row.status == "verify" ? "badge-success" : "badge-danger"
               }`}
-            style={{ width: "60px" }}
             onClick={() => {
               if (
                 row.upload_type == "lawyer" &&

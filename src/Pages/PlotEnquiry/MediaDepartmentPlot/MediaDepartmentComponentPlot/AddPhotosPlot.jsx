@@ -61,7 +61,7 @@ const AddPhotosPlot = ({ eid, status, pagetype }) => {
                 const errorPayload = response.payload.error.reason;
             }
         } catch (error) {
-            
+
         }
     };
     const hideDeleteProductsDialog = () => {
@@ -135,7 +135,7 @@ const AddPhotosPlot = ({ eid, status, pagetype }) => {
                     const errorPayload = response.payload.error.reason;
                 }
             } catch (error) {
-                
+
             }
         } else {
             try {
@@ -151,7 +151,7 @@ const AddPhotosPlot = ({ eid, status, pagetype }) => {
                     const errorPayload = response.payload.error.reason;
                 }
             } catch (error) {
-                
+
             }
         }
     };
@@ -175,10 +175,7 @@ const AddPhotosPlot = ({ eid, status, pagetype }) => {
         setPhotoDialog(false);
         formik.resetForm();
     };
-    const hideEditDialog = () => {
-        setEditDialog(false);
-        formik.resetForm();
-    };
+
     const handleEdit = (row) => {
         setEditDialog(true);
         formik.setFieldValue("notes", row.notes);
@@ -193,11 +190,11 @@ const AddPhotosPlot = ({ eid, status, pagetype }) => {
             name: "S.no",
             cell: (row, index) => index + 1,
             sortable: true,
+             width: "150px",
         },
         {
             name: "Images",
             selector: (row) => row.gallery,
-
             sortable: true,
             cell: (row) => {
                 if (row.gallery) {
@@ -208,8 +205,9 @@ const AddPhotosPlot = ({ eid, status, pagetype }) => {
                             width="150"
                             height="100"
                             controls
-                            className="mt-1 mb-1 rounded-circle"
+                            className="mt-1 mb-1 "
                             src={imgFileUrl}
+                            alt="img"
                         />
                     );
                 } else {
@@ -221,14 +219,16 @@ const AddPhotosPlot = ({ eid, status, pagetype }) => {
             name: "Description",
             selector: (row) => row.notes,
             sortable: true,
+             width: "180px",
         },
-        ...(staffid.Login == "staff" &&
-            (status == "pending" || status == "complete") &&
+        ...(staffid.Login === "staff" &&
+            (status === "pending" || status === "complete") &&
             pagetype !== "reminder" &&
             enquiryDoumentData?.status !== "booking"
             ? [
                 {
                     name: "Actions",
+                    width: "180px",
                     cell: (row) => (
                         <div className="d-flex">
                             <button
@@ -301,18 +301,17 @@ const AddPhotosPlot = ({ eid, status, pagetype }) => {
         <>
             <div className="mt-2">
                 <div className="d-flex justify-content-end mb-3">
-                    {(status == "pending" || status == "complete") &&
+                    {(status === "pending" || status === "complete") &&
                         staffid.Login === "staff" &&
                         pagetype !== "reminder" &&
                         enquiryDoumentData?.status !== "booking" && (
                             <div className="ms-2">
-                                <a
-                                    href="#"
+                                <button
                                     onClick={() => setPhotoDialog(true)}
                                     className="btn1 me-2"
                                 >
                                     + Add
-                                </a>
+                                </button>
                             </div>
                         )}
                 </div>

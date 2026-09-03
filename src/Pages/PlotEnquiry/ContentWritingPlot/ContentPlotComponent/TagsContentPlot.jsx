@@ -240,9 +240,10 @@ const TagsContentPlot = ({ eid, id, status }) => {
                                 enquiryDoumentData?.status !== "booking" && (
                                     <div className="d-flex justify-content-end gap-2 mt-4">
                                         <div>
-                                            <Button variant="contained" type="submit">
+                                            {/* <Button variant="contained" type="submit">
                                                 Save
-                                            </Button>
+                                            </Button> */}
+                                            <button type="submit" className="btn-submit" > Update</button>
                                             {/* <Button label="Submit" icon="pi pi-upload" type="submit" size="small" style={{ borderRadius: '7px' }} /> */}
                                         </div>
                                     </div>

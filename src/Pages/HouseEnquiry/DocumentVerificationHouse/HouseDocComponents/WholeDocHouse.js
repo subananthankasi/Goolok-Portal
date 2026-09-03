@@ -52,7 +52,7 @@ const WholeDocHouse = ({ eid, id, status, pagetype }) => {
       setDeleteDialog(false);
       await dispatch(fetchEnquiryDocument(payload));
     } catch (error) {
-      
+
     }
   };
   const fetchData = async () => {
@@ -64,7 +64,7 @@ const WholeDocHouse = ({ eid, id, status, pagetype }) => {
       await dispatch(fetchEnquiryDocument(payload));
       setLoadingPage(false);
     } catch (error) {
-      
+
     }
   };
   useEffect(() => {
@@ -130,7 +130,7 @@ const WholeDocHouse = ({ eid, id, status, pagetype }) => {
       const response = await axios.get(`${API_BASE_URL}/enquirypatta/${id}`);
       setPattaOneView(response.data);
     } catch (error) {
-      
+
     }
   };
   const fetchPattaTwoView = async (id) => {
@@ -140,7 +140,7 @@ const WholeDocHouse = ({ eid, id, status, pagetype }) => {
       );
       setPattaTwoView(response.data);
     } catch (error) {
-      
+
     }
   };
   const fetchTitleDocument = async (id) => {
@@ -148,7 +148,7 @@ const WholeDocHouse = ({ eid, id, status, pagetype }) => {
       const response = await axios.get(`${API_BASE_URL}/enquirydeed/${id}`);
       setTitleTwoView(response.data);
     } catch (error) {
-      
+
     }
   };
   const fetchTitleSurvey = async (id) => {
@@ -162,7 +162,7 @@ const WholeDocHouse = ({ eid, id, status, pagetype }) => {
       }));
       setTitleOneView(dataValue);
     } catch (error) {
-      
+
     }
   };
   const fetchAadhar = async (id) => {
@@ -170,7 +170,7 @@ const WholeDocHouse = ({ eid, id, status, pagetype }) => {
       const response = await axios.get(`${API_BASE_URL}/enqaadhar/${id}`);
       setAadharData(response.data);
     } catch (error) {
-      
+
     }
   };
   const anotherDocViewFetch = async (id) => {
@@ -187,7 +187,7 @@ const WholeDocHouse = ({ eid, id, status, pagetype }) => {
       const response = await axios.get(`${API_BASE_URL}/houseprdetail/${eid}`);
       setProjectData(response.data?.[0]);
     } catch (error) {
-      
+
     }
   };
 
@@ -198,7 +198,7 @@ const WholeDocHouse = ({ eid, id, status, pagetype }) => {
       const response = await axios.get(`${API_BASE_URL}/villadetail/${eid}`);
       setVillaDetails(response.data?.[0]);
     } catch (error) {
-      
+
     }
   };
 
@@ -252,14 +252,15 @@ const WholeDocHouse = ({ eid, id, status, pagetype }) => {
     },
 
     {
-      name: "View/Upload",
+      name: "View & Upload",
+      width: "130px",
       cell: (row) => (
         <>
           <div className="d-flex gap-2">
             {row.document ? (
               <button
                 type="button"
-                className="btn btn-warning rounded-0"
+                className="btn btn-primary"
                 onClick={() =>
                   viewFileUrl(`${IMG_PATH}/enquiry/${row.document}`)
                 }
@@ -267,7 +268,7 @@ const WholeDocHouse = ({ eid, id, status, pagetype }) => {
                 <RemoveRedEyeIcon />
               </button>
             ) : (
-              <button type="button" className="btn btn-primary rounded-0">
+              <button type="button" className="btn btn-primary">
                 <VisibilityOffIcon />
               </button>
             )}
@@ -275,7 +276,7 @@ const WholeDocHouse = ({ eid, id, status, pagetype }) => {
             {staffid.logintype === "staff" && pagetype !== "reminder" && enquiryDoumentData?.status !== "booking" && (
               <button
                 type="button"
-                className="btn btn-info rounded-0 ms-2"
+                className="btn btn-primary ms-2"
                 onClick={() => {
                   openAddDocModal();
                   setUploadDocData(row);
@@ -291,6 +292,7 @@ const WholeDocHouse = ({ eid, id, status, pagetype }) => {
 
     {
       name: "Fill Details",
+      width: "130px",
       cell: (row) => {
         const handleClick = () => {
           if (row.document) {
@@ -310,7 +312,7 @@ const WholeDocHouse = ({ eid, id, status, pagetype }) => {
             {staffid.logintype === "staff" && pagetype !== "reminder" && enquiryDoumentData?.status !== "booking" ? (
               <button
                 type="button"
-                className="btn btn-primary rounded-0"
+                className="btn btn-primary"
                 onClick={handleClick}
               >
                 Fill Details..
@@ -318,7 +320,7 @@ const WholeDocHouse = ({ eid, id, status, pagetype }) => {
             ) : (
               <button
                 type="button"
-                className="btn btn-primary rounded-0"
+                className="btn btn-primary"
                 onClick={() => {
                   setViewDetails(true);
                   setViewData(row);
@@ -339,19 +341,12 @@ const WholeDocHouse = ({ eid, id, status, pagetype }) => {
           <>
             <button
               type="button"
-              className={`badge rounded-pill btnhover btn p-2 ${row.status == "verify"
-                ? "bg-success"
+              className={`${row.status == "verify"
+                ? "badge-success"
                 : row.status == "pending"
-                  ? "bg-danger"
+                  ? "badge-danger"
                   : "bg-info"
                 }`}
-              style={{ width: "60px" }}
-              // onClick={() => {
-              //   if (staffid.logintype == "staff") {
-              //     openModalDoc();
-              //     setDocId(row);
-              //   }
-              // }}
               onClick={() => {
                 if (
                   staffid.logintype !== "admin" &&
@@ -376,11 +371,12 @@ const WholeDocHouse = ({ eid, id, status, pagetype }) => {
     },
     {
       name: "Redo Status",
+      width:"140px",
       cell: (row) => (
         <>
           <button
             type="button"
-            className={`btn btn-outline-info`}
+            className={`btn btn-primary`}
             onClick={() => {
               openModalRedo();
               setDocId(row);
@@ -394,6 +390,7 @@ const WholeDocHouse = ({ eid, id, status, pagetype }) => {
     },
     {
       name: "Verified Date",
+      width:"140px",
       selector: (row) => row.veryfi_date,
       sortable: true,
     },

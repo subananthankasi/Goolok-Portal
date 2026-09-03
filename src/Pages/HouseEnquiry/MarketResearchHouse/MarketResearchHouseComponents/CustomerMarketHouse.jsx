@@ -81,7 +81,7 @@ const CustomerMarketHouse = ({ eid, marketid, status, pagetype }) => {
       width: "150px",
     },
     {
-      name: "Road Facing Width",
+      name: "Road Facing",
       selector: (row) => row.facing_width,
       sortable: true,
       width: "150px",
@@ -351,9 +351,9 @@ const CustomerMarketHouse = ({ eid, marketid, status, pagetype }) => {
           (status === "pending" || status === "complete") &&
           pagetype !== "reminder" &&
           customerdata.length === 0 ? (
-          <a href="#0" onClick={() => setNewDialog(true)} className="btn1 me-2">
+          <button onClick={() => setNewDialog(true)} className="btn1 me-2">
             + Add customer Property
-          </a>
+          </button>
         ) : null}
       </div>
 
@@ -427,7 +427,7 @@ const CustomerMarketHouse = ({ eid, marketid, status, pagetype }) => {
               <div className="row">
                 <div className="col-4 mb-3">
                   <label htmlFor="facing_width" className="form-label">
-                    Road Facing Width
+                    Road Facing 
                   </label>
                 </div>
                 <div className="col-7 mb-3">
@@ -908,7 +908,7 @@ const CustomerMarketHouse = ({ eid, marketid, status, pagetype }) => {
               <div className="row">
                 <div className="col-4 mb-3">
                   <label htmlFor="facing_width" className="form-label">
-                    Road Facing Width
+                    Road Facing 
                   </label>
                 </div>
                 <div className="col-7 mb-3">

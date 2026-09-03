@@ -39,7 +39,7 @@ const DayToDayProgressLawyerCom = (props) => {
             selector: (row) => DateFormatcustom(row.next_date),
             sortable: true,
         },
-        ...(staffid.Login == "staff" &&
+        ...(staffid.Login === "staff" &&
             (props.data.status === "pending" || props.data.status === "complete") &&
             props.data.pagetype !== "reminder" &&
             enquiryDoumentData?.status !== "booking"

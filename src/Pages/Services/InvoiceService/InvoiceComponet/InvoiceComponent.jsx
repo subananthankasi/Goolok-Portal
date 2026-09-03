@@ -98,9 +98,8 @@ const InvoiceComponent = ({ eid, id, status, pagetype }) => {
           style={{ textAlign: "center" }}
         >
           <p
-            className={`badge ${row.status === "pending" ? "bg-danger" : "bg-success"
+            className={`${row.status === "pending" ? "badge-danger" : "badge-success"
               }`}
-            style={{ fontSize: "15px" }}
           >
             {row.status}
           </p>
@@ -250,13 +249,12 @@ const InvoiceComponent = ({ eid, id, status, pagetype }) => {
                   getData.length === 0 && (
                     <div className="d-flex justify-content-center mb-3">
                       <div className="ms-2">
-                        <a
-                          href="#"
+                        <button
                           className="btn1 me-2"
                           onClick={() => setNewDialog(true)}
                         >
                           + Create invoice
-                        </a>
+                        </button>
                       </div>
                     </div>
                   )}
@@ -389,14 +387,14 @@ const InvoiceComponent = ({ eid, id, status, pagetype }) => {
           </div>
 
           <div className="d-flex justify-content-end mt-4">
-            <Button
-              variant="contained"
+            <button
+              className="btn1"
               type="submit"
               onClick={() => setEditing(false)}
               disabled={loading}
             >
               {loading ? "Processing..." : "Save"}
-            </Button>
+            </button>
           </div>
         </form>
       </Dialog>
@@ -511,14 +509,14 @@ const InvoiceComponent = ({ eid, id, status, pagetype }) => {
           </div>
 
           <div className="d-flex justify-content-end mt-4">
-            <Button
-              variant="contained"
+            <button
+              className="btn1"
               type="submit"
               onClick={() => setEditing(true)}
               disabled={loading}
             >
               {loading ? "submitting..." : "Submit"}
-            </Button>
+            </button>
           </div>
         </form>
       </Dialog>

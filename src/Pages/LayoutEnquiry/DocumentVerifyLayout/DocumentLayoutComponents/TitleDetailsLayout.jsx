@@ -286,7 +286,7 @@ const TitleDetailsLayout = ({ data, setStep }) => {
                                     format="DD/MM/YYYY"
                                     style={{ width: "100%" }}
                                     onBlur={formik.handleBlur}
-                                     getPopupContainer={(triggerNode) => triggerNode.parentNode}
+                                    getPopupContainer={(triggerNode) => triggerNode.parentNode}
                                 />
 
                                 {/* <DatePicker
@@ -666,12 +666,14 @@ const TitleDetailsLayout = ({ data, setStep }) => {
                     <div className="text-end gap-3">
                         {staffid.Login === "staff" && (data.status === "pending" || data.status === "verify") && (
                             <>
-                                <Button variant="outlined" type="button" color="error" className='me-2' onClick={() => formik.resetForm()} >
+                                {/* <Button variant="outlined" type="button" color="error" className='me-2' onClick={() => formik.resetForm()} >
                                     Clear
                                 </Button>
                                 <Button variant="contained" type="submit"  >
                                     Next
-                                </Button>
+                                </Button> */}
+                                <button className="btn1 me-2" type="button" onClick={() => formik.resetForm()}>Clear</button>
+                                <button className="btn1" type="submit"> Next</button>
                             </>
                         )}
                     </div>

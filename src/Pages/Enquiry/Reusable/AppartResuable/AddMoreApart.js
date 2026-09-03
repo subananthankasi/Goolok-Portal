@@ -1307,7 +1307,7 @@ const AddMoreApart = ({ isOpen, closeModal, id,enqid,eid }) => {
                               <div className="">
                                 <TableContainer component={Paper}>
                                   <Table sx={{ minWidth: 700 }} aria-label="customized table" >
-                                    <TableHead style={{ backgroundColor: 'rgb(47, 79, 79)' }}>
+                                    <TableHead >
                                       <TableRow>
                                         <TableCell style={{ color: "white" }} >S.No</TableCell >
                                         <TableCell align="right" style={{ color: "white" }}>Survey No</TableCell >

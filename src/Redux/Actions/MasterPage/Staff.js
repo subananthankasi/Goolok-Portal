@@ -91,7 +91,7 @@ export const fetchStaffID = () => {
   return async (dispatch) => {
     try {
       const response = await axios.get(`${API_BASE_URL}/staff/${3}`);
-      dispatch(successStaffID(response.data))
+      dispatch(successStaffID(response?.data))
     }
     catch (error) {
 

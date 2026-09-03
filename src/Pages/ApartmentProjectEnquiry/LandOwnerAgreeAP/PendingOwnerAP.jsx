@@ -153,7 +153,7 @@ const PendingOwnerAP = () => {
                         <ColumnDirective
                           field="customer"
                           headerText="Customer Name"
-                          width="150"
+                          width="170"
                         />
                         <ColumnDirective
                           headerText="Age"

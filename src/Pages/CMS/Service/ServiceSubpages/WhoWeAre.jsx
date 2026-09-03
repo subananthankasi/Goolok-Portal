@@ -18,6 +18,7 @@ import MuiButton from "@mui/material/Button";
 import { Editor } from "primereact/editor";
 import AddIcon from "@mui/icons-material/Add";
 import API_BASE_URL from "../../../../Api/api";
+import { Switch } from 'antd';
 
 const WhoWeAre = () => {
   const navigate = useNavigate();
@@ -171,7 +172,7 @@ const WhoWeAre = () => {
     },
     {
       name: "work_description",
-      selector: (row) => row.work_description.replace(/<[^>]+>/g, ""),
+      selector: (row) => row.work_description?.replace(/<[^>]+>/g, ""),
       sortable: true,
       width: "150px",
     },
@@ -188,6 +189,11 @@ const WhoWeAre = () => {
       width: "150px",
     },
 
+    {
+      name: "Theme",
+      selector: (row) => row.theme,
+      sortable: true,
+    },
     {
       name: "Status",
       selector: (row) => row.status,
@@ -224,12 +230,9 @@ const WhoWeAre = () => {
 
   const handleEdit = (row) => {
     setNewDialog(true);
-
     try {
       const parsedData = row.alldata ? JSON.parse(row.alldata) : [];
-
       if (!Array.isArray(parsedData)) throw new Error("Invalid data format");
-
       formik.setFieldValue(
         "items",
         parsedData.map((item) => ({
@@ -244,19 +247,17 @@ const WhoWeAre = () => {
             : null,
         }))
       );
-
       formik.setFieldValue("id", row.id || "");
     } catch (err) {
       Toast({ message: "Unable to parse row data", type: "error" });
       formik.setFieldValue("items", []);
     }
-
-    // Main fields
     formik.setFieldValue("btn_url", row.btn_url || "");
     formik.setFieldValue("btn_text", row.btn_text || "");
     formik.setFieldValue("work_description", row.work_description || "");
     formik.setFieldValue("work_title", row.work_title || "");
     formik.setFieldValue("status", row.status || "");
+    formik.setFieldValue("theme", row.theme || "");
 
     try {
       const parsedSlides = row.slide_image ? JSON.parse(row.slide_image) : [];
@@ -264,9 +265,9 @@ const WhoWeAre = () => {
         "slide_image",
         Array.isArray(parsedSlides) && parsedSlides.length > 0
           ? parsedSlides.map((img) => ({
-              file: null,
-              preview: `${IMG_PATH}/cms_service/whoweare/slide/${img}`,
-            }))
+            file: null,
+            preview: `${IMG_PATH}/cms_service/whoweare/slide/${img}`,
+          }))
           : [{ file: null, preview: null }]
       );
       formik.setFieldValue("old_slide_image", row.slide_image || "");
@@ -278,7 +279,7 @@ const WhoWeAre = () => {
 
   const fetchRoles = async () => {
     try {
-      const response = await axios.get(`${API_BASE_URL}/whoweare`);
+      const response = await axios.get(`${API_BASE_URL}/whoweare/new`);
       setFetchbanner(response.data?.data || []);
     } catch (error) {
 
@@ -291,6 +292,7 @@ const WhoWeAre = () => {
 
   const onSubmit = async (values) => {
     setIsSubmitting(true);
+    values.theme = values.theme || "light";
     try {
       const response = await axios.post(`${API_BASE_URL}/whoweare`, values, {
         headers: { "Content-Type": "multipart/form-data" },
@@ -331,6 +333,7 @@ const WhoWeAre = () => {
       btn_url: "",
       status: "",
       old_slide_image: "",
+      theme: "light",
     },
     // validationSchema: yup.object().shape({
     //   image: yup.string().required("image is required!"),
@@ -382,7 +385,7 @@ const WhoWeAre = () => {
           <div className="card">
             <div className="card-header">
               <div className="d-flex justify-content-between">
-                <h4 className="page_heading">HowWeWork View Table</h4>
+                <h4 className="page_heading">Who We Are</h4>
                 <button
                   type="button"
                   className="btn1"
@@ -420,7 +423,7 @@ const WhoWeAre = () => {
         }}
       >
         <Modal.Header>
-          <Modal.Title>HowWeWork </Modal.Title>
+          <Modal.Title>Who We Are </Modal.Title>
         </Modal.Header>
 
         <Modal.Body
@@ -624,7 +627,7 @@ const WhoWeAre = () => {
             </div>
 
             <div className="mb-3">
-              <label className="form-label">Promotion Image</label>
+              <label className="form-label">Promotion Image (315 x 250) </label>
               {(Array.isArray(formik.values.slide_image)
                 ? formik.values.slide_image
                 : []
@@ -790,7 +793,15 @@ const WhoWeAre = () => {
                 <small className="text-danger">{formik.errors.btn_url}</small>
               )}
             </div>
-
+            <div>
+              <label htmlFor="" className="form-label me-2">Dark Theme :</label>
+              <Switch
+                checked={formik.values.theme === "dark"}
+                onChange={(checked) => {
+                  formik.setFieldValue("theme", checked ? "dark" : "light");
+                }}
+              />
+            </div>
             <div className="mb-3">
               <label htmlFor="status" className="form-label">
                 Status

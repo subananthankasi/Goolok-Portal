@@ -144,11 +144,6 @@ const AddVideoPlot = ({ eid, status, pagetype }) => {
         }
     };
 
-    const hideEditDialog = () => {
-        setEditDialog(false);
-        formik.resetForm();
-    };
-
     const cancelEditDialog = () => {
         setEditDialog(false);
         if (formik?.values) {
@@ -286,17 +281,16 @@ const AddVideoPlot = ({ eid, status, pagetype }) => {
         <>
             <div className="mt-4">
                 <div className="d-flex justify-content-end mb-3">
-                    {(status == "pending" || status == "complete") &&
-                        staffid.Login == "staff" &&
+                    {(status === "pending" || status === "complete") &&
+                        staffid.Login === "staff" &&
                         pagetype !== "reminder" && enquiryDoumentData?.status !== "booking" && (
                             <div className="ms-2">
-                                <a
-                                    href="#"
+                                <button
                                     onClick={() => setvideoDialog(true)}
                                     className="btn1 me-2"
                                 >
                                     + Add
-                                </a>
+                                </button>
                             </div>
                         )}
                 </div>

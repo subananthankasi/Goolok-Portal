@@ -57,10 +57,6 @@ function PendingDocCom() {
         fetch();
     }, [dispatch, staffid.loginid]);
 
-
-
-
-
     const filterSettings = { type: "Excel" };
     const toolbarOptions = ["ExcelExport", "PdfExport", "Search"];
 
@@ -164,7 +160,7 @@ function PendingDocCom() {
                                                     <ColumnDirective
                                                         field="customer"
                                                         headerText="Customer Name"
-                                                        width="150"
+                                                        width="170"
                                                     />
                                                     <ColumnDirective
                                                         field="age"

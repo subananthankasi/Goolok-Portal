@@ -12,6 +12,8 @@ import { Dialog } from "primereact/dialog";
 import Stack from "@mui/material/Stack";
 import MuiButton from "@mui/material/Button";
 import OpenPreviewImage from "../../../Utils/OpenPreviewImage";
+import { Switch } from "antd";
+import SectionTitle from "./SectionTitle";
 
 const HighReturnsProperties = () => {
   const [newDialog, setNewDialog] = useState(false);
@@ -22,14 +24,15 @@ const HighReturnsProperties = () => {
   const [fetchcategorys, setFetchcategorys] = useState([]);
   const [fetchpropertyIds, setFetchpropertyIds] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [preview, setPreview] = useState(false)
-  const [previewUrl, setPreviwUrl] = useState(null)
+  const [preview, setPreview] = useState(false);
+  const [previewUrl, setPreviwUrl] = useState(null);
+  const [titlemodal, setTitlemodal] = useState(false);
 
   const handlePreview = (row) => {
-    setPreview(true)
-    const url = `${IMG_PATH}/cms/highreturn/${row.image}`
-    setPreviwUrl(url)
-  }
+    setPreview(true);
+    const url = `${IMG_PATH}/cms/highreturn/${row.image}`;
+    setPreviwUrl(url);
+  };
   const columns = [
     {
       name: "S.no",
@@ -67,6 +70,11 @@ const HighReturnsProperties = () => {
         ),
       wrap: true,
       sortable: false,
+    },
+    {
+      name: "Theme",
+      selector: (row) => row.theme,
+      sortable: true,
     },
     {
       name: "Status",
@@ -109,12 +117,13 @@ const HighReturnsProperties = () => {
     formik.setFieldValue("offer", row.offer || "");
     formik.setFieldValue(
       "property_id",
-      row.property_id ? JSON.parse(row.property_id) : []
+      row.property_id ? JSON.parse(row.property_id) : [],
     );
     formik.setFieldValue("image", row.image || "");
     setPreviewImage(`${IMG_PATH}/cms/highreturn/${row.image}`);
     formik.setFieldValue("image", row.image || "");
     formik.setFieldValue("old_image", row.image || "");
+    formik.setFieldValue("theme", row.theme || "");
     formik.setFieldValue("status", row.status || "");
   };
 
@@ -122,9 +131,7 @@ const HighReturnsProperties = () => {
     try {
       const response = await axios.get(`${API_BASE_URL}/highreturnviewall`);
       setFetchbanner(response.data?.data || []);
-    } catch (error) {
-
-    }
+    } catch (error) {}
   };
 
   useEffect(() => {
@@ -135,9 +142,7 @@ const HighReturnsProperties = () => {
     try {
       const response = await axios.get(`${API_BASE_URL}/property`);
       setFetchcategorys(response.data);
-    } catch (error) {
-
-    }
+    } catch (error) {}
   };
 
   useEffect(() => {
@@ -148,9 +153,7 @@ const HighReturnsProperties = () => {
     try {
       const response = await axios.get(`${API_BASE_URL}/fetchpropertyid`);
       setFetchpropertyIds(response.data);
-    } catch (error) {
-
-    }
+    } catch (error) {}
   };
 
   useEffect(() => {
@@ -159,6 +162,7 @@ const HighReturnsProperties = () => {
 
   const onSubmit = async (values) => {
     setIsSubmitting(true);
+    values.theme = values.theme || "light";
 
     try {
       const response = await axios.post(`${API_BASE_URL}/highreturn`, values, {
@@ -191,6 +195,7 @@ const HighReturnsProperties = () => {
       image: "",
       status: "",
       property_id: [],
+      theme: "light",
       // old_image:""
     },
     // validationSchema: yup.object().shape({
@@ -210,43 +215,62 @@ const HighReturnsProperties = () => {
       fetchRoles();
       Toast({ message: "Successfully Deleted", type: "success" });
     } catch (error) {
-
     } finally {
       setDeleteconfirmmodal(false);
     }
   };
   const data = formik.values.category
     ? fetchpropertyIds
-      ?.filter((prId) => prId.property_type === formik.values.category)
-      .map((item) => ({
+        ?.filter((prId) => prId.property_type === formik.values.category)
+        .map((item) => ({
+          label: item.property_id,
+          value: item.id,
+        }))
+    : fetchpropertyIds.map((item) => ({
         label: item.property_id,
         value: item.id,
-      }))
-    : fetchpropertyIds.map((item) => ({
-      label: item.property_id,
-      value: item.id,
-    }));
+      }));
 
   return (
     <>
-      <OpenPreviewImage preview={preview} setPreview={setPreview} url={previewUrl} />
+      <SectionTitle
+        visible={titlemodal}
+        setVisible={setTitlemodal}
+        section="highReturnsProperties"
+      />
+      <OpenPreviewImage
+        preview={preview}
+        setPreview={setPreview}
+        url={previewUrl}
+      />
       <section className="section">
         <div className="container">
           <div className="card">
             <div className="card-header">
               <div className="d-flex justify-content-between">
                 <h4 className="page_heading">
-                  HighReturnsProperties View Table
+                  HighReturns Properties Reports
                 </h4>
-                <button
-                  type="button"
-                  className="btn1"
-                  onClick={() => {
-                    setNewDialog(true);
-                  }}
-                >
-                  Add
-                </button>
+                <div className="d-flex gap-2">
+                  <button
+                    type="button"
+                    className="btn1"
+                    onClick={() => {
+                      setTitlemodal(true);
+                    }}
+                  >
+                    Add Title
+                  </button>
+                  <button
+                    type="button"
+                    className="btn1"
+                    onClick={() => {
+                      setNewDialog(true);
+                    }}
+                  >
+                    Add
+                  </button>
+                </div>
               </div>
             </div>
             <div className="card-body">
@@ -275,7 +299,7 @@ const HighReturnsProperties = () => {
         }}
       >
         <Modal.Header>
-          <Modal.Title>HighReturnsProperties </Modal.Title>
+          <Modal.Title>HighReturns Properties </Modal.Title>
         </Modal.Header>
 
         <Modal.Body
@@ -429,7 +453,17 @@ const HighReturnsProperties = () => {
                 <small className="text-danger">{formik.errors.image}</small>
               )}
             </div>
-
+            <div>
+              <label htmlFor="mx-1" className="form-label mx-1">
+                Dark Theme :
+              </label>
+              <Switch
+                checked={formik.values.theme === "dark"}
+                onChange={(checked) => {
+                  formik.setFieldValue("theme", checked ? "dark" : "light");
+                }}
+              />
+            </div>
             <div className="mb-3">
               <label htmlFor="status" className="form-label">
                 Status

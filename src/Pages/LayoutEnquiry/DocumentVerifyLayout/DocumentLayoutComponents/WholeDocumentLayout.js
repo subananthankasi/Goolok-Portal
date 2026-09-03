@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
@@ -234,19 +234,19 @@ const WholeDocumentLayout = ({ eid, id, status, pagetype }) => {
     {
       name: "Age",
       selector: (row) => row.age,
-
       sortable: true,
     },
 
     {
-      name: "View/Upload",
+      name: "View & Upload",
+      width:"170px",
       cell: (row) => (
         <>
           <div className="d-flex gap-2">
             {row.document ? (
               <button
                 type="button"
-                className="btn btn-warning rounded-0"
+                className="btn btn-primary"
                 onClick={() =>
                   viewFileUrl(`${IMG_PATH}/enquiry/${row.document}`)
                 }
@@ -254,7 +254,7 @@ const WholeDocumentLayout = ({ eid, id, status, pagetype }) => {
                 <RemoveRedEyeIcon />
               </button>
             ) : (
-              <button type="button" className="btn btn-primary rounded-0">
+              <button type="button" className="btn btn-primary">
                 <VisibilityOffIcon />
               </button>
             )}
@@ -262,7 +262,7 @@ const WholeDocumentLayout = ({ eid, id, status, pagetype }) => {
             {staffid.logintype === "staff" && pagetype !== "reminder" && enquiryDoumentData?.status !== "booking" && (
               <button
                 type="button"
-                className="btn btn-info rounded-0 ms-2"
+                className="btn btn-primary ms-2"
                 onClick={() => {
                   openAddDocModal();
                   setUploadDocData(row);
@@ -278,6 +278,7 @@ const WholeDocumentLayout = ({ eid, id, status, pagetype }) => {
 
     {
       name: "Fill Details",
+      width:"140px",
       cell: (row) => {
         const handleClick = () => {
           if (row.document) {
@@ -297,7 +298,7 @@ const WholeDocumentLayout = ({ eid, id, status, pagetype }) => {
             {staffid.logintype === "staff" && pagetype !== "reminder" && enquiryDoumentData?.status !== "booking" ? (
               <button
                 type="button"
-                className="btn btn-primary rounded-0"
+                className="btn btn-primary "
                 onClick={handleClick}
               >
                 Fill Details..
@@ -305,7 +306,7 @@ const WholeDocumentLayout = ({ eid, id, status, pagetype }) => {
             ) : (
               <button
                 type="button"
-                className="btn btn-primary rounded-0"
+                className="btn btn-primary"
                 onClick={() => {
                   setViewDetails(true);
                   setViewData(row);
@@ -321,24 +322,18 @@ const WholeDocumentLayout = ({ eid, id, status, pagetype }) => {
 
     {
       name: "Status",
+      width:"130px",
       cell: (row) => {
         return (
           <>
             <button
               type="button"
-              className={`badge rounded-pill btnhover btn p-2 ${row.status == "verify"
-                ? "bg-success"
+              className={` ${row.status == "verify"
+                ? "badge-success"
                 : row.status == "pending"
-                  ? "bg-danger"
+                  ? "badge-danger"
                   : "bg-info"
                 }`}
-              style={{ width: "60px" }}
-              // onClick={() => {
-              //   if (staffid.logintype == "staff") {
-              //     openModalDoc();
-              //     setDocId(row);
-              //   }
-              // }}
               onClick={() => {
                 if (
                   staffid.logintype !== "admin" &&
@@ -363,11 +358,12 @@ const WholeDocumentLayout = ({ eid, id, status, pagetype }) => {
     },
     {
       name: "Redo Status",
+      width:"150px",
       cell: (row) => (
         <>
           <button
             type="button"
-            className={`btn btn-outline-info`}
+            className={`btn btn-primary`}
             onClick={() => {
               openModalRedo();
               setDocId(row);
@@ -383,6 +379,7 @@ const WholeDocumentLayout = ({ eid, id, status, pagetype }) => {
       name: "Verified Date",
       selector: (row) => row.veryfi_date,
       sortable: true,
+       width:"150px",
     },
 
     ...(staffid.Login == "staff" &&
@@ -623,13 +620,12 @@ const WholeDocumentLayout = ({ eid, id, status, pagetype }) => {
               <h6>Document Details</h6>
               {staffid.Login === "staff" && pagetype !== "reminder" && enquiryDoumentData?.status !== "booking" && (
                 <div className="ms-2">
-                  <a
-                    href="#"
+                  <button
                     onClick={() => setVisible(true)}
                     className="btn1 me-2"
                   >
                     + Add document
-                  </a>
+                  </button>
                 </div>
               )}
             </div>

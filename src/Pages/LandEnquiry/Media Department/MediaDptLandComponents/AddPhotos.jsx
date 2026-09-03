@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import customStyle from "../../../../Utils/tableStyle";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -17,7 +17,7 @@ import { IMG_PATH } from "../../../../Api/api";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import { ThreeDots } from "react-loader-spinner";
 import Button from "@mui/material/Button";
-import { Flex, Progress } from "antd";
+import { Progress } from "antd";
 import Toast from "../../../../Utils/Toast";
 
 const AddPhotos = ({ eid, status, pagetype }) => {
@@ -58,7 +58,7 @@ const AddPhotos = ({ eid, status, pagetype }) => {
         const errorPayload = response.payload.error.reason;
       }
     } catch (error) {
-      
+
     }
   };
   const hideDeleteProductsDialog = () => {
@@ -132,7 +132,7 @@ const AddPhotos = ({ eid, status, pagetype }) => {
           const errorPayload = response.payload.error.reason;
         }
       } catch (error) {
-        
+
       }
     } else {
       try {
@@ -148,7 +148,7 @@ const AddPhotos = ({ eid, status, pagetype }) => {
           const errorPayload = response.payload.error.reason;
         }
       } catch (error) {
-        
+
       }
     }
   };
@@ -172,10 +172,7 @@ const AddPhotos = ({ eid, status, pagetype }) => {
     setPhotoDialog(false);
     formik.resetForm();
   };
-  const hideEditDialog = () => {
-    setEditDialog(false);
-    formik.resetForm();
-  };
+
   const handleEdit = (row) => {
     setEditDialog(true);
     formik.setFieldValue("notes", row.notes);
@@ -210,6 +207,7 @@ const AddPhotos = ({ eid, status, pagetype }) => {
               controls
               className="mt-1 mb-1 rounded-circle"
               src={imgFileUrl}
+              alt="media img"
             />
           );
         } else {
@@ -222,8 +220,8 @@ const AddPhotos = ({ eid, status, pagetype }) => {
       selector: (row) => row.notes,
       sortable: true,
     },
-    ...(staffid.Login == "staff" &&
-      (status == "pending" || status == "complete") &&
+    ...(staffid.Login === "staff" &&
+      (status === "pending" || status === "complete") &&
       pagetype !== "reminder" && enquiryDoumentData?.status !== "booking"
       ? [
         {
@@ -300,17 +298,16 @@ const AddPhotos = ({ eid, status, pagetype }) => {
     <>
       <div className="mt-2">
         <div className="d-flex justify-content-end mb-3">
-          {(status == "pending" || status == "complete") &&
+          {(status === "pending" || status === "complete") &&
             staffid.Login === "staff" &&
-            pagetype !== "reminder" && enquiryDoumentData?.status !=="booking" &&(
+            pagetype !== "reminder" && enquiryDoumentData?.status !== "booking" && (
               <div className="ms-2">
-                <a
-                  href="#"
+                <button
                   onClick={() => setPhotoDialog(true)}
                   className="btn1 me-2"
                 >
                   + Add
-                </a>
+                </button>
               </div>
             )}
         </div>

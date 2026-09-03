@@ -240,8 +240,7 @@ const InvestmentStrategyContentAp = ({ eid, id, status }) => {
                     <tr>
                       <th
                         style={{
-                          backgroundColor: "rgb(47, 79, 79)",
-                          color: "white",
+                          backgroundColor: "#f2f2f2",
                           fontWeight: "300",
                         }}
                       >
@@ -249,8 +248,7 @@ const InvestmentStrategyContentAp = ({ eid, id, status }) => {
                       </th>
                       <th
                         style={{
-                          backgroundColor: "rgb(47, 79, 79)",
-                          color: "white",
+                          backgroundColor: "#f2f2f2",
                           fontWeight: "300",
                         }}
                       >
@@ -258,8 +256,7 @@ const InvestmentStrategyContentAp = ({ eid, id, status }) => {
                       </th>
                       <th
                         style={{
-                          backgroundColor: "rgb(47, 79, 79)",
-                          color: "white",
+                          backgroundColor: "#f2f2f2",
                           fontWeight: "300",
                         }}
                       >
@@ -367,32 +364,29 @@ const InvestmentStrategyContentAp = ({ eid, id, status }) => {
                 <tr>
                   <th
                     style={{
-                      backgroundColor: "rgb(47, 79, 79)",
-                      color: "white",
+                      backgroundColor: "#f2f2f2",
                     }}
                   >
                     S.NO
                   </th>
                   <th
                     style={{
-                      backgroundColor: "rgb(47, 79, 79)",
-                      color: "white",
+                      backgroundColor: "#f2f2f2",
+
                     }}
                   >
                     Strategy Button
                   </th>
                   <th
                     style={{
-                      backgroundColor: "rgb(47, 79, 79)",
-                      color: "white",
+                      backgroundColor: "#f2f2f2",
                     }}
                   >
                     Remark
                   </th>
                   <th
                     style={{
-                      backgroundColor: "rgb(47, 79, 79)",
-                      color: "white",
+                      backgroundColor: "#f2f2f2",
                     }}
                   >
                     Action
@@ -481,7 +475,7 @@ const InvestmentStrategyContentAp = ({ eid, id, status }) => {
 
           {/* Save Button */}
           <div className="d-flex justify-content-end gap-2 mt-4">
-            <Button
+            {/* <Button
               variant="contained"
               color="success"
               type="button"
@@ -489,7 +483,15 @@ const InvestmentStrategyContentAp = ({ eid, id, status }) => {
               disabled={postLoading}
             >
               {postLoading ? "Processing..." : "Save"}
-            </Button>
+            </Button> */}
+            <button
+              className="btn1 me-2"
+              type="submit"
+              disabled={postLoading}
+              onClick={handleSubmit}
+            >
+              {postLoading ? "Processing..." : "Save"}
+            </button>
           </div>
         </div>
       </Dialog>
@@ -548,37 +550,33 @@ const InvestmentStrategyContentAp = ({ eid, id, status }) => {
           {temporaryStorage.length > 0 && (
             <table className="table table-bordered mt-3">
               <thead
-                style={{ backgroundColor: "rgb(47, 79, 79)", color: "white" }}
+                style={{ color: "white" }}
               >
                 <tr>
                   <th
                     style={{
-                      backgroundColor: "rgb(47, 79, 79)",
-                      color: "white",
+                      backgroundColor: "#f2f2f2",
                     }}
                   >
                     S.NO
                   </th>
                   <th
                     style={{
-                      backgroundColor: "rgb(47, 79, 79)",
-                      color: "white",
+                      backgroundColor: "#f2f2f2",
                     }}
                   >
                     Strategy Button
                   </th>
                   <th
                     style={{
-                      backgroundColor: "rgb(47, 79, 79)",
-                      color: "white",
+                      backgroundColor: "#f2f2f2",
                     }}
                   >
                     Remark
                   </th>
                   <th
                     style={{
-                      backgroundColor: "rgb(47, 79, 79)",
-                      color: "white",
+                      backgroundColor: "#f2f2f2",
                     }}
                   >
                     Action
@@ -586,7 +584,7 @@ const InvestmentStrategyContentAp = ({ eid, id, status }) => {
                 </tr>
               </thead>
               <tbody>
-                
+
                 {temporaryStorage.map((item, index) => {
                   const strategyObj = Getdata?.find(
                     (s) => s.id === item.strategy
@@ -665,7 +663,7 @@ const InvestmentStrategyContentAp = ({ eid, id, status }) => {
 
           {/* Save Button */}
           <div className="d-flex justify-content-end gap-2 mt-4">
-            <Button
+            {/* <Button
               variant="contained"
               color="success"
               type="button"
@@ -673,7 +671,15 @@ const InvestmentStrategyContentAp = ({ eid, id, status }) => {
               disabled={postLoading}
             >
               {postLoading ? "Processing..." : "Update"}
-            </Button>
+            </Button> */}
+            <button
+              className="btn1 me-2"
+              type="submit"
+              onClick={handleEditSubmit}
+              disabled={postLoading}
+            >
+              {postLoading ? "Processing..." : "Update"}
+            </button>
           </div>
         </div>
       </Dialog>

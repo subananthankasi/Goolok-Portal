@@ -103,8 +103,8 @@ export const WholeLawyerDocumentCommercial = (props) => {
         )}
         <FinalOpinionCom data={props} />
 
-        {staffid.logintype == "staff" &&
-          props.status == "pending" &&
+        {staffid.logintype === "staff" &&
+          props.status === "pending" &&
           props.pagetype !== "reminder" && (
             <div className="ms-2 mt-3 mb-3 text-end">
               <button

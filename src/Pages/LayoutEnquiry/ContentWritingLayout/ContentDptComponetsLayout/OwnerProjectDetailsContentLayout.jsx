@@ -850,9 +850,12 @@ export const OwnerProjectDetailsContentLayout = ({ eid, id, status, pagetype }) 
           </div>
 
           <div className="d-flex justify-content-end gap-2 mt-4">
-            <Button variant="contained" color="success" type="submit">
+            {/* <Button variant="contained" color="success" type="submit">
               Save
-            </Button>
+            </Button> */}
+            <button className="btn1 me-2" type="submit">
+              Save
+            </button>
           </div>
         </form>
       </Dialog>

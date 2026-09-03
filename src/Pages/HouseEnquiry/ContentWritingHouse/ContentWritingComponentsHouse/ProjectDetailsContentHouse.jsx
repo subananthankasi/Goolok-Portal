@@ -2489,14 +2489,15 @@ const ProjectDetailsContentHouse = ({ eid, id, status, sub_property, pagetype })
               {staffid.Login === "staff" &&
                 (status === "pending" || status === "complete") && (
                   <>
-                    <Button
+                    {/* <Button
                       variant="contained"
                       type="submit"
                       onClick={() => setIsEditing(true)}
                       disabled={postLoding}
                     >
                       {postLoding ? "Processing..." : "Update"}
-                    </Button>
+                    </Button> */}
+                    <button className="btn1" type="button" disabled={postLoding} onClick={() => setIsEditing(true)}>{postLoding ? "Processing..." : "Update"}</button>
                   </>
                 )}
             </div>

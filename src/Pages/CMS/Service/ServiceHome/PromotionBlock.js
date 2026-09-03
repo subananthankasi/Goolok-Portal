@@ -11,6 +11,7 @@ import MuiButton from "@mui/material/Button";
 import API_BASE_URL, { IMG_PATH } from '../../../../Api/api';
 import Toast from '../../../../Utils/Toast';
 import customStyle from '../../../../Utils/tableStyle';
+import { Switch } from 'antd';
 
 
 const PromotionBlock = () => {
@@ -82,6 +83,12 @@ const PromotionBlock = () => {
       sortable: true,
       width: "260px"
     },
+    {
+      name: "Theme",
+      selector: (row) => row.theme,
+      sortable: true,
+      width: "260px"
+    },
 
     {
       name: "Status",
@@ -139,6 +146,7 @@ const PromotionBlock = () => {
 
     formik.setFieldValue("description", row.description || "");
 
+    formik.setFieldValue("theme", row.theme || "");
     formik.setFieldValue("status", row.status || "");
 
   };
@@ -162,7 +170,7 @@ const PromotionBlock = () => {
 
   const onSubmit = async (values) => {
     setIsSubmitting(true);
-
+    values.theme = values.theme || "light";
     try {
       const response = await axios.post(`${API_BASE_URL}/promotion`, values, {
         headers: { "Content-Type": "multipart/form-data" },
@@ -188,7 +196,8 @@ const PromotionBlock = () => {
       title: "",
       description: "",
       status: "",
-      old_image: ""
+      old_image: "",
+      theme: "light",
     },
     // validationSchema: yup.object().shape({
     //   image: yup.string().required("image is required!"),
@@ -409,6 +418,15 @@ const PromotionBlock = () => {
                   {formik.errors.description}
                 </p>
               )}
+            </div>
+            <div className='mt-3 mb-2'>
+              <label htmlFor="mx-1" className="form-label mx-1">Dark Theme :</label>
+              <Switch
+                checked={formik.values.theme === "dark"}
+                onChange={(checked) => {
+                  formik.setFieldValue("theme", checked ? "dark" : "light");
+                }}
+              />
             </div>
             <div className="mb-3">
               <label htmlFor="status" className="form-label">Status</label>

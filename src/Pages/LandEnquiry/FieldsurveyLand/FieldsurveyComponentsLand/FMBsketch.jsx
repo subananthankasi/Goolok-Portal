@@ -43,7 +43,7 @@ export const FMBsketch = (props) => {
         <>
           <button
             type="button"
-            className="btn btn-warning rounded-0"
+            className="btn btn-primary"
             onClick={() =>
               viewFileUrl(`${IMG_PATH}/enquiry/sketch/${row.document}`)
             }
@@ -175,13 +175,12 @@ export const FMBsketch = (props) => {
                 staffid.Login === "staff" &&
                 props.props.pagetype !== "reminder" && enquiryDoumentData?.status !== "booking" && (
                   <div className="ms-2">
-                    <a
-                      href="#"
+                    <button
                       onClick={() => setIsModalSketch(true)}
                       className="btn1 me-2"
                     >
                       + Add
-                    </a>
+                    </button>
                   </div>
                 )}
             </div>

@@ -47,13 +47,12 @@ const WholeHub = ({ eid, id, status, pagetype }) => {
 
             {staffid.logintype === "staff" && status === "pending" && pagetype !== "reminder" && (
                 <div className="text-end mt-3 mb-3">
-                    <a
-                        href="#0"
+                    <button
                         onClick={() => setIsVerifyConfirm(true)}
                         className="btn1"
                     >
                         Confirm
-                    </a>
+                    </button>
                 </div>
             )}
         </div>

@@ -152,7 +152,7 @@ const UpdateHub = ({ pagetype }) => {
             {row.document ? (
               <button
                 type="button"
-                className="btn btn-warning rounded-0"
+                className="btn btn-primary"
                 onClick={() =>
                   viewFileUrl(`${IMG_PATH}/enquiry/${row.document}`)
                 }
@@ -160,7 +160,7 @@ const UpdateHub = ({ pagetype }) => {
                 <RemoveRedEyeIcon />
               </button>
             ) : (
-              <button type="button" className="btn btn-primary rounded-0">
+              <button type="button" className="btn btn-primary">
                 <VisibilityOffIcon />
               </button>
             )}
@@ -209,7 +209,7 @@ const UpdateHub = ({ pagetype }) => {
             {staffid.logintype === "staff" ? (
               <button
                 type="button"
-                className="btn btn-primary rounded-0"
+                className="btn btn-primary"
                 onClick={handleClick}
               >
                 Fill Details..
@@ -217,7 +217,7 @@ const UpdateHub = ({ pagetype }) => {
             ) : (
               <button
                 type="button"
-                className="btn btn-primary rounded-0"
+                className="btn btn-primary"
                 onClick={handleClickView}
               >
                 View

@@ -183,8 +183,6 @@ const LocationSelectLand = ({ eid, id, status, pagetype }) => {
   }, [])
 
 
-
-
   // error alert 
   const [modalOpen, setModalOpen] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
@@ -314,12 +312,12 @@ const mapCenter = viewCenter ?? initialCenter;
             <table className="table table-hover table-bordered " >
               <thead>
                 <tr>
-                  <th className="text-center" style={{ backgroundColor: "rgb(47, 79, 79)", color: "#ffff", fontWeight: "400" }}> S.no</th>
-                  <th className="text-center" style={{ backgroundColor: "rgb(47, 79, 79)", color: "#ffff", fontWeight: "400" }}>Survey No </th>
-                  <th className="text-center" style={{ backgroundColor: "rgb(47, 79, 79)", color: "#ffff", fontWeight: "400" }}> Lat & Lng </th>
+                  <th className="text-center" style={{ backgroundColor: "#f2f2f2", color: "black", fontWeight: "400" }}> S.no</th>
+                  <th className="text-center" style={{ backgroundColor: "#f2f2f2", color: "black", fontWeight: "400" }}>Survey No </th>
+                  <th className="text-center" style={{ backgroundColor: "#f2f2f2", color: "black", fontWeight: "400" }}>Sub Division </th>
+                  <th className="text-center" style={{ backgroundColor: "#f2f2f2", color: "black", fontWeight: "400" }}> Lat & Lng </th>
                   {staffid.Login === "staff" && (status === "pending" || status === "complete") && pagetype !== "reminder" && enquiryDoumentData?.status !== "booking" ? (
-                    <th className="text-center" style={{ backgroundColor: "rgb(47, 79, 79)", color: "#ffff", fontWeight: "400" }}> Actions </th>
-
+                    <th className="text-center" style={{ backgroundColor: "#f2f2f2", color: "black", fontWeight: "400" }}> Actions </th>
                   ) : null}
                 </tr>
               </thead>
@@ -329,6 +327,7 @@ const mapCenter = viewCenter ?? initialCenter;
                     <tr key={item.id}>
                       <td className="text-center">{index + 1} </td>
                       <td className="text-center">{item.survey_no} </td>
+                      <td className="text-center">{item.sub_division} </td>
                       <td className="text-center"> {item.location} </td>
 
                       {staffid.Login === "staff" && (status === "pending" || status === "complete") && pagetype !== "reminder" && enquiryDoumentData?.status !== "booking" ? (
@@ -385,9 +384,12 @@ const mapCenter = viewCenter ?? initialCenter;
                           onCloseClick={() => setHandleMarker(null)}
 
                         >
-                          <div style={{ textAlign: "center", height: "50px", overflow: "hidden" }} className="p-0">
-
+                          <div style={{ textAlign: "center", overflow: "hidden" }} className="p-0">
                             <h6 style={{ fontWeight: "400", fontSize: '15px' }}> Survey No : {item.survey_no}</h6>
+                             <h6 style={{ fontWeight: "400", fontSize: "15px" }}>
+                              {" "}
+                              Sub Division : {item.sub_division}
+                            </h6>
                             <p><LocationOnIcon sx={{ color: "red", fontSize: 17 }} /> {item.location} </p>
                           </div>
                         </InfoWindow>

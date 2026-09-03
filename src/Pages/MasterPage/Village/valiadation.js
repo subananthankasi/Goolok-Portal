@@ -1,16 +1,40 @@
-export const VillageValidateFormDatas = (formData) => {  
-    if (!formData) {
-        return { isValid: false, errorMessage: "Fill the all fields" };
-    }
-    if (!formData.village_state || !formData.village_district || !formData.village_taluk || !formData.village_name || !formData.status) {
-        return { isValid: false, errorMessage: "All fields are required" };
-    }
-    if (!formData.village_state.trim() || !formData.village_district.trim() || !formData.village_taluk.trim() ||  !formData.village_name.trim() || !formData.status.trim()) {
-        return { isValid: false, errorMessage: "All fields are required" };
-    }
-    return { isValid: true };
-};
+// export const VillageValidateFormDatas = (formData) => {  
+//     if (!formData) {
+//         return { isValid: false, errorMessage: "Fill the all fields" };
+//     }
+//     if (!formData.village_state || !formData.village_district || !formData.village_taluk || !formData.village_name || !formData.status) {
+//         return { isValid: false, errorMessage: "All fields are required" };
+//     }
+//     if (!formData.village_state.trim() || !formData.village_district.trim() || !formData.village_taluk.trim() ||  !formData.village_name.trim() || !formData.status.trim()) {
+//         return { isValid: false, errorMessage: "All fields are required" };
+//     }
+//     return { isValid: true };
+// };
+export const VillageValidateFormDatas = (formData, uploadedData) => {
 
+  if (!formData) {
+    return {
+      isValid: false,
+      errorMessage: "Please select the state.",
+    };
+  }
+
+  if (!formData.village_state || !formData.village_state.trim()) {
+    return {
+      isValid: false,
+      errorMessage: "State is required.",
+    };
+  }
+
+  if (!uploadedData || uploadedData.length === 0) {
+    return {
+      isValid: false,
+      errorMessage: "Please upload a valid Excel/CSV file.",
+    };
+  }
+
+  return { isValid: true };
+};
 
 
 

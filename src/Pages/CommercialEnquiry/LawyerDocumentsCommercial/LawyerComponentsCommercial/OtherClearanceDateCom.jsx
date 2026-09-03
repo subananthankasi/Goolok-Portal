@@ -126,10 +126,6 @@ export const OtherClearanceDateCom = (props) => {
     }
   }
 
-  // const dataSource = surveyData.lawyer_details !== null ? parsedSurveyData : surveyData
-  const dataSource = surveyData.map((data, index) =>
-    data.lawyer_details !== null ? parsedSurveyData[index] : data
-  );
   //................................................................
 
   const [date, setDate] = useState(null);

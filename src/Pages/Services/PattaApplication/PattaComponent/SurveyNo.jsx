@@ -175,13 +175,14 @@ const SurveyNo = ({ eid, id, status, rowId, pagetype }) => {
                                         ) : null}
                                     </div>
                                     <div>
-                                        <Button
+                                        {/* <Button
                                             variant="contained"
                                             type="submit"
                                             disabled={postLoading}
                                         >
                                             {postLoading ? "Adding.." : "Add"}{" "}
-                                        </Button>
+                                        </Button> */}
+                                        <button type="submit" className="btn1" disabled={postLoading}> {postLoading ? "Adding.." : "Add"} </button>
                                     </div>
                                 </div>
                             </div>

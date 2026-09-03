@@ -290,11 +290,11 @@ const MarkingGmapLayout = ({ eid, id, status, pagetype }) => {
                         <table className="table table-hover table-bordered " >
                             <thead>
                                 <tr>
-                                    <th className="text-center" style={{ backgroundColor: "rgb(47, 79, 79)", color: "#ffff", fontWeight: "400" }}> S.no</th>
-                                    <th className="text-center" style={{ backgroundColor: "rgb(47, 79, 79)", color: "#ffff", fontWeight: "400" }}>Survey No </th>
-                                    <th className="text-center" style={{ backgroundColor: "rgb(47, 79, 79)", color: "#ffff", fontWeight: "400" }}> Lat & Lng </th>
+                                    <th className="text-center" style={{ backgroundColor: "#f2f2f2", fontWeight: "400" }}> S.no</th>
+                                    <th className="text-center" style={{ backgroundColor: "#f2f2f2", fontWeight: "400" }}>Survey No </th>
+                                    <th className="text-center" style={{ backgroundColor: "#f2f2f2", fontWeight: "400" }}> Lat & Lng </th>
                                     {staffid.Login === "staff" && (status === "pending" || status === "complete") && pagetype !== "reminder" && enquiryDoumentData?.status !== "booking" ? (
-                                        <th className="text-center" style={{ backgroundColor: "rgb(47, 79, 79)", color: "#ffff", fontWeight: "400" }}> Actions </th>
+                                        <th className="text-center" style={{ backgroundColor: "#f2f2f2", fontWeight: "400" }}> Actions </th>
 
                                     ) : null}
                                 </tr>

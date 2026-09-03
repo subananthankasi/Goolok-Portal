@@ -388,7 +388,7 @@ const AgreementPeriodOwnerAP = ({ eid, id, status, pagetype }) => {
                     </div>
 
                     <div className="d-flex justify-content-end gap-2 mt-4">
-                        <Button
+                        {/* <Button
                             variant="contained"
                             color="success"
                             onClick={() => setEditing(false)}
@@ -397,7 +397,15 @@ const AgreementPeriodOwnerAP = ({ eid, id, status, pagetype }) => {
                         >
                             {" "}
                             {postLoading ? "Processing..." : "Save"}{" "}
-                        </Button>
+                        </Button> */}
+                        <button
+                            className="btn1 me-2"
+                            type="submit"
+                            disabled={postLoading}
+                            onClick={() => setEditing(false)}
+                        >
+                            {postLoading ? "Processing..." : "Save"}{" "}
+                        </button>
                     </div>
                 </form>
             </Dialog>
@@ -460,7 +468,7 @@ const AgreementPeriodOwnerAP = ({ eid, id, status, pagetype }) => {
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                         /> */}
-                        <DatePicker
+                        {/* <DatePicker
                             placement="topRight"
                             name="startdate"
                             value={
@@ -479,6 +487,25 @@ const AgreementPeriodOwnerAP = ({ eid, id, status, pagetype }) => {
                             style={{ width: "100%" }}
                             //   disabledDate={(current) => current && current > dayjs()}
                             onBlur={formik.handleBlur}
+                            getPopupContainer={(triggerNode) => triggerNode.parentNode}
+                        /> */}
+
+                        <DatePicker
+                            picker="date"
+                            format="DD/MM/YYYY"
+                            value={
+                                formik.values.startdate
+                                    ? dayjs(formik.values.startdate)
+                                    : null
+                            }
+                            onChange={(date) => {
+                                formik.setFieldValue(
+                                    "startdate",
+                                    date ? date.format("YYYY-MM-DD") : ""
+                                );
+                                formik.setFieldValue("closedate", "");
+                            }}
+                            style={{ width: "100%" }}
                             getPopupContainer={(triggerNode) => triggerNode.parentNode}
                         />
 
@@ -550,7 +577,7 @@ const AgreementPeriodOwnerAP = ({ eid, id, status, pagetype }) => {
                         ) : null}
                     </div>
                     <div className="d-flex justify-content-end gap-2 mt-4">
-                        <Button
+                        {/* <Button
                             variant="contained"
                             color="success"
                             onClick={() => setEditing(true)}
@@ -559,7 +586,15 @@ const AgreementPeriodOwnerAP = ({ eid, id, status, pagetype }) => {
                         >
                             {" "}
                             {postLoading ? "Processing..." : "Update"}{" "}
-                        </Button>
+                        </Button> */}
+                        <button
+                            className="btn1 me-2"
+                            type="submit"
+                            disabled={postLoading}
+                            onClick={() => setEditing(true)}
+                        >
+                            {postLoading ? "Processing..." : "Update"}{" "}
+                        </button>
                     </div>
                 </form>
             </Dialog>

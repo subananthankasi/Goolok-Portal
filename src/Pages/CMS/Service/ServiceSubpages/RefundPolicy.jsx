@@ -179,7 +179,7 @@ const RefundPolicy = () => {
           <div className="card">
             <div className="card-header">
               <div className="d-flex justify-content-between">
-                <h4 className="page_heading">Service RefundPolicy View Table</h4>
+                <h4 className="page_heading">RefundPolicy View Table</h4>
                 <button
                   type="button"
                   className="btn1"
@@ -222,7 +222,7 @@ const RefundPolicy = () => {
         }}
       >
         <Modal.Header>
-          <Modal.Title> Service RefundPolicy </Modal.Title>
+          <Modal.Title>  RefundPolicy </Modal.Title>
         </Modal.Header>
 
         <Modal.Body

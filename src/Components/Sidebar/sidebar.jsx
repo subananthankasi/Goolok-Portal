@@ -11,7 +11,9 @@ import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 import ReceiptOutlinedIcon from "@mui/icons-material/ReceiptOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
-import logo1 from "../../Assets/images/Goolok Final Logo.png";
+// import logo1 from "../../Assets/images/Boolok Logo original.png";
+import logo1 from "../../Assets/images/BOOLOK LOGO VERTICAL HORIZONTAL LOCKUP.svg";
+import smallLogo from "../../Assets/images/boolok.png";
 import AccountTreeIcon from "@mui/icons-material/AccountTree";
 import ApartmentIcon from "@mui/icons-material/Apartment";
 import "./sidebarcss.css";
@@ -60,6 +62,14 @@ import TimelapseIcon from "@mui/icons-material/Timelapse";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import CancelPresentationIcon from "@mui/icons-material/CancelPresentation";
 import { useBreadcrumb } from "../../common/BreadCrumpProvider";
+import SupportAgentIcon from '@mui/icons-material/SupportAgent';
+import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
+import SellIcon from '@mui/icons-material/Sell';
+import RequestQuoteIcon from '@mui/icons-material/RequestQuote';
+import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
+import { enquiryCountsThunk } from "../../Redux/Actions/EnquiryCountsThunk";
+import ListAltIcon from '@mui/icons-material/ListAlt';
+
 
 const Item = ({
   title,
@@ -99,6 +109,8 @@ const Item = ({
     localStorage.setItem("breadcrumb", JSON.stringify(data));
     setBreadcrumb(data);
   };
+
+
 
   return (
     <ProMenuItem
@@ -301,6 +313,7 @@ const Sidebars = () => {
     "commercial_contentwriting",
     //Apartment Project Enquiry
     "aproject_document",
+    "aproject_invoiceverification",
     "aproject_location",
     "aproject_marketresearch",
     "aproject_lawyerdocument",
@@ -312,6 +325,10 @@ const Sidebars = () => {
     "telecalling_documentverification",
     "telecalling_fileupload",
     "telecalling_advance",
+
+    //customer
+    "buyer",
+    "seller"
 
   ];
   useEffect(() => {
@@ -326,7 +343,28 @@ const Sidebars = () => {
   const loginType = localStorage.getItem("logintype");
   const token = localStorage.getItem("token");
   const pages = JSON.parse(token)?.pages;
+  const module = JSON.parse(token)?.module;
 
+
+  const apartmentPages = [
+    "Document verification",
+    "Advance",
+    "Location verification",
+    "Market research",
+    "Price proposal",
+    "Payment for legal opinion",
+    "Lawyer documents",
+    "Mandatory document",
+    "Field survey",
+    "Landowner agreement",
+    "Pricing department",
+    "Media department",
+    "Content writing",
+  ];
+
+  const hasApartmentAccess = apartmentPages.some(page =>
+    pages?.includes(page)
+  );
   // no internet
   const navigate = useNavigate();
 
@@ -352,16 +390,19 @@ const Sidebars = () => {
       window.removeEventListener("offline", handleOnlineStatus);
     };
   }, [navigate]);
-
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(projectStatusThunk());
     dispatch(ServiceProjectStatusThunk());
+    dispatch(enquiryCountsThunk())
+
   }, []);
   const projectCount = useSelector((state) => state.projectStatus.data);
   const serviceProjectCount = useSelector(
     (state) => state.serviceProjectCount.data
   );
+  const count = useSelector((state) => state.enquiryCounts.data);
+
 
   return (
     <Box>
@@ -373,27 +414,52 @@ const Sidebars = () => {
           <ProMenuItem
             className="no-hover"
             onClick={() => setIsCollapsed(!isCollapsed)}
-            icon={isCollapsed ? <MenuOutlinedIcon /> : undefined}
-            style={{ margin: "10px 0 20px 0", backgroundColor: "white" }}
+            // icon={isCollapsed ? <MenuOutlinedIcon /> : undefined}
+            style={{ margin: "10px 0 20px 0", backgroundColor: "white", height: "60px" }}
           >
-            {!isCollapsed && (
-              <Box
-                display="flex"
-                justifyContent="space-between"
-                alignItems="center"
-                ml="15px"
-              >
-                <img
+            {/* {!isCollapsed && ( */}
+            <Box
+              display="flex"
+              // justifyContent="space-between"
+              justifyContent={isCollapsed ? "center" : "space-between"}
+              alignItems="center"
+              ml="15px"
+            >
+              {/* <img
                   src={logo1}
-                  style={{ width: "150px", height: "55px" }}
+                  style={{ height: "55px", objectFit: "cover" }}
                   alt="logo"
                   className="p-2"
                 />
                 <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
-                  <MenuOutlinedIcon className="" style={{ color: "#2f4f4f" }} />
-                </IconButton>
-              </Box>
-            )}
+                  <MenuOutlinedIcon className="" style={{ color: "black" }} />
+                </IconButton> */}
+              {!isCollapsed && (
+                <img
+                  src={logo1}
+                  style={{ objectFit: "cover", width: "80%" }}
+                  alt="logo"
+                  className="p-2"
+                />
+              )}
+
+              {/* Toggle Button */}
+              <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
+                {isCollapsed ? (
+                  <img
+                    src={smallLogo}
+                    alt="logo"
+                    style={{
+                      height: "35px",
+                      objectFit: "",
+                    }}
+                  />
+                ) : (
+                  <MenuOutlinedIcon style={{ color: "black" }} />
+                )}
+              </IconButton>
+            </Box>
+            {/* )} */}
           </ProMenuItem>
 
           <Box paddingLeft={isCollapsed ? undefined : "10%"}>
@@ -506,6 +572,13 @@ const Sidebars = () => {
                     parent="Master Page"
                   />
                   <Item
+                    title="Discount "
+                    to="/discount"
+                    selected={selected}
+                    setSelected={setSelected}
+                    parent="Master Page"
+                  />
+                  <Item
                     title="Strategy "
                     to="/strategy"
                     selected={selected}
@@ -557,6 +630,20 @@ const Sidebars = () => {
                   <Item
                     title="Branch "
                     to="/branch"
+                    selected={selected}
+                    setSelected={setSelected}
+                    parent="Master Page"
+                  />
+                  <Item
+                    title="Bank "
+                    to="/bank"
+                    selected={selected}
+                    setSelected={setSelected}
+                    parent="Master Page"
+                  />
+                  <Item
+                    title="Payment Mode "
+                    to="/paymentmode"
                     selected={selected}
                     setSelected={setSelected}
                     parent="Master Page"
@@ -645,8 +732,8 @@ const Sidebars = () => {
                   icon={<AddIcCallIcon />}
                   style={{ color: "White" }}
                   // open={openSubMenus["Enquiry"]}
-                  open={openMainMenu === "Enquiry"}
-                  onClick={() => toggleMainMenu("Enquiry")}
+                  open={openMainMenu === "TeleCall"}
+                  onClick={() => toggleMainMenu("TeleCall")}
                 >
                   <Item
                     title="Document verification"
@@ -714,6 +801,33 @@ const Sidebars = () => {
                   open={openMainMenu === "CMS"}
                   onClick={() => toggleMainMenu("CMS")}
                 >
+                   <Item
+                      title="Boolok Verified List"
+                      to="/boolokverifiedlists"
+                      icon={<ListAltIcon />}
+                      selected={selected}
+                      setSelected={setSelected}
+                    // bigparent="Service"
+                    // parent="Home"
+                    />
+                  <Item
+                    title="Layout Booking"
+                    to="/layoutbooking"
+                    icon={<SummarizeIcon />}
+                    selected={selected}
+                    setSelected={setSelected}
+                  // bigparent="Service"
+                  // parent="Home"
+                  />
+                  <Item
+                    title="Layout Reports"
+                    to="/layoutdrawreports"
+                    icon={<SummarizeIcon />}
+                    selected={selected}
+                    setSelected={setSelected}
+                  // bigparent="Service"
+                  // parent="Home"
+                  />
                   <SubMenu
                     label="Home"
                     icon={<PeopleOutlinedIcon />}
@@ -730,9 +844,33 @@ const Sidebars = () => {
                       bigparent="CMS"
                       parent="Home"
                     />
-                    <Item
+                    {/* <Item
                       title="Ad Block1"
                       to="/adblock1"
+                      selected={selected}
+                      setSelected={setSelected}
+                      bigparent="CMS"
+                      parent="Home"
+                    /> */}
+                    <Item
+                      title="USP"
+                      to="/usb"
+                      selected={selected}
+                      setSelected={setSelected}
+                      bigparent="CMS"
+                      parent="Home"
+                    />
+                    <Item
+                      title="Testimonials"
+                      to="/testimonials"
+                      selected={selected}
+                      setSelected={setSelected}
+                      bigparent="CMS"
+                      parent="Home"
+                    />
+                    <Item
+                      title="Service Image For Mobile"
+                      to="/serviceimagemobile"
                       selected={selected}
                       setSelected={setSelected}
                       bigparent="CMS"
@@ -921,11 +1059,11 @@ const Sidebars = () => {
                         parent="Home"
                       />
                       {/* <Item
-                    title="ServiceName"
-                    to="/servicename"
-                    selected={selected}
-                    setSelected={setSelected}
-                  /> */}
+                        title="ServiceName"
+                        to="/servicename"
+                        selected={selected}
+                        setSelected={setSelected}
+                      /> */}
                       <Item
                         title="ServiceCreation"
                         to="/servicecreation"
@@ -1019,6 +1157,8 @@ const Sidebars = () => {
                       />
                     </SubMenu>
                   </SubMenu>
+
+
                 </SubMenu>
                 {/* <SubMenu
                   label="Vendor"
@@ -1203,6 +1343,20 @@ const Sidebars = () => {
                     parent="Booking"
                   />
                 </SubMenu>
+                <Item
+                  title="Customer Lead"
+                  to="/customerlead"
+                  icon={<SupportAgentIcon />}
+                  selected={selected}
+                  setSelected={setSelected}
+                />
+                <Item
+                  title="Enquiry Reports"
+                  to="/enquiryreports"
+                  icon={<SupportAgentIcon />}
+                  selected={selected}
+                  setSelected={setSelected}
+                />
                 <SubMenu
                   label="Service Report"
                   icon={<EngineeringIcon />}
@@ -1614,10 +1768,32 @@ const Sidebars = () => {
                   open={openMainMenu === "Enquiry"}
                   onClick={() => toggleMainMenu("Enquiry")}
                 >
-                  <Item
+                  {/* <Item
                     title="Document Verification"
                     to="/document_verification"
                     icon={<SummarizeIcon />}
+                    selected={selected}
+                    setSelected={setSelected}
+                    parent="Land Enquiry"
+                  /> */}
+                  <Item
+                    title={
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "center",
+                          width: "100%",
+                          gap: "10px",
+                        }}
+                      >
+                        <Badge value={1} severity="danger" />
+                        <SummarizeIcon fontSize="small" />
+                        <span>Document Verification</span>
+                      </div>
+                    }
+                    to="/document_verification"
+                    // icon={<SummarizeIcon />}
                     selected={selected}
                     setSelected={setSelected}
                     parent="Land Enquiry"
@@ -2246,6 +2422,14 @@ const Sidebars = () => {
                     parent="Apartment Project Enquiry"
                   />
                   <Item
+                    title="Invoice Verification"
+                    to="/aproject_invoiceverification"
+                    icon={<ReceiptIcon />}
+                    selected={selected}
+                    setSelected={setSelected}
+                    parent="Apartment Project Enquiry"
+                  />
+                  <Item
                     title="Location Verification"
                     to="/aproject_location"
                     icon={<GpsFixedIcon />}
@@ -2350,6 +2534,48 @@ const Sidebars = () => {
                     selected={selected}
                     setSelected={setSelected}
                     parent="After Sale"
+                  />
+                </SubMenu>
+                <SubMenu
+                  label="Seller Payments"
+                  icon={<MonetizationOnIcon />}
+                  style={{ color: "White" }}
+                  open={openMainMenu === "SellerPayment"}
+                  onClick={() => toggleMainMenu("SellerPayment")}
+                >
+
+                  <Item
+                    title="Payment To Seller"
+                    to="/paymentseller"
+                    icon={<RequestQuoteIcon />}
+                    selected={selected}
+                    setSelected={setSelected}
+                    parent="Seller Payments"
+                  />
+
+                </SubMenu>
+                <SubMenu
+                  label="Customer"
+                  icon={<SupportAgentIcon />}
+                  style={{ color: "White" }}
+                  open={openMainMenu === "Customer"}
+                  onClick={() => toggleMainMenu("Customer")}
+                >
+                  <Item
+                    title="Buyer"
+                    to="/buyer"
+                    icon={<ShoppingBasketIcon />}
+                    selected={selected}
+                    setSelected={setSelected}
+                    parent="Customer"
+                  />
+                  <Item
+                    title="Seller"
+                    to="/seller"
+                    icon={<SellIcon />}
+                    selected={selected}
+                    setSelected={setSelected}
+                    parent="Customer"
                   />
                 </SubMenu>
                 {/* <SubMenu label="Property Management" icon={<LandslideIcon />} style={{ color: "red" }} open={openSubMenus['PropertyManagement']} onClick={() => toggleSubMenu('PropertyManagement')}> */}
@@ -3640,21 +3866,9 @@ const Sidebars = () => {
                       )}
                     </SubMenu>
                   )}
-                {pages?.includes(
-                  "Document verification" ||
-                  "Advance" ||
-                  "Location verification" ||
-                  "Market research" ||
-                  "Price proposal" ||
-                  "Payment for legal opinion" ||
-                  "Lawyer documents" ||
-                  "Mandatory document" ||
-                  "Field survey" ||
-                  "Landowner agreement" ||
-                  "Pricing department" ||
-                  "Media department" ||
-                  "Content writing"
-                ) && (
+
+                {module?.includes(
+                  "Land Enquiry") && (
                     <SubMenu
                       label="Land Enquiry"
                       icon={<NotificationsActiveIcon />}
@@ -3795,167 +4009,141 @@ const Sidebars = () => {
                       )}
                     </SubMenu>
                   )}
-                {pages?.includes(
-                  "Document verification" ||
-                  "Advance" ||
-                  "Location verification" ||
-                  "Market research" ||
-                  "Price proposal" ||
-                  "Payment for legal opinion" ||
-                  "Lawyer documents" ||
-                  "Mandatory document" ||
-                  "Field survey" ||
-                  "Landowner agreement" ||
-                  "Pricing department" ||
-                  "Media department" ||
-                  "Content writing"
-                ) && (
-                    <SubMenu
-                      label="Apartment Enquiry"
-                      icon={<ApartmentIcon />}
-                      style={{ color: "White" }}
-                      // open={openSubMenus["ApartEnquiry"]}
-                      open={openMainMenu === "ApartEnquiry"}
-                      onClick={() => toggleMainMenu("ApartEnquiry")}
-                    >
-                      {pages?.includes("Document verification") && (
-                        <Item
-                          title="Document Verification"
-                          to="/apart_document_verification"
-                          icon={<SummarizeIcon />}
-                          selected={selected}
-                          setSelected={setSelected}
-                          parent="Apartment Enquiry"
-                        />
-                      )}
-                      {pages?.includes("Advance") && (
-                        <Item
-                          title="Invoice Verification"
-                          to="/apart_invoice_verification"
-                          icon={<ReceiptIcon />}
-                          selected={selected}
-                          setSelected={setSelected}
-                          parent="Apartment Enquiry"
-                        />
-                      )}
-                      {pages?.includes("Location verification") && (
-                        <Item
-                          title="Location Verification"
-                          to="/apart_location_verification"
-                          icon={<GpsFixedIcon />}
-                          selected={selected}
-                          setSelected={setSelected}
-                          parent="Apartment Enquiry"
-                        />
-                      )}
-                      {pages?.includes("Market research") && (
-                        <Item
-                          title="Market Research Verification"
-                          to="/apart_marketResearch_verification"
-                          icon={<AddBusinessIcon />}
-                          selected={selected}
-                          setSelected={setSelected}
-                          parent="Apartment Enquiry"
-                        />
-                      )}
-                      {pages?.includes("Price proposal") && (
-                        <Item
-                          title="Price proposal agreement"
-                          to="/apart_price_proposal"
-                          icon={<AttachMoneyIcon />}
-                          selected={selected}
-                          setSelected={setSelected}
-                          parent="Apartment Enquiry"
-                        />
-                      )}
-                      {pages?.includes("Payment for legal opinion") && (
-                        <Item
-                          title="Payment for Legal opinion and Field survey"
-                          to="/apart_payment_legal_opinion"
-                          icon={<PolicyIcon />}
-                          selected={selected}
-                          setSelected={setSelected}
-                          parent="Apartment Enquiry"
-                        />
-                      )}
-                      {pages?.includes("Lawyer documents") && (
-                        <Item
-                          title="Lawyer Documents"
-                          to="/apart_lawyer_documents"
-                          icon={<LocalPoliceIcon />}
-                          selected={selected}
-                          setSelected={setSelected}
-                          parent="Apartment Enquiry"
-                        />
-                      )}
-                      {pages?.includes("Mandatory document") && (
-                        <Item
-                          title="Field survey"
-                          to="/apart_field_survey"
-                          icon={<PollIcon />}
-                          selected={selected}
-                          setSelected={setSelected}
-                          parent="Apartment Enquiry"
-                        />
-                      )}
-                      {pages?.includes("Landowner agreement") && (
-                        <Item
-                          title="Land Owner Agreement"
-                          to="/apart_land_owner_agreement"
-                          icon={<HandshakeIcon />}
-                          selected={selected}
-                          setSelected={setSelected}
-                          parent="Apartment Enquiry"
-                        />
-                      )}
-                      {pages?.includes("Pricing department") && (
-                        <Item
-                          title="Pricing Department"
-                          to="/apart_pricing_department"
-                          icon={<AssuredWorkloadIcon />}
-                          selected={selected}
-                          setSelected={setSelected}
-                          parent="Apartment Enquiry"
-                        />
-                      )}
-                      {pages?.includes("Media department") && (
-                        <Item
-                          title="Media Department"
-                          to="/apart_media_department"
-                          icon={<PermMediaIcon />}
-                          selected={selected}
-                          setSelected={setSelected}
-                          parent="Apartment Enquiry"
-                        />
-                      )}
-                      {pages?.includes("Content writing") && (
-                        <Item
-                          title="Content Writing"
-                          to="/apart_content_Writing"
-                          icon={<PostAddIcon />}
-                          selected={selected}
-                          setSelected={setSelected}
-                          parent="Apartment Enquiry"
-                        />
-                      )}
-                    </SubMenu>
-                  )}
 
-                {pages?.includes(
-                  "Document verification" ||
-                  "Advance" ||
-                  "Location verification" ||
-                  "Market research" ||
-                  "Price proposal" ||
-                  "Payment for legal opinion" ||
-                  "Lawyer documents" ||
-                  "Mandatory document" ||
-                  "Field survey" ||
-                  "Landowner agreement" ||
-                  "Pricing department" ||
-                  "Media department" ||
-                  "Content writing"
-                ) && (
+                {module?.includes("Apartment Enquiry") && (
+                  <SubMenu
+                    label="Apartment Enquiry"
+                    icon={<ApartmentIcon />}
+                    style={{ color: "White" }}
+                    // open={openSubMenus["ApartEnquiry"]}
+                    open={openMainMenu === "ApartEnquiry"}
+                    onClick={() => toggleMainMenu("ApartEnquiry")}
+                  >
+                    {pages?.includes("Document verification") && (
+                      <Item
+                        title="Document Verification"
+                        to="/apart_document_verification"
+                        icon={<SummarizeIcon />}
+                        selected={selected}
+                        setSelected={setSelected}
+                        parent="Apartment Enquiry"
+                      />
+                    )}
+                    {pages?.includes("Advance") && (
+                      <Item
+                        title="Invoice Verification"
+                        to="/apart_invoice_verification"
+                        icon={<ReceiptIcon />}
+                        selected={selected}
+                        setSelected={setSelected}
+                        parent="Apartment Enquiry"
+                      />
+                    )}
+                    {pages?.includes("Location verification") && (
+                      <Item
+                        title="Location Verification"
+                        to="/apart_location_verification"
+                        icon={<GpsFixedIcon />}
+                        selected={selected}
+                        setSelected={setSelected}
+                        parent="Apartment Enquiry"
+                      />
+                    )}
+                    {pages?.includes("Market research") && (
+                      <Item
+                        title="Market Research Verification"
+                        to="/apart_marketResearch_verification"
+                        icon={<AddBusinessIcon />}
+                        selected={selected}
+                        setSelected={setSelected}
+                        parent="Apartment Enquiry"
+                      />
+                    )}
+                    {pages?.includes("Price proposal") && (
+                      <Item
+                        title="Price proposal agreement"
+                        to="/apart_price_proposal"
+                        icon={<AttachMoneyIcon />}
+                        selected={selected}
+                        setSelected={setSelected}
+                        parent="Apartment Enquiry"
+                      />
+                    )}
+                    {pages?.includes("Payment for legal opinion") && (
+                      <Item
+                        title="Payment for Legal opinion and Field survey"
+                        to="/apart_payment_legal_opinion"
+                        icon={<PolicyIcon />}
+                        selected={selected}
+                        setSelected={setSelected}
+                        parent="Apartment Enquiry"
+                      />
+                    )}
+                    {pages?.includes("Lawyer documents") && (
+                      <Item
+                        title="Lawyer Documents"
+                        to="/apart_lawyer_documents"
+                        icon={<LocalPoliceIcon />}
+                        selected={selected}
+                        setSelected={setSelected}
+                        parent="Apartment Enquiry"
+                      />
+                    )}
+                    {pages?.includes("Mandatory document") && (
+                      <Item
+                        title="Field survey"
+                        to="/apart_field_survey"
+                        icon={<PollIcon />}
+                        selected={selected}
+                        setSelected={setSelected}
+                        parent="Apartment Enquiry"
+                      />
+                    )}
+                    {pages?.includes("Landowner agreement") && (
+                      <Item
+                        title="Land Owner Agreement"
+                        to="/apart_land_owner_agreement"
+                        icon={<HandshakeIcon />}
+                        selected={selected}
+                        setSelected={setSelected}
+                        parent="Apartment Enquiry"
+                      />
+                    )}
+                    {pages?.includes("Pricing department") && (
+                      <Item
+                        title="Pricing Department"
+                        to="/apart_pricing_department"
+                        icon={<AssuredWorkloadIcon />}
+                        selected={selected}
+                        setSelected={setSelected}
+                        parent="Apartment Enquiry"
+                      />
+                    )}
+                    {pages?.includes("Media department") && (
+                      <Item
+                        title="Media Department"
+                        to="/apart_media_department"
+                        icon={<PermMediaIcon />}
+                        selected={selected}
+                        setSelected={setSelected}
+                        parent="Apartment Enquiry"
+                      />
+                    )}
+                    {pages?.includes("Content writing") && (
+                      <Item
+                        title="Content Writing"
+                        to="/apart_content_Writing"
+                        icon={<PostAddIcon />}
+                        selected={selected}
+                        setSelected={setSelected}
+                        parent="Apartment Enquiry"
+                      />
+                    )}
+                  </SubMenu>
+                )}
+
+                {module?.includes(
+                  "Plot Enquiry") && (
                     <SubMenu
                       label="Plot Enquiry"
                       icon={<LocationCityIcon />}
@@ -4088,21 +4276,8 @@ const Sidebars = () => {
                     </SubMenu>
                   )}
 
-                {pages?.includes(
-                  "Document verification" ||
-                  "Advance" ||
-                  "Location verification" ||
-                  "Market research" ||
-                  "Price proposal" ||
-                  "Payment for legal opinion" ||
-                  "Lawyer documents" ||
-                  "Mandatory document" ||
-                  "Field survey" ||
-                  "Landowner agreement" ||
-                  "Pricing department" ||
-                  "Media department" ||
-                  "Content writing"
-                ) && (
+                {module?.includes(
+                  "House Enquiry") && (
                     <SubMenu
                       label="House Enquiry"
                       icon={<HouseIcon />}
@@ -4235,21 +4410,8 @@ const Sidebars = () => {
                     </SubMenu>
                   )}
 
-                {pages?.includes(
-                  "Document verification" ||
-                  "Advance" ||
-                  "Location verification" ||
-                  "Market research" ||
-                  "Price proposal" ||
-                  "Payment for legal opinion" ||
-                  "Lawyer documents" ||
-                  "Mandatory document" ||
-                  "Field survey" ||
-                  "Landowner agreement" ||
-                  "Pricing department" ||
-                  "Media department" ||
-                  "Content writing"
-                ) && (
+                {module?.includes(
+                  "Layout Enquiry") && (
                     <SubMenu
                       label="Layout Enquiry"
                       icon={<PictureInPictureIcon />}
@@ -4360,21 +4522,8 @@ const Sidebars = () => {
                       )}
                     </SubMenu>
                   )}
-                {pages?.includes(
-                  "Document verification" ||
-                  "Advance" ||
-                  "Location verification" ||
-                  "Market research" ||
-                  "Price proposal" ||
-                  "Payment for legal opinion" ||
-                  "Lawyer documents" ||
-                  "Mandatory document" ||
-                  "Field survey" ||
-                  "Landowner agreement" ||
-                  "Pricing department" ||
-                  "Media department" ||
-                  "Content writing"
-                ) && (
+                {module?.includes(
+                  "Commercial Enquiry") && (
                     <SubMenu
                       label="Commercial Enquiry"
                       icon={<SpaIcon />}
@@ -4513,21 +4662,8 @@ const Sidebars = () => {
                     </SubMenu>
                   )}
 
-                {pages?.includes(
-                  "Document verification" ||
-                  "Advance" ||
-                  "Location verification" ||
-                  "Market research" ||
-                  "Price proposal" ||
-                  "Payment for legal opinion" ||
-                  "Lawyer documents" ||
-                  "Mandatory document" ||
-                  "Field survey" ||
-                  "Landowner agreement" ||
-                  "Pricing department" ||
-                  "Media department" ||
-                  "Content writing"
-                ) && (
+                {module?.includes(
+                  "Apartment Project Enquiry") && (
                     <SubMenu
                       label="Apartment Project Enquiry"
                       icon={<FormatShapesIcon />}
@@ -4541,6 +4677,16 @@ const Sidebars = () => {
                           title="Document Verification"
                           to="/aproject_document"
                           icon={<SummarizeIcon />}
+                          selected={selected}
+                          setSelected={setSelected}
+                          parent="Apartment Project Enquiry"
+                        />
+                      )}
+                      {pages?.includes("Advance") && (
+                        <Item
+                          title="Invoice Verification"
+                          to="/aproject_invoiceverification"
+                          icon={<ReceiptIcon />}
                           selected={selected}
                           setSelected={setSelected}
                           parent="Apartment Project Enquiry"
@@ -4672,6 +4818,32 @@ const Sidebars = () => {
                     />
                   </SubMenu>
                 )}
+                {pages?.includes("Customer") && (
+                  <SubMenu
+                    label="Customer"
+                    icon={<SupportAgentIcon />}
+                    style={{ color: "White" }}
+                    open={openMainMenu === "Customer"}
+                    onClick={() => toggleMainMenu("Customer")}
+                  >
+                    <Item
+                      title="Buyer"
+                      to="/buyer"
+                      icon={<ShoppingBasketIcon />}
+                      selected={selected}
+                      setSelected={setSelected}
+                      parent="Customer"
+                    />
+                    <Item
+                      title="Seller"
+                      to="/seller"
+                      icon={<SellIcon />}
+                      selected={selected}
+                      setSelected={setSelected}
+                      parent="Customer"
+                    />
+                  </SubMenu>
+                )}
 
                 {pages?.includes("Telecalling") && (
                   <>
@@ -4752,6 +4924,33 @@ const Sidebars = () => {
                     open={openMainMenu === "CMS"}
                     onClick={() => toggleMainMenu("CMS")}
                   >
+                    <Item
+                      title="Boolok Verified List"
+                      to="/boolokverifiedlists"
+                      icon={<ListAltIcon />}
+                      selected={selected}
+                      setSelected={setSelected}
+                    // bigparent="Service"
+                    // parent="Home"
+                    />
+                    <Item
+                      title="Layout Booking"
+                      to="/layoutbooking"
+                      icon={<SummarizeIcon />}
+                      selected={selected}
+                      setSelected={setSelected}
+                    // bigparent="Service"
+                    // parent="Home"
+                    />
+                    <Item
+                      title="Layout Reports"
+                      to="/layoutdrawreports"
+                      icon={<SummarizeIcon />}
+                      selected={selected}
+                      setSelected={setSelected}
+                    // bigparent="Service"
+                    // parent="Home"
+                    />
                     <SubMenu
                       label="Home"
                       icon={<PeopleOutlinedIcon />}
@@ -4768,9 +4967,33 @@ const Sidebars = () => {
                         bigparent="CMS"
                         parent="Home"
                       />
-                      <Item
+                      {/* <Item
                         title="Ad Block1"
                         to="/adblock1"
+                        selected={selected}
+                        setSelected={setSelected}
+                        bigparent="CMS"
+                        parent="Home"
+                      /> */}
+                      <Item
+                        title="USP"
+                        to="/usb"
+                        selected={selected}
+                        setSelected={setSelected}
+                        bigparent="CMS"
+                        parent="Home"
+                      />
+                      <Item
+                        title="Testimonials"
+                        to="/testimonials"
+                        selected={selected}
+                        setSelected={setSelected}
+                        bigparent="CMS"
+                        parent="Home"
+                      />
+                      <Item
+                        title="Service Image For Mobile"
+                        to="/serviceimagemobile"
                         selected={selected}
                         setSelected={setSelected}
                         bigparent="CMS"

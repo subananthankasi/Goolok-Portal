@@ -19,7 +19,7 @@ import { InputGroup } from "rsuite";
 
 
 
-const PricingDepartmentHouse = ({ eid, status, id, pagetype ,discountPage }) => {
+const PricingDepartmentHouse = ({ eid, status, id, pagetype, discountPage }) => {
   const staffid = JSON.parse(localStorage.getItem("token"));
   const [unit, setUnit] = useState(false);
   const [getOption, setGetOption] = useState([]);
@@ -31,7 +31,7 @@ const PricingDepartmentHouse = ({ eid, status, id, pagetype ,discountPage }) => 
   const [deleteId, setDeleteId] = useState(null);
   const [tableData, setTableData] = useState([]);
   const [discountDialog, setDiscountDialog] = useState(false);
- 
+
   const enquiryDoumentData = useSelector(
     (state) => state.Enquiry.enquiryDocument
   );
@@ -85,92 +85,92 @@ const PricingDepartmentHouse = ({ eid, status, id, pagetype ,discountPage }) => 
   //   setCombinedValue("");
   //   formik.resetForm();
   // };
- const onSubmit = (values) => {
-  const newChargeDetail = {
-    id: Date.now(),
-    charges: values.charges,
-    unit: combinedValue || null,
-    price: Number(values.price),
-  };
+  const onSubmit = (values) => {
+    const newChargeDetail = {
+      id: Date.now(),
+      charges: values.charges,
+      unit: combinedValue || null,
+      price: Number(values.price),
+    };
 
-  setInvoiceData((prevData) => {
-    if (!prevData || prevData.length === 0) {
-      return [
-        {
+    setInvoiceData((prevData) => {
+      if (!prevData || prevData.length === 0) {
+        return [
+          {
+            id: currentInvoiceId,
+            chargeDetails: [newChargeDetail],
+            subtotal: newChargeDetail.price.toFixed(2),
+            total: newChargeDetail.price.toFixed(2),
+            gst: "0.00",
+          },
+        ];
+      }
+
+      let invoiceExists = false;
+
+      const updatedData = prevData.map((invoiceItem) => {
+        if (invoiceItem.id === currentInvoiceId) {
+          invoiceExists = true;
+
+          const existingCharges = invoiceItem.chargeDetails || [];
+
+          // check if same charge + unit exists
+          const existingIndex = existingCharges.findIndex(
+            (item) =>
+              item.charges === newChargeDetail.charges &&
+              item.unit === newChargeDetail.unit
+          );
+
+          let updatedChargeDetails;
+
+          if (existingIndex !== -1) {
+            // merge price
+            updatedChargeDetails = [...existingCharges];
+            updatedChargeDetails[existingIndex] = {
+              ...updatedChargeDetails[existingIndex],
+              price:
+                Number(updatedChargeDetails[existingIndex].price) +
+                Number(newChargeDetail.price),
+            };
+          } else {
+            // add new charge
+            updatedChargeDetails = [...existingCharges, newChargeDetail];
+          }
+
+          // recalc subtotal/total
+          const subtotal = updatedChargeDetails
+            .reduce((sum, item) => sum + Number(item.price), 0)
+            .toFixed(2);
+
+          return {
+            ...invoiceItem,
+            chargeDetails: updatedChargeDetails,
+            subtotal,
+            total: subtotal, // update total if same as subtotal
+          };
+        }
+
+        return invoiceItem;
+      });
+
+      if (!invoiceExists) {
+        updatedData.push({
           id: currentInvoiceId,
           chargeDetails: [newChargeDetail],
           subtotal: newChargeDetail.price.toFixed(2),
           total: newChargeDetail.price.toFixed(2),
           gst: "0.00",
-        },
-      ];
-    }
-
-    let invoiceExists = false;
-
-    const updatedData = prevData.map((invoiceItem) => {
-      if (invoiceItem.id === currentInvoiceId) {
-        invoiceExists = true;
-
-        const existingCharges = invoiceItem.chargeDetails || [];
-
-        // check if same charge + unit exists
-        const existingIndex = existingCharges.findIndex(
-          (item) =>
-            item.charges === newChargeDetail.charges &&
-            item.unit === newChargeDetail.unit
-        );
-
-        let updatedChargeDetails;
-
-        if (existingIndex !== -1) {
-          // merge price
-          updatedChargeDetails = [...existingCharges];
-          updatedChargeDetails[existingIndex] = {
-            ...updatedChargeDetails[existingIndex],
-            price:
-              Number(updatedChargeDetails[existingIndex].price) +
-              Number(newChargeDetail.price),
-          };
-        } else {
-          // add new charge
-          updatedChargeDetails = [...existingCharges, newChargeDetail];
-        }
-
-        // recalc subtotal/total
-        const subtotal = updatedChargeDetails
-          .reduce((sum, item) => sum + Number(item.price), 0)
-          .toFixed(2);
-
-        return {
-          ...invoiceItem,
-          chargeDetails: updatedChargeDetails,
-          subtotal,
-          total: subtotal, // update total if same as subtotal
-        };
+        });
       }
 
-      return invoiceItem;
+      return updatedData;
     });
 
-    if (!invoiceExists) {
-      updatedData.push({
-        id: currentInvoiceId,
-        chargeDetails: [newChargeDetail],
-        subtotal: newChargeDetail.price.toFixed(2),
-        total: newChargeDetail.price.toFixed(2),
-        gst: "0.00",
-      });
-    }
-
-    return updatedData;
-  });
-
-  // reset
-  setUnit("");
-  setCombinedValue("");
-  formik.resetForm();
-};
+    // reset
+    setUnit("");
+    setCombinedValue("");
+    formik.resetForm();
+  };
   useEffect(() => {
     dispatch(pricingDptGetThunk(eid));
   }, []);
@@ -200,7 +200,11 @@ const PricingDepartmentHouse = ({ eid, status, id, pagetype ,discountPage }) => 
     },
     validationSchema: yup.object().shape({
       charges: yup.string().required("pricing type is required!!"),
-      price: yup.string().required("Price is required!!"),
+      // price: yup.string().required("Price is required!!"),
+      price: yup.number()
+        .typeError("Price must be a number")
+        .positive("Negative values not allowed")
+        .required("Price is required")
     }),
     onSubmit,
   });
@@ -343,16 +347,16 @@ const PricingDepartmentHouse = ({ eid, status, id, pagetype ,discountPage }) => 
       formik.setFieldValue("unit", selectedUnit);
     }
 
-    const updatedValue = `${formik.values.inputNumber}/${
-      formik.values.unit || ""
-    }`;
+    const updatedValue = `${formik.values.inputNumber}/${formik.values.unit || ""
+      }`;
     setCombinedValue(updatedValue);
   };
 
   const handleInputNumberChange = (e) => {
-    const inputNumberValue = e.value;
+    const inputNumberValue = e.target.value;
     formik.setFieldValue("inputNumber", inputNumberValue);
-    const updatedValue = `${e.value}/${formik.values.unit} `;
+    // const updatedValue = `${inputNumberValue}/${formik.values.unit} `;
+    const updatedValue = `${inputNumberValue}/${enquiryDoumentData?.land_units}`;
     setCombinedValue(updatedValue);
   };
 
@@ -414,7 +418,7 @@ const PricingDepartmentHouse = ({ eid, status, id, pagetype ,discountPage }) => 
                 <h6>Pricing Department</h6>
                 {staffid.Login === "staff" &&
                   (status === "complete" || status === "pending") &&
-                  pagetype !== "reminder" && enquiryDoumentData?.status !== "booking" &&(
+                  pagetype !== "reminder" && enquiryDoumentData?.status !== "booking" && (
                     <button
                       className="btn1"
                       onClick={() => {
@@ -424,7 +428,7 @@ const PricingDepartmentHouse = ({ eid, status, id, pagetype ,discountPage }) => 
                       Edit Pricing
                     </button>
                   )}
-                  {staffid.Login === "admin" &&
+                {/* {staffid.Login === "admin" &&
                   discountPage === "discount" &&
                   pagetype !== "reminder" && (
                     <Button
@@ -436,7 +440,7 @@ const PricingDepartmentHouse = ({ eid, status, id, pagetype ,discountPage }) => 
                     >
                       Discount
                     </Button>
-                  )}
+                  )} */}
               </div>
               <hr />
               <div>
@@ -500,6 +504,7 @@ const PricingDepartmentHouse = ({ eid, status, id, pagetype ,discountPage }) => 
         modal
         className="p-fluid"
         closable={false}
+         focusOnShow={false}
       >
         <div className=" container w-100">
           {/* <div > */}
@@ -610,20 +615,20 @@ const PricingDepartmentHouse = ({ eid, status, id, pagetype ,discountPage }) => 
                     //     </option>
                     //   </select>
                     // </div>
-                     <div className="col-3" style={{marginTop: "37px"}}>
-                        <InputGroup>
-                          <input
-                            placeholder=""
-                            className="form-control"
-                            value={formik.values.inputNumber}
-                            onValueChange={handleInputNumberChange}
-                          />
+                    <div className="col-3" style={{ marginTop: "37px" }}>
+                      <InputGroup>
+                        <input
+                          placeholder=""
+                          className="form-control"
+                          value={formik.values.inputNumber}
+                          onChange={handleInputNumberChange}
+                        />
 
-                          <InputGroup.Addon>
-                            {enquiryDoumentData?.land_units}{" "}
-                          </InputGroup.Addon>
-                        </InputGroup>
-                      </div>
+                        <InputGroup.Addon>
+                          {enquiryDoumentData?.land_units}{" "}
+                        </InputGroup.Addon>
+                      </InputGroup>
+                    </div>
                   )}
 
                   <div className="col-3 mt-2">
@@ -637,10 +642,16 @@ const PricingDepartmentHouse = ({ eid, status, id, pagetype ,discountPage }) => 
                     <input
                       id="price"
                       name="price"
-                      type="number"
+                      type="text"
                       className="form-control mt-1"
                       value={formik.values.price}
-                      onChange={formik.handleChange}
+                      // onChange={formik.handleChange}
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        if (/^\d*$/.test(value)) {
+                          formik.setFieldValue("price", value);
+                        }
+                      }}
                       onBlur={formik.handleBlur}
                       placeholder="Enter Price"
                       style={{ height: "40px" }}
@@ -664,7 +675,10 @@ const PricingDepartmentHouse = ({ eid, status, id, pagetype ,discountPage }) => 
 
           {/* </div> */}
 
-          <div className="d-flex gap-3 justify-content-end mt-3">
+          <div className="d-flex gap-2 justify-content-end mt-3">
+            <button type="button" className="btn1" onClick={clear}>
+              Cancel
+            </button>
             <button className="btn1" onClick={handleFormSubmit} disabled={postLoading}>
               {postLoading ? (
                 <ThreeDots
@@ -684,9 +698,7 @@ const PricingDepartmentHouse = ({ eid, status, id, pagetype ,discountPage }) => 
                 "Confirm "
               )}
             </button>
-            <button className="btn1" onClick={clear}>
-              Cancel
-            </button>
+
           </div>
         </div>
       </Dialog>
@@ -717,7 +729,7 @@ const PricingDepartmentHouse = ({ eid, status, id, pagetype ,discountPage }) => 
         onHide={() => setDiscountDialog(false)}
       >
         <div>
-          <DiscountPage invoiceData = {invoiceData} setDiscountDialog = {setDiscountDialog} discountDialog = {discountDialog} />
+          <DiscountPage invoiceData={invoiceData} setDiscountDialog={setDiscountDialog} discountDialog={discountDialog} />
         </div>
       </Dialog>
     </>

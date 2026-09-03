@@ -564,15 +564,14 @@ const BountryTicketSurvey = ({ eid, id, status, pagetype }) => {
             </div>
           </div>
           <div className="d-flex justify-content-end gap-2 mt-4">
-            <Button
-              variant="contained"
-              color="success"
+            <button
+            className="btn1"
               type="submit"
               disabled={postLoading}
             >
               {" "}
               {postLoading ? "Processing..." : "Save"}{" "}
-            </Button>
+            </button>
           </div>
         </form>
       </Dialog>

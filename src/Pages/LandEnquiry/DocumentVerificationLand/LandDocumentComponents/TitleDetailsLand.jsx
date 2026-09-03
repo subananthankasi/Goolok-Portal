@@ -102,6 +102,7 @@ const TitleDetailsLand = ({ data, setStep }) => {
       sro: "",
       ward: "",
       block: "",
+      location: ""
     },
     validationSchema: yup.object().shape({
       areatype: yup.string().required("village type is required !!"),
@@ -135,6 +136,7 @@ const TitleDetailsLand = ({ data, setStep }) => {
       formik.setFieldValue("ward", titeleData.ward);
       formik.setFieldValue("block", titeleData.block);
       formik.setFieldValue("id", titeleData.id);
+      formik.setFieldValue("location", titeleData.location);
     }
   }, [titeleData]);
 
@@ -581,11 +583,42 @@ const TitleDetailsLand = ({ data, setStep }) => {
             </div>
           </div>
 
+          <div className="col-md-6 mb-3 ">
+            <div className="row">
+              <div className="col-4 mb-3 ">
+                <label htmlFor="lastName" className="form-label">
+                  Location
+                </label>
+              </div>
+              <div className="col-8 mb-3 ">
+                <input
+                  type="text"
+                  className="form-control"
+                  name="location"
+                  placeholder="Enter location ..."
+                  value={formik.values.location}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                />
+
+                {formik.errors.location && formik.touched.location ? (
+                  <p style={{ color: "red", fontSize: "12px" }}>
+                    {formik.errors.location}
+                  </p>
+                ) : null}
+              </div>
+            </div>
+          </div>
+
           <div className="text-end gap-3">
             {staffid.Login === "staff" &&
               (data.status === "pending" || data.status === "verify") && (
                 <>
-                  <Button
+                  <div className="d-flex justify-content-end gap-2">
+                    <button type="button" className="btn1" onClick={() => formik.resetForm()}> Clear</button>
+                    <button type="submit " className="btn1" > Next</button>
+                  </div>
+                  {/* <Button
                     variant="outlined"
                     type="button"
                     color="error"
@@ -596,7 +629,7 @@ const TitleDetailsLand = ({ data, setStep }) => {
                   </Button>
                   <Button variant="contained" type="submit">
                     Next
-                  </Button>
+                  </Button> */}
                 </>
               )}
           </div>

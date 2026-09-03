@@ -303,7 +303,7 @@ const ProjectDetailsContentAp = ({ eid, id, status, subtype, pagetype }) => {
   useEffect(() => {
     fetchDetails();
   }, []);
-  
+
   const onSubmit = async (values) => {
     if (isEditing) {
       const payload = {
@@ -821,13 +821,20 @@ const ProjectDetailsContentAp = ({ eid, id, status, subtype, pagetype }) => {
               {staffid.Login === "staff" &&
                 (status === "pending" || status === "complete") && (
                   <>
-                    <Button
+                    {/* <Button
                       variant="contained"
                       type="submit"
                       onClick={() => setIsEditing(false)}
                     >
                       Save
-                    </Button>
+                    </Button> */}
+                    <button
+                      className="btn1 me-2"
+                      type="submit"
+                      onClick={() => setIsEditing(false)}
+                    >
+                      Save
+                    </button>
                   </>
                 )}
             </div>

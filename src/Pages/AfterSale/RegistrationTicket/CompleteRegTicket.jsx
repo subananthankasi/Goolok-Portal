@@ -13,7 +13,7 @@ import {
     Filter,
 } from "@syncfusion/ej2-react-grids";
 import { Link, useNavigate } from "react-router-dom";
-import {useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import axios from "axios";
 import API_BASE_URL from "../../../Api/api";
 import { encryptData } from "../../../Utils/encrypt";
@@ -38,7 +38,7 @@ const CompleteRegTicket = () => {
             case "DefaultExport_csvexport":
                 gridInstance.csvExport();
                 break;
-                default:
+            default:
                 break;
         }
     }
@@ -94,6 +94,7 @@ const CompleteRegTicket = () => {
         return (
             <Link
                 className="btn btn_pdf light btn-warning text-dark"
+                to={`/registrationticket/${encryptData(props.enqid)}/${encryptData(props.id)}/${encryptData("complete")}/${encryptData(props.bid)}/${encryptData(props.shortform)}/${encryptData(props.booking_no)}/${encryptData(props.block_id)}`}
             >
                 {props.booking_no}
             </Link>

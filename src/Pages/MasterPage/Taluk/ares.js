@@ -1,13 +1,39 @@
-export const TalukvalidateFormDatas = (formData) => {
+// export const TalukvalidateFormDatas = (formData) => {
+//   if (!formData) {
+//     return { isValid: false, errorMessage: "Please Enter the all field" };
+//   }
+//   if (!formData.taluk_state || !formData.taluk_name || !formData.taluk_district || !formData.status) {
+//     return { isValid: false, errorMessage: "All fields are required" };
+//   }
+//   if (!formData.taluk_state.trim() || !formData.taluk_name.trim() || !formData.taluk_district.trim() || !formData.status.trim()) {
+//     return { isValid: false, errorMessage: "All fields are required" };
+//   }
+//   return { isValid: true };
+// };
+
+export const TalukvalidateFormDatas = (formData, uploadedData) => {
+
   if (!formData) {
-    return { isValid: false, errorMessage: "Please Enter the all field" };
+    return {
+      isValid: false,
+      errorMessage: "Please select the state.",
+    };
   }
-  if (!formData.taluk_state || !formData.taluk_name || !formData.taluk_district || !formData.status) {
-    return { isValid: false, errorMessage: "All fields are required" };
+
+  if (!formData.taluk_state || !formData.taluk_state.trim()) {
+    return {
+      isValid: false,
+      errorMessage: "State is required.",
+    };
   }
-  if (!formData.taluk_state.trim() || !formData.taluk_name.trim() || !formData.taluk_district.trim() || !formData.status.trim()) {
-    return { isValid: false, errorMessage: "All fields are required" };
+
+  if (!uploadedData || uploadedData.length === 0) {
+    return {
+      isValid: false,
+     errorMessage: "Please upload a valid Excel/CSV file.",
+    };
   }
+
   return { isValid: true };
 };
 

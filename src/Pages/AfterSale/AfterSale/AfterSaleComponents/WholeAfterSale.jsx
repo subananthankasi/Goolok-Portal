@@ -264,7 +264,9 @@ const WholeAfterSale = ({
             </button>
             {(status === "pending" || status === "complete") &&
               staffid.Login === "staff" &&
-              pagetype !== "reminder" && registerData[0]?.enq_status !== "booking" && (
+              pagetype !== "reminder"
+              // && registerData[0]?.enq_status !== "booking" 
+              && (
                 <button
                   className="editButton"
                   onClick={() => {
@@ -290,7 +292,9 @@ const WholeAfterSale = ({
           // </button>
           (status === "pending" || status === "complete") &&
           staffid.Login === "staff" &&
-          pagetype !== "reminder" && registerData[0]?.enq_status !== "booking" && (
+          pagetype !== "reminder"
+          // && registerData[0]?.enq_status !== "booking"
+          && (
             <button className="btn btn-sm btn-link ms-1 p-0">
               <ControlPointIcon
                 sx={{ fontSize: 30 }}
@@ -327,7 +331,9 @@ const WholeAfterSale = ({
             </button>
             {(status === "pending" || status === "complete") &&
               staffid.Login === "staff" &&
-              pagetype !== "reminder" && registerData[0]?.enq_status !== "booking" && (
+              pagetype !== "reminder"
+              // && registerData[0]?.enq_status !== "booking"
+              && (
                 <button
                   className="editButton"
                   onClick={() => {
@@ -353,7 +359,9 @@ const WholeAfterSale = ({
           // </button>
           (status === "pending" || status === "complete") &&
           staffid.Login === "staff" &&
-          pagetype !== "reminder" && registerData[0]?.enq_status !== "booking" && (
+          pagetype !== "reminder"
+          // && registerData[0]?.enq_status !== "booking" 
+          && (
             <button className="btn btn-sm btn-link ms-1 p-0">
               <ControlPointIcon
                 sx={{ fontSize: 30 }}
@@ -389,7 +397,9 @@ const WholeAfterSale = ({
             </button>
             {(status === "pending" || status === "complete") &&
               staffid.Login === "staff" &&
-              pagetype !== "reminder" && registerData[0]?.enq_status !== "booking" && (
+              pagetype !== "reminder"
+              // && registerData[0]?.enq_status !== "booking" 
+              && (
                 <button
                   className="editButton"
                   onClick={() => {
@@ -416,7 +426,9 @@ const WholeAfterSale = ({
 
           (status === "pending" || status === "complete") &&
           staffid.Login === "staff" &&
-          pagetype !== "reminder" && registerData[0]?.enq_status !== "booking" && (
+          pagetype !== "reminder"
+          // && registerData[0]?.enq_status !== "booking" 
+          && (
             <button className="btn btn-sm btn-link ms-1 p-0">
               <ControlPointIcon
                 sx={{ fontSize: 30 }}
@@ -452,7 +464,9 @@ const WholeAfterSale = ({
             </button>
             {(status === "pending" || status === "complete") &&
               staffid.Login === "staff" &&
-              pagetype !== "reminder" && registerData[0]?.enq_status !== "booking" && (
+              pagetype !== "reminder"
+              // && registerData[0]?.enq_status !== "booking" 
+              && (
                 <button
                   className="editButton"
                   onClick={() => {
@@ -466,19 +480,11 @@ const WholeAfterSale = ({
               )}
           </div>
         ) : (
-          // <button className="btn btn-sm btn-link ms-1 p-0">
-          //   <ControlPointIcon
-          //     sx={{ fontSize: 30 }}
-          //     onClick={() => {
-          //       setNewUpload(true);
-          //       setFileType("Patta");
-          //       setRowId(row.id);
-          //     }}
-          //   />
-          // </button>
           (status === "pending" || status === "complete") &&
           staffid.Login === "staff" &&
-          pagetype !== "reminder" && registerData[0]?.enq_status !== "booking" && (
+          pagetype !== "reminder"
+          // && registerData[0]?.enq_status !== "booking" 
+          && (
             <button className="btn btn-sm btn-link ms-1 p-0">
               <ControlPointIcon
                 sx={{ fontSize: 30 }}
@@ -496,7 +502,7 @@ const WholeAfterSale = ({
     },
     {
       name: "Actions",
-      omit: staffid.logintype === "admin" || registerData[0]?.enq_status === "booking",
+      // omit: staffid.logintype === "admin" || registerData[0]?.enq_status === "booking",
       cell: (row) => (
         <div className="d-flex gap-2">
           <>
@@ -980,14 +986,13 @@ const WholeAfterSale = ({
               staffid.logintype === "staff" &&
               status === "pending" && (
                 <div className="mt-3 ms-2 mx-4 mb-3 text-end">
-                  <Button
-                    variant="contained"
-                    endIcon={<SendIcon />}
+                  <button
+                    className="btn1"
                     onClick={() => setIsVerifyConfirm(true)}
                     disabled={confirmLoading}
                   >
                     {confirmLoading ? "Processing..." : "Confirm"}
-                  </Button>
+                  </button>
                 </div>
               )}
           </div>
@@ -1407,7 +1412,7 @@ const WholeAfterSale = ({
                   className="form-control"
                   name="area"
                   id="area"
-                  placeholder="Enter Patta Application No ..."
+                  placeholder="Enter Area ..."
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={formik.values.area}
@@ -1442,14 +1447,14 @@ const WholeAfterSale = ({
           </div>
 
           <div className="d-flex justify-content-end mt-4">
-            <Button
-              variant="contained"
+            <button
+              className="btn1"
               type="submit"
               onClick={() => setEditing(false)}
               disabled={postLoading}
             >
               {postLoading ? "Processing..." : "Submit"}
-            </Button>
+            </button>
           </div>
         </form>
       </Dialog>
@@ -1904,7 +1909,7 @@ const WholeAfterSale = ({
                   className="form-control"
                   name="area"
                   id="area"
-                  placeholder="Enter Patta Application No ..."
+                  placeholder="Enter Area ..."
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={formik.values.area}
@@ -1948,9 +1953,9 @@ const WholeAfterSale = ({
             </div>
           </div>
           <div className="d-flex justify-content-end mt-4">
-            <Button variant="contained" type="submit" disabled={postLoading}>
+            <button className="btn1" type="submit" disabled={postLoading}>
               {postLoading ? "Processing..." : "Update"}
-            </Button>
+            </button>
           </div>
         </form>
       </Dialog>
@@ -1970,16 +1975,16 @@ const WholeAfterSale = ({
           </span>
         </div>
         <div className="d-flex justify-content-end mt-3 gap-3">
-          <Button
-            variant="outlined"
+          <button
+            className="btn1"
             color="error"
             onClick={() => setDeleteDialog(false)}
           >
             No
-          </Button>
-          <Button variant="contained" onClick={handleDelete}>
+          </button>
+          <button className="btn1" onClick={handleDelete}>
             Yes
-          </Button>
+          </button>
         </div>
       </Dialog>
       <Dialog
@@ -2133,14 +2138,14 @@ const WholeAfterSale = ({
             </button>
           )}
           <div className="d-flex justify-content-end mt-4">
-            <Button
-              variant="contained"
+            <button
+              className="btn1"
               type="submit"
               onClick={() => setEditing(false)}
               disabled={fileLoading}
             >
               {fileLoading ? "Uploading..." : "Submit"}
-            </Button>
+            </button>
           </div>
         </form>
       </Dialog>

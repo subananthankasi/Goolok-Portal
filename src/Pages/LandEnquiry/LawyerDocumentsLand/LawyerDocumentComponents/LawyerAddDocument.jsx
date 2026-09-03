@@ -105,7 +105,7 @@ export const LawyerAddDocument = (props) => {
       sortable: true,
     },
     {
-      name: "View",
+      name: "View & Upload",
       width: '150px',
       cell: (row) => (
         <>
@@ -115,7 +115,7 @@ export const LawyerAddDocument = (props) => {
                 {row.document ? (
                   <button
                     type="button"
-                    className="btn btn-warning rounded-0"
+                    className="btn btn-primary"
                     style={{ width: "70px" }}
                     onClick={() =>
                       viewFileUrl(`${IMG_PATH}/enquiry/${row.document}`)
@@ -126,7 +126,7 @@ export const LawyerAddDocument = (props) => {
                 ) : (
                   <button
                     type="button"
-                    className="btn btn-primary rounded-0"
+                    className="btn btn-primary"
                     style={{ width: "70px" }}
                   >
                     No data
@@ -134,7 +134,7 @@ export const LawyerAddDocument = (props) => {
                 )}
 
                 {((props.data.status == "pending" || props.data.status === "complete") && props.data.pagetype !== "reminder" && staffid.Login == "staff") && enquiryDoumentData?.status !== "booking" &&
-                  <button type="button" className="btn btn-info rounded-0 ms-2"
+                  <button type="button" className="btn btn-primary ms-2"
                     onClick={() => {
                       openAddDocModal();
                       setUploadDocData(row);
@@ -148,7 +148,7 @@ export const LawyerAddDocument = (props) => {
                 {row.document ? (
                   <button
                     type="button"
-                    className="btn btn-warning rounded-0"
+                    className="btn btn-primary"
                     style={{ width: "70px" }}
                     onClick={() =>
                       viewFileUrl(`${IMG_PATH}/enquiry/${row.document}`)
@@ -159,7 +159,7 @@ export const LawyerAddDocument = (props) => {
                 ) : (
                   <button
                     type="button"
-                    className="btn btn-primary rounded-0"
+                    className="btn btn-primary"
                     style={{ width: "70px" }}
                   >
                     No data
@@ -179,7 +179,7 @@ export const LawyerAddDocument = (props) => {
           {row.upload_type == "lawyer" ? (
             <button
               type="button"
-              className={`btn btn-primary rounded-0`}
+              className={`btn btn-primary`}
               style={{ marginLeft: '7px' }}
               onClick={() => {
                 if (row.document) {
@@ -193,7 +193,7 @@ export const LawyerAddDocument = (props) => {
           ) : (
             <button
               type="button"
-              className={`btn btn-primary rounded-0`}
+              className={`btn btn-primary `}
               onClick={() => {
                 if (row.document) {
                   setIsModalAddMoreView(true);
@@ -215,8 +215,7 @@ export const LawyerAddDocument = (props) => {
         <>
           <button
             type="button"
-            className={`badge rounded-pill btnhover btn p-2 ${row.status == "verify" ? "bg-success" : "bg-danger"
-              }`}
+            className={`${row.status == "verify" ? "badge-success" : "badge-danger"}`}
             style={{ width: "60px" }}
             onClick={() => {
               if (row.upload_type == "lawyer" && (props.data.status === "pending" || props.data.status === "complete") && props.data.pagetype !== "reminder" && staffid.Login == "staff" && enquiryDoumentData?.status !== "booking") {
@@ -416,19 +415,14 @@ export const LawyerAddDocument = (props) => {
 
                   {(props.data.status === "pending" || props.data.status === "complete") && staffid.Login === "staff" && props.data.pagetype !== "reminder" && enquiryDoumentData?.status !== "booking" && (
                     <div className="ms-2">
-                      <a
-                        href="#"
+                      <button
                         onClick={() => setIsModalAddDocument(true)}
                         className="btn1 me-2"
                       >
                         + Add document
-                      </a>
+                      </button>
                     </div>
                   )}
-
-
-
-
                 </div>
 
                 <DataTable

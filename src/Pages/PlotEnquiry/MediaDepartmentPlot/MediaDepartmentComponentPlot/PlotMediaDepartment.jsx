@@ -100,7 +100,7 @@ const PlotMediaDepartment = ({ eid, id, status, pagetype }) => {
           </div>
         </div>
       </div>
-      {staffid.logintype == "staff" &&
+      {staffid.logintype === "staff" &&
         (status === "pending" || status === "complete") &&
         pagetype !== "reminder" && (
           <div className="text-end mt-3 mb-3">

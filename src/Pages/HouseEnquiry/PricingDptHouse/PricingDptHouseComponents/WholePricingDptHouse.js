@@ -5,6 +5,7 @@ import { pricingConfirmThunk } from "../../../../Redux/Actions/Enquiry/pricingCo
 import Toast from "../../../../Utils/Toast";
 import PricingDepartmentHouse from "./PricingDepartmentHouse";
 import PaymentScheduleDaysHouse from "./PaymentScheduleDaysHouse";
+import PricePerUnitComponent from "../../../Enquiry/Reusable/PricePerUnitComponent";
 
 const WholePricingDptHouse = ({ eid, status, id, pagetype, discountPage }) => {
 
@@ -35,6 +36,10 @@ const WholePricingDptHouse = ({ eid, status, id, pagetype, discountPage }) => {
   };
   return (
     <>
+     <PricePerUnitComponent eid={eid}
+        id={id}
+        status={status}
+        pagetype={pagetype} />
       <PricingDepartmentHouse eid={eid} status={status} pagetype={pagetype} discountPage={discountPage} />
       {/* <PaymentSchedulePricingHouse
         eid={eid}

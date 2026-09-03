@@ -446,13 +446,13 @@ const CustomerMarketCom = ({ eid, marketid, status, subtype, pagetype }) => {
       <div className="d-flex justify-content-center mt-4 mb-3">
         {getLoading ? (
           <Spinner className="mt-auto" />
-        ) : staffid.logintype == "staff" &&
+        ) : staffid.logintype === "staff" &&
           (status === "pending" || status === "complete") &&
           pagetype !== "reminder" &&
           customerdata.length === 0 ? (
-          <a href="#0" onClick={() => setNewDialog(true)} className="btn1 me-2">
+          <button onClick={() => setNewDialog(true)} className="btn1 me-2">
             + Add customer Property
-          </a>
+          </button>
         ) : (
           <DataTable
             persistTableHead={true}

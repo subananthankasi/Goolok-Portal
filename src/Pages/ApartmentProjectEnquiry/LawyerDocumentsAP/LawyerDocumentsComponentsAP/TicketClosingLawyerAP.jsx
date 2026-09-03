@@ -15,7 +15,7 @@ import { fetchTaluk } from "../../../../Redux/Actions/MasterPage/TalukAction";
 import { fetchVillage } from "../../../../Redux/Actions/MasterPage/VillageAction";
 import Toast from "../../../../Utils/Toast";
 import customStyle from "../../../../Utils/tableStyle";
-import {  InputGroup } from "rsuite";
+import { InputGroup } from "rsuite";
 import { ThreeDots } from "react-loader-spinner";
 
 
@@ -688,7 +688,7 @@ const TicketClosingLawyerAP = ({ eid, id, status, subtype, pagetype }) => {
               {staffid.Login === "staff" &&
                 (status === "pending" || status === "complete") && (
                   <>
-                    <Button
+                    {/* <Button
                       variant="contained"
                       type="submit"
                       onClick={() => setIsEditing(false)}
@@ -711,7 +711,31 @@ const TicketClosingLawyerAP = ({ eid, id, status, subtype, pagetype }) => {
                       ) : (
                         "Save "
                       )}
-                    </Button>
+                    </Button> */}
+                    <button
+                      className="btn1 me-2"
+                      type="submit"
+                      onClick={() => setIsEditing(false)}
+                      disabled={loading}
+                    >
+                      {loading ? (
+                        <ThreeDots
+                          visible={true}
+                          height="25"
+                          width="55"
+                          color="#ffffff"
+                          radius="18"
+                          ariaLabel="three-dots-loading"
+                          wrapperStyle={{
+                            justifyContent: "center",
+                            fontSize: "12px",
+                          }}
+                          wrapperClass=""
+                        />
+                      ) : (
+                        "Save "
+                      )}
+                    </button>
                   </>
                 )}
             </div>

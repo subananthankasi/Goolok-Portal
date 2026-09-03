@@ -84,19 +84,11 @@ function PendingApartDoc() {
         }
     }
 
-
-
-
-
-
     const navigate = useNavigate();
     const handleRowSelect = (args) => {
         const rowData = args.data;
         navigate(`/updateDocApart/${encryptData(rowData.id)}/${encryptData(rowData.userid)}/${encryptData("pending")}`);
     };
-
-
-
 
     const [action, setAction] = useState(0);
     const [visible, setVisible] = useState(false)
@@ -171,7 +163,7 @@ function PendingApartDoc() {
                                                     <ColumnDirective
                                                         field="customer"
                                                         headerText="Customer Name"
-                                                        width="150"
+                                                        width="170"
                                                     />
                                                     <ColumnDirective
                                                         field="age"

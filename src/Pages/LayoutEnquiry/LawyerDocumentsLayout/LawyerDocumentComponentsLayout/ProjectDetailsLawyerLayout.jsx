@@ -224,8 +224,8 @@ export const ProjectDetailsLawyerLayout = ({ eid, id, status, pagetype }) => {
                   </button>
                 )}
             </div>
-            <hr />
-            <div>
+            <hr /> 
+            <div> 
               <Table
                 bordered
                 cellBordered
@@ -753,9 +753,10 @@ export const ProjectDetailsLawyerLayout = ({ eid, id, status, pagetype }) => {
           </div>
 
           <div className="d-flex justify-content-end gap-2 mt-4">
-            <Button variant="contained" color="success" type="submit" disabled={postLoading} >
+            {/* <Button variant="contained" color="success" type="submit" disabled={postLoading} >
               {postLoading ? "Processing..." : "Save"}
-            </Button>
+            </Button> */}
+            <button className="btn1" type="submit" disabled={postLoading}>  {postLoading ? "Processing..." : "Save"}</button>
           </div>
         </form>
       </Dialog>

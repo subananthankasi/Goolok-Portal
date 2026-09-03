@@ -1,4 +1,4 @@
-import  { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import Button from "@mui/material/Button";
@@ -63,6 +63,7 @@ const TitleProjectDetailsCommercial = ({ data }) => {
       supper_built_up_area: "",
       uds: "",
       land_area: "",
+      location: "",
     },
     validationSchema: yup.object().shape({
       plotno: yup.string().required("Plot number is required"),
@@ -96,6 +97,7 @@ const TitleProjectDetailsCommercial = ({ data }) => {
         data?.property !== "Land"
           ? yup.string().required("land area is required !!")
           : yup.string().notRequired(),
+      location: yup.string().required("location is required !!"),
     }),
     onSubmit,
   });
@@ -120,6 +122,7 @@ const TitleProjectDetailsCommercial = ({ data }) => {
       formik.setFieldValue("uds", prDetails.uds_size || "");
       formik.setFieldValue("land_area", prDetails.land_area || "");
       formik.setFieldValue("id", prDetails.id || "");
+      formik.setFieldValue("location", prDetails.location)
     }
   }, [prDetails]);
 
@@ -254,7 +257,7 @@ const TitleProjectDetailsCommercial = ({ data }) => {
                   onBlur={formik.handleBlur}
                 />
                 {formik.errors.planning_permit_no &&
-                formik.touched.planning_permit_no ? (
+                  formik.touched.planning_permit_no ? (
                   <h6 style={{ color: "red", fontSize: "12px" }}>
                     {formik.errors.planning_permit_no}
                   </h6>
@@ -280,7 +283,7 @@ const TitleProjectDetailsCommercial = ({ data }) => {
                   onBlur={formik.handleBlur}
                 />
                 {formik.errors.building_permit_no &&
-                formik.touched.building_permit_no ? (
+                  formik.touched.building_permit_no ? (
                   <h6 style={{ color: "red", fontSize: "12px" }}>
                     {formik.errors.building_permit_no}
                   </h6>
@@ -356,7 +359,7 @@ const TitleProjectDetailsCommercial = ({ data }) => {
                   onBlur={formik.handleBlur}
                 />
                 {formik.errors.supper_built_up_area &&
-                formik.touched.supper_built_up_area ? (
+                  formik.touched.supper_built_up_area ? (
                   <h6 style={{ color: "red", fontSize: "12px" }}>
                     {formik.errors.supper_built_up_area}
                   </h6>
@@ -417,11 +420,38 @@ const TitleProjectDetailsCommercial = ({ data }) => {
             </div>
           )}
 
+          <div className="col-md-6 mb-3 ">
+            <div className="row">
+              <div className="col-4 mb-3 ">
+                <label htmlFor="lastName" className="form-label">
+                  Location
+                </label>
+              </div>
+              <div className="col-8 mb-3 ">
+                <input
+                  type="text"
+                  className="form-control"
+                  name="location"
+                  placeholder="Enter location ..."
+                  value={formik.values.location}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                />
+
+                {formik.errors.location && formik.touched.location ? (
+                  <p style={{ color: "red", fontSize: "12px" }}>
+                    {formik.errors.location}
+                  </p>
+                ) : null}
+              </div>
+            </div>
+          </div>
+
           <div className="text-end gap-3 mb-3">
             {staffid.Login === "staff" &&
               (data.status === "pending" || data.status === "verify") && (
                 <>
-                  <Button
+                  {/* <Button
                     variant="outlined"
                     type="button"
                     color="error"
@@ -432,7 +462,20 @@ const TitleProjectDetailsCommercial = ({ data }) => {
                   </Button>
                   <Button variant="contained" type="submit">
                     {prDetails ? "Update" : "Submit"}
-                  </Button>
+                  </Button> */}
+                  <button
+                    className="btn1 me-2"
+                    type="button"
+                    onClick={() => formik.resetForm()}
+                  >
+                    Clear
+                  </button>
+                  <button
+                    className="btn1 me-2"
+                    type="submit"
+                  >
+                    {prDetails ? "Update" : "Submit"}
+                  </button>
                 </>
               )}
           </div>

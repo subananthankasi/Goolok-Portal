@@ -44,7 +44,7 @@ export const FMBSketchSurvey = (props) => {
                 <>
                     <button
                         type="button"
-                        className="btn btn-warning rounded-0"
+                        className="btn btn-primary"
                         onClick={() =>
                             viewFileUrl(`${IMG_PATH}/enquiry/sketch/${row.document}`)
                         }

@@ -24,7 +24,7 @@ const tableStyle = {
 };
 
 const highlightStyle = {
-  backgroundColor: "#9ccddc",
+  backgroundColor: "#f2f2f2",
   fontWeight: "bold",
 };
 
@@ -209,13 +209,12 @@ const RegTikcketDetailsTele = ({
                   (status === "complete" || status === "pending") &&
                   pagetype !== "reminder" && (
                     <div className="">
-                      <a
-                        href="#"
+                      <button
                         onClick={() => setNewDialog(true)}
                         className="btn1 me-2"
                       >
                         + Create Ticket
-                      </a>
+                      </button>
                     </div>
                   )}
               </div>

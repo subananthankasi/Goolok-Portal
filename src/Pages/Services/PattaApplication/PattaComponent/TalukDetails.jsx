@@ -48,7 +48,7 @@ const TalukDetails = ({ eid, id, status, rowId, pagetype }) => {
             setWholeData(response.data);
             setLoading(false);
         } catch (error) {
-            
+
         } finally {
             setLoading(false);
         }
@@ -206,7 +206,7 @@ const TalukDetails = ({ eid, id, status, rowId, pagetype }) => {
             fetchWholeData();
             setDeleteDialog(false);
         } catch (error) {
-            
+
         }
     };
     // const handleEdit = (row) => {
@@ -397,7 +397,7 @@ const TalukDetails = ({ eid, id, status, rowId, pagetype }) => {
             setContactPersonNoTalukData(response.data);
             setLoading(false);
         } catch (error) {
-            
+
         } finally {
             setLoading(false);
         }
@@ -416,7 +416,7 @@ const TalukDetails = ({ eid, id, status, rowId, pagetype }) => {
             setContactPersonNoSroData(response.data);
             setLoading(false);
         } catch (error) {
-            
+
         } finally {
             setLoading(false);
         }
@@ -779,13 +779,14 @@ const TalukDetails = ({ eid, id, status, rowId, pagetype }) => {
                                     </div>
                                 </div>
                                 <div className="d-flex justify-content-end mt-4">
-                                    <Button
+                                    {/* <Button
                                         variant="contained"
                                         type="submit"
                                         disabled={postLoading}
                                     >
                                         {postLoading ? "Submitting..." : "Submit"}
-                                    </Button>
+                                    </Button> */}
+                                    <button className="btn1" type="submit" disabled={postLoading}>  {postLoading ? "Submitting..." : "Submit"}</button>
                                 </div>
                             </form>
                         )

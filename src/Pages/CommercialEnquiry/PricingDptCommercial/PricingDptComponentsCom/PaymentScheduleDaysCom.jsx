@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import customStyle from "../../../../Utils/tableStyle";
@@ -11,8 +11,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { paymentSchedulGetThunk } from "../../../../Redux/Actions/MasterPage/PaymentScheduleThunk";
 import {
   paymentScheduleEnqDeleteThunk,
-  paymentScheduleEnqPostThunk,
-  paymentScheduleEnqUpdateThunk,
   paymentSchedulEnqGetThunk,
 } from "../../../../Redux/Actions/Enquiry/PaymentScheduleEnqThunk";
 import IconButton from "@mui/material/IconButton";
@@ -59,26 +57,6 @@ const PaymentScheduleDaysCom = ({ eid, status, pagetype }) => {
     }
   }, [option]);
 
-  // const onSubmit = (values) => {
-  //   const payload = {
-  //     ...values,
-  //     details: installmentData,
-  //   };
-  //   if (editing) {
-  //     dispatch(paymentScheduleEnqUpdateThunk(payload)).then(() => {
-  //       dispatch(paymentSchedulEnqGetThunk(eid));
-  //     });
-  //     setEditDialog(false);
-  //     formik.resetForm();
-  //   } else {
-  //     dispatch(paymentScheduleEnqPostThunk(payload)).then(() => {
-  //       dispatch(paymentSchedulEnqGetThunk(eid));
-  //     });
-  //     setNewDialog(false);
-  //     formik.resetForm();
-  //   }
-  // };
-
   const onSubmit = async (values) => {
     const payload = {
       ...values,
@@ -104,6 +82,8 @@ const PaymentScheduleDaysCom = ({ eid, status, pagetype }) => {
       }
     }
   };
+
+
   const formik = useFormik({
     initialValues: {
       stage: "",
@@ -178,13 +158,7 @@ const PaymentScheduleDaysCom = ({ eid, status, pagetype }) => {
     setViewData(false);
     setButtonShow(false);
   };
-  const handleEdit = (row) => {
-    setEditDialog(true);
-    formik.setFieldValue("stage", row.stages);
-    formik.setFieldValue("days", row.days);
-    formik.setFieldValue("percentage", row.percentage);
-    formik.setFieldValue("id", row.id);
-  };
+
   const [editId, setEditId] = useState(null);
   const handleDialogEdit = (item) => {
     setEditId(item.id);
@@ -289,7 +263,7 @@ const PaymentScheduleDaysCom = ({ eid, status, pagetype }) => {
       ),
     },
 
-    ...(staffid.logintype == "staff" &&
+    ...(staffid.logintype === "staff" &&
       (status === "complete" || status === "pending") &&
       pagetype !== "reminder" && enquiryDoumentData?.status !== "booking"
       ? [
@@ -388,9 +362,6 @@ const PaymentScheduleDaysCom = ({ eid, status, pagetype }) => {
     formik1.resetForm();
   };
 
-  const handleRemove = (id) => {
-    setInstallmentData((prev) => prev.filter((item) => item.id !== id));
-  };
   const formik1 = useFormik({
     initialValues: {
       installment: "",
@@ -445,7 +416,7 @@ const PaymentScheduleDaysCom = ({ eid, status, pagetype }) => {
       fetchData(rowId);
     }
   }, [rowId]);
-const [finalLoading,setFinalLoading] = useState(false)
+  const [finalLoading, setFinalLoading] = useState(false)
   const handleInstallmentFinalSubmit = async () => {
     const totalPercentage = installmentData.reduce(
       (sum, item) => sum + (parseFloat(item.percentage_of_amount) || 0),
@@ -477,7 +448,7 @@ const [finalLoading,setFinalLoading] = useState(false)
       setInstallmentView(false);
     } catch (error) {
       setFinalLoading(false)
-     }
+    }
   };
 
   const isSubmitDisabled =
@@ -507,7 +478,7 @@ const [finalLoading,setFinalLoading] = useState(false)
           <div className="mt-2">
             <div className="d-flex justify-content-between mb-3">
               <h6>Payment Schedule</h6>
-              {staffid.logintype == "staff" &&
+              {staffid.logintype === "staff" &&
                 (status === "complete" || status === "pending") &&
                 pagetype !== "reminder" && enquiryDoumentData?.status !== "booking" && (
                   <div className="ms-2">
@@ -753,7 +724,7 @@ const [finalLoading,setFinalLoading] = useState(false)
                             alignItems: "center",
                           }}
                         >
-                          <Button
+                          {/* <Button
                             variant="contained"
                             color="success"
                             size="small"
@@ -761,7 +732,14 @@ const [finalLoading,setFinalLoading] = useState(false)
                             onClick={formik1.handleSubmit}
                           >
                             Add
-                          </Button>
+                          </Button> */}
+                          <button
+                            className="btn1 me-2"
+                            type="submit"
+                            onClick={formik1.handleSubmit}
+                          >
+                            Add
+                          </button>
                         </div>
                       )}
                     </div>
@@ -772,7 +750,22 @@ const [finalLoading,setFinalLoading] = useState(false)
               </section>
             )}
           <div className="d-flex justify-content-end gap-2 mt-4">
-            <div>
+            <button
+              className="btn1 me-2"
+              type="button"
+              onClick={cancelDialog}
+            >
+              Cancel
+            </button>
+            <button
+              className="btn1 me-2"
+              type="submit"
+              onClick={() => setEditing(false)}
+              disabled={isAddSubmitDisabled}
+            >
+              Save
+            </button>
+            {/* <div>
               <Button variant="outlined" onClick={cancelDialog}>
                 {" "}
                 Cancel{" "}
@@ -787,7 +780,7 @@ const [finalLoading,setFinalLoading] = useState(false)
               >
                 Save
               </Button>
-            </div>
+            </div> */}
           </div>
         </form>
       </Dialog>

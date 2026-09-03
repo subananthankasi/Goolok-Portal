@@ -277,7 +277,7 @@ const LandOwnerDetailsApart = ({ eid, id, status, pagetype }) => {
               Agreement Starting Date <span style={{ color: "red" }}>*</span>
             </label>
 
-            <DatePicker
+            {/* <DatePicker
               placement="topRight"
               name="startdate"
               value={
@@ -296,17 +296,26 @@ const LandOwnerDetailsApart = ({ eid, id, status, pagetype }) => {
               style={{ width: "100%" }}
               //   disabledDate={(current) => current && current > dayjs()}
               onBlur={formik.handleBlur}
-            />
-            {/* 
-            <input
-              id="startdate"
-              type="date"
-              name="startdate"
-              className="form-control"
-              value={formik.values.startdate}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
             /> */}
+            <DatePicker
+              picker="date"
+              format="DD/MM/YYYY"
+              value={
+                formik.values.startdate
+                  ? dayjs(formik.values.startdate)
+                  : null
+              }
+              onChange={(date) => {
+                formik.setFieldValue(
+                  "startdate",
+                  date ? date.format("YYYY-MM-DD") : ""
+                );
+                formik.setFieldValue("closedate", "");
+              }}
+              style={{ width: "100%" }}
+              getPopupContainer={(triggerNode) => triggerNode.parentNode}
+            />
+
 
             {formik.errors.startdate && formik.touched.startdate ? (
               <p style={{ color: "red", fontSize: "12px" }}>

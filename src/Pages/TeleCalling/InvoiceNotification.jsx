@@ -40,8 +40,7 @@ function InvoiceNotification() {
         <>
           <button
             type="button"
-            className={`badge rounded-pill btnhover btn p-2 bg-success`}
-            style={{ width: "60px" }}
+            className={`badge-success`}
           >
             {row.status}
           </button>

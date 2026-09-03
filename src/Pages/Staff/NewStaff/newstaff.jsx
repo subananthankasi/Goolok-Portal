@@ -20,7 +20,6 @@ import StaffCreation from "./StaffCreation";
 
 function NewStaff() {
   const dispatch = useDispatch();
-
   const autoStaffID = useSelector((state) => state.staff.staffID);
 
   useEffect(() => {
@@ -93,7 +92,7 @@ function NewStaff() {
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    //  MOBILE 
+
     if (name === "staffMobile") {
       if (!/^\d*$/.test(value)) {
         setErrors((prev) => ({ ...prev, staffMobile: "Only numbers are allowed" }));
@@ -107,7 +106,7 @@ function NewStaff() {
       return;
     }
 
-    // AADHAAR
+  
     if (name === "staffAadhaar") {
       let cleanedValue = value.replace(/\s+/g, "");
 
@@ -132,7 +131,7 @@ function NewStaff() {
       return;
     }
 
-    // STAFF NAME
+    
     if (name === "staffName") {
       if (!/^[A-Za-z\s]*$/.test(value)) {
         setErrors(prev => ({ ...prev, staffName: "Only letters are allowed" }));
@@ -144,7 +143,7 @@ function NewStaff() {
       return;
     }
 
-    // OTHER FIELDS
+    // other fields..............
     setFormData((prevState) => {
       const updatedFormData = { ...prevState, [name]: value };
 
@@ -253,6 +252,7 @@ function NewStaff() {
 
   const { cleanText } = Common();
   const [loading, setLoading] = useState(false)
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true)

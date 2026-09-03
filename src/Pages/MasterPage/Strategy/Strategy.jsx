@@ -335,7 +335,7 @@ const Strategy = () => {
                     <div className="text-end py-3 px-3">
                       <button
                         type="button"
-                        className="btn1 text-dark me-1"
+                        className="btn1   me-1"
                         onClick={() => {
                           formik.resetForm();
                         }}
@@ -458,7 +458,7 @@ const Strategy = () => {
           <div className="text-end py-3 px-3">
             <a
               href="javascript:void(0);"
-              className="btn1 text-dark me-1"
+              className="btn1   me-1"
               onClick={() => {
                 formik.resetForm();
               }}

@@ -768,7 +768,7 @@ export const WholeMarketResearchHouse = ({
       await axios.get(`${API_BASE_URL}/market/${marketid}`);
       Toast({ message: "Successfully Updated", type: "success" });
       setConfirmLoading(false);
-      navigate("/layout_marketresearch#Complete");
+      navigate("/house_marketresearch#Complete");
     } catch (error) {
       const errorMessage =
         error.response?.data?.messages?.error ||
@@ -872,13 +872,12 @@ export const WholeMarketResearchHouse = ({
                       (status === "complete" || status == "pending") &&
                       pagetype !== "reminder" &&
                       enquiryDoumentData?.status !== "booking" && (
-                        <a
-                          href="#0"
+                        <button
                           onClick={() => setVisible(true)}
                           className="btn1 me-2"
                         >
                           + Add
-                        </a>
+                        </button>
                       )}
                   </div>
                   <div className="mt-2">
@@ -898,13 +897,12 @@ export const WholeMarketResearchHouse = ({
                     {staffid.logintype == "staff" &&
                       (status === "complete" || status == "pending") &&
                       pagetype !== "reminder" && enquiryDoumentData?.status !== "booking" && (
-                        <a
-                          href="#0"
+                        <button
                           onClick={() => setVideosVisible(true)}
                           className="btn1 me-2"
                         >
                           + Add
-                        </a>
+                        </button>
                       )}
                   </div>
 
@@ -1167,13 +1165,12 @@ export const WholeMarketResearchHouse = ({
                   {staffid.logintype == "staff" &&
                     (status === "complete" || status == "pending") &&
                     pagetype !== "reminder" && enquiryDoumentData?.status !== "booking" && (
-                      <a
-                        href="#0"
+                      <button
                         onClick={() => setNearVisible(true)}
                         className="btn1 me-2"
                       >
                         + Add
-                      </a>
+                      </button>
                     )}
                 </div>
 
@@ -1195,13 +1192,12 @@ export const WholeMarketResearchHouse = ({
                   {staffid.logintype == "staff" &&
                     (status === "complete" || status == "pending") &&
                     pagetype !== "reminder" && enquiryDoumentData?.status !== "booking" && (
-                      <a
-                        href="#0"
+                      <button
                         onClick={() => setNearVideosVisible(true)}
                         className="btn1 me-2"
                       >
                         + Add
-                      </a>
+                      </button>
                     )}
                 </div>
 

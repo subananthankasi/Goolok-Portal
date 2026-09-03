@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Toast } from 'primereact/toast';
 import ConfirmationModal from '../../../../Utils/ConfirmationModal';
+import PricePerUnitComponent from '../../../Enquiry/Reusable/PricePerUnitComponent';
 
 const WholePricingDptLand = ({ eid, status, id }) => {
     const staffid = JSON.parse(localStorage.getItem("token"));
@@ -53,6 +54,7 @@ const WholePricingDptLand = ({ eid, status, id }) => {
                 message={"Are you sure this has been verified?"}
                 loading={confirmLoading}
             />
+            <PricePerUnitComponent eid={eid} status={status} />
             <PricingDepartmentLand eid={eid} status={status} />
             <PaymentInstallmentLand eid={eid} status={status} />
 

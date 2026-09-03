@@ -166,16 +166,6 @@ import Notification from "./Pages/CRM/Notification/notification";
 import LayoutPendingPropertyView from "./Pages/Property Management/Layout/PendingProperty/LayoutPendingPropertyView";
 import LayoutPendingPropertyEdit from "./Pages/Property Management/Layout/PendingProperty/LayoutPendingPropertyEdit";
 import FileView from "./Utils/FileView/FileView";
-// import DocumentVerification from "./Pages/Enquiry/DocumentVerification/DocumentVerification";
-// import DocumentFileUploads from "./Pages/Enquiry/DocumentVerification/DocumentFileUploads";
-// import InvoiceVerification from "./Pages/Enquiry/InvoiceVerification/InvoiceVerification";
-// import InvoiceReport from "./Pages/Enquiry/InvoiceVerification/InvoiceReport";
-// import LocationVerification from "./Pages/Enquiry/LocationMapping/LocationVerification";
-// import LocationMappingUpdate from "./Pages/Enquiry/LocationMapping/LocationMappingUpdate";
-// import MarketResearchVerification from "./Pages/Enquiry/MarketResearch/MarketResearchVerification";
-// import MarketResearchUpdate from "./Pages/Enquiry/MarketResearch/MarketResearchUpdate";
-// import PriceProposalAgreementReport from "./Pages/Enquiry/PriceProposalAgreement/PriceProposalAgreementReport";
-// import PriceProposalAgreementUpdate from "./Pages/Enquiry/PriceProposalAgreement/PriceProposalAgreementUpdate";
 import EnquiryNotification from "./Pages/TeleCalling/enquiryNotification";
 import DocumentNotification from "./Pages/TeleCalling/DocumentNotification";
 import InvoiceNotification from "./Pages/TeleCalling/InvoiceNotification";
@@ -184,60 +174,17 @@ import MarketResearchNotification from "./Pages/TeleCalling/MarketResearchNotifi
 import TelleCallEnquiryReport from "./Pages/TeleCalling/TelleCallEnquiryReport";
 import StaffOnlyRoute from "./Routes/StaffOnlyRoute";
 import InternetError from "./Components/InternetError";
-// import PaymenLegalReport from "./Pages/Enquiry/PaymentLegalopinion/PaymenLegalReport";
-// import PaymenLegalReportUpdate from "./Pages/Enquiry/PaymentLegalopinion/PaymenLegalReportUpdate";
-// import LawyerDocumentsReport from "./Pages/Enquiry/LawyerDocuments/LawyerDocumentsReport";
-// import LawyerDocumentsUpdate from "./Pages/Enquiry/LawyerDocuments/LawyerDocumentsUpdate";
-// import MandatoryDocumentReport from "./Pages/Enquiry/MandatoryDocument/MandatoryDocumentReport";
-// import MandatoryDocumentUpdate from "./Pages/Enquiry/MandatoryDocument/MandatoryDocumentUpdate";
-// import DocumentVerificationCompleted from "./Pages/Enquiry/DocumentVerification/DocumentVerificationCompleted";
 import Advance from "./Pages/MasterPage/Advance/advance";
 import Category from "./Pages/MasterPage/Category/Category";
 import LawyerDocument from "./Pages/MasterPage/LawyerDocument/LawyerDocument";
 import LawyerDocInput from "./Pages/MasterPage/LawyerDocumentInput/LawyerDocInput";
 import { ConfirmDialog } from "primereact/confirmdialog";
-// import FieldSurveyReport from "./Pages/Enquiry/Fieldsurvey/FieldSurveyReport";
-// import FieldSurveyUpdate from "./Pages/Enquiry/Fieldsurvey/FieldSurveyUpdate";
-// import LandOwnerAgreementReport from "./Pages/Enquiry/LandOwnerAgreement/LandOwnerAgreementReport";
-// import LandOwnerAgreementUpdate from "./Pages/Enquiry/LandOwnerAgreement/LandOwnerAgreementUpdate";
 import Pricing from "./Pages/MasterPage/Pricing/Pricing";
-// import PricingDepartment from "./Pages/Enquiry/PricingDepartment/PricingDepartment";
-// import PricingDeptUpdate from "./Pages/Enquiry/PricingDepartment/PricingDeptUpdate";
 import PaymentSchedule from "./Pages/MasterPage/PaymentSchedule/PaymentSchedule";
-// import MediaDepartment from "./Pages/Enquiry/Media Department/MediaDepartment";
-// import MediaDeptUpdate from "./Pages/Enquiry/Media Department/MediaDeptUpdate";
-// import ContentWriting from "./Pages/Enquiry/ContentWriting/ContentWriting";
-// import ContentWritingUpdate from "./Pages/Enquiry/ContentWriting/ContentWritingUpdate";
 import FeaturesTag from "./Pages/MasterPage/Features/FeaturesTag";
 import TagsMaster from "./Pages/MasterPage/Tags/TagsMaster";
 import VerifyProperty from "./Pages/Project/VerifyProperty/VerifyProperty";
 import ViewVerifyDetails from "./Pages/Project/VerifyProperty/ViewVerifyDetails";
-// import ApartDocumentVerification from "./Pages/Enquiry/AppartmentEnquiry/ApartDocumentVerification/ApartDocumentVerification";
-// import ApartDocumentVerificationUpdate from "./Pages/Enquiry/AppartmentEnquiry/ApartDocumentVerification/ApartDocumentVerificationUpdate";
-// import InvoiceVerificationApart from "./Pages/Enquiry/AppartmentEnquiry/InvoiceVerifiCationApart/InvoiceVerificationApart";
-// import MarketResearchVerificationApart from "./Pages/Enquiry/AppartmentEnquiry/MarketResearchApart/MarketResearchVerificationApart";
-// import PriceProposalApart from "./Pages/Enquiry/AppartmentEnquiry/PriceProposalAgreementApart/PriceProposalApart";
-// import PaymentLegalOpinionApart from "./Pages/Enquiry/AppartmentEnquiry/PaymentLegalOpinion/PaymentLegalOpinionApart";
-// import LawyerDocumentApart from "./Pages/Enquiry/AppartmentEnquiry/LawyerDocumentsApart/LawyerDocumentApart";
-// import MandadoryDocsApart from "./Pages/Enquiry/AppartmentEnquiry/MandadoryDocsApart/MandadoryDocsApart";
-// import FieldSurveyApart from "./Pages/Enquiry/AppartmentEnquiry/FieldSurveyApart/FieldSurveyApart";
-// import LandOwnerAgreementApart from "./Pages/Enquiry/AppartmentEnquiry/LandOwnerAgreementApart/LandOwnerAgreementApart";
-// import PricingDepartmentApart from "./Pages/Enquiry/AppartmentEnquiry/PricingDepartmentApart/PricingDepartmentApart";
-// import MediaDepartmentApart from "./Pages/Enquiry/AppartmentEnquiry/MediaDepartmentApart/MediaDepartmentApart";
-// import ContentWritingApart from "./Pages/Enquiry/AppartmentEnquiry/ContentWritingApart/ContentWritingApart";
-// import UpdateInvoiceVerificationApart from "./Pages/Enquiry/AppartmentEnquiry/InvoiceVerifiCationApart/UpdateInvoiceVerificationApart";
-// import UpdateLocationApart from "./Pages/Enquiry/AppartmentEnquiry/LocationVerificationApart/UpdateLocationApart";
-// import UpdateMarketResearchApart from "./Pages/Enquiry/AppartmentEnquiry/MarketResearchApart/UpdateMarketResearchApart";
-// import UpdateProposalApart from "./Pages/Enquiry/AppartmentEnquiry/PriceProposalAgreementApart/UpdateProposalApart";
-// import UpdateLegalApart from "./Pages/Enquiry/AppartmentEnquiry/PaymentLegalOpinion/UpdateLegalApart";
-// import UpdateLawyerApart from "./Pages/Enquiry/AppartmentEnquiry/LawyerDocumentsApart/UpdateLawyerApart";
-// import UpdateMandatoryApart from "./Pages/Enquiry/AppartmentEnquiry/MandadoryDocsApart/UpdateMandatoryApart";
-// import UpdateSurveyApart from "./Pages/Enquiry/AppartmentEnquiry/FieldSurveyApart/UpdateSurveyApart";
-// import UpdateLandOwnerApart from "./Pages/Enquiry/AppartmentEnquiry/LandOwnerAgreementApart/UpdateLandOwnerApart";
-// import UpdatePricingDptApart from "./Pages/Enquiry/AppartmentEnquiry/PricingDepartmentApart/UpdatePricingDptApart";
-// import UpdateMediaApart from "./Pages/Enquiry/AppartmentEnquiry/MediaDepartmentApart/UpdateMediaApart";
-// import UpdateContentWriting from "./Pages/Enquiry/AppartmentEnquiry/ContentWritingApart/UpdateContentWriting";
-import Offer from "./Pages/MasterPage/Offer/Offer";
 import Coupons from "./Pages/MasterPage/Coupons/Coupons";
 import Strategy from "./Pages/MasterPage/Strategy/Strategy";
 import DocumentService from "./Pages/Services/DocumentService/DocumentService";
@@ -255,9 +202,7 @@ import TalukOfficeDetails from "./Pages/MasterPage/TalukOfficeDetails/TalukOffic
 import TikcetHub from "./Pages/Services/TicketAssigningHub/TikcetHub";
 import UpdateHub from "./Pages/Services/TicketAssigningHub/UpdateHub";
 import ContactPersonDetails from "./Pages/MasterPage/ContactPersonDetails/ContactPersonDetails";
-// import "@coreui/coreui-pro/dist/css/coreui.min.css";
 import DocumentSetHub from "./Pages/Services/TicketAssigningHub/DocumentSetHub";
-import VerifyService from "./Pages/ServiceProject/VerifyService/VerifyServiceProject";
 import VerifyServiceProject from "./Pages/ServiceProject/VerifyService/VerifyServiceProject";
 import CompleteServiceProject from "./Pages/ServiceProject/CompleteService/CompleteServiceProject";
 import ClosedServiceProject from "./Pages/ServiceProject/ClosedService/ClosedServiceProject";
@@ -266,10 +211,7 @@ import DocumentMap from "./Pages/Services/GoogleMapLocation/DocumentVerification
 import LocationMap from "./Pages/Services/GoogleMapLocation/LocationVerification/LocationMap";
 import UpdateLocationMap from "./Pages/Services/GoogleMapLocation/LocationVerification/UpdateLocationMap";
 import DocumentSetGoogleMap from "./Pages/Services/GoogleMapLocation/DocumentVerificationLoc/DocumentSetGoogleMap";
-// import UpdateDocumentGoogleMap from "./Pages/Services/GoogleMapLocation/DocumentVerificationLoc/UpdateDocumentGoogleMap";
 import DocumentLegalVerifcation from "./Pages/Services/LegalOpinion/DocumentLegalOpinion/DocumentLegalVerifcation";
-// import UpdateLegalDoc from "./Pages/Services/LegalOpinion/DocumentLegalOpinion/UpdateLegalDoc";
-// import DocumentSetLegal from "./Pages/Services/LegalOpinion/DocumentLegalOpinion/DocumentSetLegal";
 import LocationVerificationLegal from "./Pages/Services/LegalOpinion/LocationLegalOpinion/LocationVerificationLegal";
 import UpdateLocLegal from "./Pages/Services/LegalOpinion/LocationLegalOpinion/UpdateLocLegal";
 import ServiceConfirmLegal from "./Pages/Services/LegalOpinion/ServiceConfirmation/ServiceConfirmLegal";
@@ -300,7 +242,6 @@ import InvoiceVerifyValuation from "./Pages/Services/PropertyValuation/InvoiceVe
 import UpdateInvoiceVerifyValuation from "./Pages/Services/PropertyValuation/InvoiceVerificationValuation/UpdateInvoiceVerifyValuation";
 import TicketAssignValuation from "./Pages/Services/PropertyValuation/TicketAssigningValuation/TicketAssignValuation";
 import UpdateTicketHubValuation from "./Pages/Services/PropertyValuation/TicketAssigningValuation/UpdateTicketHubValuation";
-// import UpdateDocApart from "./Pages/Enquiry/AppartmentEnquiry/ApartDocumentVerification/UpdateDocApart";
 import DocumentVerifyMissing from "./Pages/Services/MissingDocuments/DocumentVeirficationMissing/DocumentVerifyMissing";
 import UpdateDocVerifyMissing from "./Pages/Services/MissingDocuments/DocumentVeirficationMissing/UpdateDocVerifyMissing";
 import LocationVerifyMissing from "./Pages/Services/MissingDocuments/LocationVerifyMissing/LocationVerifyMissing";
@@ -336,19 +277,9 @@ import UpdateMediaDepPlot from "./Pages/PlotEnquiry/MediaDepartmentPlot/UpdateMe
 import ContentWritingPlot from "./Pages/PlotEnquiry/ContentWritingPlot/ContentWritingPlot";
 import UpdateContentWritingPlot from "./Pages/PlotEnquiry/ContentWritingPlot/UpdateContentWritingPlot";
 import VacantReport from "./Pages/PropertyInventory/VacantReport/VacantReport";
-// import BlockingBookingLand from "./Pages/Enquiry/BlockingBookingLand/BlockingBookingLand";
-// import PaymentScheduleLand from "./Pages/Enquiry/PaymentScheduleLand/PaymentScheduleLand";
-// import UpdatePaymentScheduleLand from "./Pages/Enquiry/PaymentScheduleLand/UpdatePaymentScheduleLand";
-// import RegistrationTicketLand from "./Pages/Enquiry/RegistrationTicketLand/RegistrationTicketLand";
-// import UpdateRegistrationTicketLand from "./Pages/Enquiry/RegistrationTicketLand/UpdateRegistrationTicketLand";
-// import RegistrationLand from "./Pages/Enquiry/RegistrationLand/RegistrationLand";
-// import UpdateRegistrationLand from "./Pages/Enquiry/RegistrationLand/UpdateRegistrationLand";
-// import AfterSaleLand from "./Pages/Enquiry/AfterSaleLand/AfterSaleLand";
-// import UpdateAfterSaleLand from "./Pages/Enquiry/AfterSaleLand/UpdateAfterSaleLand";
 import Bookingprocess from "./Pages/Booking/Bookingreport/Bookingprocess";
 import Bookingcomplete from "./Pages/Booking/Bookingreport/Bookingcomplete";
 import Bookingcanceled from "./Pages/Booking/Bookingreport/Bookingcanceled";
-import Updatebookingdata from "./Pages/Booking/Bookingreport/Updatebookingdata";
 import Blockreport from "./Pages/PropertyInventory/VacantReport/Blockreport";
 import DocumentHouse from "./Pages/HouseEnquiry/DocumentVerificationHouse/DocumentHouse";
 import UpdateDocumentHouse from "./Pages/HouseEnquiry/DocumentVerificationHouse/UpdateDocumentHouse";
@@ -434,15 +365,6 @@ import MediaDptAp from "./Pages/ApartmentProjectEnquiry/MediaDptAP/MediaDptAp";
 import UpdateMediaDptAP from "./Pages/ApartmentProjectEnquiry/MediaDptAP/UpdateMediaDptAP";
 import ContentDptAp from "./Pages/ApartmentProjectEnquiry/ContentDptAp/ContentDptAp";
 import UpdateContentDptAP from "./Pages/ApartmentProjectEnquiry/ContentDptAp/UpdateContentDptAP";
-// import BlockingBookingApartments from "./Pages/Enquiry/AppartmentEnquiry/Blocking&BookingApartment/BlockingBookingApartments";
-// import PaymentScheduleApartment from "./Pages/Enquiry/AppartmentEnquiry/PaymentScheduleApartment/PaymentScheduleApartment";
-// import UpdatePaymentScheduleApartment from "./Pages/Enquiry/AppartmentEnquiry/PaymentScheduleApartment/UpdatePaymentScheduleApartment";
-// import RegistrationTicketApartment from "./Pages/Enquiry/AppartmentEnquiry/RegistrationTicketApartment/RegistrationTicketApartment";
-// import UpdateRegistrationTicketApartment from "./Pages/Enquiry/AppartmentEnquiry/RegistrationTicketApartment/UpdateRegistrationTicketApartment";
-// import RegistrationApartment from "./Pages/Enquiry/AppartmentEnquiry/RegistrationApartment/RegistrationApartment";
-// import UpdateRegistrationApartment from "./Pages/Enquiry/AppartmentEnquiry/RegistrationApartment/UpdateRegistrationApartment";
-// import AfterSaleApartment from "./Pages/Enquiry/AppartmentEnquiry/AfterSaleApartment/AfterSaleApartment";
-// import UpdateAfterSaleApartment from "./Pages/Enquiry/AppartmentEnquiry/AfterSaleApartment/UpdateAfterSaleApartment";
 import PaymentScheduleAfterSale from "./Pages/AfterSale/PaymentSchedule/PaymentScheduleAfterSale";
 import UpdatePaymentScheduleAsale from "./Pages/AfterSale/PaymentSchedule/UpdatePaymentScheduleAsale";
 import RegistrationTicket from "./Pages/AfterSale/RegistrationTicket/RegistrationTicket";
@@ -456,7 +378,6 @@ import Gift from "./Pages/MasterPage/Gifts/Gift";
 import BookingReportsAfterSale from "./Pages/AfterSale/BlockingBooking/BookingReportsAfterSale";
 import BookingDetailsASale from "./Pages/AfterSale/BlockingBooking/BookingDetailsASale";
 import TelecallingDocVerification from "./Pages/TeleCalling/Document Verification/TelecallingDocVerification";
-import UploadDocumentsTele from "./Pages/TeleCalling/Document Verification/UploadDocumentsTele";
 import WholeDocTelecalling from "./Pages/TeleCalling/Document Verification/WholeDocTelecalling";
 import AdvancePaymentTele from "./Pages/TeleCalling/AdvancePaymentTele/AdvancePaymentTele";
 import WholeAdvanceTele from "./Pages/TeleCalling/AdvancePaymentTele/WholeAdvanceTele";
@@ -503,10 +424,7 @@ import WhoWeAre from "./Pages/CMS/Service/ServiceSubpages/WhoWeAre";
 import ServiceBlogs from "./Pages/CMS/Service/ServiceSubpages/ServiceBlogs";
 import ContactUs from "./Pages/CMS/Home/ContactUs";
 import AboutUS from "./Pages/CMS/Home/AboutUS";
-import { extractMenuTree } from "./common/MenuReader";
 import { BreadcrumbProvider } from "./common/BreadCrumpProvider";
-// import DocumentLand from "./Pages/Enquiry/DocumentVerificationLand/DocumentLand";
-// import UpdateDocLand from "./Pages/Enquiry/DocumentVerificationLand/UpdateDocLand";
 import DocumentLand from "./Pages/LandEnquiry/DocumentVerificationLand/DocumentLand";
 import InvoiceReport from "./Pages/LandEnquiry/InvoiceVerification/InvoiceReport";
 import InvoiceVerification from "./Pages/LandEnquiry/InvoiceVerification/InvoiceVerification";
@@ -557,19 +475,37 @@ import ContentWritingApart from "./Pages/ApartmentEnquiry/ContentWritingApart/Co
 import UpdateContentWriting from "./Pages/ApartmentEnquiry/ContentWritingApart/UpdateContentWriting";
 import UpdateDocLand from "./Pages/LandEnquiry/DocumentVerificationLand/UpdateDocLand";
 import UpdateDocApart from "./Pages/ApartmentEnquiry/ApartDocumentVerification/UpdateDocApart";
-import StaffCreation from "./Pages/Staff/NewStaff/StaffCreation";
+import InvoiceVerifyAp from "./Pages/ApartmentProjectEnquiry/InvoiceVerifyAp/InvoiceVerifyAp";
+import UpdateInvoiceVerifyAp from "./Pages/ApartmentProjectEnquiry/InvoiceVerifyAp/UpdateInvoiceVerifyAp";
+import Buyer from "./Pages/Customer/Buyer";
+import Seller from "./Pages/Customer/Seller";
+import LayoutBookingReports from "./Pages/CMS/LayoutBooking/LayoutBookingReports";
+import LayoutDraw from "./Pages/CMS/LayoutBooking/LayoutDraw";
+import LayoutDrawReports from "./Pages/CMS/LayoutBooking/LayoutDrawReports";
+import LayoutDrawPreview from "./Pages/CMS/LayoutBooking/LayoutDrawPreview";
+import Bank from "./Pages/MasterPage/Bank/Bank";
+import PaymentMode from "./Pages/MasterPage/PaymentMode/PaymentMode";
+import PaymentToSellerPreview from "./Pages/SellerPayments/PaymentToSellerPreview";
+import SellerPayment from "./Pages/SellerPayments/SellerPayment";
+import CustomerLead from "./Pages/CustomerLead/CustomerLead";
+import Discount from "./Pages/MasterPage/Discount/Discount";
+import USB from "./Pages/CMS/Home/USB";
+import Testimonials from "./Pages/CMS/Home/Testimonials";
+import ServiceImageMobile from "./Pages/CMS/Home/ServiceImageMobile";
+import EnquiryReports from "./Pages/EnquiryReports/EnquiryReports";
+import BoolokVerifiedList from "./Pages/CMS/BoolokVerifiedList/BoolokVerifiedList";
 
 function App() {
   useEffect(() => {
     const loginType = localStorage.getItem("logintype");
     document.title =
-      loginType === "staff" ? "Goolok | Staff" : "Goolok | Admin";
+      loginType === "staff" ? "Boolok | Staff" : "Boolok | Admin";
   }, []);
 
   return (
     <div>
       <BreadcrumbProvider>
-        <BrowserRouter>
+        <BrowserRouter basename="/goolokadmindemo">
           <Routes>
             <Route path="/" element={<PublicRoute element={Login} />} />
             <Route
@@ -612,6 +548,14 @@ function App() {
                       <Route
                         path="/SRO_Details"
                         element={<PrivateRoute element={SRODetails} />}
+                      />
+                      <Route
+                        path="/bank"
+                        element={<PrivateRoute element={Bank} />}
+                      />
+                      <Route
+                        path="/paymentmode"
+                        element={<PrivateRoute element={PaymentMode} />}
                       />
                       <Route
                         path="/state"
@@ -2800,6 +2744,17 @@ function App() {
                           <CommonRoute element={UpdateDocumentVerifyAP} />
                         }
                       />
+                      {/*Apart invoice Verification */}
+                      <Route
+                        path="/aproject_invoiceverification"
+                        element={<CommonRoute element={InvoiceVerifyAp} />}
+                      />
+                      <Route
+                        path="/aproject_invoiceverification/:eid/:id/:status"
+                        element={
+                          <CommonRoute element={UpdateInvoiceVerifyAp} />
+                        }
+                      />
                       {/* Location Apartment Project */}
                       <Route
                         path="/aproject_location"
@@ -3141,8 +3096,75 @@ function App() {
                         path="/serviceblogs"
                         element={<CommonRoute element={ServiceBlogs} />}
                       />
+                      {/* customer */}
+                      <Route
+                        path="/buyer"
+                        element={<CommonRoute element={Buyer} />}
+                      />
+                      <Route
+                        path="/seller"
+                        element={<CommonRoute element={Seller} />}
+                      />
+                      {/* Layout Booking */}
+                      <Route
+                        path="/layoutbooking"
+                        element={<CommonRoute element={LayoutBookingReports} />}
+                      />
+                      <Route
+                        path="/layoutdraw/:eid"
+                        element={<CommonRoute element={LayoutDraw} />}
+                      />
+                      <Route
+                        path="/layoutdrawreports"
+                        element={<CommonRoute element={LayoutDrawReports} />}
+                      />
+                      <Route
+                        path="/layoutdrawrpreview/:eid"
+                        element={<CommonRoute element={LayoutDrawPreview} />}
+                      />
+                      <Route
+                        path="/paymentseller"
+                        element={<CommonRoute element={SellerPayment} />}
+                      />
+                      {/* <Route
+                        path="/paymentseller"
+                        element={<CommonRoute element={PaymentToSeller} />}
+                      /> */}
+                      <Route
+                        path="/paymentsellerpreview/:eid"
+                        element={
+                          <CommonRoute element={PaymentToSellerPreview} />
+                        }
+                      />
+                      <Route
+                        path="/customerlead"
+                        element={<CommonRoute element={CustomerLead} />}
+                      />
+                      <Route
+                        path="/discount"
+                        element={<CommonRoute element={Discount} />}
+                      />
+                      <Route
+                        path="/usb"
+                        element={<CommonRoute element={USB} />}
+                      />
+                      <Route
+                        path="/testimonials"
+                        element={<CommonRoute element={Testimonials} />}
+                      />
+                      <Route
+                        path="/serviceimagemobile"
+                        element={<CommonRoute element={ServiceImageMobile} />}
+                      />
+                      <Route
+                        path="/enquiryreports"
+                        element={<CommonRoute element={EnquiryReports} />}
+                      />
+                      <Route
+                        path="/boolokverifiedlists"
+                        element={<CommonRoute element={BoolokVerifiedList} />}
+                      />
                     </Routes>
-
                     <Footerbar />
                   </main>
                 </div>

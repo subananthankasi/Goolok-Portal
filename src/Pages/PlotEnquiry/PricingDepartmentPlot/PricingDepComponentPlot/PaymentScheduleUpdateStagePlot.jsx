@@ -476,10 +476,10 @@ const PaymentScheduleUpdateStagePlot = ({ eid, status, pagetype }) => {
       fetchData(rowId);
       dispatch(paymentSchedulEnqGetThunk(eid));
       setInstallmentView(false);
-    setPostLoading(false)
+      setPostLoading(false)
 
-    } catch (error) { 
-    setPostLoading(false)
+    } catch (error) {
+      setPostLoading(false)
 
     }
   };
@@ -757,7 +757,7 @@ const PaymentScheduleUpdateStagePlot = ({ eid, status, pagetype }) => {
                             alignItems: "center",
                           }}
                         >
-                          <Button
+                          {/* <Button
                             variant="contained"
                             color="success"
                             size="small"
@@ -765,7 +765,8 @@ const PaymentScheduleUpdateStagePlot = ({ eid, status, pagetype }) => {
                             onClick={formik1.handleSubmit}
                           >
                             Add
-                          </Button>
+                          </Button> */}
+                          <button type="button" className="btn1" onClick={formik1.handleSubmit} > Add</button>
                         </div>
                       )}
                     </div>
@@ -776,7 +777,11 @@ const PaymentScheduleUpdateStagePlot = ({ eid, status, pagetype }) => {
               </section>
             )}
           <div className="d-flex justify-content-end gap-2 mt-4">
-            <div>
+            <div className="d-flex justify-content-end gap-2">
+              <button type="button" className="btn1" onClick={cancelDialog}> Cancel</button>
+              <button type="submit " className="btn1" onClick={() => setEditing(false)} disabled={isAddSubmitDisabled}> Save</button>
+            </div>
+            {/* <div>
               <Button variant="outlined" onClick={cancelDialog}>
                 {" "}
                 Cancel{" "}
@@ -791,7 +796,7 @@ const PaymentScheduleUpdateStagePlot = ({ eid, status, pagetype }) => {
               >
                 Save
               </Button>
-            </div>
+            </div> */}
           </div>
         </form>
       </Dialog>

@@ -239,16 +239,16 @@ const WholeDocGetPatta = ({ eid, id, status, pagetype }) => {
 
       sortable: true,
     },
-
     {
-      name: "View/Upload",
+      name: "View & Upload",
+      width: "150px",
       cell: (row) => (
         <>
           <div className="d-flex gap-2">
             {row.document ? (
               <button
                 type="button"
-                className="btn btn-warning rounded-0"
+                className="btn btn-primary"
                 onClick={() =>
                   viewFileUrl(`${IMG_PATH}/enquiry/${row.document}`)
                 }
@@ -256,7 +256,7 @@ const WholeDocGetPatta = ({ eid, id, status, pagetype }) => {
                 <RemoveRedEyeIcon />
               </button>
             ) : (
-              <button type="button" className="btn btn-primary rounded-0">
+              <button type="button" className="btn btn-primary">
                 <VisibilityOffIcon />
               </button>
             )}
@@ -266,7 +266,7 @@ const WholeDocGetPatta = ({ eid, id, status, pagetype }) => {
               enquiryDoumentData?.status !== "booking" && (
                 <button
                   type="button"
-                  className="btn btn-info rounded-0 ms-2"
+                  className="btn btn-primary"
                   onClick={() => {
                     openAddDocModal();
                     setUploadDocData(row);
@@ -282,6 +282,7 @@ const WholeDocGetPatta = ({ eid, id, status, pagetype }) => {
 
     {
       name: "Fill Details",
+      width: "150px",
       cell: (row) => {
         const handleClick = () => {
           if (row.document) {
@@ -302,7 +303,7 @@ const WholeDocGetPatta = ({ eid, id, status, pagetype }) => {
               enquiryDoumentData?.status !== "booking" ? (
               <button
                 type="button"
-                className="btn btn-primary rounded-0"
+                className="btn btn-primary"
                 onClick={handleClick}
               >
                 Fill Details..
@@ -310,7 +311,7 @@ const WholeDocGetPatta = ({ eid, id, status, pagetype }) => {
             ) : (
               <button
                 type="button"
-                className="btn btn-primary rounded-0"
+                className="btn btn-primary"
                 onClick={() => {
                   setViewDetails(true);
                   setViewData(row);
@@ -331,19 +332,12 @@ const WholeDocGetPatta = ({ eid, id, status, pagetype }) => {
           <>
             <button
               type="button"
-              className={`badge rounded-pill btnhover btn p-2 ${row.status == "verify"
-                ? "bg-success"
+              className={`badge ${row.status == "verify"
+                ? "badge-success"
                 : row.status == "pending"
-                  ? "bg-danger"
-                  : "bg-info"
+                  ? "badge-danger"
+                  : "badge-info"
                 }`}
-              style={{ width: "60px" }}
-              // onClick={() => {
-              //   if (staffid.logintype == "staff") {
-              //     openModalDoc();
-              //     setDocId(row);
-              //   }
-              // }}
               onClick={() => {
                 if (
                   staffid.logintype !== "admin" &&
@@ -372,7 +366,7 @@ const WholeDocGetPatta = ({ eid, id, status, pagetype }) => {
         <>
           <button
             type="button"
-            className={`btn btn-outline-info`}
+            className={`btn btn-primary`}
             onClick={() => {
               openModalRedo();
               setDocId(row);
@@ -645,13 +639,12 @@ const WholeDocGetPatta = ({ eid, id, status, pagetype }) => {
                 pagetype !== "reminder" &&
                 enquiryDoumentData?.status !== "booking" && (
                   <div className="ms-2">
-                    <a
-                      href="#"
+                    <button
                       onClick={() => setVisible(true)}
                       className="btn1 me-2"
                     >
                       + Add document
-                    </a>
+                    </button>
                   </div>
                 )}
             </div>

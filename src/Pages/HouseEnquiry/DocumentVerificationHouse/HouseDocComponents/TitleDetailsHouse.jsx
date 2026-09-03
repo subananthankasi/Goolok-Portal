@@ -584,7 +584,11 @@ const TitleDetailsHouse = ({ data, setStep }) => {
             {staffid.Login === "staff" &&
               (data.status === "pending" || data.status === "verify") && (
                 <>
-                  <Button
+                 <div className="d-flex justify-content-end gap-2">
+                    <button type="button" className="btn1" onClick={() => formik.resetForm()}> Clear</button>
+                    <button type="submit " className="btn1"> Next</button>
+                  </div>
+                  {/* <Button
                     variant="outlined"
                     type="button"
                     color="error"
@@ -595,7 +599,7 @@ const TitleDetailsHouse = ({ data, setStep }) => {
                   </Button>
                   <Button variant="contained" type="submit">
                     Next
-                  </Button>
+                  </Button> */}
                 </>
               )}
           </div>

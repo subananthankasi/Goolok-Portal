@@ -54,10 +54,6 @@ const AddAttachementsCom = ({ eid, status, pagetype }) => {
         (state) => state.mediaAttachmentData?.delete?.loading
     );
 
-    const openDelete = (row) => {
-        setDeleteDialog(true);
-        setDeleteId(row.id);
-    };
     const handleDelete = async () => {
         try {
             const response = await dispatch(mediaAttachmentDeleteThunk(deleteId));
@@ -241,16 +237,13 @@ const AddAttachementsCom = ({ eid, status, pagetype }) => {
         //   }),
         // }),
 
-        validate,
+        // validate,
         onSubmit,
     });
     const hideDialog = () => {
         setBroucherDialog(false);
         formik.resetForm();
-    };
-    const hideEditDialog = () => {
         setEditDialog(false);
-        formik.resetForm();
     };
 
     const handleEdit = (row) => {
@@ -323,10 +316,10 @@ const AddAttachementsCom = ({ eid, status, pagetype }) => {
                         rel="noopener noreferrer"
                         className="btn"
                     >
-                        <i className="pi pi-file-pdf" style={{ fontSize: "1.5rem" }}></i>
+                        <i className="pi pi-file-pdf" style={{ fontSize: "1.5rem", color: "red" }}></i>
                     </a>
                 ) : (
-                    <span>No Brochure</span>
+                    <span>-</span>
                 ),
         },
         {
@@ -334,17 +327,17 @@ const AddAttachementsCom = ({ eid, status, pagetype }) => {
             selector: (row) => row.building,
             sortable: true,
             cell: (row) =>
-                row.brochures ? (
+                row.building ? (
                     <a
                         href={`${IMG_PATH}/enquiry/attach/${row.building}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="btn"
                     >
-                        <i className="pi pi-file-pdf" style={{ fontSize: "1.5rem" }}></i>
+                        <i className="pi pi-file-pdf" style={{ fontSize: "1.5rem", color: "red" }}></i>
                     </a>
                 ) : (
-                    <span>No building</span>
+                    <span>-</span>
                 ),
         },
         {
@@ -352,17 +345,17 @@ const AddAttachementsCom = ({ eid, status, pagetype }) => {
             selector: (row) => row.floor,
             sortable: true,
             cell: (row) =>
-                row.brochures ? (
+                row.floor ? (
                     <a
                         href={`${IMG_PATH}/enquiry/attach/${row.floor}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="btn"
                     >
-                        <i className="pi pi-file-pdf" style={{ fontSize: "1.5rem" }}></i>
+                        <i className="pi pi-file-pdf" style={{ fontSize: "1.5rem", color: "red" }}></i>
                     </a>
                 ) : (
-                    <span>No Floor</span>
+                    <span>-</span>
                 ),
         },
         {
@@ -370,17 +363,17 @@ const AddAttachementsCom = ({ eid, status, pagetype }) => {
             selector: (row) => row.layouts,
             sortable: true,
             cell: (row) =>
-                row.brochures ? (
+                row.layouts ? (
                     <a
                         href={`${IMG_PATH}/enquiry/attach/${row.layouts}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="btn"
                     >
-                        <i className="pi pi-file-pdf" style={{ fontSize: "1.5rem" }}></i>
+                        <i className="pi pi-file-pdf" style={{ fontSize: "1.5rem", color: "red" }}></i>
                     </a>
                 ) : (
-                    <span>No layouts</span>
+                    <span>-</span>
                 ),
         },
         {
@@ -398,10 +391,11 @@ const AddAttachementsCom = ({ eid, status, pagetype }) => {
                             controls
                             className="mt-1 mb-1 rounded-circle"
                             src={imgFileUrl}
+                            alt="add attachment"
                         />
                     );
                 } else {
-                    return <div>no photo</div>;
+                    return <div>-</div>;
                 }
             },
         },
@@ -428,7 +422,7 @@ const AddAttachementsCom = ({ eid, status, pagetype }) => {
                         </a>
                     );
                 } else {
-                    return <span>No Video</span>;
+                    return <span>-</span>;
                 }
             },
         },
@@ -455,7 +449,7 @@ const AddAttachementsCom = ({ eid, status, pagetype }) => {
                         </a>
                     );
                 } else {
-                    return <span>No Audio</span>;
+                    return <span>-</span>;
                 }
             },
         },
@@ -613,7 +607,7 @@ const AddAttachementsCom = ({ eid, status, pagetype }) => {
                         <div className="mt-3 form-group">
                             <label htmlFor="broucher" style={{ fontSize: "14px" }}>
                                 {" "}
-                                Broucher <span style={{ color: "red" }}>*</span> :
+                                Broucher  :
                             </label>
                             <input
                                 name="brochures"
@@ -636,7 +630,7 @@ const AddAttachementsCom = ({ eid, status, pagetype }) => {
                         <div className="mt-2 form-group">
                             <label htmlFor="photo" style={{ fontSize: "14px" }}>
                                 {" "}
-                                Layouts <span style={{ color: "red" }}>*</span>:
+                                Layouts :
                             </label>
                             <input
                                 name="layouts"
@@ -661,7 +655,7 @@ const AddAttachementsCom = ({ eid, status, pagetype }) => {
                         <div className=" form-group mt-2">
                             <label htmlFor="photo" style={{ fontSize: "14px" }}>
                                 {" "}
-                                Floor plans <span style={{ color: "red" }}>*</span> :
+                                Floor plans  :
                             </label>
                             <input
                                 name="floor"
@@ -686,7 +680,7 @@ const AddAttachementsCom = ({ eid, status, pagetype }) => {
                                 htmlFor="buildingSpecification"
                                 style={{ fontSize: "14px" }}
                             >
-                                building specifications <span style={{ color: "red" }}>*</span>:
+                                building specifications :
                             </label>
                             <input
                                 name="building"
@@ -712,7 +706,7 @@ const AddAttachementsCom = ({ eid, status, pagetype }) => {
 
                         <div className="form-group mt-2" style={{ width: "100%" }}>
                             <label htmlFor="areaMaping" style={{ fontSize: "14px" }}>
-                                Area Mapping <span style={{ color: "red" }}>*</span>:
+                                Area Mapping :
                             </label>
                             <input
                                 name="mapping"
@@ -735,7 +729,7 @@ const AddAttachementsCom = ({ eid, status, pagetype }) => {
                         <div className="d-flex gap-4" style={{ width: "100%" }}>
                             <div className="form-group" style={{ width: "100%" }}>
                                 <label htmlFor="vrType" style={{ fontSize: "14px" }}>
-                                    Add VR <span style={{ color: "red" }}>*</span>:
+                                    Add VR :
                                 </label>
                                 <select
                                     name="vrtype"
@@ -810,7 +804,7 @@ const AddAttachementsCom = ({ eid, status, pagetype }) => {
                             <div className="d-flex gap-4 mt-2" style={{ width: "100%" }}>
                                 <div className=" form-group" style={{ width: "100%" }}>
                                     <label htmlFor="artype" style={{ fontSize: "14px" }}>
-                                        Add AR <span style={{ color: "red" }}>*</span>:
+                                        Add AR :
                                     </label>
                                     <select
                                         name="artype"
@@ -969,7 +963,7 @@ const AddAttachementsCom = ({ eid, status, pagetype }) => {
                         <div className="mt-3 form-group">
                             <label htmlFor="broucher" style={{ fontSize: "14px" }}>
                                 {" "}
-                                Broucher <span style={{ color: "red" }}>*</span> :
+                                Broucher  :
                             </label>
                             <div className="d-flex gap-3 align-items-center">
                                 <input
@@ -996,7 +990,7 @@ const AddAttachementsCom = ({ eid, status, pagetype }) => {
                         <div className="mt-2 form-group">
                             <label htmlFor="photo" style={{ fontSize: "14px" }}>
                                 {" "}
-                                Layouts <span style={{ color: "red" }}>*</span>:
+                                Layouts :
                             </label>
                             <div className="d-flex gap-3 align-items-center">
                                 <input
@@ -1023,7 +1017,7 @@ const AddAttachementsCom = ({ eid, status, pagetype }) => {
                         <div className=" form-group mt-2">
                             <label htmlFor="photo" style={{ fontSize: "14px" }}>
                                 {" "}
-                                Floor plans <span style={{ color: "red" }}>*</span> :
+                                Floor plans  :
                             </label>
                             <div className="d-flex gap-3 align-items-center">
                                 <input
@@ -1052,7 +1046,7 @@ const AddAttachementsCom = ({ eid, status, pagetype }) => {
                                 htmlFor="buildingSpecification"
                                 style={{ fontSize: "14px" }}
                             >
-                                building specifications <span style={{ color: "red" }}>*</span>:
+                                building specifications :
                             </label>
                             <div className="d-flex gap-3 align-items-center">
                                 <input
@@ -1079,7 +1073,7 @@ const AddAttachementsCom = ({ eid, status, pagetype }) => {
 
                         <div className="form-group mt-2" style={{ width: "100%" }}>
                             <label htmlFor="areaMaping" style={{ fontSize: "14px" }}>
-                                Area Mapping <span style={{ color: "red" }}>*</span>:
+                                Area Mapping :
                             </label>
                             <div className="d-flex gap-3 align-items-center">
                                 <input
@@ -1110,7 +1104,7 @@ const AddAttachementsCom = ({ eid, status, pagetype }) => {
                         <div className="d-flex gap-4" style={{ width: "100%" }}>
                             <div className="form-group" style={{ width: "100%" }}>
                                 <label htmlFor="vrType" style={{ fontSize: "14px" }}>
-                                    Add VR <span style={{ color: "red" }}>*</span>:
+                                    Add VR :
                                 </label>
                                 <select
                                     name="vrtype"
@@ -1193,7 +1187,7 @@ const AddAttachementsCom = ({ eid, status, pagetype }) => {
                             <div className="d-flex gap-4 mt-2" style={{ width: "100%" }}>
                                 <div className=" form-group" style={{ width: "100%" }}>
                                     <label htmlFor="artype" style={{ fontSize: "14px" }}>
-                                        Add AR <span style={{ color: "red" }}>*</span>:
+                                        Add AR :
                                     </label>
                                     <select
                                         name="artype"

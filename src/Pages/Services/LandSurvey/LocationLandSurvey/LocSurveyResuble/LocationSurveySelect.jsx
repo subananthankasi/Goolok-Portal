@@ -263,10 +263,10 @@ const LocationSurveySelect = ({ eid, id, status, pagetype }) => {
                             <thead>
                                 <tr>
                                     <th
-                                        className="text-center"
+                                        className="text-center table-bg"
                                         style={{
-                                            backgroundColor: "rgb(47, 79, 79)",
-                                            color: "#ffff",
+                                            
+                                            
                                             fontWeight: "400",
                                         }}
                                     >
@@ -274,20 +274,20 @@ const LocationSurveySelect = ({ eid, id, status, pagetype }) => {
                                         S.no
                                     </th>
                                     <th
-                                        className="text-center"
+                                        className="text-center table-bg"
                                         style={{
-                                            backgroundColor: "rgb(47, 79, 79)",
-                                            color: "#ffff",
+                                            
+                                            
                                             fontWeight: "400",
                                         }}
                                     >
                                         Survey No{" "}
                                     </th>
                                     <th
-                                        className="text-center"
+                                        className="text-center table-bg"
                                         style={{
-                                            backgroundColor: "rgb(47, 79, 79)",
-                                            color: "#ffff",
+                                            
+                                            
                                             fontWeight: "400",
                                         }}
                                     >
@@ -299,10 +299,8 @@ const LocationSurveySelect = ({ eid, id, status, pagetype }) => {
                                         pagetype !== "reminder" &&
                                         enquiryDoumentData?.status !== "live" ? (
                                         <th
-                                            className="text-center"
+                                            className="text-center table-bg"
                                             style={{
-                                                backgroundColor: "rgb(47, 79, 79)",
-                                                color: "#ffff",
                                                 fontWeight: "400",
                                             }}
                                         >

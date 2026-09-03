@@ -1,4 +1,4 @@
-import  { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -104,7 +104,7 @@ const PhasePricingCostAP = ({ eid, id, status, pagetype }) => {
   };
   const handleDelete = async (row) => {
     try {
-       await axios.delete(
+      await axios.delete(
         `${API_BASE_URL}/servicedelete/${deleteId}`
       );
       Toast({ message: "Successfully deleted", type: "success" });
@@ -150,7 +150,7 @@ const PhasePricingCostAP = ({ eid, id, status, pagetype }) => {
   const fetch = async () => {
     try {
       const response = await axios.get(
-        `${API_BASE_URL}//${eid}`
+        `${API_BASE_URL}/viewphasecost/${eid}`
       );
       setGetData(response.data);
     } catch (error) {
@@ -367,13 +367,20 @@ const PhasePricingCostAP = ({ eid, id, status, pagetype }) => {
           </div>
 
           <div className="d-flex justify-content-end mt-4">
-            <Button
+            {/* <Button
               variant="contained"
               type="submit"
               onClick={() => setEditing(false)}
             >
               Submit
-            </Button>
+            </Button> */}
+            <button
+              className="btn1 me-2"
+              type="submit"
+              onClick={() => setEditing(false)}
+            >
+              Submit
+            </button>
           </div>
         </form>
       </Dialog>
@@ -520,13 +527,20 @@ const PhasePricingCostAP = ({ eid, id, status, pagetype }) => {
           </div>
 
           <div className="d-flex justify-content-end mt-4">
-            <Button
+            {/* <Button
               variant="contained"
               type="submit"
               onClick={() => setEditing(true)}
             >
               Update
-            </Button>
+            </Button> */}
+            <button
+              className="btn1 me-2"
+              type="submit"
+              onClick={() => setEditing(true)}
+            >
+              update
+            </button>
           </div>
         </form>
       </Dialog>

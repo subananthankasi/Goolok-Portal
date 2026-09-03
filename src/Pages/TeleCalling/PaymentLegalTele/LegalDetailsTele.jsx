@@ -56,7 +56,7 @@ export const LegalDetailsTele = ({ eid, id, status, pagetype }) => {
         <>
           <button
             type="button"
-            className={`badge rounded-pill btnhover btn p-2 ${row.status === "pending" ? "bg-danger" : "bg-success"
+            className={` ${row.status === "pending" ? "badge-danger" : "badge-success"
               } `}
             style={{ width: "60px" }}
           >

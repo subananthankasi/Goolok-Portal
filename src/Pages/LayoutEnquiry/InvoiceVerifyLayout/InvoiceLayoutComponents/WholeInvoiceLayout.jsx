@@ -59,11 +59,8 @@ export const WholeInvoiceLayout = ({ id, status }) => {
         <>
           <button
             type="button"
-            className={`badge rounded-pill btnhover btn p-2 ${
-              row.status === "success" ? "bg-success" : "bg-danger"
-            }`}
-            style={{ width: "60px" }}
-          >
+            className={` ${row.status === "success" ? "badge-success" : "badge-danger"
+              }`}>
             {row.status}
           </button>
         </>
@@ -73,22 +70,22 @@ export const WholeInvoiceLayout = ({ id, status }) => {
 
     ...(status === "success"
       ? [
-          {
-            name: "Download",
-            cell: (row) => (
-              <>
-                <button
-                  type="button"
-                  className="btn btn-outline-primary delete"
-                  onClick={() => downloadPdf(row.id)}
-                >
-                  <FileDownloadIcon />
-                </button>
-              </>
-            ),
-            sortable: true,
-          },
-        ]
+        {
+          name: "Download",
+          cell: (row) => (
+            <>
+              <button
+                type="button"
+                className="btn btn-outline-primary delete"
+                onClick={() => downloadPdf(row.id)}
+              >
+                <FileDownloadIcon />
+              </button>
+            </>
+          ),
+          sortable: true,
+        },
+      ]
       : []),
   ];
 

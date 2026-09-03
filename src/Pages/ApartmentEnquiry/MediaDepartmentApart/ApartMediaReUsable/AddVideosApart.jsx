@@ -15,6 +15,8 @@ import { IMG_PATH } from "../../../../Api/api";
 import customStyle from "../../../../Utils/tableStyle";
 
 const AddVideosApart = ({ eid, status, pagetype }) => {
+
+
     const staffid = JSON.parse(localStorage.getItem("token"));
     const [videoDialog, setvideoDialog] = useState(false);
     const [editDialog, setEditDialog] = useState(false);
@@ -278,13 +280,12 @@ const AddVideosApart = ({ eid, status, pagetype }) => {
                         staffid.Login === "staff" &&
                         pagetype !== "reminder" && enquiryDoumentData?.status !== "booking" && (
                             <div className="ms-2">
-                                <a
-                                    href="#"
+                                <button
                                     onClick={() => setvideoDialog(true)}
                                     className="btn1 me-2"
                                 >
                                     + Add
-                                </a>
+                                </button>
                             </div>
                         )}
                 </div>

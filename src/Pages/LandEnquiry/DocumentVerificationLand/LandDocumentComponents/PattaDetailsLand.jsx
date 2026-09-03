@@ -542,8 +542,10 @@ const PattaDetailsLand = ({ data, setStep }) => {
                     <div className="text-end">
                         {staffid.Login === "staff" &&
                             (data.status === "pending" || data.status === "verify") && (
-                                <>
-                                    <Button
+                                <div className="d-flex justify-content-end gap-2">
+                                    <button type="button" className="btn1" onClick={() => formik.resetForm()}> Clear</button>
+                                    <button type="submit " className="btn1" > Next</button>
+                                    {/* <Button
                                         variant="outlined"
                                         type="button"
                                         color="error"
@@ -554,8 +556,8 @@ const PattaDetailsLand = ({ data, setStep }) => {
                                     </Button>
                                     <Button variant="contained" type="submit">
                                         Next
-                                    </Button>
-                                </>
+                                    </Button> */}
+                                </div>
                             )}
                     </div>
                 </div>

@@ -437,7 +437,7 @@ const AddPhotosAP = ({ eid, status, pagetype }) => {
                 modal
                 className="p-fluid"
                 onHide={() => {
-                    if (!updateLoading) hideDialog();
+                    hideDialog();
                 }}
                 closable={!updateLoading}
             >

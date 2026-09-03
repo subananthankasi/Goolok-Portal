@@ -13,6 +13,7 @@ import API_BASE_URL, { IMG_PATH } from "../../../../Api/api";
 import Toast from "../../../../Utils/Toast";
 import customStyle from "../../../../Utils/tableStyle";
 import OpenPreviewImage from "../../../../Utils/OpenPreviewImage";
+import { Switch } from 'antd';
 
 const ServiceCreation = () => {
   const [newDialog, setNewDialog] = useState(false);
@@ -86,6 +87,11 @@ const ServiceCreation = () => {
       sortable: true,
     },
     {
+      name: "Theme",
+      selector: (row) => row.theme,
+      sortable: true,
+    },
+    {
       name: "Status",
       selector: (row) => row.status,
       sortable: true,
@@ -133,6 +139,7 @@ const ServiceCreation = () => {
     formik.setFieldValue("off_amount", row.off_amount || "");
     formik.setFieldValue("button_text", row.button_text || "");
     // formik.setFieldValue("button_url", row.button_url || "");
+    formik.setFieldValue("theme", row.theme || "");
     formik.setFieldValue("status", row.status || "");
   };
 
@@ -164,7 +171,7 @@ const ServiceCreation = () => {
 
   const onSubmit = async (values) => {
     setIsSubmitting(true);
-
+    values.theme = values.theme || "light";
     try {
       const response = await axios.post(`${API_BASE_URL}/servicescms`, values, {
         headers: { "Content-Type": "multipart/form-data" },
@@ -194,6 +201,7 @@ const ServiceCreation = () => {
       off_amount: "",
       button_text: "",
       status: "",
+      theme: "light",
     },
     validationSchema: yup.object().shape({
       image: yup.string().required("image is required!"),
@@ -422,22 +430,15 @@ const ServiceCreation = () => {
                 </small>
               )}
             </div>
-            {/* <div className=" mb-3 ">
-                            <label htmlFor="button_url"
-                                className="form-label"> ButtonUrl </label>
-                            <input
-                                type="text"
-                                name="button_url"
-                                className="form-control"
-                                placeholder="Enter button_url"
-                                value={formik.values.button_url}
-                                onChange={formik.handleChange}
-                                onBlur={formik.handleBlur}
-                            />
-                            {formik.errors.button_url && formik.touched.button_url && (
-                                <small className="text-danger">{formik.errors.button_url}</small>
-                            )}
-                        </div> */}
+            <div>
+              <label htmlFor="" className="form-label me-1 mt-2 mb-2">Dark Theme :</label>
+              <Switch
+                checked={formik.values.theme === "dark"}
+                onChange={(checked) => {
+                  formik.setFieldValue("theme", checked ? "dark" : "light");
+                }}
+              />
+            </div>
 
             <div className="mb-3">
               <label htmlFor="status" className="form-label">

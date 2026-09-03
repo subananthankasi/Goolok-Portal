@@ -93,16 +93,7 @@ function PendingLocationLayout() {
         setVisible(true)
         setRowId(id)
     }
-    const datas = [
-        {
-            sno: "1",
-            amount: "ghjs",
-            invoice_date: "78/12/25",
-            age: "20",
-            customer: "rtyui"
 
-        }
-    ]
 
     return (
         <>
@@ -169,7 +160,7 @@ function PendingLocationLayout() {
                                                     <ColumnDirective
                                                         field="customer"
                                                         headerText="Customer Name"
-                                                        width="150"
+                                                        width="170"
                                                     />
                                                     <ColumnDirective
                                                         headerText="Age"

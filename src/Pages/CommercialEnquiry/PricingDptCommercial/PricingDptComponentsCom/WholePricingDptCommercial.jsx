@@ -1,4 +1,4 @@
-import  { useRef, useState } from "react";
+import  { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { pricingConfirmThunk } from "../../../../Redux/Actions/Enquiry/pricingConfirmThunk";
@@ -6,6 +6,7 @@ import Toast from "../../../../Utils/Toast";
 import PricingDepartmentCom from "./PricingDepartmentCom";
 import PaymentScheduleDaysCom from "./PaymentScheduleDaysCom";
 import ConfirmationModal from "../../../../Utils/ConfirmationModal";
+import PricePerUnitComponent from "../../../Enquiry/Reusable/PricePerUnitComponent";
 
 
 const WholePricingDptCommercial = ({ eid, status, id, pagetype, subtype, discountPage }) => {
@@ -52,6 +53,10 @@ const WholePricingDptCommercial = ({ eid, status, id, pagetype, subtype, discoun
         message={"Are you sure this has been verified?"}
         loading={confirmLoading}
       />
+       <PricePerUnitComponent eid={eid}
+        id={id}
+        status={status}
+        pagetype={pagetype} />
       <PricingDepartmentCom eid={eid} status={status} pagetype={pagetype} discountPage={discountPage} />
       {/* <NewPricingDepartment eid={eid} status={status} pagetype={pagetype} discountPage={discountPage}/> */}
       {/* <PaymentSchedulePricingCom eid={eid} id= {id} status={status} pagetype={pagetype}/> */}

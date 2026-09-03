@@ -7,7 +7,7 @@ const FeaturesTag = () => {
     return (
         <>
             <TabView>
-                <TabPanel header="Interior Features" >
+                <TabPanel header="Interior Features" style={{color:"black"}}>
                     <Features />
                 </TabPanel>
                 <TabPanel header="Exterior Features">

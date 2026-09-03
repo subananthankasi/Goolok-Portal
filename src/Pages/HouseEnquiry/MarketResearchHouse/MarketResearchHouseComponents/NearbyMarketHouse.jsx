@@ -311,9 +311,9 @@ const NearbyMarketHouse = ({ eid, status, marketid, pagetype }) => {
                 {staffid.logintype == "staff" &&
                     (status === "pending" || status === "complete") &&
                     pagetype !== "reminder" && enquiryDoumentData?.status !== "booking" ? (
-                    <a href="#0" onClick={() => setNewDialog(true)} className="btn1 me-2">
+                    <button onClick={() => setNewDialog(true)} className="btn1 me-2">
                         + Add
-                    </a>
+                    </button>
                 ) : null}
             </div>
 

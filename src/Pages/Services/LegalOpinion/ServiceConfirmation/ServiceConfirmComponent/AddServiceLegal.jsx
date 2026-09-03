@@ -1,4 +1,4 @@
-import  { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -171,13 +171,12 @@ const AddServiceLegal = ({ eid, id, status, pagetype }) => {
                                 enquiryDoumentData?.status !== "live" && (
                                     <div className="d-flex justify-content-end">
                                         <div className="ms-2">
-                                            <a
-                                                href="#"
+                                            <button
                                                 onClick={() => setNewDialog(true)}
                                                 className="btn1 me-2"
                                             >
                                                 + Add
-                                            </a>
+                                            </button>
                                         </div>
                                     </div>
                                 )}
@@ -292,14 +291,15 @@ const AddServiceLegal = ({ eid, id, status, pagetype }) => {
                     </div>
 
                     <div className="d-flex justify-content-end mt-4">
-                        <Button
+                        {/* <Button
                             variant="contained"
                             type="submit"
                             onClick={() => setEditing(false)}
                             disabled={postLoading}
                         >
                             {postLoading ? "Processing..." : "Submit"}
-                        </Button>
+                        </Button> */}
+                        <button className = "btn1" type="submit" disabled={postLoading} onClick={() => setEditing(false)}>  {postLoading ? "Processing..." : "Submit"}</button>
                     </div>
                 </form>
             </Dialog>
@@ -396,14 +396,15 @@ const AddServiceLegal = ({ eid, id, status, pagetype }) => {
                     </div>
 
                     <div className="d-flex justify-content-end mt-4">
-                        <Button
+                        {/* <Button
                             variant="contained"
                             type="submit"
                             onClick={() => setEditing(true)}
                             disabled={postLoading}
                         >
                             {postLoading ? "Processing..." : "Update"}
-                        </Button>
+                        </Button> */}
+                        <button className="btn1" onClick={() => setEditing(true)} disabled={postLoading}> {postLoading ? "Processing..." : "Update"}</button>
                     </div>
                 </form>
             </Dialog>

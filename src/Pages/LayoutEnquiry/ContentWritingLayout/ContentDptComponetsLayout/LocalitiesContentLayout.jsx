@@ -246,6 +246,19 @@ const LocalitiesContentLayout = ({ eid, id, status }) => {
     formik.setFieldValue("description", row.description);
     formik.setFieldValue("location", row.location);
     formik.setFieldValue("id", row.id);
+
+    if (row.location) {
+      const [lat, lng] = row.location.split(",").map(Number);
+
+      const position = { lat, lng };
+
+      setClickedLatLng(position);
+
+      if (map) {
+        map.panTo(position);
+        map.setZoom(15);
+      }
+    }
   };
 
   const column1 = [
@@ -300,8 +313,8 @@ const LocalitiesContentLayout = ({ eid, id, status }) => {
       : []),
   ];
   const deleteUnitsDialogFooter = (
-    <div className=" d-flex gap-3 justify-content-end">
-      <Button
+    <div className=" d-flex gap-2 justify-content-end">
+      {/* <Button
         label="No"
         icon="pi pi-times"
         outlined
@@ -314,7 +327,21 @@ const LocalitiesContentLayout = ({ eid, id, status }) => {
         severity="danger"
         style={{ borderRadius: "7px" }}
         onClick={handleDelete}
-      />
+      /> */}
+      <button
+        className="btn1"
+        style={{ borderRadius: "7px" }}
+        onClick={() => setDeleteDialog(false)}
+      >
+        Cancel
+      </button>
+      <button
+        className="btn1"
+        style={{ borderRadius: "7px" }}
+        onClick={handleDelete}
+      >
+        Delete
+      </button>
     </div>
   );
   const hideDeleteProductsDialog = () => {
@@ -597,7 +624,13 @@ const LocalitiesContentLayout = ({ eid, id, status }) => {
             </div>
           </div>
           <div className="d-flex justify-content-end gap-2 mt-4">
-            <Button variant="outlined" color="error" onClick={clearForm}>
+            <button className="btn1 me-2" type="button" onClick={clearForm}>
+              Clear
+            </button>
+            <button className="btn1 me-2" type="submit" onClick={() => setEditing(false)}>
+              Submit
+            </button>
+            {/* <Button variant="outlined" color="error" onClick={clearForm}>
               Clear
             </Button>
             <Button
@@ -606,7 +639,7 @@ const LocalitiesContentLayout = ({ eid, id, status }) => {
               onClick={() => setEditing(false)}
             >
               Submit
-            </Button>
+            </Button> */}
           </div>
         </form>
       </Dialog>
@@ -685,7 +718,7 @@ const LocalitiesContentLayout = ({ eid, id, status }) => {
             </div>
 
             <div>
-              {status === "pending" && (
+              {(status === "pending" || status === "complete") && (
                 <div className="form-group mt-3">
                   <div className="row mb-3 align-items-center">
                     <div className="col-2">
@@ -705,129 +738,104 @@ const LocalitiesContentLayout = ({ eid, id, status }) => {
                 </div>
               )}
 
-              {/* <GoogleMap
-                mapContainerStyle={containerStyle}
-                center={redMark}
-                zoom={10}
-                onLoad={onLoad}
-                onUnmount={onUnmount}
-                onClick={handleMapClick}
-              >
 
-                {clickedLatLng && <Marker position={clickedLatLng} />}
-                {Location && typeof Location === "string" && (
-                  <Marker
-                    position={{
-                      lat: parseFloat(Location.split(",")[0]),
-                      lng: parseFloat(Location.split(",")[1]),
-                    }}
-                  />
-                )}
-                <Marker position={redMark} />
-              </GoogleMap> */}
-
-              <GoogleMap
-                mapContainerStyle={containerStyle}
-                center={center}
-                zoom={10}
-                onLoad={onLoad}
-                onUnmount={onUnmount}
-                onClick={handleMapClick}
-              >
-                {clickedLatLng && <Marker position={clickedLatLng} />}
-                {Location && typeof Location === "string" && (
-                  <Marker
-                    position={{
-                      lat: parseFloat(Location.split(",")[0]),
-                      lng: parseFloat(Location.split(",")[1]),
-                    }}
-                  />
-                )}
-                {/* Markers */}
-                {surveyData?.map((item, index) => {
-                  if (!item.location) return null;
-                  const [lat, lng] = item.location.split(",").map(parseFloat);
-                  return (
-                    <React.Fragment key={item.id}>
-                      <Marker
-                        key={index}
-                        position={{ lat, lng }}
-                        onClick={() => handleMarking(index)}
-                        tooltip="Confirm to proceed"
-                      />
-                      {handleMarker === index && (
-                        <InfoWindow
+              <div className="mt-2">
+                <GoogleMap
+                  mapContainerStyle={containerStyle}
+                  center={center}
+                  zoom={10}
+                  onLoad={onLoad}
+                  onUnmount={onUnmount}
+                  onClick={handleMapClick}
+                >
+                  {clickedLatLng && <Marker position={clickedLatLng} />}
+                  {Location && typeof Location === "string" && (
+                    <Marker
+                      position={{
+                        lat: parseFloat(Location.split(",")[0]),
+                        lng: parseFloat(Location.split(",")[1]),
+                      }}
+                    />
+                  )}
+                  {/* Markers */}
+                  {surveyData?.map((item, index) => {
+                    if (!item.location) return null;
+                    const [lat, lng] = item.location.split(",").map(parseFloat);
+                    return (
+                      <React.Fragment key={item.id}>
+                        <Marker
+                          key={index}
                           position={{ lat, lng }}
-                          options={{
-                            pixelOffset: new window.google.maps.Size(0, -30),
-                            maxWidth: 500,
-                          }}
-                          onCloseClick={() => setHandleMarker(null)}
-                        >
-                          <div
-                            style={{
-                              textAlign: "center",
-                              height: "50px",
-                              overflow: "hidden",
+                          onClick={() => handleMarking(index)}
+                          tooltip="Confirm to proceed"
+                        />
+                        {handleMarker === index && (
+                          <InfoWindow
+                            position={{ lat, lng }}
+                            options={{
+                              pixelOffset: new window.google.maps.Size(0, -30),
+                              maxWidth: 500,
                             }}
-                            className="p-0"
+                            onCloseClick={() => setHandleMarker(null)}
                           >
-                            <h6 style={{ fontWeight: "400", fontSize: "15px" }}>
-                              {" "}
-                              Survey No : {item.survey_no}
-                            </h6>
-                            <p>
-                              <LocationOnIcon
-                                sx={{ color: "red", fontSize: 17 }}
-                              />{" "}
-                              {item.location}{" "}
-                            </p>
-                          </div>
-                        </InfoWindow>
-                      )}
-                    </React.Fragment>
-                  );
-                })}
+                            <div
+                              style={{
+                                textAlign: "center",
+                                height: "50px",
+                                overflow: "hidden",
+                              }}
+                              className="p-0"
+                            >
+                              <h6 style={{ fontWeight: "400", fontSize: "15px" }}>
+                                {" "}
+                                Survey No : {item.survey_no}
+                              </h6>
+                              <p>
+                                <LocationOnIcon
+                                  sx={{ color: "red", fontSize: 17 }}
+                                />{" "}
+                                {item.location}{" "}
+                              </p>
+                            </div>
+                          </InfoWindow>
+                        )}
+                      </React.Fragment>
+                    );
+                  })}
 
-                {/* Polygon */}
-                <Polygon
-                  path={surveyData
-                    .filter((item) => item.location)
-                    .map((item) => {
-                      const [lat, lng] = item.location
-                        .split(",")
-                        .map(parseFloat);
-                      return { lat, lng };
-                    })}
-                  options={{
-                    fillColor: "#99FFCC",
-                    fillOpacity: 0.7,
-                    strokeColor: "green",
-                    strokeOpacity: 1,
-                    strokeWeight: 2,
-                  }}
-                />
-              </GoogleMap>
+                  {/* Polygon */}
+                  <Polygon
+                    path={surveyData
+                      .filter((item) => item.location)
+                      .map((item) => {
+                        const [lat, lng] = item.location
+                          .split(",")
+                          .map(parseFloat);
+                        return { lat, lng };
+                      })}
+                    options={{
+                      fillColor: "#99FFCC",
+                      fillOpacity: 0.7,
+                      strokeColor: "green",
+                      strokeOpacity: 1,
+                      strokeWeight: 2,
+                    }}
+                  />
+                </GoogleMap>
+              </div>
             </div>
           </div>
           <div className="d-flex justify-content-end gap-2 mt-4">
-            {/* <div>
-              <Button
-                label="Update"
-                icon="pi pi-upload"
-                type="submit"
-                size="small"
-                style={{ borderRadius: "7px" }}
-                onClick={() => setEditing(true)}
-              />
-            </div> */}
-            <Button
+            {/* <Button
               variant="contained"
               type="submit"
               onClick={() => setEditing(true)}
             >
               Update
-            </Button>
+            </Button> */}
+            <button className="btn1 me-2" type="submit" onClick={() => setEditing(true)}>
+              Update
+            </button>
           </div>
         </form>
       </Dialog>

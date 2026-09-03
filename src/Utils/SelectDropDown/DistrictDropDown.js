@@ -13,9 +13,13 @@ export const useDistrictOptions = (filter) => {
     }
   }, [dispatch, filter]);
 
+  // const filterData = DistrictData.filter(
+  //   (data) => data.state_type === (filter ? filter.value : " ")
+  // );
   const filterData = DistrictData.filter(
-    (data) => data.state_type === (filter ? filter.value : " ")
-  );
+  (data) => String(data.state_type) === String(filter?.value)
+);
+
   const result = filter === undefined ? DistrictData : filterData;
 
   const options = result.map((data) => ({
@@ -26,6 +30,7 @@ export const useDistrictOptions = (filter) => {
   return options;
 };
 
+
 const DistrictDropDown = ({
   onSelect,
   selectedDistrict,
@@ -33,15 +38,16 @@ const DistrictDropDown = ({
   isDisabled,
 }) => {
   const options = useDistrictOptions(filter);
-  useEffect(() => {
-    if (selectedDistrict) {
-      onSelect(selectedDistrict);
-    }
-  }, [selectedDistrict, onSelect]);
+  // useEffect(() => {
+  //   if (selectedDistrict) {
+  //     onSelect(selectedDistrict);
+  //   }
+  // }, [selectedDistrict, onSelect]);
 
   const handleDistrictSelect = (selectedOption) => {
     onSelect(selectedOption);
   };
+
 
   return (
     <div>

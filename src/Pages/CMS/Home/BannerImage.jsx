@@ -13,6 +13,7 @@ import API_BASE_URL, { IMG_PATH } from "../../../Api/api";
 import Toast from "../../../Utils/Toast";
 import customStyle from "../../../Utils/tableStyle";
 import OpenPreviewImage from "../../../Utils/OpenPreviewImage";
+import { Switch } from 'antd';
 
 const BannerImage = () => {
   const [newDialog, setNewDialog] = useState(false);
@@ -39,7 +40,7 @@ const BannerImage = () => {
     },
     {
       name: "PropertyId",
-      selector: (row) => row.propertyid,
+      selector: (row) => row.propertyid ?? "-",
       sortable: true,
       width: "150px"
     },
@@ -47,7 +48,7 @@ const BannerImage = () => {
       name: "Image",
       cell: (row) =>
         row.image ? (
-          <div onClick={() => handlePreview(row)} style={{cursor:"pointer"}}>
+          <div onClick={() => handlePreview(row)} style={{ cursor: "pointer" }}>
             <img
               src={`${IMG_PATH}/cms/banners/${row.image}`}
               alt={row.title}
@@ -75,6 +76,18 @@ const BannerImage = () => {
     {
       name: "Device",
       selector: (row) => row.device,
+      sortable: true,
+      width: "150px"
+    },
+    {
+      name: "Screen Size",
+      selector: (row) => row.screen_size ?? "-",
+      sortable: true,
+      width: "150px"
+    },
+    {
+      name: "Theme",
+      selector: (row) => row.theme,
       sortable: true,
       width: "150px"
     },
@@ -123,7 +136,9 @@ const BannerImage = () => {
     formik.setFieldValue("old_image", row.image || "");
     formik.setFieldValue("url", row.url || "");
     formik.setFieldValue("property_id", row.property_id || "");
+    formik.setFieldValue("screen_size", row.screen_size || "");
     formik.setFieldValue("status", row.status || "");
+    formik.setFieldValue("theme", row.theme || "");
   };
 
   const fetchRoles = async () => {
@@ -158,6 +173,7 @@ const BannerImage = () => {
 
   const onSubmit = async (values) => {
     setIsSubmitting(true);
+    values.theme = values.theme || "light";
     try {
       const response = await axios.post(`${API_BASE_URL}/homeimages`, values, {
         headers: { "Content-Type": "multipart/form-data" },
@@ -183,6 +199,8 @@ const BannerImage = () => {
       property_id: "",
       status: "",
       old_image: "",
+      theme: "light",
+      screen_size: ""
     },
     validationSchema: yup.object().shape({
       image: yup.string().required("image is required!"),
@@ -190,6 +208,11 @@ const BannerImage = () => {
       url: yup.string().when("device", {
         is: "web",
         then: (schema) => schema.required("URL is required!"),
+        otherwise: (schema) => schema.notRequired(),
+      }),
+      screen_size: yup.string().when("device", {
+        is: "web",
+        then: (schema) => schema.required("screen size is required!"),
         otherwise: (schema) => schema.notRequired(),
       }),
 
@@ -218,6 +241,90 @@ const BannerImage = () => {
     }
   };
 
+  const validateImageDimensions = (file, screenSize) => {
+    return new Promise((resolve) => {
+      if (!file || !screenSize) {
+        resolve(true);
+        return;
+      }
+
+      const image = new Image();
+      const objectUrl = URL.createObjectURL(file);
+
+      image.onload = () => {
+        const dimensions = {
+          "320": { width: 320, height: 300 },
+          "375": { width: 375, height: 300 },
+          "425": { width: 425, height: 300 },
+          "768": { width: 768, height: 300 },
+          "1024": { width: 1024, height: 365 },
+        };
+
+        // Desktop:
+        // Width should be 1024px or above
+        // Height should be exactly 365px
+        if (screenSize === "desktop") {
+          const isValid =
+            image.width >= 1024 &&
+            image.height === 365;
+
+          if (isValid) {
+            resolve(true);
+          } else {
+            Toast({
+              message: `Invalid image size! Required: 1024px or above x 365px, but uploaded image is ${image.width} x ${image.height} px.`,
+              type: "error",
+            });
+
+            resolve(false);
+          }
+
+          URL.revokeObjectURL(objectUrl);
+          return;
+        }
+
+        const required = dimensions[screenSize];
+
+        // If screen size is not available in dimensions
+        if (!required) {
+          resolve(true);
+          URL.revokeObjectURL(objectUrl);
+          return;
+        }
+
+        // Exact width & height validation
+        const isValid =
+          image.width === required.width &&
+          image.height === required.height;
+
+        if (isValid) {
+          resolve(true);
+        } else {
+          Toast({
+            message: `Invalid image size! Required: ${required.width} x ${required.height} px, but uploaded image is ${image.width} x ${image.height} px.`,
+            type: "error",
+          });
+
+          resolve(false);
+        }
+
+        URL.revokeObjectURL(objectUrl);
+      };
+
+      image.onerror = () => {
+        Toast({
+          message: "Unable to read the image. Please upload a valid image.",
+          type: "error",
+        });
+
+        URL.revokeObjectURL(objectUrl);
+        resolve(false);
+      };
+
+      image.src = objectUrl;
+    });
+  };
+
   return (
     <>
       <OpenPreviewImage preview={preview} setPreview={setPreview} url={previewUrl} />
@@ -226,7 +333,7 @@ const BannerImage = () => {
           <div className="card">
             <div className="card-header">
               <div className="d-flex justify-content-between">
-                <h4 className="page_heading">CMS View Table</h4>
+                <h4 className="page_heading">Main Banner Reports</h4>
                 <button
                   type="button"
                   className="btn1"
@@ -255,7 +362,7 @@ const BannerImage = () => {
       </section>
 
       <Modal
-        size={"40rem"}
+        size={"34rem"}
         open={newDialog}
         onClose={() => {
           setNewDialog(false);
@@ -269,10 +376,10 @@ const BannerImage = () => {
 
         <Modal.Body
           className="p-2"
-          style={{ overflow: "scroll", overflowX: "hidden" }}
+
         >
           <form onSubmit={formik.handleSubmit}>
-            <div className="col-md-8 d-flex gap-5 mb-3">
+            <div className="col-md-12 d-flex gap-5 mb-3">
               {/* Web option */}
               <div className="form-check">
                 <input
@@ -311,11 +418,61 @@ const BannerImage = () => {
                   App
                 </label>
               </div>
+              <div>
+                <label htmlFor="mx-1" className="form-label mx-1">Dark Theme :</label>
+                <Switch
+                  checked={formik.values.theme === "dark"}
+                  onChange={(checked) => {
+                    formik.setFieldValue("theme", checked ? "dark" : "light");
+                  }}
+                />
+              </div>
             </div>
+            {formik.values.device === "web" && (
+              <div className="mt-2 mb-2">
+                <label htmlFor="" className="form-label">Select Screen size: </label>
+                <select
+                  name="screen_size"
+                  className="form-select"
+                  value={formik.values.screen_size}
+                  // onChange={formik.handleChange}
+                  // onChange={async (event) => {
+                  //   const selectedSize = event.target.value;
+                  //   formik.setFieldValue("screen_size", selectedSize);
+                  //   const file = formik.values.image;
+                  //   if (file && selectedSize) {
+                  //     const isValid = await validateImageDimensions(
+                  //       file,
+                  //       selectedSize
+                  //     );
+                  //     if (!isValid) {
+                  //       formik.setFieldValue("image", "");
+                  //       setPreviewImage(null);
+                  //     }
+                  //   }
+                  // }}
+                  onChange={(event) => {
+                    formik.setFieldValue("screen_size", event.target.value);
+                  }}
+                >
+                  <option value="">--Select Screen Size--</option>
+                  <option value="320">320 x 300 px - Small Mobile</option>
+                  <option value="375">375 x 300 px - Mobile</option>
+                  <option value="425">425 x 300 px - Large Mobile</option>
+                  <option value="768">768 x 300 px - Tablet</option>
+                  <option value="1024">1024 x 365 px - Small Desktop</option>
+                  <option value="desktop">  Desktop (Above 1024 x 365 px )</option>
+
+                </select>
+                {formik.errors.screen_size && formik.touched.screen_size && (
+                  <small className="text-danger">{formik.errors.screen_size}</small>
+                )}
+              </div>
+            )}
 
             <div className="mb-3">
               <label htmlFor="image" className="form-label">
-                Banner Image <span className="mx-1">{formik.values.device === "web" ? "(1920x500)" : "(1440x732)"}    </span>
+                Banner Image <span className="mx-1">{formik.values.device === "app" && "(1440x732)"}    </span>
               </label>
 
               {previewImage && (
@@ -335,7 +492,7 @@ const BannerImage = () => {
 
               <input
                 type="file"
-                className="form-control w-50"
+                className="form-control"
                 id="image"
                 name="image"
                 accept="image/*"
@@ -346,13 +503,44 @@ const BannerImage = () => {
                     setPreviewImage(URL.createObjectURL(file));
                   }
                 }}
+                // onChange={async (event) => {
+                //   const file = event.currentTarget.files[0];
+
+                //   if (!file) return;
+
+                //   if (!formik.values.screen_size) {
+                //     Toast({
+                //       message: "Please select screen size first.",
+                //       type: "error",
+                //     });
+                //     event.target.value = "";
+                //     return;
+                //   }
+
+                //   // .....Check image dimensions
+                //   const isValid = await validateImageDimensions(
+                //     file,
+                //     formik.values.screen_size
+                //   );
+
+                //   if (!isValid) {
+                //     //.... Invalid image clear the file input and formik value
+                //     event.target.value = "";
+                //     formik.setFieldValue("image", "");
+                //     setPreviewImage(null);
+                //     return;
+                //   }
+                //   // ....Valid image
+                //   formik.setFieldValue("image", file);
+                //   setPreviewImage(URL.createObjectURL(file));
+                // }}
               />
               {formik.errors.image && formik.touched.image && (
                 <small className="text-danger">{formik.errors.image}</small>
               )}
             </div>
             {formik.values.device === "app" && (
-              <div className="mb-3 col-md-4">
+              <div className="mb-3">
                 <label className="form-label" htmlFor="inputState">
                   App property selection
                 </label>

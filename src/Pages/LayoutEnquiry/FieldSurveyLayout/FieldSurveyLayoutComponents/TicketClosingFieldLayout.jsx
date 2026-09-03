@@ -37,7 +37,7 @@ export const TicketClosingFieldLayout = ({ eid, id, status, pagetype }) => {
         {
           headers: {
             "Content-Type": "application/json",
-            
+
           },
         }
       );
@@ -111,15 +111,15 @@ export const TicketClosingFieldLayout = ({ eid, id, status, pagetype }) => {
       boundry_south: yup.string().required("South boundary is required!"),
       boundry_east: yup.string().required("East boundary is required!"),
       boundry_west: yup.string().required("West boundary is required!"),
-      others: yup.string().required("Others field is required!"),
-      verification_status: yup
-        .string()
-        .required("Verification status is required!"),
-      dispute: yup.string().required("Dispute field is required!"),
-      next_followup_date: yup
-        .string()
-        .required("Next follow-up date is required!"),
-      remarks: yup.string().required("Remarks are required!"),
+      // others: yup.string().required("Others field is required!"),
+      // verification_status: yup
+      //   .string()
+      //   .required("Verification status is required!"),
+      // dispute: yup.string().required("Dispute field is required!"),
+      // next_followup_date: yup
+      //   .string()
+      //   .required("Next follow-up date is required!"),
+      // remarks: yup.string().required("Remarks are required!"),
     }),
 
     onSubmit,
@@ -191,7 +191,7 @@ export const TicketClosingFieldLayout = ({ eid, id, status, pagetype }) => {
     formik.setFieldValue("id", data.id || null);
   };
 
- const [limit, setLimit] = useState(10);
+  const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(1);
 
   const handleChangeLimit = dataKey => {
@@ -743,7 +743,7 @@ export const TicketClosingFieldLayout = ({ eid, id, status, pagetype }) => {
               <label htmlFor="period" className="form-label">
                 {" "}
                 Others
-                <span style={{ color: "red" }}>*</span>
+                {/* <span style={{ color: "red" }}>*</span> */}
               </label>
               <input
                 id="others"
@@ -765,7 +765,7 @@ export const TicketClosingFieldLayout = ({ eid, id, status, pagetype }) => {
               <label htmlFor="period" className="form-label">
                 {" "}
                 Verification Status
-                <span style={{ color: "red" }}>*</span>
+                {/* <span style={{ color: "red" }}>*</span> */}
               </label>
               <input
                 id="verification_status"
@@ -788,7 +788,7 @@ export const TicketClosingFieldLayout = ({ eid, id, status, pagetype }) => {
               <label htmlFor="period" className="form-label">
                 {" "}
                 Dispute
-                <span style={{ color: "red" }}>*</span>
+                {/* <span style={{ color: "red" }}>*</span> */}
               </label>
               <input
                 id="dispute"
@@ -810,7 +810,7 @@ export const TicketClosingFieldLayout = ({ eid, id, status, pagetype }) => {
               <label htmlFor="period" className="form-label">
                 {" "}
                 Next Followup Date
-                <span style={{ color: "red" }}>*</span>
+                {/* <span style={{ color: "red" }}>*</span> */}
               </label>
               <input
                 id="next_followup_date"
@@ -832,7 +832,7 @@ export const TicketClosingFieldLayout = ({ eid, id, status, pagetype }) => {
               <label htmlFor="remark" className="form-label">
                 {" "}
                 Remark
-                <span style={{ color: "red" }}>*</span>
+                {/* <span style={{ color: "red" }}>*</span> */}
               </label>
               <textarea
                 id="remarks"
@@ -854,9 +854,11 @@ export const TicketClosingFieldLayout = ({ eid, id, status, pagetype }) => {
           </div>
 
           <div className="d-flex justify-content-end gap-2 mt-4">
-            <Button variant="contained" color="success" type="submit" disabled={postLoading} >
+            {/* <Button variant="contained" color="success" type="submit" disabled={postLoading} >
               {postLoading ? "Processing..." : "Save"}
-            </Button>
+            </Button> */}
+
+            <button className="btn1" type="submit" disabled={postLoading}>  {postLoading ? "Processing..." : "Save"}</button>
           </div>
         </form>
       </Dialog>
@@ -1208,7 +1210,7 @@ export const TicketClosingFieldLayout = ({ eid, id, status, pagetype }) => {
               <label htmlFor="period" className="form-label">
                 {" "}
                 Others
-                <span style={{ color: "red" }}>*</span>
+                {/* <span style={{ color: "red" }}>*</span> */}
               </label>
               <input
                 id="others"
@@ -1230,7 +1232,7 @@ export const TicketClosingFieldLayout = ({ eid, id, status, pagetype }) => {
               <label htmlFor="period" className="form-label">
                 {" "}
                 Verification Status
-                <span style={{ color: "red" }}>*</span>
+                {/* <span style={{ color: "red" }}>*</span> */}
               </label>
               <input
                 id="verification_status"
@@ -1253,7 +1255,7 @@ export const TicketClosingFieldLayout = ({ eid, id, status, pagetype }) => {
               <label htmlFor="period" className="form-label">
                 {" "}
                 Dispute
-                <span style={{ color: "red" }}>*</span>
+                {/* <span style={{ color: "red" }}>*</span> */}
               </label>
               <input
                 id="dispute"
@@ -1275,7 +1277,7 @@ export const TicketClosingFieldLayout = ({ eid, id, status, pagetype }) => {
               <label htmlFor="period" className="form-label">
                 {" "}
                 Next Followup Date
-                <span style={{ color: "red" }}>*</span>
+                {/* <span style={{ color: "red" }}>*</span> */}
               </label>
               <input
                 id="next_followup_date"
@@ -1297,7 +1299,7 @@ export const TicketClosingFieldLayout = ({ eid, id, status, pagetype }) => {
               <label htmlFor="remark" className="form-label">
                 {" "}
                 Remark
-                <span style={{ color: "red" }}>*</span>
+                {/* <span style={{ color: "red" }}>*</span> */}
               </label>
               <textarea
                 id="remarks"

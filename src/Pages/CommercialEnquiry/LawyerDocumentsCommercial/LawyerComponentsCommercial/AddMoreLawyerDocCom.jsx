@@ -1,6 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
-
+import { useEffect, useState } from "react";
 import Spinner from "react-bootstrap/Spinner";
 import API_BASE_URL, { IMG_PATH } from "../../../../Api/api";
 import Toast from "../../../../Utils/Toast";
@@ -202,9 +201,9 @@ export const AddMoreLawyerDocCom = ({ isOpen, closeModal, id, props }) => {
                                 </div>
                               </div>
                             ))}
-                            {staffid.Login == "staff" &&
-                              (props.status == "pending" ||
-                                props.status == "complete") &&
+                            {staffid.Login === "staff" &&
+                              (props.status === "pending" ||
+                                props.status === "complete") &&
                               props.pagetype !== "reminder" &&
                               enquiryDoumentData?.status !== "booking" && (
                                 <div className="text-end">

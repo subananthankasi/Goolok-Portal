@@ -1,197 +1,517 @@
-import { useEffect, useState } from 'react'
+// import { useEffect, useState } from 'react'
+// import { Editor } from "primereact/editor";
+// import Button from '@mui/material/Button';
+// import { useDispatch, useSelector } from 'react-redux';
+// import axios from 'axios';
+// import ProjectDetailsContentApart from './ProjectDetailsContentApart';
+// import InteriorFeatureApart from './InteriorFeatureApart';
+// import GeneralFeatureContentApart from './GeneralFeatureContentApart';
+// import ExteriorFeatureContentApart from './ExteriorFeatureContentApart';
+// import InvestmentStrategyContentApart from './InvestmentStrategyContentApart';
+// import { CWDescAndFeatureGetThunk } from '../../../../Redux/Actions/Enquiry/ContentWritingThunk/CWDescriptionFeatureThunk';
+// import API_BASE_URL from '../../../../Api/api';
+// import Toast from '../../../../Utils/Toast';
+// import * as FaIcons from "react-icons/fa";
+
+// const DescriptionContentApart = ({ eid, id, status }) => {
+
+//     const [amenities, setAmenities] = useState([])
+//     const [triggerChild, setTriggerChild] = useState(false);
+//     const [title, setTitle] = useState('')
+//     const [description, setDescription] = useState('');
+//     const [highlights, setHighlights] = useState('')
+//     const enquiryDoumentData = useSelector(
+//         (state) => state.Enquiry.enquiryDocument
+//     );
+
+//     const dispatch = useDispatch()
+//     useEffect(() => {
+//         dispatch(CWDescAndFeatureGetThunk(eid))
+//     }, [])
+
+
+
+
+//       const fetchAmenities = async (pid) => {
+//         try {
+//           const response = await axios.get(`${API_BASE_URL}/landamenities/${pid}`);
+//           // setAmenities(response.data?.[0]?.amenities || []);
+//           setAmenities(response.data || []);
+//         } catch (error) {
+
+//         }
+//       };
+//       useEffect(() => {
+//         if (enquiryDoumentData?.propertytypeid) {
+//           fetchAmenities(enquiryDoumentData?.propertytypeid);
+//         }
+//       }, [enquiryDoumentData?.propertytypeid]);
+
+//     useEffect(() => {
+//         const fetch = async () => {
+//             try {
+//                 const response = await axios.get(`${API_BASE_URL}/landamenities`)
+//                 setAmenities(response.data?.[0]?.amenities)
+//             } catch (error) {
+
+//             }
+//         }
+//         fetch()
+//     }, [])
+
+
+
+//     const handleSubmit = async (e) => {
+
+//         e.preventDefault()
+//         setTriggerChild(prev => !prev);
+//         Toast({ message: 'Successfully Submited', type: "success" })
+//         // setLoading(true)
+//     }
+
+//     const cwData = useSelector((state) => state.CWDescFeatureData?.get?.data?.[0]?.amenities)
+//     const descriptionValue = useSelector((state) => state.CWDescFeatureData?.get?.data?.[0]?.description)
+//     const highlightsValue = useSelector((state) => state.CWDescFeatureData?.get?.data?.[0]?.highlights)
+//     const titleValue = useSelector((state) => state.CWDescFeatureData?.get?.data?.[0]?.title)
+
+
+//     const idvalue = useSelector((state) => state.CWDescFeatureData?.get?.data?.[0]?.id)
+
+//     const [selectedIds, setSelectedIds] = useState([]);
+
+//     // old data update 
+//     useEffect(() => {
+//         if (!!cwData) {
+//             const data = JSON.parse(cwData) || []
+//             setSelectedIds(data || [])
+
+//         } else {
+//         }
+//     }, [cwData]);
+
+
+//     useEffect(() => {
+//         if (descriptionValue) {
+//             setDescription(descriptionValue)
+//         }
+
+//     }, [descriptionValue])
+
+//     useEffect(() => {
+//         if (highlightsValue) {
+//             setHighlights(highlightsValue)
+//         }
+
+//     }, [highlightsValue])
+
+//     useEffect(() => {
+//         if (titleValue) {
+//             setTitle(titleValue)
+//         }
+
+//     }, [titleValue])
+
+//     const integerIds = selectedIds?.map(id => parseInt(id));
+
+
+//     const updateData = {
+//         title: title,
+//         highlights: highlights,
+//         description: description,
+//         enqid: eid,
+//         amenities: integerIds ? integerIds : null,
+//         id: idvalue ? idvalue : null
+//     }
+
+//     useEffect(() => {
+//         const updateDataAsync = async () => {
+//             if (triggerChild) {
+//                 try {
+//                     await axios.post(`${API_BASE_URL}/contentdpt`, updateData, {
+//                         headers: {
+//                             'Content-Type': 'multipart/form-data'
+//                         }
+//                     })
+//                         .then(() => {
+//                             dispatch(CWDescAndFeatureGetThunk(eid))
+//                         })
+
+//                 } catch (error) {
+//                     alert(error.response.data.messages.error);
+//                 }
+//             }
+//         };
+
+//         updateDataAsync();
+//     }, [triggerChild]);
+
+
+//     const staffid = JSON.parse(localStorage.getItem('token'));
+//   const handleCheckboxChange = (amenityId) => {
+//     setSelectedIds((prevSelectedIds) =>
+//       prevSelectedIds.includes(amenityId)
+//         ? prevSelectedIds.filter((id) => id !== amenityId)
+//         : [...prevSelectedIds, amenityId]
+//     );
+//   };
+//     return (
+//         <>
+//             <div className="card shadow border-0">
+//                 <div className="card shadow border-0 p-4">
+//                     <form>
+//                         <div className='form-group'>
+//                             <label htmlFor="" className='form-label'> Title :</label>
+//                             <input
+//                                 type="text"
+//                                 id='title'
+//                                 name='title'
+//                                 className='form-control w-25'
+//                                 placeholder='Enter Title...'
+//                                 value={title}
+//                                 onChange={(e) => setTitle(e.target.value)}
+//                             />
+
+//                         </div>
+//                         <div className='form-group mt-3'>
+//                             <label htmlFor="" className='form-label'>Nearby Highlights :</label>
+//                             <input
+//                                 type="text"
+//                                 id='title'
+//                                 name='highlights'
+//                                 className='form-control w-25'
+//                                 placeholder='Enter highlights...'
+//                                 value={highlights}
+//                                 onChange={(e) => setHighlights(e.target.value)}
+//                             />
+
+//                         </div>
+//                         <div className='form-group mt-3'>
+//                             <label htmlFor="" className='form-label'>Description :</label>
+//                             <Editor
+//                                 value={description}
+//                                 name="description"
+//                                 onTextChange={(value) => {
+//                                     const plainText = value.htmlValue
+//                                         ? value.htmlValue.replace(/<[^>]*>/g, '')
+//                                         : value;
+//                                     setDescription(plainText);
+//                                 }}
+//                                 style={{ height: '300px' }}
+//                                 className="mt-2"
+//                                 placeholder="Text here ..."
+//                             />
+//                         </div>
+//                           <div className="mt-3 card" style={{ boxShadow: "none" }}>
+//                                       <div className="card-body">
+//                                         <label style={{ fontWeight: "600" }} className="form-label">
+//                                           Amenities :
+//                                         </label>
+//                                         <hr />
+//                                         <div className="row">
+//                                           {amenities.map((amenity) => {
+//                                             const IconComponent = FaIcons[amenity.icon];
+//                                             return (
+//                                               <div className="col-md-6 col-lg-3 mt-2" key={amenity.id}>
+//                                                 <div className="form-check d-flex align-items-center gap-2">
+//                                                   <input
+//                                                     className="form-check-input"
+//                                                     type="checkbox"
+//                                                     // checked={formik.values?.amenities?.includes(amenity.id)}
+//                                                     // onChange={() => handleCheckboxChange(amenity.id)}
+//                                                     checked={selectedIds.includes(amenity.id)}
+//                                                     onChange={() => handleCheckboxChange(amenity.id)}
+//                                                   />
+//                                                   {IconComponent && <IconComponent size={15} />}
+
+//                                                   <label
+//                                                     className="form-check-label amenitiesBox"
+//                                                     style={{ fontSize: "15px" }}
+//                                                   >
+//                                                     {amenity.amenities}
+//                                                   </label>
+//                                                 </div>
+//                                               </div>
+//                                             );
+//                                           })}
+//                                         </div>
+//                                         {/* {formik.touched.amenities && formik.errors.amenities && (
+//                                           <div className="validation_msg">{formik.errors.amenities}</div>
+//                                         )} */}
+//                                       </div>
+//                                     </div>
+//                         {(status === "pending" || status === "complete") && staffid.Login === "staff" && enquiryDoumentData?.status !== "booking" && (
+//                             <div className='d-flex justify-content-end mt-3'>
+//                                  <button type="button" className="btn-submit" onClick={handleSubmit}> Save</button>
+//                             </div>
+//                         )}
+//                     </form>
+//                 </div>
+//             </div>
+//             <ProjectDetailsContentApart eid={eid} id={id} status={status} />
+//             <GeneralFeatureContentApart eid={eid} id={id} status={status} />
+//             <InteriorFeatureApart eid={eid} id={id} status={status} />
+//             <ExteriorFeatureContentApart eid={eid} id={id} status={status} />
+//             <InvestmentStrategyContentApart eid={eid} id={id} status={status} />
+
+//         </>
+//     )
+// }
+
+// export default DescriptionContentApart
+
+
+
+
+import React, { useEffect, useState } from "react";
 import { Editor } from "primereact/editor";
-import Button from '@mui/material/Button';
-import { useDispatch, useSelector } from 'react-redux';
-import axios from 'axios';
-import ProjectDetailsContentApart from './ProjectDetailsContentApart';
-import InteriorFeatureApart from './InteriorFeatureApart';
-import GeneralFeatureContentApart from './GeneralFeatureContentApart';
-import ExteriorFeatureContentApart from './ExteriorFeatureContentApart';
-import InvestmentStrategyContentApart from './InvestmentStrategyContentApart';
-import { CWDescAndFeatureGetThunk } from '../../../../Redux/Actions/Enquiry/ContentWritingThunk/CWDescriptionFeatureThunk';
-import API_BASE_URL from '../../../../Api/api';
-import Toast from '../../../../Utils/Toast';
+import Button from "@mui/material/Button";
+import { useDispatch, useSelector } from "react-redux";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import axios from "axios";
+import API_BASE_URL from "../../../../Api/api";
+import Toast from "../../../../Utils/Toast";
+import { CWDescAndFeatureGetThunk } from "../../../../Redux/Actions/Enquiry/ContentWritingThunk/CWDescriptionFeatureThunk";
+import { iFeatureGetThunk } from "../../../../Redux/Actions/MasterPage/FeaturesThunk/InteriorFeatureThunk";
+import { eFeatureGetThunk } from "../../../../Redux/Actions/MasterPage/FeaturesThunk/ExteriorFeatureThunk";
+import { gFeatureGetThunk } from "../../../../Redux/Actions/MasterPage/FeaturesThunk/GeneralFeatureThunk";
+import * as FaIcons from "react-icons/fa";
+import EditorToolbar from "../../../../Utils/EditerHeader";
+import ExteriorFeatureContentApart from "./ExteriorFeatureContentApart";
+import InteriorFeatureApart from "./InteriorFeatureApart";
+import InvestmentStrategyContentApart from "./InvestmentStrategyContentApart";
+import GeneralFeatureContentApart from "./GeneralFeatureContentApart";
+import ProjectDetailsContentApart from "./ProjectDetailsContentApart";
+
 
 const DescriptionContentApart = ({ eid, id, status }) => {
-
-    const [amenities, setAmenities] = useState([])
-    const [triggerChild, setTriggerChild] = useState(false);
-    const [title, setTitle] = useState('')
-    const [description, setDescription] = useState('');
-    const [highlights, setHighlights] = useState('')
+    const dispatch = useDispatch();
+    const [amenities, setAmenities] = useState([]);
+    const staffid = JSON.parse(localStorage.getItem("token"));
     const enquiryDoumentData = useSelector(
         (state) => state.Enquiry.enquiryDocument
     );
 
-    const dispatch = useDispatch()
+    // Redux data
+    const cwData = useSelector(
+        (state) => state.CWDescFeatureData?.get?.data?.[0]?.amenities
+    );
+    const descriptionValue = useSelector(
+        (state) => state.CWDescFeatureData?.get?.data?.[0]?.description
+    );
+    const highlightsValue = useSelector(
+        (state) => state.CWDescFeatureData?.get?.data?.[0]?.highlights
+    );
+    const titleValue = useSelector(
+        (state) => state.CWDescFeatureData?.get?.data?.[0]?.title
+    );
+   
+    const idvalue = useSelector(
+        (state) => state.CWDescFeatureData?.get?.data?.[0]?.id
+    );
+
+    // Fetch initial data
     useEffect(() => {
-        dispatch(CWDescAndFeatureGetThunk(eid))
-    }, [])
-
-    useEffect(() => {
-        const fetch = async () => {
-            try {
-                const response = await axios.get(`${API_BASE_URL}/landamenities`)
-                setAmenities(response.data?.[0]?.amenities)
-            } catch (error) {
-
-            }
-        }
-        fetch()
-    }, [])
-
-    const handleSubmit = async (e) => {
-
-        e.preventDefault()
-        setTriggerChild(prev => !prev);
-        Toast({ message: 'Successfully Submited', type: "success" })
-        // setLoading(true)
-    }
-
-    const cwData = useSelector((state) => state.CWDescFeatureData?.get?.data?.[0]?.amenities)
-    const descriptionValue = useSelector((state) => state.CWDescFeatureData?.get?.data?.[0]?.description)
-    const highlightsValue = useSelector((state) => state.CWDescFeatureData?.get?.data?.[0]?.highlights)
-    const titleValue = useSelector((state) => state.CWDescFeatureData?.get?.data?.[0]?.title)
-
-
-    const idvalue = useSelector((state) => state.CWDescFeatureData?.get?.data?.[0]?.id)
-
-    const [selectedIds, setSelectedIds] = useState([]);
-
-    // old data update 
-    useEffect(() => {
-        if (!!cwData) {
-            const data = JSON.parse(cwData) || []
-            setSelectedIds(data || [])
-
-        } else {
-        }
-    }, [cwData]);
-
+        dispatch(iFeatureGetThunk());
+        dispatch(eFeatureGetThunk());
+        dispatch(gFeatureGetThunk());
+        dispatch(CWDescAndFeatureGetThunk(eid));
+    }, [dispatch, eid]);
 
     useEffect(() => {
-        if (descriptionValue) {
-            setDescription(descriptionValue)
-        }
-
-    }, [descriptionValue])
-
-    useEffect(() => {
-        if (highlightsValue) {
-            setHighlights(highlightsValue)
-        }
-
-    }, [highlightsValue])
-
-    useEffect(() => {
-        if (titleValue) {
-            setTitle(titleValue)
-        }
-
-    }, [titleValue])
-
-    const integerIds = selectedIds?.map(id => parseInt(id));
-
-
-    const updateData = {
-        title: title,
-        highlights: highlights,
-        description: description,
-        enqid: eid,
-        amenities: integerIds ? integerIds : null,
-        id: idvalue ? idvalue : null
-    }
-
-    useEffect(() => {
-        const updateDataAsync = async () => {
-            if (triggerChild) {
+        if (enquiryDoumentData?.propertytypeid) {
+            const fetchAmenities = async (pid) => {
                 try {
-                    await axios.post(`${API_BASE_URL}/contentdpt`, updateData, {
-                        headers: {
-                            'Content-Type': 'multipart/form-data'
-                        }
-                    })
-                        .then(() => {
-                            dispatch(CWDescAndFeatureGetThunk(eid))
-                        })
-
+                    const response = await axios.get(`${API_BASE_URL}/landamenities/${pid}`);
+                    // setAmenities(response.data?.[0]?.amenities || []);
+                    setAmenities(response.data || []);
                 } catch (error) {
-                    alert(error.response.data.messages.error);
+
                 }
+            };
+            fetchAmenities(enquiryDoumentData?.propertytypeid);
+        }
+    }, [enquiryDoumentData?.propertytypeid]);
+
+
+    const formik = useFormik({
+        enableReinitialize: true,
+        initialValues: {
+            title: titleValue || "",
+            highlights: highlightsValue || "",
+            description: descriptionValue || "",
+            amenities: cwData ? JSON.parse(cwData) : [],
+            id: idvalue || null,
+            enqid: eid,
+          
+        },
+        validationSchema: Yup.object({
+            title: Yup.string().required("Title is required"),
+            highlights: Yup.string().required("Highlights are required"),
+            description: Yup.string().required("Description is required"),
+            amenities: Yup.array().min(1, "Select at least one amenity"),
+           
+        }),
+        onSubmit: async (values) => {
+            try {
+                const updateData = {
+                    ...values,
+                    amenities: values.amenities.map((id) => parseInt(id)),
+                };
+
+                await axios.post(`${API_BASE_URL}/contentdpt`, updateData, {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                    },
+                });
+
+                dispatch(CWDescAndFeatureGetThunk(eid));
+                Toast({ message: "Successfully Submitted", type: "success" });
+            } catch (error) {
+                alert(error.response?.data?.messages?.error || "Something went wrong");
             }
-        };
+        },
+    });
 
-        updateDataAsync();
-    }, [triggerChild]);
-
-
-    const staffid = JSON.parse(localStorage.getItem('token'));
+    // Amenity toggle handler
+    const handleCheckboxChange = (amenityId) => {
+        const { amenities } = formik.values;
+        if (amenities?.includes(amenityId)) {
+            formik.setFieldValue(
+                "amenities",
+                amenities.filter((id) => id !== amenityId)
+            );
+        } else {
+            formik.setFieldValue("amenities", [...amenities, amenityId]);
+        }
+    };
 
     return (
-        <>
-            <div className="card shadow border-0">
-                <div className="card shadow border-0 p-4">
-                    <form>
-                        <div className='form-group'>
-                            <label htmlFor="" className='form-label'> Title :</label>
+        <div>
+            <form onSubmit={formik.handleSubmit}>
+
+                <div className="row">
+                    <div className="col-3">
+                        {/* Title */}
+                        <div className="form-group">
+                            <label className="form-label">Title :</label>
                             <input
                                 type="text"
-                                id='title'
-                                name='title'
-                                className='form-control w-25'
-                                placeholder='Enter Title...'
-                                value={title}
-                                onChange={(e) => setTitle(e.target.value)}
+                                id="title"
+                                name="title"
+                                className="form-control "
+                                placeholder="Enter Title..."
+                                value={formik.values.title}
+                                onChange={formik.handleChange}
                             />
-
+                            {formik.touched.title && formik.errors.title && (
+                                <div className="validation_msg">{formik.errors.title}</div>
+                            )}
                         </div>
-                        <div className='form-group mt-3'>
-                            <label htmlFor="" className='form-label'>Nearby Highlights :</label>
+
+                        {/* Highlights */}
+                        <div className="form-group mt-3">
+                            <label className="form-label">Nearby Highlights :</label>
+
                             <input
                                 type="text"
-                                id='title'
-                                name='highlights'
-                                className='form-control w-25'
-                                placeholder='Enter highlights...'
-                                value={highlights}
-                                onChange={(e) => setHighlights(e.target.value)}
+                                id="highlights"
+                                name="highlights"
+                                className="form-control "
+                                placeholder="Enter highlights..."
+                                value={formik.values.highlights}
+                                onChange={formik.handleChange}
                             />
+                            {formik.touched.highlights && formik.errors.highlights && (
+                                <div className="validation_msg">{formik.errors.highlights}</div>
+                            )}
+                        </div>
 
-                        </div>
-                        <div className='form-group mt-3'>
-                            <label htmlFor="" className='form-label'>Description :</label>
-                            <Editor
-                                value={description}
-                                name="description"
-                                onTextChange={(value) => {
-                                    const plainText = value.htmlValue
-                                        ? value.htmlValue.replace(/<[^>]*>/g, '')
-                                        : value;
-                                    setDescription(plainText);
-                                }}
-                                style={{ height: '300px' }}
-                                className="mt-2"
-                                placeholder="Text here ..."
-                            />
-                        </div>
-                        {(status === "pending" || status === "complete") && staffid.Login === "staff" && enquiryDoumentData?.status !== "booking" && (
-                            <div className='d-flex justify-content-end mt-3'>
-                                <Button variant="contained" type="submit" onClick={handleSubmit} >
-                                    Save
-                                </Button>
-                            </div>
-                        )}
-                    </form>
+                    </div>
+                  
                 </div>
-            </div>
+
+
+
+                {/* Description */}
+                <div className="form-group mt-3">
+                    <label className="form-label">Description :</label>
+                    <Editor
+                        value={formik.values.description}
+                        onTextChange={(value) =>
+                            formik.setFieldValue(
+                                "description",
+                                value.htmlValue?.replace(/<[^>]*>/g, "") || ""
+                            )
+                        }
+                        headerTemplate={EditorToolbar}
+                        style={{ height: "300px" }}
+                        className="mt-2"
+                        placeholder="Text here ..."
+                    />
+                    {formik.touched.description && formik.errors.description && (
+                        <div className="validation_msg">{formik.errors.description}</div>
+                    )}
+                </div>
+
+                {/* Amenities */}
+                <div className="mt-3 card" style={{ boxShadow: "none" }}>
+                    <div className="card-body">
+                        <label style={{ fontWeight: "600" }} className="form-label">
+                            Amenities :
+                        </label>
+                        <hr />
+                        <div className="row">
+                            {amenities.map((amenity) => {
+                                const IconComponent = FaIcons[amenity.icon];
+                                return (
+                                    <div className="col-md-6 col-lg-3 mt-2" key={amenity.id}>
+                                        <div className="form-check d-flex align-items-center gap-2">
+                                            <input
+                                                className="form-check-input"
+                                                type="checkbox"
+                                                checked={formik.values?.amenities?.includes(amenity.id)}
+                                                onChange={() => handleCheckboxChange(amenity.id)}
+                                            />
+                                            {IconComponent && <IconComponent size={15} />}
+
+                                            <label
+                                                className="form-check-label amenitiesBox"
+                                                style={{ fontSize: "15px" }}
+                                            >
+                                                {amenity.amenities}
+                                            </label>
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                        {formik.touched.amenities && formik.errors.amenities && (
+                            <div className="validation_msg">{formik.errors.amenities}</div>
+                        )}
+                    </div>
+                </div>
+
+                {/* Save button */}
+                {(status === "pending" || status === "complete") &&
+                    staffid.Login === "staff" && enquiryDoumentData?.status !== "booking" && (
+                        <div className="d-flex justify-content-end mt-3">
+                            <Button variant="contained" type="submit">
+                                Save
+                            </Button>
+                        </div>
+                    )}
+            </form>
+
+            <hr />
+            {/* Sub-components */}
             <ProjectDetailsContentApart eid={eid} id={id} status={status} />
             <GeneralFeatureContentApart eid={eid} id={id} status={status} />
             <InteriorFeatureApart eid={eid} id={id} status={status} />
             <ExteriorFeatureContentApart eid={eid} id={id} status={status} />
             <InvestmentStrategyContentApart eid={eid} id={id} status={status} />
+        </div>
+    );
+};
 
-        </>
-    )
-}
-
-export default DescriptionContentApart
+export default DescriptionContentApart;

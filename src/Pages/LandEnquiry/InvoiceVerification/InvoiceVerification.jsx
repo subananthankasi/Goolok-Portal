@@ -4,22 +4,61 @@ import "react-toastify/dist/ReactToastify.css";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useNavigate } from "react-router-dom";
 import PendingDocument from "./PendingDocument";
- import CompleteDocument from "./CompleteDocument";
+import CompleteDocument from "./CompleteDocument";
+import axios from "axios";
+import API_BASE_URL from "../../../Api/api";
 
 function InvoiceVerification() {
 
- 
+
 
   const [step, setStep] = useState(1);
- 
 
   useEffect(() => {
-    const hash = window.location.hash.slice(1); 
-       if (hash === "Pending") setStep(1);
-       else if (hash === "Complete") setStep(2);
-    }, []);
+    const hash = window.location.hash.slice(1);
+    if (hash === "Pending") setStep(1);
+    else if (hash === "Complete") setStep(2);
+  }, []);
 
   let navigate = useNavigate();
+
+  const [pendingCount, setPendingCount] = useState(0);
+  const [completeCount, setCompleteCount] = useState(0);
+  const staffid = JSON.parse(localStorage.getItem("token"));
+
+  useEffect(() => {
+    getCounts();
+  }, []);
+
+  const getCounts = async () => {
+    try {
+      const [pendingRes, completeRes] = await Promise.all([
+        axios.get(
+          `${API_BASE_URL}/invoice`,
+          {
+            headers: {
+              "Gl-status": 'pending',
+              "Pr-Root": "land",
+            }
+          },
+        ),
+
+        axios.get(
+          `${API_BASE_URL}/invoice`,
+          {
+            headers: {
+              "Gl-status": 'success',
+              "Pr-Root": "land"
+            }
+          },
+        ),
+      ]);
+      setPendingCount(pendingRes.data?.length || 0);
+      setCompleteCount(completeRes.data?.length || 0);
+    } catch (err) {
+      // console.log(err);
+    }
+  };
 
   return (
     <>
@@ -33,24 +72,26 @@ function InvoiceVerification() {
                     <div>
                       <nav className="nav">
                         <a
-                          className={`nav-link link1 ${
-                            step === 1 ? "active1" : ""
-                          }`}
+                          className={`nav-link link1 ${step === 1 ? "active1" : ""
+                            }`}
                           href="#Pending"
                           onClick={() => setStep(1)}
                         >
-                           Pending
+                          Pending  <span className="tab-count-badge">
+                            {pendingCount}
+                          </span>
                         </a>
                         <a
-                          className={`nav-link link1 ${
-                            step === 2 ? "active1" : ""
-                          }`}
+                          className={`nav-link link1 ${step === 2 ? "active1" : ""
+                            }`}
                           href="#Complete"
                           onClick={() => setStep(2)}
                         >
-                          Complete
+                          Complete  <span className="tab-count-badge">
+                            {completeCount}
+                          </span>
                         </a>
-                        
+
                       </nav>
                     </div>
                     <div style={{ marginLeft: "auto" }}>
@@ -63,20 +104,20 @@ function InvoiceVerification() {
                 <div className="card-b ody">
                   {step === 1 && (
                     <>
-                     <PendingDocument/> 
-                      
+                      <PendingDocument />
+
                     </>
                   )}
 
                   {step === 2 && (
                     <>
-                      <CompleteDocument/> 
-                      
+                      <CompleteDocument />
+
                     </>
                   )}
-                 
 
-                   
+
+
                 </div>
               </div>
             </div>

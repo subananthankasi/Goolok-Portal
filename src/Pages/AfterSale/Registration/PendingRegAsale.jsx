@@ -64,7 +64,7 @@ const PendingRegAsale = () => {
             case "DefaultExport_csvexport":
                 gridInstance.csvExport();
                 break;
-                default:
+            default:
                 break;
         }
     }
@@ -81,6 +81,7 @@ const PendingRegAsale = () => {
         return (
             <Link
                 className="btn btn_pdf light btn-warning text-dark"
+                to={`/registration/${encryptData(props.enqid)}/${encryptData(props.id)}/${encryptData("pending")}/${encryptData(props.bid)}/${encryptData(props.booking_no)}/${encryptData("pending")}/${encryptData(props.block_id)}`}
             >
                 {props.booking_no}
             </Link>

@@ -75,7 +75,7 @@ const InvestmentStrategyContentLayout = ({ eid, id, status }) => {
       setFormdata([]);
       formik.resetForm();
     } catch (error) {
-      
+
       setPostLoading(false)
     }
 
@@ -103,7 +103,7 @@ const InvestmentStrategyContentLayout = ({ eid, id, status }) => {
       setFormdata([]);
       formik.resetForm();
     } catch (error) {
-      
+
       setPostLoading(false)
     }
   };
@@ -128,7 +128,7 @@ const InvestmentStrategyContentLayout = ({ eid, id, status }) => {
       const data = response.data;
       setStrategyData(data);
     } catch (error) {
-      
+
     }
   };
   useEffect(() => {
@@ -261,8 +261,7 @@ const InvestmentStrategyContentLayout = ({ eid, id, status }) => {
                     <tr>
                       <th
                         style={{
-                          backgroundColor: "rgb(47, 79, 79)",
-                          color: "white",
+                          backgroundColor: "#f2f2f2",
                           fontWeight: "300",
                         }}
                       >
@@ -270,8 +269,7 @@ const InvestmentStrategyContentLayout = ({ eid, id, status }) => {
                       </th>
                       <th
                         style={{
-                          backgroundColor: "rgb(47, 79, 79)",
-                          color: "white",
+                          backgroundColor: "#f2f2f2",
                           fontWeight: "300",
                         }}
                       >
@@ -279,8 +277,7 @@ const InvestmentStrategyContentLayout = ({ eid, id, status }) => {
                       </th>
                       <th
                         style={{
-                          backgroundColor: "rgb(47, 79, 79)",
-                          color: "white",
+                          backgroundColor: "#f2f2f2",
                           fontWeight: "300",
                         }}
                       >
@@ -400,32 +397,28 @@ const InvestmentStrategyContentLayout = ({ eid, id, status }) => {
                 <tr>
                   <th
                     style={{
-                      backgroundColor: "rgb(47, 79, 79)",
-                      color: "white",
+                      backgroundColor: "#f2f2f2",
                     }}
                   >
                     S.NO
                   </th>
                   <th
                     style={{
-                      backgroundColor: "rgb(47, 79, 79)",
-                      color: "white",
+                      backgroundColor: "#f2f2f2",
                     }}
                   >
                     Strategy Button
                   </th>
                   <th
                     style={{
-                      backgroundColor: "rgb(47, 79, 79)",
-                      color: "white",
+                      backgroundColor: "#f2f2f2",
                     }}
                   >
                     Remark
                   </th>
                   <th
                     style={{
-                      backgroundColor: "rgb(47, 79, 79)",
-                      color: "white",
+                      backgroundColor: "#f2f2f2",
                     }}
                   >
                     Action
@@ -598,32 +591,28 @@ const InvestmentStrategyContentLayout = ({ eid, id, status }) => {
                 <tr>
                   <th
                     style={{
-                      backgroundColor: "rgb(47, 79, 79)",
-                      color: "white",
+                      backgroundColor: "#f2f2f2",
                     }}
                   >
                     S.NO
                   </th>
                   <th
                     style={{
-                      backgroundColor: "rgb(47, 79, 79)",
-                      color: "white",
+                      backgroundColor: "#f2f2f2",
                     }}
                   >
                     Strategy Button
                   </th>
                   <th
                     style={{
-                      backgroundColor: "rgb(47, 79, 79)",
-                      color: "white",
+                      backgroundColor: "#f2f2f2",
                     }}
                   >
                     Remark
                   </th>
                   <th
                     style={{
-                      backgroundColor: "rgb(47, 79, 79)",
-                      color: "white",
+                      backgroundColor: "#f2f2f2",
                     }}
                   >
                     Action
@@ -722,7 +711,7 @@ const InvestmentStrategyContentLayout = ({ eid, id, status }) => {
 
           {/* Save Button */}
           <div className="d-flex justify-content-end gap-2 mt-4">
-            <Button
+            {/* <Button
               variant="contained"
               color="success"
               type="button"
@@ -730,7 +719,10 @@ const InvestmentStrategyContentLayout = ({ eid, id, status }) => {
               disabled={postLoading}
             >
               {postLoading ? "Processing..." : "Save"}
-            </Button>
+            </Button> */}
+            <button className="btn-submit me-2" type="button" onClick={handleEditSubmit} disabled={postLoading}>
+              {postLoading ? "Processing..." : "Save"}
+            </button>
           </div>
         </div>
       </Dialog>

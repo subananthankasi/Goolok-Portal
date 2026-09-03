@@ -105,12 +105,12 @@ const LandOwnerDetails = ({ eid, id, status, pagetype }) => {
       const response = await axios.get(`${API_BASE_URL}/allowner/${eid}`);
       setDetailsData(response.data);
     } catch (error) {
-      
+
     }
   };
-useEffect(() => {
-  fetch();
-}, [eid]);
+  useEffect(() => {
+    fetch();
+  }, [eid]);
 
   const [postLoading, setPostLoading] = useState(false)
   const onSubmit = async (values) => {
@@ -126,7 +126,7 @@ useEffect(() => {
         Toast({ message: "Successfully Updated", type: "success" });
         setPostLoading(false)
       } catch (error) {
-        
+
         setPostLoading(false)
       } finally {
         fetch();
@@ -145,7 +145,7 @@ useEffect(() => {
         Toast({ message: "Successfully Added", type: "success" });
         setPostLoading(false)
       } catch (error) {
-        
+
         setPostLoading(false)
       } finally {
         fetch();
@@ -193,7 +193,7 @@ useEffect(() => {
       Toast({ message: "Successfully Deleted", type: "success" });
       fetch();
     } catch (error) {
-      
+
     } finally {
       fetch();
     }
@@ -465,7 +465,7 @@ useEffect(() => {
             <label htmlFor="startdate" className="form-label">
               Agreement Starting Date <span style={{ color: "red" }}>*</span>
             </label>
-            <DatePicker
+            {/* <DatePicker
               placement="topRight"
               name="startdate"
               value={
@@ -484,16 +484,28 @@ useEffect(() => {
               style={{ width: "100%" }}
               disabledDate={disableBeforeDate(formik.values.startdate)}
               onBlur={formik.handleBlur}
-            />
-            {/* <input
-              id="startdate"
-              type="date"
-              name="startdate"
-              className="form-control"
-              value={formik.values.startdate}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
             /> */}
+            <DatePicker
+              picker="date"
+              format="DD/MM/YYYY"
+              value={
+                formik.values.startdate
+                  ? dayjs(formik.values.startdate)
+                  : null
+              }
+              onChange={(date) => {
+
+                formik.setFieldValue(
+                  "startdate",
+                  date ? date.format("YYYY-MM-DD") : ""
+                );
+
+                formik.setFieldValue("closedate", "");
+              }}
+              style={{ width: "100%" }}
+              getPopupContainer={(triggerNode) => triggerNode.parentNode}
+            />
+
 
             {formik.errors.startdate && formik.touched.startdate ? (
               <p style={{ color: "red", fontSize: "12px" }}>

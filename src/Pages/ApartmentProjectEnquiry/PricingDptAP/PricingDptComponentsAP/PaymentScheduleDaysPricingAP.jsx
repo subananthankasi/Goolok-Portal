@@ -745,7 +745,7 @@ const PaymentScheduleDaysPricingAP = ({ eid, status, pagetype }) => {
                             alignItems: "center",
                           }}
                         >
-                          <Button
+                          {/* <Button
                             variant="contained"
                             color="success"
                             size="small"
@@ -753,7 +753,14 @@ const PaymentScheduleDaysPricingAP = ({ eid, status, pagetype }) => {
                             onClick={formik1.handleSubmit}
                           >
                             Add
-                          </Button>
+                          </Button> */}
+                          <button
+                            className="btn1 me-2"
+                            type="button"
+                            onClick={formik1.handleSubmit}
+                          >
+                            Add
+                          </button>
                         </div>
                       )}
                     </div>
@@ -764,7 +771,22 @@ const PaymentScheduleDaysPricingAP = ({ eid, status, pagetype }) => {
               </section>
             )}
           <div className="d-flex justify-content-end gap-2 mt-4">
-            <div>
+            <button
+              className="btn1 me-2"
+              type="button"
+              onClick={cancelDialog}
+            >
+              Cancel
+            </button>
+            <button
+              className="btn1 me-2"
+              type="submit"
+              onClick={() => setEditing(false)}
+              disabled={isAddSubmitDisabled}
+            >
+              Save
+            </button>
+            {/* <div>
               <Button variant="outlined" onClick={cancelDialog}>
                 {" "}
                 Cancel{" "}
@@ -779,7 +801,7 @@ const PaymentScheduleDaysPricingAP = ({ eid, status, pagetype }) => {
               >
                 Save
               </Button>
-            </div>
+            </div> */}
           </div>
         </form>
       </Dialog>

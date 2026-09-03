@@ -54,34 +54,34 @@ const CustomerDateTele = ({
     },
 
     ...(staffid.logintype == "staff" &&
-    (status === "complete" || status === "pending") &&
-    pagetype !== "reminder"
+      (status === "complete" || status === "pending") &&
+      pagetype !== "reminder"
       ? [
-          {
-            name: "Actions",
-            cell: (row) => (
-              <>
-                <div className="d-flex">
-                  <button
-                    className="btn btn-outline-info me-1 edit"
-                    data-tooltip-id="edit"
-                    onClick={() => handleEdit(row)}
-                  >
-                    <EditIcon />
-                  </button>
-                  <button
-                    className="btn btn-outline-danger delete"
-                    data-tooltip-id="delete"
-                    onClick={() => handleDeleteOpen(row)}
-                  >
-                    <DeleteIcon />
-                  </button>
-                </div>
-              </>
-            ),
-            sortable: true,
-          },
-        ]
+        {
+          name: "Actions",
+          cell: (row) => (
+            <>
+              <div className="d-flex">
+                <button
+                  className="btn btn-outline-info me-1 edit"
+                  data-tooltip-id="edit"
+                  onClick={() => handleEdit(row)}
+                >
+                  <EditIcon />
+                </button>
+                <button
+                  className="btn btn-outline-danger delete"
+                  data-tooltip-id="delete"
+                  onClick={() => handleDeleteOpen(row)}
+                >
+                  <DeleteIcon />
+                </button>
+              </div>
+            </>
+          ),
+          sortable: true,
+        },
+      ]
       : []),
   ];
 
@@ -293,13 +293,13 @@ const CustomerDateTele = ({
           </div>
 
           <div className="d-flex justify-content-end mt-4">
-            <Button
-              variant="contained"
+            <button
+              className="btn1"
               type="submit"
               onClick={() => setEditing(false)}
             >
               Submit
-            </Button>
+            </button>
           </div>
         </form>
       </Dialog>
@@ -387,13 +387,13 @@ const CustomerDateTele = ({
           </div>
 
           <div className="d-flex justify-content-end mt-4">
-            <Button
-              variant="contained"
+            <button
+              className="btn1"
               type="submit"
               onClick={() => setEditing(true)}
             >
               Update
-            </Button>
+            </button>
           </div>
         </form>
       </Dialog>
@@ -414,16 +414,16 @@ const CustomerDateTele = ({
         </div>
 
         <div className="d-flex justify-content-end mt-3 gap-3">
-          <Button
-            variant="outlined"
+          <button
+            className="btn1"
             color="error"
             onClick={() => setDeleteDialog(false)}
           >
             No
-          </Button>
-          <Button variant="contained" onClick={handleDelete}>
+          </button>
+          <button className="btn1" onClick={handleDelete}>
             Yes
-          </Button>
+          </button>
         </div>
       </Dialog>
     </>

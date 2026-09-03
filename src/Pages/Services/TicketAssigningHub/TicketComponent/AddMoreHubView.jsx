@@ -495,15 +495,12 @@ const AddMoreHubView = ({ isOpen, closeModal, id }) => {
                         </div>
                       </div>
                     </div> */}
-
-
                         </div>
                       </>
                     )}
                     {step === 2 && (
                       <>
                         <div className="row mt-3">
-
                           {/* <DataTable
                       persistTableHead={true}
                       columns={columns}
@@ -515,21 +512,18 @@ const AddMoreHubView = ({ isOpen, closeModal, id }) => {
                     /> */}
                           <TableContainer component={Paper}>
                             <Table sx={{ minWidth: 700 }} aria-label="customized table" >
-                              <TableHead style={{ backgroundColor: 'rgb(47, 79, 79)' }}>
+                              <TableHead >
                                 <TableRow>
-                                  <TableCell style={{ color: "white" }} >S.No</TableCell >
-                                  <TableCell align="right" style={{ color: "white" }}>Survey No</TableCell >
-                                  <TableCell align="right" style={{ color: "white" }}>Sub Division</TableCell >
-
+                                  <TableCell >S.No</TableCell >
+                                  <TableCell align="right">Survey No</TableCell >
+                                  <TableCell align="right">Sub Division</TableCell >
                                   {pattaData[0].old_survey_no && (
-                                    <TableCell align="right" style={{ color: "white" }}> Old Survey No</TableCell >
+                                    <TableCell align="right"> Old Survey No</TableCell >
                                   )}
                                   {pattaData[0].old_sub_division && (
-                                    <TableCell align="right" style={{ color: "white" }}> Old Sub Division</TableCell >
+                                    <TableCell align="right"> Old Sub Division</TableCell >
                                   )}
-
-                                  <TableCell align="right" style={{ color: "white" }}>Hectare-Are</TableCell >
-
+                                  <TableCell align="right">Hectare-Are</TableCell >
                                 </TableRow>
                               </TableHead>
                               <TableBody>
@@ -564,8 +558,6 @@ const AddMoreHubView = ({ isOpen, closeModal, id }) => {
                             </Table>
                           </TableContainer>
                         </div>
-
-
                       </>
                     )}
 

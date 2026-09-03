@@ -8,7 +8,7 @@ import { Dialog } from "primereact/dialog";
 import Button from "@mui/material/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchPincode } from "../../../../Redux/Actions/MasterPage/PincodeAction";
-import API_BASE_URL, { IMG_PATH } from "../../../../Api/api";
+import API_BASE_URL from "../../../../Api/api";
 import { fetchState } from "../../../../Redux/Actions/MasterPage/StateAction";
 import { fetchDistrict } from "../../../../Redux/Actions/MasterPage/DistrictAction";
 import { fetchTaluk } from "../../../../Redux/Actions/MasterPage/TalukAction";
@@ -34,8 +34,10 @@ const OwnerProjectDetailsContentCom = ({
   const VillageData = useSelector((state) => state.Village.villageData);
   const pincodeData = useSelector((state) => state.Pincode.PincodeData);
   const [sroData, setSroData] = useState([]);
-  const [url, setUrl] = useState(null);
   const dispatch = useDispatch();
+
+
+
   const enquiryDoumentData = useSelector(
     (state) => state.Enquiry.enquiryDocument
   );
@@ -73,6 +75,12 @@ const OwnerProjectDetailsContentCom = ({
       width: "150px",
     },
     {
+      name: "Project Name",
+      selector: (row) => row.projectname,
+      sortable: true,
+      width: "150px",
+    },
+    {
       name: "Village Type",
       cell: (row) => row.village_type,
       sortable: true,
@@ -106,14 +114,20 @@ const OwnerProjectDetailsContentCom = ({
       sortable: true,
       width: "150px",
     },
+    {
+      name: "Project Name",
+      selector: (row) => row.projectname,
+      sortable: true,
+      width: "150px",
+    },
     ...(subtype === "Land"
       ? [
-        {
-          name: "Project Name",
-          selector: (row) => row.projectname,
-          sortable: true,
-          width: "150px",
-        },
+        // {
+        //   name: "Project Name",
+        //   selector: (row) => row.projectname,
+        //   sortable: true,
+        //   width: "150px",
+        // },
         {
           name: " Extent in units",
           selector: (row) => row.extent_in_units,
@@ -365,10 +379,8 @@ const OwnerProjectDetailsContentCom = ({
     formik.setFieldValue("corner_property", row.corner_property || "");
     formik.setFieldValue("boundary_wall", row.boundary_wall || "");
     formik.setFieldValue("plot_size", row.plot_size || "");
-
     formik.setFieldValue("file", row.document);
     formik.setFieldValue("oldfile", row.document);
-    setUrl(row.document);
 
     formik.setFieldValue("id", row.id);
   };
@@ -383,7 +395,7 @@ const OwnerProjectDetailsContentCom = ({
       setPrDetails(response.data);
     } catch (error) { }
   };
-  
+
   useEffect(() => {
     fetchDetails();
   }, []);
@@ -396,7 +408,7 @@ const OwnerProjectDetailsContentCom = ({
         enqid: eid,
         agreeid: id,
         // status: null,
-        status: "pending",
+        // status: "pending",
       };
       try {
         await axios.post(`${API_BASE_URL}/commercialagreement`, payload, {
@@ -2145,34 +2157,34 @@ const OwnerProjectDetailsContentCom = ({
               </div>
             </div>
             {/** Project Name */}
-            {subtype === "Land" && (
-              <div className="col-md-6 mb-3 ">
-                <div className="row">
-                  <div className="col-4 mb-3 ">
-                    <label htmlFor="aprovalno" className="form-label">
-                      Project Name
-                    </label>
-                  </div>
-                  <div className="col-8 mb-3 ">
-                    <input
-                      type="text"
-                      className="form-control"
-                      name="projectname"
-                      placeholder="Enter project name..."
-                      value={formik.values.projectname}
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                    />
-                    {formik.errors.projectname &&
-                      formik.touched.projectname && (
-                        <h6 style={{ color: "red", fontSize: "12px" }}>
-                          {formik.errors.projectname}
-                        </h6>
-                      )}
-                  </div>
+            {/* {subtype === "Land" && ( */}
+            <div className="col-md-6 mb-3 ">
+              <div className="row">
+                <div className="col-4 mb-3 ">
+                  <label htmlFor="aprovalno" className="form-label">
+                    Project Name
+                  </label>
+                </div>
+                <div className="col-8 mb-3 ">
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="projectname"
+                    placeholder="Enter project name..."
+                    value={formik.values.projectname}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                  {formik.errors.projectname &&
+                    formik.touched.projectname && (
+                      <h6 style={{ color: "red", fontSize: "12px" }}>
+                        {formik.errors.projectname}
+                      </h6>
+                    )}
                 </div>
               </div>
-            )}
+            </div>
+            {/* )} */}
 
             {/** rerano */}
             <div className="col-md-6 mb-3 ">
@@ -2929,6 +2941,7 @@ const OwnerProjectDetailsContentCom = ({
               </div>
             </div>
 
+
             {/* <hr /> */}
             {/* <div className="col-md-6 mb-3 ">
               <div className="row">
@@ -2976,13 +2989,20 @@ const OwnerProjectDetailsContentCom = ({
               {staffid.Login === "staff" &&
                 (status === "pending" || status === "complete") && (
                   <>
-                    <Button
+                    {/* <Button
                       variant="contained"
                       type="submit"
                       onClick={() => setIsEditing(false)}
                     >
                       Update
-                    </Button>
+                    </Button> */}
+                    <button
+                      className="btn1 me-2"
+                      type="submit"
+                      onClick={() => setIsEditing(false)}
+                    >
+                      Update
+                    </button>
                   </>
                 )}
             </div>

@@ -128,20 +128,20 @@ const PattaSurveyHouse = ({ data }) => {
                 <div className="">
                     <TableContainer component={Paper}>
                         <Table sx={{ minWidth: 700 }} aria-label="customized table" >
-                            <TableHead style={{ backgroundColor: 'rgb(47, 79, 79)' }}>
+                            <TableHead>
                                 <TableRow>
-                                    <TableCell style={{ color: "white" }} >S.No</TableCell >
-                                    <TableCell align="right" style={{ color: "white" }}>Survey No</TableCell >
-                                    <TableCell align="right" style={{ color: "white" }}>Sub Division</TableCell >
+                                    <TableCell  >S.No</TableCell >
+                                    <TableCell align="right" >Survey No</TableCell >
+                                    <TableCell align="right" >Sub Division</TableCell >
                                     {type.patta_type === "Town_patta" && (
                                         <>
-                                            <TableCell align="right" style={{ color: "white" }}> Old Survey No</TableCell >
-                                            <TableCell align="right" style={{ color: "white" }}> Old Sub Division</TableCell ></>
+                                            <TableCell align="right" > Old Survey No</TableCell >
+                                            <TableCell align="right" > Old Sub Division</TableCell ></>
 
                                     )}
-                                    <TableCell align="right" style={{ color: "white" }}>Hectare-Are</TableCell >
+                                    <TableCell align="right" >Hectare-Are</TableCell >
                                     {staffid.Login === "staff" && (data.status === "pending" || data.status === "verify") && (
-                                        <TableCell align="right" style={{ color: "white" }}>Action</TableCell >
+                                        <TableCell align="right" >Action</TableCell >
 
                                     )}
 

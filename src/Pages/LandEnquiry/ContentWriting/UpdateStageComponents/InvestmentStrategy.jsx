@@ -256,27 +256,24 @@ const InvestmentStrategy = ({ eid, id, status }) => {
                     <tr>
                       <th
                         style={{
-                          backgroundColor: "rgb(47, 79, 79)",
-                          color: "white",
-                          fontWeight: "300",
+                          backgroundColor: "#f2f2f2",
+                          fontWeight: "400",
                         }}
                       >
                         S.NO
                       </th>
                       <th
                         style={{
-                          backgroundColor: "rgb(47, 79, 79)",
-                          color: "white",
-                          fontWeight: "300",
+                          backgroundColor: "#f2f2f2",
+                          fontWeight: "400",
                         }}
                       >
                         Strategy Button
                       </th>
                       <th
                         style={{
-                          backgroundColor: "rgb(47, 79, 79)",
-                          color: "white",
-                          fontWeight: "300",
+                          backgroundColor: "#f2f2f2",
+                          fontWeight: "400",
                         }}
                       >
                         Remark
@@ -395,31 +392,28 @@ const InvestmentStrategy = ({ eid, id, status }) => {
                 <tr>
                   <th
                     style={{
-                      backgroundColor: "rgb(47, 79, 79)",
-                      color: "white",
+                      backgroundColor: "#f2f2f2",
                     }}
                   >
                     S.NO
                   </th>
                   <th
                     style={{
-                      backgroundColor: "rgb(47, 79, 79)",
-                      color: "white",
+                      backgroundColor: "#f2f2f2",
                     }}
                   >
                     Strategy Button
                   </th>
                   <th
                     style={{
-                      backgroundColor: "rgb(47, 79, 79)",
-                      color: "white",
+                      backgroundColor: "#f2f2f2",
                     }}
                   >
                     Remark
                   </th>
                   <th
                     style={{
-                      backgroundColor: "rgb(47, 79, 79)",
+                      backgroundColor: "#f2f2f2",
                       color: "white",
                     }}
                   >
@@ -592,32 +586,28 @@ const InvestmentStrategy = ({ eid, id, status }) => {
                 <tr>
                   <th
                     style={{
-                      backgroundColor: "rgb(47, 79, 79)",
-                      color: "white",
+                      backgroundColor: "#f2f2f2",
                     }}
                   >
                     S.NO
                   </th>
                   <th
                     style={{
-                      backgroundColor: "rgb(47, 79, 79)",
-                      color: "white",
+                      backgroundColor: "#f2f2f2",
                     }}
                   >
                     Strategy Button
                   </th>
                   <th
                     style={{
-                      backgroundColor: "rgb(47, 79, 79)",
-                      color: "white",
+                      backgroundColor: "#f2f2f2",
                     }}
                   >
                     Remark
                   </th>
                   <th
                     style={{
-                      backgroundColor: "rgb(47, 79, 79)",
-                      color: "white",
+                      backgroundColor: "#f2f2f2",
                     }}
                   >
                     Action

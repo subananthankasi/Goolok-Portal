@@ -224,10 +224,11 @@ const ExteriorFeatures = () => {
 
                     <div className="text-end py-3 px-3">
                       <button
-                        className="btn1 text-dark me-1"
+                        className="btn1   me-1"
                         onClick={() => {
                           formik.resetForm();
                         }}
+                        type="button"
                       >
                         Clear
                       </button>

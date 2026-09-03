@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
-
 import axios from "axios";
-
 import Spinner from "react-bootstrap/Spinner";
-
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { confirmDialog } from "primereact/confirmdialog";
@@ -188,13 +185,12 @@ const DayToDayProgressFieldLayout = (props) => {
                   staffid.Login === "staff" &&
                   props.props.pagetype !== "reminder" && enquiryDoumentData?.status !== "booking" && (
                     <div className="ms-2">
-                      <a
-                        href="#"
+                      <button
                         onClick={() => setIsModalDay(true)}
                         className="btn1 me-2"
                       >
                         + Add
-                      </a>
+                      </button>
                     </div>
                   )}
               </div>

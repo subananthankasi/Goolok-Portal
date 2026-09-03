@@ -32,7 +32,7 @@ export const FinalOpinionLawyer = (props) => {
           <div className="d-flex">
             <button
               type="button"
-              className="btn btn-warning rounded-0"
+              className="btn btn-primary"
               onClick={() =>
                 viewFileUrl(`${IMG_PATH}/enquiry/lawyer/${row.document}`)
               }
@@ -162,13 +162,12 @@ export const FinalOpinionLawyer = (props) => {
           {opininonData.length == "0" && staffid.logintype == "staff" ? (
             <div className="container" style={{ maxWidth: "350px" }}>
               <div className="p-4 text-center">
-                <a
-                  href="#0"
+                <button
                   onClick={() => setIsModalFinal(true)}
                   className="btn1"
                 >
                   + Create Final Opinion
-                </a>
+                </button>
               </div>
             </div>
           ) : (

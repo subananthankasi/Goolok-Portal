@@ -2,12 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import Button from "@mui/material/Button";
-// import DatePicker from "react-datepicker";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { DatePicker } from "antd";
 import dayjs from "dayjs";
 import axios from "axios";
-
 import Spinner from "react-bootstrap/Spinner";
 import { fetchState } from "../../../../Redux/Actions/MasterPage/StateAction";
 import { fetchDistrict } from "../../../../Redux/Actions/MasterPage/DistrictAction";
@@ -588,7 +586,11 @@ const TitleDetailsPlot = ({ data, setStep }) => {
             {staffid.Login === "staff" &&
               (data.status === "pending" || data.status === "verify") && (
                 <>
-                  <Button
+                  <div className="d-flex justify-content-end gap-2">
+                    <button type="button" className="btn1" onClick={() => formik.resetForm()}> Clear</button>
+                    <button type="submit " className="btn1"> Next</button>
+                  </div>
+                  {/* <Button
                     variant="outlined"
                     type="button"
                     color="error"
@@ -599,7 +601,7 @@ const TitleDetailsPlot = ({ data, setStep }) => {
                   </Button>
                   <Button variant="contained" type="submit">
                     Next
-                  </Button>
+                  </Button> */}
                 </>
               )}
           </div>

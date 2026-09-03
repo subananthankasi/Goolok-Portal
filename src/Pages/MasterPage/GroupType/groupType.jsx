@@ -36,6 +36,7 @@ function GroupType() {
   const [formData, setFormData] = useState({
     group_name: " ",
     pagename: [],
+    module: [],
     status: "Enable",
   });
 
@@ -50,6 +51,12 @@ function GroupType() {
     setFormData({
       ...formData,
       pagename: value,
+    });
+  };
+  const handleModuleTagChange = (value) => {
+    setFormData({
+      ...formData,
+      module: value,
     });
   };
   const [errors, setErrors] = useState({});
@@ -107,12 +114,28 @@ function GroupType() {
       selector: (row) => row.group_name,
       sortable: true,
     },
-    // {
-    //   name: "Allow pages",
-    //   selector: (row) => row.pages?.join(", ") ?? "-",
-    //   sortable: true,
-    //   width: "200px",
-    // },
+
+    {
+      name: "Modules",
+      selector: (row) => row.module?.join(", ") ?? "-",
+      sortable: true,
+      width: "170px",
+      cell: (row) => (
+        <span
+          style={{
+            display: "inline-block",
+            maxWidth: "170px",
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+          }}
+          title={row.module?.join(", ")}
+        >
+          {row.module?.join(", ") ?? "-"}
+        </span>
+      ),
+    },
+
     {
       name: "Allow pages",
       selector: (row) => row.pages?.join(", ") ?? "-",
@@ -179,6 +202,7 @@ function GroupType() {
     setFormData({
       group_name: row.group_name || "",
       pagename: row.pages || [],
+      module: row.module || [],
       status: row.status || "Enable",
       id: row.id || "",
     });
@@ -224,6 +248,17 @@ function GroupType() {
     "Property valuation",
     "Missing documents",
   ].map((item) => ({ label: item, value: item }));
+
+  const ModulesData = [
+    "Land Enquiry",
+    "Apartment Enquiry",
+    "Plot Enquiry",
+    "House Enquiry",
+    "Layout Enquiry",
+    "Commercial Enquiry",
+    "Apartment Project Enquiry",
+  ].map((item) => ({ label: item, value: item }));
+
   return (
     <>
       <GroupTypeEdit
@@ -259,6 +294,28 @@ function GroupType() {
                             {errors.group_name}
                           </div>
                         )}
+                      </div>
+                      <div className="col-md-12 mb-3 ">
+                        <label htmlFor="lastName" className="form-label">
+                          Modules
+                        </label>
+                        <TagPicker
+                          data={ModulesData}
+                          style={{
+                            width: "100%",
+                            height: "50px",
+                            overflowY: "scroll",
+                          }}
+                          menuStyle={{ width: 200, maxHeight: "150px" }}
+                          value={formData.module}
+                          onChange={handleModuleTagChange}
+                          name="module"
+                        />
+                        {/* {errors.pagename && (
+                          <div className="validation_msg">
+                            {errors.pagename}
+                          </div>
+                        )} */}
                       </div>
                       <div className="col-md-12 mb-3 ">
                         <label htmlFor="lastName" className="form-label">
@@ -305,7 +362,7 @@ function GroupType() {
 
                     <div className="text-end py-3 px-3">
                       <button
-                        className="btn1 text-dark me-1"
+                        className="btn1   me-1"
                         onClick={() => {
                           setFormData({
                             group_name: "",
@@ -315,6 +372,7 @@ function GroupType() {
                           setErrors({});
                           setIsEditing(false);
                         }}
+                        type="button"
                       >
                         {isEditing ? "Cancel" : "Clear"}
                       </button>

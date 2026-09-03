@@ -105,7 +105,6 @@ const PricingDepartmentLand = ({ eid, status, id, pagetype, discountPage }) => {
                         updatedChargeDetails = [...existingCharges, newChargeDetail];
                     }
 
-                    // recalc subtotal/total
                     const subtotal = updatedChargeDetails
                         .reduce((sum, item) => sum + Number(item.price), 0)
                         .toFixed(2);
@@ -114,7 +113,7 @@ const PricingDepartmentLand = ({ eid, status, id, pagetype, discountPage }) => {
                         ...invoiceItem,
                         chargeDetails: updatedChargeDetails,
                         subtotal,
-                        total: subtotal, // update total if same as subtotal
+                        total: subtotal,
                     };
                 }
 
@@ -140,6 +139,7 @@ const PricingDepartmentLand = ({ eid, status, id, pagetype, discountPage }) => {
         formik.resetForm();
     };
 
+
     const formik = useFormik({
         initialValues: {
             charges: "",
@@ -148,7 +148,11 @@ const PricingDepartmentLand = ({ eid, status, id, pagetype, discountPage }) => {
         },
         validationSchema: yup.object().shape({
             charges: yup.string().required("pricing type is required!!"),
-            price: yup.string().required("Price is required!!"),
+            // price: yup.string().required("Price is required!!"),
+            price: yup.number()
+                .typeError("Price must be a number")
+                .positive("Negative values not allowed")
+                .required("Price is required")
         }),
         onSubmit,
     });
@@ -295,9 +299,10 @@ const PricingDepartmentLand = ({ eid, status, id, pagetype, discountPage }) => {
     };
 
     const handleInputNumberChange = (e) => {
-        const inputNumberValue = e.value;
+        const inputNumberValue = e.target.value;
         formik.setFieldValue("inputNumber", inputNumberValue);
-        const updatedValue = `${e.value}/${formik.values.unit} `;
+        // const updatedValue = `${inputNumberValue}/${formik.values.unit}`;
+        const updatedValue = `${inputNumberValue}/${enquiryDoumentData?.land_units}`;
         setCombinedValue(updatedValue);
     };
 
@@ -373,7 +378,7 @@ const PricingDepartmentLand = ({ eid, status, id, pagetype, discountPage }) => {
                                                 Edit Pricing
                                             </button>
                                         )}
-                                    {staffid.Login === "admin" &&
+                                    {/* {staffid.Login === "admin" &&
                                         discountPage === "discount" &&
                                         pagetype !== "reminder" && (
                                             <Button
@@ -385,7 +390,7 @@ const PricingDepartmentLand = ({ eid, status, id, pagetype, discountPage }) => {
                                             >
                                                 Discount
                                             </Button>
-                                        )}
+                                        )} */}
                                 </div>
                                 <hr />
                                 <div>
@@ -449,6 +454,7 @@ const PricingDepartmentLand = ({ eid, status, id, pagetype, discountPage }) => {
                 modal
                 className="p-fluid"
                 closable={false}
+                focusOnShow={false}
             >
                 <div className=" container w-100">
                     {/* <div > */}
@@ -566,7 +572,7 @@ const PricingDepartmentLand = ({ eid, status, id, pagetype, discountPage }) => {
                                                         placeholder=""
                                                         className="form-control"
                                                         value={formik.values.inputNumber}
-                                                        onValueChange={handleInputNumberChange}
+                                                        onChange={handleInputNumberChange}
                                                     />
 
                                                     <InputGroup.Addon>
@@ -588,10 +594,16 @@ const PricingDepartmentLand = ({ eid, status, id, pagetype, discountPage }) => {
                                         <input
                                             id="price"
                                             name="price"
-                                            type="number"
+                                            type="text"
                                             className="form-control mt-1"
                                             value={formik.values.price}
-                                            onChange={formik.handleChange}
+                                            // onChange={formik.handleChange}
+                                            onChange={(e) => {
+                                                const value = e.target.value;
+                                                if (/^\d*$/.test(value)) {
+                                                    formik.setFieldValue("price", value);
+                                                }
+                                            }}
                                             onBlur={formik.handleBlur}
                                             placeholder="Enter Price"
                                             style={{ height: "40px" }}
@@ -615,7 +627,10 @@ const PricingDepartmentLand = ({ eid, status, id, pagetype, discountPage }) => {
 
                     {/* </div> */}
 
-                    <div className="d-flex gap-3 justify-content-end mt-3">
+                    <div className="d-flex gap-2 justify-content-end mt-3">
+                        <button type="button" className="btn1" onClick={clear}>
+                            Cancel
+                        </button>
                         <button className="btn1" onClick={handleFormSubmit} disabled={postLoading}>
                             {postLoading ? (
                                 <ThreeDots
@@ -635,9 +650,7 @@ const PricingDepartmentLand = ({ eid, status, id, pagetype, discountPage }) => {
                                 "Confirm "
                             )}
                         </button>
-                        <button className="btn1" onClick={clear}>
-                            Cancel
-                        </button>
+
                     </div>
                 </div>
             </Dialog>

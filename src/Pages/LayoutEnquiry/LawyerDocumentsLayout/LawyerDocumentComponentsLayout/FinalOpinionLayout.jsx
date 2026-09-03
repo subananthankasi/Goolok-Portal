@@ -31,7 +31,7 @@ export const FinalOpinionLayout = (props) => {
           <div className="d-flex">
             <button
               type="button"
-              className="btn btn-warning rounded-0"
+              className="btn btn-primary"
               onClick={() =>
                 viewFileUrl(`${IMG_PATH}/enquiry/lawyer/${row.document}`)
               }

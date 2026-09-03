@@ -30,32 +30,32 @@ const StaffCreation = ({ editData, visible, setEditModal }) => {
     }, [dispatch]);
 
     useEffect(() => {
-        if (autoStaffID) {
+        if (autoStaffID && !visible && !editData ) {
             formik.setFieldValue("staffId", autoStaffID);
         }
-    }, [autoStaffID]);
+    }, [autoStaffID,visible,editData]);
 
     useEffect(() => {
-        if (visible) {
+        if (visible && editData) {
             formik.setValues({
-                staffId: editData.staff_id,
-                staffName: editData.staff_name,
-                staffEmail: editData.staff_email,
-                staffMobile: editData.staff_mobile,
-                staffAadhaar: editData.staff_aadhaar,
-                staffAddress: editData.staff_address,
-                staffBranch: editData.staff_branch,
-                staffGroup: editData.staff_group,
-                staffState: editData.staff_state,
-                staffDistrict: editData.staff_district,
-                staffTaluk: editData.staff_taluk,
-                staffVillage: editData.staff_village,
-                staffPincode: editData.staff_pincode,
-                staffPassword: editData.staff_password,
-                staffConfirm: editData.staff_password,
-                role: editData.role,
-                status: editData.status,
-                id: editData.id
+                staffId: editData?.staff_id,
+                staffName: editData?.staff_name,
+                staffEmail: editData?.staff_email,
+                staffMobile: editData?.staff_mobile,
+                staffAadhaar: editData?.staff_aadhaar,
+                staffAddress: editData?.staff_address,
+                staffBranch: editData?.staff_branch,
+                staffGroup: editData?.staff_group,
+                staffState: editData?.staff_state,
+                staffDistrict: editData?.staff_district,
+                staffTaluk: editData?.staff_taluk,
+                staffVillage: editData?.staff_village,
+                staffPincode: editData?.staff_pincode,
+                staffPassword: editData?.staff_password,
+                staffConfirm: editData?.staff_password,
+                role: editData?.role,
+                status: editData?.status,
+                id: editData?.id
             });
         }
 
@@ -81,27 +81,27 @@ const StaffCreation = ({ editData, visible, setEditModal }) => {
             .matches(/^[0-9]{10}$/, "Invalid mobile number format")
             .required("Staff mobile number is required"),
 
-        staffAadhaar: yup
-            .string()
-            .transform((value) => value?.replace(/\s/g, ""))
-            .matches(/^\d{12}$/, "Aadhaar number must be 12 digits")
-            .required("Aadhaar number is required"),
+        // staffAadhaar: yup
+        //     .string()
+        //     .transform((value) => value?.replace(/\s/g, ""))
+        //     .matches(/^\d{12}$/, "Aadhaar number must be 12 digits")
+        //     .required("Aadhaar number is required"),
 
-        staffAddress: yup.string().trim().required("Staff address is required"),
+        // staffAddress: yup.string().trim().required("Staff address is required"),
 
         staffBranch: yup.string().trim().required("Branch is required"),
 
         staffGroup: yup.string().trim().required("Group is required"),
 
-        staffState: yup.string().trim().required("State is required"),
+        // staffState: yup.string().trim().required("State is required"),
 
-        staffDistrict: yup.string().trim().required("District is required"),
+        // staffDistrict: yup.string().trim().required("District is required"),
 
-        staffTaluk: yup.string().trim().required("Taluk is required"),
+        // staffTaluk: yup.string().trim().required("Taluk is required"),
 
-        staffVillage: yup.string().trim().required("Village is required"),
+        // staffVillage: yup.string().trim().required("Village is required"),
 
-        staffPincode: yup.string().trim().required("Pincode is required"),
+        // staffPincode: yup.string().trim().required("Pincode is required"),
 
         staffPassword: yup
             .string()
@@ -112,10 +112,18 @@ const StaffCreation = ({ editData, visible, setEditModal }) => {
             )
             .required("Staff password is required"),
 
-        staffConfirm: yup
-            .string()
-            .oneOf([yup.ref("staffPassword"), null], "Passwords must match")
-            .required("Confirm password is required"),
+        // staffConfirm: yup
+        //     .string()
+        //     .oneOf([yup.ref("staffPassword"), null], "Passwords must match")
+        //     .required("Confirm password is required"),
+        staffConfirm: yup.string().when([], {
+            is: () => !visible,
+            then: (schema) =>
+                schema
+                    .oneOf([yup.ref("staffPassword"), null], "Passwords must match")
+                    .required("Confirm password is required"),
+            otherwise: (schema) => schema.notRequired(),
+        }),
         status: yup.string().trim().required("Status is required"),
     });
 
@@ -123,7 +131,7 @@ const StaffCreation = ({ editData, visible, setEditModal }) => {
     const [loading, setLoading] = useState(false);
 
     const onSubmit = async (values, { setSubmitting, setErrors, resetForm }) => {
-        setLoading(true);
+      
         const newData = {
             ...values,
             staffName: cleanText(values.staffName),
@@ -135,6 +143,7 @@ const StaffCreation = ({ editData, visible, setEditModal }) => {
             staffEmail: cleanText(values.staffEmail),
             staffConfirm: values.staffPassword
         };
+          setLoading(true);
         try {
             if (visible) {
                 const res = await dispatch(updateStaff(editData.id, updatePayload))
@@ -144,6 +153,7 @@ const StaffCreation = ({ editData, visible, setEditModal }) => {
                     Toast({ message: "Updated Successfully", type: "success" });
                     setEditModal(false)
                     setLoading(false)
+                      setLoading(false);
                 } else {
                     const backendErrors = res?.error || {};
                     const mappedErrors = {};
@@ -184,6 +194,7 @@ const StaffCreation = ({ editData, visible, setEditModal }) => {
                         mappedErrors.staffName = backendErrors.staff_name;
 
                     setErrors(mappedErrors);
+                      setLoading(false);
 
                     Object.keys(mappedErrors).forEach((field) => {
                         formik.setFieldTouched(field, true, false);
@@ -242,7 +253,6 @@ const StaffCreation = ({ editData, visible, setEditModal }) => {
 
     return (
         <>
-
             <div className="col-lg-12 ">
                 <form onSubmit={formik.handleSubmit} autoComplete="off">
                     <div className="row">

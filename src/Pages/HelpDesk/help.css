@@ -69,6 +69,17 @@
 } */
 
 .light.btn-warning {
+    /* background-color: var(--bg-light-primary); */
+    background: var(--bg-light-primary);
+    border-color: var(--bg-light-primary);
+    color: #FF9F00;
+}
+.light.btn-warning:hover {
+    background: var(--bg-primary);
+    border-color: var(--bg-primary);
+    color: #fff !important;
+}
+/* .light.btn-warning {
     background-color: #ffeccc;
     border-color: #ffeccc;
     color: #FF9F00;
@@ -77,7 +88,7 @@
     background-color: #FF9F00;
     border-color: #FF9F00;
     color: #fff;
-}
+} */
 
 .light.btn-info {
     background-color: #d3edf5;

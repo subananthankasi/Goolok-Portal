@@ -82,7 +82,7 @@ const LocalitiesContentPlot = ({ eid, id, status }) => {
       // setIsLoadingPage(false);
     }
     catch (error) {
-      
+
       // setIsLoadingPage(false)
     }
   }
@@ -192,7 +192,7 @@ const LocalitiesContentPlot = ({ eid, id, status }) => {
       } else if (localitiesDeleteThunk.rejected.match(response)) {
       }
     } catch (error) {
-      
+
     }
   };
 
@@ -251,6 +251,19 @@ const LocalitiesContentPlot = ({ eid, id, status }) => {
     formik.setFieldValue("description", row.description);
     formik.setFieldValue("location", row.location);
     formik.setFieldValue("id", row.id);
+
+    if (row.location) {
+    const [lat, lng] = row.location.split(",").map(Number);
+
+    const position = { lat, lng };
+
+    setClickedLatLng(position);
+
+    if (map) {
+      map.panTo(position);
+      map.setZoom(15);
+    }
+  }
   };
   const enquiryDoumentData = useSelector(
     (state) => state.Enquiry.enquiryDocument
@@ -306,8 +319,8 @@ const LocalitiesContentPlot = ({ eid, id, status }) => {
       : []),
   ];
   const deleteUnitsDialogFooter = (
-    <div className=" d-flex gap-3 justify-content-end">
-      <Button
+    <div className=" d-flex gap-2 justify-content-end">
+      {/* <Button
         label="No"
         icon="pi pi-times"
         outlined
@@ -320,7 +333,21 @@ const LocalitiesContentPlot = ({ eid, id, status }) => {
         severity="danger"
         style={{ borderRadius: "7px" }}
         onClick={handleDelete}
-      />
+      /> */}
+      <button
+        className="btn1"
+        style={{ borderRadius: "7px" }}
+        onClick={() => setDeleteDialog(false)}
+      >
+        Cancel
+      </button>
+      <button
+        className="btn1"
+        style={{ borderRadius: "7px" }}
+        onClick={handleDelete}
+      >
+        Delete
+      </button>
     </div>
   );
   const hideDeleteProductsDialog = () => {
@@ -675,7 +702,7 @@ const LocalitiesContentPlot = ({ eid, id, status }) => {
             </div>
 
             <div>
-              {status === "pending" && (
+              {(status === "pending" || status === "complete") && (
                 <div className="form-group mt-3">
                   <div className="row mb-3 align-items-center">
                     <div className="col-2">
@@ -800,7 +827,8 @@ const LocalitiesContentPlot = ({ eid, id, status }) => {
                 onClick={() => setEditing(true)}
               />
             </div> */}
-            <Button variant="contained" type="submit" onClick={() => setEditing(true)}>Update</Button>
+            <button type="button" className="btn-submit" onClick={() => setEditing(true)}> Update</button>
+            {/* <Button variant="contained" type="submit" onClick={() => setEditing(true)}>Update</Button> */}
           </div>
         </form>
       </Dialog>

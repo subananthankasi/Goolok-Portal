@@ -94,6 +94,7 @@ const CompleteRegAsale = () => {
         return (
             <Link
                 className="btn btn_pdf light btn-warning text-dark"
+                to={`/registration/${encryptData(props.enqid)}/${encryptData(props.id)}/${encryptData("complete")}/${encryptData(props.bid)}/${encryptData(props.booking_no)}/${encryptData("complete")}/${encryptData(props.block_id)}`}
             >
                 {props.booking_no}
             </Link>

@@ -45,7 +45,7 @@ const UploadFmp = ({ eid, id, rowId, status, pagetype }) => {
             setPostLoading(false);
             // setNewDialog(false)
         } catch (error) {
-            
+
             setPostLoading(false);
         } finally {
             // fetch()
@@ -63,7 +63,7 @@ const UploadFmp = ({ eid, id, rowId, status, pagetype }) => {
             }));
             setGetData(data);
         } catch (error) {
-            
+
         }
     };
 
@@ -109,7 +109,7 @@ const UploadFmp = ({ eid, id, rowId, status, pagetype }) => {
             fetchSurveyData();
             setDeleteDialog(false);
         } catch (error) {
-            
+
         } finally {
             fetchSurveyData();
         }
@@ -141,7 +141,8 @@ const UploadFmp = ({ eid, id, rowId, status, pagetype }) => {
                                 {staffid.Login === "staff" &&
                                     (status === "pending" || status === "complete") &&
                                     pagetype !== "reminder" &&
-                                    enquiryDoumentData?.status !== "live" && (
+                                    // enquiryDoumentData?.status !== "live" &&
+                                     (
                                         <button
                                             className="btn1 text-end"
                                             onClick={() => setShowForm(true)}
@@ -170,7 +171,8 @@ const UploadFmp = ({ eid, id, rowId, status, pagetype }) => {
                                             {staffid.Login === "staff" &&
                                                 (status === "pending" || status === "complete") &&
                                                 pagetype !== "reminder" &&
-                                                enquiryDoumentData?.status !== "live" && (
+                                                // enquiryDoumentData?.status !== "live" &&
+                                                 (
                                                     <th className="landowner_enq_th">Action </th>
                                                 )}
                                         </tr>
@@ -184,7 +186,8 @@ const UploadFmp = ({ eid, id, rowId, status, pagetype }) => {
                                             {staffid.Login === "staff" &&
                                                 (status === "pending" || status === "complete") &&
                                                 pagetype !== "reminder" &&
-                                                enquiryDoumentData?.status !== "live" && (
+                                                // enquiryDoumentData?.status !== "live" &&
+                                                 (
                                                     <th className="landowner_enq_th"></th>
                                                 )}
                                         </tr>
@@ -209,7 +212,8 @@ const UploadFmp = ({ eid, id, rowId, status, pagetype }) => {
                                                     {staffid.Login === "staff" &&
                                                         (status === "pending" || status === "complete") &&
                                                         pagetype !== "reminder" &&
-                                                        enquiryDoumentData?.status !== "live" && (
+                                                        // enquiryDoumentData?.status !== "live" && 
+                                                        (
                                                             <td>
                                                                 <button
                                                                     className="btn btn-outline-info me-1 edit"
@@ -436,8 +440,8 @@ const UploadFmp = ({ eid, id, rowId, status, pagetype }) => {
                             </div>
                         </div>
                         <div className="d-flex justify-content-end gap-2 mt-4">
-                            <Button
-                                variant="contained"
+                            <button
+                                className="btn1"
                                 type="button"
                                 onClick={() => {
                                     setShowForm(false);
@@ -445,16 +449,15 @@ const UploadFmp = ({ eid, id, rowId, status, pagetype }) => {
                                 }}
                             >
                                 Close
-                            </Button>
-                            <Button
-                                variant="contained"
-                                color="success"
+                            </button>
+                            <button
+                                className="btn1"
                                 type="submit"
                                 disabled={postLoading}
                             >
                                 {" "}
                                 {postLoading ? "Processing..." : "Save"}
-                            </Button>
+                            </button>
                         </div>
                     </form>
                 </div>
@@ -476,16 +479,15 @@ const UploadFmp = ({ eid, id, rowId, status, pagetype }) => {
                 </div>
 
                 <div className="d-flex justify-content-end mt-3 gap-3">
-                    <Button
-                        variant="outlined"
-                        color="error"
+                    <button
+                        className="btn1"
                         onClick={() => setDeleteDialog(false)}
                     >
                         No
-                    </Button>
-                    <Button variant="contained" onClick={handleDelete}>
+                    </button>
+                    <button className="btn1" onClick={handleDelete}>
                         Yes
-                    </Button>
+                    </button>
                 </div>
             </Dialog>
         </>

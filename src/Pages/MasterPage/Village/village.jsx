@@ -198,6 +198,14 @@ function Village() {
   ];
   const formatColumn = [
     {
+      name: "District",
+      selector: (row) => row.sno,
+    },
+    {
+      name: "Taluk",
+      selector: (row) => row.sno,
+    },
+    {
       name: "Village Name",
       selector: (row) => row.sno,
     },
@@ -244,43 +252,124 @@ function Village() {
   const [duplicateList, setDuplicateList] = useState([]);
   const [visible, setVisible] = useState(false)
 
+  // const handleFileUpload = async (event) => {
+  //   const file = event.target.files[0];
+  //   const binaryStr = await file.arrayBuffer();
+  //   const workbook = XLSX.read(binaryStr, { type: "array" });
+
+  //   const sheetName = workbook.SheetNames[0];
+  //   const sheet = workbook.Sheets[sheetName];
+  //   const jsonData = XLSX.utils.sheet_to_json(sheet, { defval: "" });
+  //   const cleanedData = jsonData
+  //     .map((item) => ({
+  //       // village_name: item.village?.trim(),
+  //       village_name: item.village?.trim(),
+  //       district_name: item.district?.trim(),
+  //       taluk_name: item.taluk?.trim(),
+  //     }))
+  //     // .filter((row) => row.village_name && row.village_name.trim() !== "");
+  //     .filter(
+  //       (row) =>
+  //         row.village_name &&
+  //         row.district_name &&
+  //         row.taluk_name
+  //     )
+  //   setUploadedData(cleanedData);
+  //   const existingDistrict = VillageData.map((x) =>
+  //     x.village_name.toLowerCase().trim()
+  //   );
+
+  //   const duplicates = cleanedData.filter((item) =>
+  //     existingDistrict.includes(item.village_name.toLowerCase().trim())
+  //   );
+
+  //   if (duplicates.length > 0) {
+  //     setDuplicateList(duplicates);
+  //     setVisible(true);
+  //   }
+  // };
+  
+  
+  
   const handleFileUpload = async (event) => {
-    const file = event.target.files[0];
-    const binaryStr = await file.arrayBuffer();
-    const workbook = XLSX.read(binaryStr, { type: "array" });
+  const file = event.target.files[0];
 
-    const sheetName = workbook.SheetNames[0];
-    const sheet = workbook.Sheets[sheetName];
-    const jsonData = XLSX.utils.sheet_to_json(sheet, { defval: "" });
-    const cleanedData = jsonData
-      .map((item) => ({
-        village_name: item.village?.trim(),
-      }))
-      .filter((row) => row.village_name && row.village_name.trim() !== "");
-    setUploadedData(cleanedData);
-    const existingDistrict = VillageData.map((x) =>
-      x.village_name.toLowerCase().trim()
+  if (!file) return;
+
+  const binaryStr = await file.arrayBuffer();
+
+  const workbook = XLSX.read(binaryStr, {
+    type: "array",
+    raw: true,
+  });
+
+  const sheetName = workbook.SheetNames[0];
+  const sheet = workbook.Sheets[sheetName];
+
+  const jsonData = XLSX.utils.sheet_to_json(sheet, { defval: "" });
+
+  const cleanedData = jsonData
+    .map((item) => ({
+      village_name:
+        item.village?.trim() ||
+        item.Village?.trim() ||
+        item.VILLAGE?.trim(),
+
+      district_name:
+        item.district?.trim() ||
+        item.District?.trim() ||
+        item.DISTRICT?.trim(),
+
+      taluk_name:
+        item.taluk?.trim() ||
+        item.Taluk?.trim() ||
+        item.TALUK?.trim(),
+    }))
+    .filter(
+      (row) =>
+        row.village_name &&
+        row.district_name &&
+        row.taluk_name
     );
 
-    const duplicates = cleanedData.filter((item) =>
-      existingDistrict.includes(item.village_name.toLowerCase().trim())
-    );
+  setUploadedData(cleanedData);
 
-    if (duplicates.length > 0) {
-      setDuplicateList(duplicates);
-      setVisible(true);
-    }
-  };
+  const existingVillage = VillageData.map((x) =>
+    x.village_name.toLowerCase().trim()
+  );
+
+  const duplicates = cleanedData.filter((item) =>
+    existingVillage.includes(item.village_name.toLowerCase().trim())
+  );
+
+  if (duplicates.length > 0) {
+    setDuplicateList(duplicates);
+    setVisible(true);
+  }
+};
+  
+  
   const bulkSubmit = async (e) => {
     e.preventDefault();
-    const payload = uploadedData.map(item => ({
+    // const payload = uploadedData.map(item => ({
+    //   village_name: item.village_name,
+    //   village_state: bulkFormData.village_state,
+    //   village_district: bulkFormData.village_district,
+    //   village_taluk: bulkFormData.village_taluk,
+    //   status: bulkFormData.status,
+    // }));
+    const payload = uploadedData.map((item) => ({
       village_name: item.village_name,
       village_state: bulkFormData.village_state,
-      village_district: bulkFormData.village_district,
-      village_taluk: bulkFormData.village_taluk,
+      village_district: item.district_name,
+      village_taluk: item.taluk_name,
       status: bulkFormData.status,
     }));
-    const validationResult = VillageValidateFormDatas(payload[0]);
+    // const validationResult = VillageValidateFormDatas(payload[0]);
+    const validationResult = VillageValidateFormDatas(
+      bulkFormData,
+      uploadedData
+    );
     if (validationResult.isValid) {
       const res = await dispatch(addVillage(payload));
       if (res?.success) {
@@ -291,7 +380,7 @@ function Village() {
         setErrorMessageBulk("");
         setVisible(false);
       } else {
-        message.warning(res?.error?.error);
+        message.warning(res?.error?.village_taluk);
       }
     } else {
       setErrorMessageBulk(validationResult.errorMessage);
@@ -464,7 +553,7 @@ function Village() {
                           />
                         </div>
 
-                        <div className="col-md-12 mb-3 ">
+                        {/* <div className="col-md-12 mb-3 ">
                           <label className="form-label" htmlFor="inputState">
                             District
                           </label>
@@ -473,9 +562,9 @@ function Village() {
                             selectedDistrict={selectedDistrict}
                             filter={selectedState}
                           />
-                        </div>
+                        </div> */}
 
-                        <div className="mb-3 col-md-12">
+                        {/* <div className="mb-3 col-md-12">
                           <label className="form-label" htmlFor="inputState">
                             Taluk
                           </label>
@@ -484,7 +573,7 @@ function Village() {
                             selectedTaluk={selectedTaluk}
                             filter={selectedDistrict}
                           />
-                        </div>
+                        </div> */}
 
                         {/* <div className="row">
                           <div className="col-md-12 mb-3 ">
@@ -501,13 +590,14 @@ function Village() {
                         <div className="row">
                           <div className="col-md-12 mb-3 ">
                             <label htmlFor="lastName" className="form-label">
-                              Upload the excel file
+                              Upload the Csv file
                             </label>
                             <input
                               type="file"
                               className="form-control"
                               id="lastName"
                               ref={updata}
+                               accept=".xlsx,.xls,.csv"
                               onChange={handleFileUpload}
                             />
                           </div>

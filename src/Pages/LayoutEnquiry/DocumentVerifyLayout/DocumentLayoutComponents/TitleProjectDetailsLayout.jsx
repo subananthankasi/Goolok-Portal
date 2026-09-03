@@ -64,6 +64,7 @@ const TitleProjectDetailsLayout = ({ data }) => {
       total_units: "",
       total_saleable_units: "",
       saleable_sqft: "",
+       location:"",
     },
     validationSchema: yup.object().shape({
       projectname: yup.string().required("project name is required !!"),
@@ -81,6 +82,7 @@ const TitleProjectDetailsLayout = ({ data }) => {
         .string()
         .required("tota saleable units is required"),
       saleable_sqft: yup.string().required("saleable sqft is required"),
+       location: yup.string().required("location is required !!"),
     }),
     onSubmit,
   });
@@ -97,6 +99,7 @@ const TitleProjectDetailsLayout = ({ data }) => {
       formik.setFieldValue("total_saleable_units", prDetails.total_saleable_units || "");
       formik.setFieldValue("saleable_sqft", prDetails.saleable_sqft || "");
       formik.setFieldValue("id", prDetails.id || "");
+      formik.setFieldValue("location", prDetails.location)
     }
   }, [prDetails]);
 
@@ -147,7 +150,7 @@ const TitleProjectDetailsLayout = ({ data }) => {
                   onBlur={formik.handleBlur}
                 />
                 {formik.errors.developer_name &&
-                formik.touched.developer_name ? (
+                  formik.touched.developer_name ? (
                   <h6 style={{ color: "red", fontSize: "12px" }}>
                     {formik.errors.developer_name}
                   </h6>
@@ -244,7 +247,7 @@ const TitleProjectDetailsLayout = ({ data }) => {
             <div className="row">
               <div className="col-4 mb-3 ">
                 <label htmlFor="lastName" className="form-label">
-                 Project size (area in unit)
+                  Project size (area in unit)
                 </label>
               </div>
               <div className="col-8 mb-3 ">
@@ -269,7 +272,7 @@ const TitleProjectDetailsLayout = ({ data }) => {
             <div className="row">
               <div className="col-4 mb-3 ">
                 <label htmlFor="lastName" className="form-label">
-                 Total no of units
+                  Total no of units
                 </label>
               </div>
               <div className="col-8 mb-3 ">
@@ -294,7 +297,7 @@ const TitleProjectDetailsLayout = ({ data }) => {
             <div className="row">
               <div className="col-4 mb-3 ">
                 <label htmlFor="lastName" className="form-label">
-                 Total saleable no of units
+                  Total saleable no of units
                 </label>
               </div>
               <div className="col-8 mb-3 ">
@@ -308,7 +311,7 @@ const TitleProjectDetailsLayout = ({ data }) => {
                   onBlur={formik.handleBlur}
                 />
                 {formik.errors.total_saleable_units &&
-                formik.touched.total_saleable_units ? (
+                  formik.touched.total_saleable_units ? (
                   <h6 style={{ color: "red", fontSize: "12px" }}>
                     {formik.errors.total_saleable_units}
                   </h6>
@@ -341,11 +344,38 @@ const TitleProjectDetailsLayout = ({ data }) => {
               </div>
             </div>
           </div>
+
+          <div className="col-md-6 mb-3 ">
+            <div className="row">
+              <div className="col-4 mb-3 ">
+                <label htmlFor="lastName" className="form-label">
+                  Location
+                </label>
+              </div>
+              <div className="col-8 mb-3 ">
+                <input
+                  type="text"
+                  className="form-control"
+                  name="location"
+                  placeholder="Enter location ..."
+                  value={formik.values.location}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                />
+
+                {formik.errors.location && formik.touched.location ? (
+                  <p style={{ color: "red", fontSize: "12px" }}>
+                    {formik.errors.location}
+                  </p>
+                ) : null}
+              </div>
+            </div>
+          </div>
           <div className="text-end gap-3 mb-3">
             {staffid.Login === "staff" &&
               (data.status === "pending" || data.status === "verify") && (
                 <>
-                  <Button
+                  {/* <Button
                     variant="outlined"
                     type="button"
                     color="error"
@@ -356,7 +386,9 @@ const TitleProjectDetailsLayout = ({ data }) => {
                   </Button>
                   <Button variant="contained" type="submit">
                     {prDetails ? "Update" : "Submit"}
-                  </Button>
+                  </Button> */}
+                  <button className="btn1 me-2" type="button" onClick={() => formik.resetForm()}>Clear</button>
+                  <button className="btn1" type="submit">  {prDetails ? "Update" : "Submit"}</button>
                 </>
               )}
           </div>

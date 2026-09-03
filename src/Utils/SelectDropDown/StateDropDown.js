@@ -20,11 +20,11 @@ export const useStateOptions = (isOpen) => {
 };
 
 const StateDropDown = ({ onSelect, selectedState, isDisabled }) => {
-  useEffect(() => {
-    if (selectedState) {
-      onSelect(selectedState);
-    }
-  }, [selectedState, onSelect]);
+  // useEffect(() => {
+  //   if (selectedState) {
+  //     onSelect(selectedState);
+  //   }
+  // }, [selectedState, onSelect]);
 
   const options = useStateOptions();
 

@@ -227,7 +227,7 @@ const LandOwnerDraftAP = ({ eid, id, status, subtype, pagetype }) => {
         <>
           <a
             href={`${IMG_PATH}/enquiry/agreement/${row.agreement_file}`}
-            className="btn btn-warning ms-2"
+            className="btn btn-primary ms-2"
             download="download"
             target="_blank"
             rel="noopener noreferrer"
@@ -245,9 +245,7 @@ const LandOwnerDraftAP = ({ eid, id, status, subtype, pagetype }) => {
         <>
           <button
             type="button"
-            className={`badge btn rounded-pill btnhover btn p-2 ${row.status === "pending" ? "bg-danger" : "bg-success"
-              }`}
-            style={{ width: "60px" }}
+            className={` ${row.status === "pending" ? "badge-danger" : "badge-success"}`}
           >
             {row.status}
           </button>

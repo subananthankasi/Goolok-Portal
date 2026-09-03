@@ -100,7 +100,6 @@ const WaitingPaymentCom = () => {
         setIsModalTakeTask(false);
     };
 
-
     // take task 
     const handleConfirm = async () => {
         const updateData = {
@@ -127,7 +126,6 @@ const WaitingPaymentCom = () => {
                 onConfirm={handleConfirm}
                 message={"Are you sure you want to take this ?"}
             />
-
             <section className="section1">
                 <div className="">
                     <div className="row">
@@ -181,7 +179,7 @@ const WaitingPaymentCom = () => {
                                                 <ColumnDirective
                                                     field="customer"
                                                     headerText="Customer Name"
-                                                    width="150"
+                                                    width="170"
                                                 />
                                                 <ColumnDirective
                                                     field="age"
@@ -199,7 +197,7 @@ const WaitingPaymentCom = () => {
                                                     width="150"
                                                 />
 
-                                                {staffid?.logintype == "staff" &&
+                                                {staffid?.logintype === "staff" &&
                                                     <ColumnDirective
                                                         headerText="Take task"
                                                         width="160"
@@ -219,7 +217,6 @@ const WaitingPaymentCom = () => {
                                         </GridComponent>
                                     </div>
                                 </div>
-
                             </div>
                         )}
                     </div>

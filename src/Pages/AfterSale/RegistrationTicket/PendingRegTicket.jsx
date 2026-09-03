@@ -82,10 +82,10 @@ const PendingRegTicket = () => {
         return (
             <Link
                 className="btn btn_pdf light btn-warning text-dark"
+                  to={`/registrationticket/${encryptData(props.enqid)}/${encryptData(props.id)}/${encryptData("pending")}/${encryptData(props.bid)}/${encryptData(props.shortform)}/${encryptData(props.booking_no)}/${encryptData(props.block_id)}`}
             >
                 {props.booking_no}
             </Link>
-
         );
     }
     return (

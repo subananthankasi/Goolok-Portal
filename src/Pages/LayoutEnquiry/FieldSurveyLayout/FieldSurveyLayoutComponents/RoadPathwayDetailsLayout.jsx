@@ -435,7 +435,7 @@ const RoadPathwayDetailsLayout = ({ eid, marketid, status, pagetype }) => {
               <div className="row">
                 <div className="col-4 mb-3">
                   <label htmlFor="facing_width" className="form-label">
-                    Road Facing Width
+                    Road Facing 
                   </label>
                 </div>
                 <div className="col-7 mb-3">

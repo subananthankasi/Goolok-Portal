@@ -80,7 +80,6 @@ const PendingFieldSurveyPlot = () => {
 
   const handleRowSelect = (args) => {
     const rowData = args.data;
-
     navigate(`/plot_field_survey/${encryptData(rowData.enqid)}/${encryptData(rowData.id)}/${encryptData('pending')}`);
   };
 
@@ -161,7 +160,7 @@ const PendingFieldSurveyPlot = () => {
                           <ColumnDirective
                             field="customer"
                             headerText="Customer Name"
-                            width="150"
+                            width="170"
                           />
                           <ColumnDirective
                             headerText="Age"

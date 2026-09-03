@@ -237,9 +237,15 @@ const TagesContentCom = ({ eid, id, status }) => {
                 enquiryDoumentData?.status !== "booking" && (
                   <div className="d-flex justify-content-end gap-2 mt-4">
                     <div>
-                      <Button variant="contained" type="submit">
+                      {/* <Button variant="contained" type="submit">
                         Save
-                      </Button>
+                      </Button> */}
+                      <button
+                        className="btn1 me-2"
+                        type="submit"
+                      >
+                        Save
+                      </button>
                     </div>
                   </div>
                 )}

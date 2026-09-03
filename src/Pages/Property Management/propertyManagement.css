@@ -17,8 +17,10 @@
 }
 
 .active1 {
-    background-color: #2f4f4f70;  
-    color: #fff;  
+    /* background-color: #2f4f4f70;   */
+    background-color: #8fc1f2 !important;  
+    color: black !important;
+    font-weight: 500;  
   }
   .bottom1{
     border-bottom: 1px solid #9c9c9c63;

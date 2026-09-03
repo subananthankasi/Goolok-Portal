@@ -14,6 +14,7 @@ import MuiButton from "@mui/material/Button";
 import { Editor } from "primereact/editor";
 import AddIcon from "@mui/icons-material/Add";
 import API_BASE_URL from "../../../../Api/api";
+import { Switch } from 'antd';
 
 const HowItsWork = () => {
   const [newDialog, setNewDialog] = useState(false);
@@ -154,6 +155,11 @@ const HowItsWork = () => {
     },
 
     {
+      name: "Theme",
+      selector: (row) => row.theme,
+      sortable: true,
+    },
+    {
       name: "Status",
       selector: (row) => row.status,
       sortable: true,
@@ -233,6 +239,7 @@ const HowItsWork = () => {
       formik.setFieldValue("items", []);
       setPreviewImage([]);
     }
+    formik.setFieldValue("theme", row.theme || "");
     formik.setFieldValue("status", row.status || "");
   };
 
@@ -251,6 +258,7 @@ const HowItsWork = () => {
 
   const onSubmit = async (values) => {
     setIsSubmitting(true);
+    values.theme = values.theme || "light";
     try {
       const response = await axios.post(`${API_BASE_URL}/howitwork`, values, {
         headers: { "Content-Type": "multipart/form-data" },
@@ -279,8 +287,8 @@ const HowItsWork = () => {
           content: "",
           title: "",
           image: "",
-
           old_image: "",
+          theme: "light",
         },
       ],
       status: "",
@@ -405,31 +413,8 @@ const HowItsWork = () => {
                   </div>
 
                   <div className="row">
-                    {/* <div className="col-md-6 mb-3">
-                                            <label>Status</label>
-                                            <select
-                                                name={`items[${index}].status`}
-                                                value={item.status}
-                                                onChange={formik.handleChange}
-                                                className="form-select"
-                                            >
-                                                <option value="">-- Select Status --</option>
-                                                <option value="active">Active</option>
-                                                <option value="inactive">Inactive</option>
-                                            </select>
-                                        </div> */}
 
-                    {/* <div className="col-md-6 mb-3">
-                                            <label>Image</label>
-                                            <input
-                                                type="file"
-                                                onChange={(e) =>
-                                                    formik.setFieldValue(`items[${index}].image`, e.target.files[0])
-                                                }
-                                                className="form-control"
-                                            />
-                                        </div> */}
-                    <div className="mb-3">
+                    <div className=" mb-3">
                       {Array.isArray(previewImage) && previewImage[index] ? (
                         <img
                           src={previewImage[index]}
@@ -468,6 +453,7 @@ const HowItsWork = () => {
                         }}
                       />
                     </div>
+
                   </div>
 
                   <div className="col-md-12 mb-3">
@@ -518,6 +504,15 @@ const HowItsWork = () => {
                   </div>
                 </div>
               ))}
+            </div>
+            <div>
+              <label htmlFor="" className="form-label me-2">Dark Theme :</label>
+              <Switch
+                checked={formik.values.theme === "dark"}
+                onChange={(checked) => {
+                  formik.setFieldValue("theme", checked ? "dark" : "light");
+                }}
+              />
             </div>
 
             <div className="mb-3">

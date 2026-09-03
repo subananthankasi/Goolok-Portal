@@ -167,13 +167,12 @@ const AddServiceSurvey = ({ eid, id, status, pagetype }) => {
                                 pagetype !== "reminder" && enquiryDoumentData?.status !== "live" && (
                                     <div className="d-flex justify-content-end">
                                         <div className="ms-2">
-                                            <a
-                                                href="#"
+                                            <button
                                                 onClick={() => setNewDialog(true)}
                                                 className="btn1 me-2"
                                             >
                                                 + Add
-                                            </a>
+                                            </button>
                                         </div>
                                     </div>
                                 )}

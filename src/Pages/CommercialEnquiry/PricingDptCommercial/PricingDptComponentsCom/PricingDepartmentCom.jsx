@@ -1,10 +1,9 @@
-import React, { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import Button from "@mui/material/Button";
 import { Toast } from "primereact/toast";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
-import { InputNumber } from "primereact/inputnumber";
 import AutoDeleteIcon from "@mui/icons-material/AutoDelete";
 import { Dialog } from "primereact/dialog";
 import { ThreeDots } from "react-loader-spinner";
@@ -14,7 +13,7 @@ import {
 } from "../../../../Redux/Actions/Enquiry/PricingEnquiryThunk";
 import { pricingGetThunk } from "../../../../Redux/Actions/MasterPage/PricingThunk";
 import DiscountPage from "../../../../Utils/Offers/DiscountPage";
-import { Input, InputGroup } from "rsuite";
+import { InputGroup } from "rsuite";
 
 const PricingDepartmentCom = ({ eid, status, id, pagetype, discountPage }) => {
   const staffid = JSON.parse(localStorage.getItem("token"));
@@ -140,7 +139,11 @@ const PricingDepartmentCom = ({ eid, status, id, pagetype, discountPage }) => {
     },
     validationSchema: yup.object().shape({
       charges: yup.string().required("pricing type is required!!"),
-      price: yup.string().required("Price is required!!"),
+      // price: yup.string().required("Price is required!!"),
+      price: yup.number()
+        .typeError("Price must be a number")
+        .positive("Negative values not allowed")
+        .required("Price is required")
     }),
     onSubmit,
   });
@@ -270,24 +273,12 @@ const PricingDepartmentCom = ({ eid, status, id, pagetype, discountPage }) => {
     setNewDialog(false);
   };
 
-  const handleUnitChange = (e) => {
-    const selectedUnit = e.target.value;
-
-    if (!selectedUnit) {
-      formik.setFieldValue("unit", null);
-    } else {
-      formik.setFieldValue("unit", selectedUnit);
-    }
-
-    const updatedValue = `${formik.values.inputNumber}/${formik.values.unit || ""
-      }`;
-    setCombinedValue(updatedValue);
-  };
 
   const handleInputNumberChange = (e) => {
-    const inputNumberValue = e.value;
+    const inputNumberValue = e.target.value;
     formik.setFieldValue("inputNumber", inputNumberValue);
-    const updatedValue = `${e.value}/${formik.values.unit} `;
+    // const updatedValue = `${inputNumberValue}/${formik.values.unit} `;
+    const updatedValue = `${inputNumberValue}/${enquiryDoumentData?.land_units}`;
     setCombinedValue(updatedValue);
   };
 
@@ -359,7 +350,7 @@ const PricingDepartmentCom = ({ eid, status, id, pagetype, discountPage }) => {
                       Edit Pricing
                     </button>
                   )}
-                {staffid.Login === "admin" &&
+                {/* {staffid.Login === "admin" &&
                   discountPage === "discount" &&
                   pagetype !== "reminder" && (
                     <Button
@@ -371,7 +362,7 @@ const PricingDepartmentCom = ({ eid, status, id, pagetype, discountPage }) => {
                     >
                       Discount
                     </Button>
-                  )}
+                  )} */}
               </div>
               <hr />
               <div>
@@ -435,6 +426,7 @@ const PricingDepartmentCom = ({ eid, status, id, pagetype, discountPage }) => {
         modal
         className="p-fluid"
         closable={false}
+        focusOnShow={false}
       >
         <div className=" container w-100">
           {/* <div > */}
@@ -523,7 +515,7 @@ const PricingDepartmentCom = ({ eid, status, id, pagetype, discountPage }) => {
                           placeholder=""
                           className="form-control"
                           value={formik.values.inputNumber}
-                          onValueChange={handleInputNumberChange}
+                          onChange={handleInputNumberChange}
                         />
 
                         <InputGroup.Addon>
@@ -544,10 +536,16 @@ const PricingDepartmentCom = ({ eid, status, id, pagetype, discountPage }) => {
                     <input
                       id="price"
                       name="price"
-                      type="number"
+                      type="text"
                       className="form-control mt-1"
                       value={formik.values.price}
-                      onChange={formik.handleChange}
+                      // onChange={formik.handleChange}
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        if (/^\d*$/.test(value)) {
+                          formik.setFieldValue("price", value);
+                        }
+                      }}
                       onBlur={formik.handleBlur}
                       placeholder="Enter Price"
                       style={{ height: "40px" }}
@@ -591,7 +589,7 @@ const PricingDepartmentCom = ({ eid, status, id, pagetype, discountPage }) => {
                 "Confirm "
               )}
             </button>
-            <button className="btn1" onClick={clear}>
+            <button type="button" className="btn1" onClick={clear}>
               Cancel
             </button>
           </div>

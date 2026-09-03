@@ -1,7 +1,6 @@
-import React, { useRef, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { ThreeDots } from "react-loader-spinner";
+import { useSelector } from "react-redux";
 import { TabView, TabPanel } from "primereact/tabview";
 import Toast from "../../../../Utils/Toast";
 import API_BASE_URL from "../../../../Api/api";
@@ -105,7 +104,7 @@ const WholeMediaDptLayour = ({ eid, id, status, pagetype }) => {
           </div>
         </div>
       </div>
-      {staffid.logintype == "staff" &&
+      {staffid.logintype === "staff" &&
         (status === "pending" || status === "complete") &&
         pagetype !== "reminder" && enquiryDoumentData?.status !== "booking" && (
           <div className="text-end mt-3 mb-3">

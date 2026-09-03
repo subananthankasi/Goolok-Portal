@@ -77,7 +77,7 @@ export const Header = ({ eid }) => {
                     <CircularProgressbarWithChildren
                       value={100}
                       styles={buildStyles({
-                        pathColor: "#ffae42",
+                        pathColor: "#0962c5",
                         textColor: "black",
                         trailColor: "#d6d6d6",
                         backgroundColor: "#3e98c7",

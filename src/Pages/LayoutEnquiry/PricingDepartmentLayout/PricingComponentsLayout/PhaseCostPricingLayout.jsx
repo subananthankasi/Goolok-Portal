@@ -12,11 +12,10 @@ import Toast from "../../../../Utils/Toast";
 import customStyle from "../../../../Utils/tableStyle";
 import { useSelector } from "react-redux";
 
-
 const PhaseCostPricingLayout = ({ eid, id, status, pagetype }) => {
   const staffid = JSON.parse(localStorage.getItem("token"));
   const enquiryDoumentData = useSelector(
-    (state) => state.Enquiry.enquiryDocument
+    (state) => state.Enquiry.enquiryDocument,
   );
   const [editing, setEditing] = useState(false);
   const [newDialog, setNewDialog] = useState(false);
@@ -63,7 +62,8 @@ const PhaseCostPricingLayout = ({ eid, id, status, pagetype }) => {
     // },
     ...(staffid.logintype == "staff" &&
       (status === "complete" || status === "pending") &&
-      pagetype !== "reminder" && enquiryDoumentData?.status !== "booking"
+      pagetype !== "reminder" &&
+      enquiryDoumentData?.status !== "booking"
       ? [
         {
           name: "Actions",
@@ -99,18 +99,17 @@ const PhaseCostPricingLayout = ({ eid, id, status, pagetype }) => {
   const handleDelete = async (row) => {
     try {
       const response = await axios.delete(
-        `${API_BASE_URL}/deletephasecost/${deleteId}`
+        `${API_BASE_URL}/deletephasecost/${deleteId}`,
       );
       Toast({ message: "Successfully deleted", type: "success" });
       fetch();
       setDeleteDialog(false);
-    } catch (error) {
-    }
+    } catch (error) { }
   };
   const handleEdit = (row) => {
     // setEditDialog(true);
     setNewDialog(true);
-    setEditing(true)
+    setEditing(true);
     formik.setFieldValue("phase", row.phase);
     formik.setFieldValue("total_plot_cost", row.total_plot_cost);
     formik.setFieldValue("registration_cost", row.registration_cost);
@@ -127,7 +126,7 @@ const PhaseCostPricingLayout = ({ eid, id, status, pagetype }) => {
     try {
       const response = await axios.post(
         `${API_BASE_URL}/phasecostcreate  `,
-        payload
+        payload,
       );
       fetch();
       if (editing) {
@@ -138,19 +137,16 @@ const PhaseCostPricingLayout = ({ eid, id, status, pagetype }) => {
         setNewDialog(false);
       }
       formik.resetForm();
-      setEditing(false)
+      setEditing(false);
     } catch (error) {
       Toast({ message: "Failed to save", type: "error" });
     }
   };
   const fetch = async () => {
     try {
-      const response = await axios.get(
-        `${API_BASE_URL}/viewphasecost/${eid}`
-      );
+      const response = await axios.get(`${API_BASE_URL}/viewphasecost/${eid}`);
       setGetData(response.data);
-    } catch (error) {
-    }
+    } catch (error) { }
   };
   useEffect(() => {
     fetch();
@@ -189,7 +185,8 @@ const PhaseCostPricingLayout = ({ eid, id, status, pagetype }) => {
               <h6>Phase Details</h6>
               {staffid.logintype === "staff" &&
                 (status === "complete" || status === "pending") &&
-                pagetype !== "reminder" && enquiryDoumentData?.status !== "booking" && (
+                pagetype !== "reminder" &&
+                enquiryDoumentData?.status !== "booking" && (
                   <div className="d-flex justify-content-end">
                     <div className="ms-2">
                       <button
@@ -362,13 +359,20 @@ const PhaseCostPricingLayout = ({ eid, id, status, pagetype }) => {
           </div> */}
 
           <div className="d-flex justify-content-end mt-4">
-            <Button
+            {/* <Button
               variant="contained"
               type="submit"
               onClick={() => setEditing(false)}
             >
               Submit
-            </Button>
+            </Button> */}
+            <button
+              className="btn1"
+              type="submit"
+              onClick={() => setEditing(false)}
+            >
+              Submit
+            </button>
           </div>
         </form>
       </Dialog>

@@ -1,4 +1,4 @@
-import  { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import DataTable from "react-data-table-component";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -81,7 +81,7 @@ export const WholeMarketResearchCommercial = ({
       sortable: true,
     },
 
-    ...(staffid.logintype == "staff" &&
+    ...(staffid.logintype === "staff" &&
       (status === "complete" || status === "pending") &&
       pagetype !== "reminder" && enquiryDoumentData?.status !== "booking"
       ? [
@@ -131,7 +131,7 @@ export const WholeMarketResearchCommercial = ({
       sortable: true,
     },
 
-    ...(staffid.logintype == "staff" &&
+    ...(staffid.logintype === "staff" &&
       (status === "complete" || status === "pending") &&
       pagetype !== "reminder" && enquiryDoumentData?.status !== "booking"
       ? [
@@ -242,7 +242,7 @@ export const WholeMarketResearchCommercial = ({
       },
     },
 
-    ...(staffid.logintype == "staff" &&
+    ...(staffid.logintype === "staff" &&
       (status === "complete" || status === "pending") &&
       pagetype !== "reminder" && enquiryDoumentData?.status !== "booking"
       ? [
@@ -353,7 +353,7 @@ export const WholeMarketResearchCommercial = ({
       },
     },
 
-    ...(staffid.logintype == "staff" &&
+    ...(staffid.logintype === "staff" &&
       (status === "complete" || status === "pending") &&
       pagetype !== "reminder" && enquiryDoumentData?.status !== "booking"
       ? [
@@ -475,93 +475,6 @@ export const WholeMarketResearchCommercial = ({
   };
   const [videos, setVideos] = useState("");
 
-  const validVideoTypes = [
-    "video/mp4",
-    "video/avi",
-    "video/mov",
-    "video/wmv",
-    "video/flv",
-    "video/mkv",
-  ];
-
-  const handleVideoChange = (e) => {
-    const file = e.target.files[0];
-
-    if (!validVideoTypes.includes(file.type)) {
-      setErrorFile(
-        "Invalid file type. Please upload a video file (MP4, AVI, MOV, WMV, FLV, MKV)."
-      );
-      return;
-    }
-    setVideos(file);
-    setErrorFile("");
-  };
-
-  // const HandleVideoUpload = async (event) => {
-  //   event.preventDefault();
-  //   if (!videos) {
-  //     setErrorFile("Please select a video file before submitting.");
-  //     return;
-  //   }
-  //   setLoading(true);
-
-  //   const payload = {
-  //     video: videos,
-  //     enqid: eid,
-  //     type: "customer",
-  //     marketid:marketid
-  //   }
-
-  //   try {
-  //     await axios.post(`${API_BASE_URL}/addvideo`, payload, {
-  //       headers: {
-  //         "Content-Type": "multipart/form-data",
-  //       },
-  //     });
-  //     setVideosVisible(false);
-  //   } catch (error) {
-  //   } finally {
-  //     setErrorFile('');
-  //     setLoading(false);
-  //     fetchVideo();
-  //     fileInputRef.current.value = '';
-  //     setVideos('');
-  //   }
-  // };
-  // const refereceHandleVideoUpload = async (event) => {
-  //   event.preventDefault();
-  //   if (!videos) {
-  //     setErrorFile("Please select a video file before submitting.");
-  //     return;
-  //   }
-  //   setLoading(true);
-
-  //   const payload = {
-  //     video: videos,
-  //     enqid: eid,
-  //     type: "nearby",
-  //     marketid:marketid
-  //   }
-
-  //   try {
-  //     await axios.post(`${API_BASE_URL}/addvideo`, payload, {
-  //       headers: {
-  //         "Content-Type": "multipart/form-data",
-  //       },
-  //     });
-  //     setNearVideosVisible(false);
-  //   } catch (error) {
-  //   } finally {
-  //     setErrorFile('');
-  //     setLoading(false);
-  //     fetchNearVideo();
-  //     fileInputRef.current.value = '';
-  //     setVideos('');
-  //   }
-  // };
-
-  // get img data
-
   const [customerVideoType, setCustomerVideoType] = useState("File");
   const HandleVideoUpload = async (e) => {
     e.preventDefault();
@@ -646,7 +559,7 @@ export const WholeMarketResearchCommercial = ({
       );
       setImgData(response.data);
     } catch (error) {
-      
+
     }
   };
   const fetchNear = async () => {
@@ -661,7 +574,7 @@ export const WholeMarketResearchCommercial = ({
       );
       setImgNearData(response.data);
     } catch (error) {
-      
+
     }
   };
 
@@ -683,7 +596,7 @@ export const WholeMarketResearchCommercial = ({
       });
       setCustomerVideos(response.data);
     } catch (error) {
-      
+
     }
   };
   const [nearVideosData, setNearVideosData] = useState([]);
@@ -696,7 +609,7 @@ export const WholeMarketResearchCommercial = ({
       });
       setNearVideosData(response.data);
     } catch (error) {
-      
+
     }
   };
 
@@ -742,8 +655,7 @@ export const WholeMarketResearchCommercial = ({
       fetchNearVideo();
     }
   };
-  const [deleteVideoId, setDeleteVideoId] = useState("");
-  const [deleteNearVideoId, setDeleteNearVideoId] = useState("");
+
   const [deleteVideoConfirm, setDeleteVideoConfirm] = useState(false);
   const [deleteNearVideoConfirm, setDeleteNearVideoConfirm] = useState(false);
 
@@ -866,16 +778,15 @@ export const WholeMarketResearchCommercial = ({
 
                   <div className="d-flex justify-content-between mt-5">
                     <h6>Add Pictures</h6>
-                    {staffid.logintype == "staff" &&
-                      (status === "complete" || status == "pending") &&
+                    {staffid.logintype === "staff" &&
+                      (status === "complete" || status === "pending") &&
                       pagetype !== "reminder" && enquiryDoumentData?.status !== "booking" && (
-                        <a
-                          href="#0"
+                        <button
                           onClick={() => setVisible(true)}
                           className="btn1 me-2"
                         >
                           + Add
-                        </a>
+                        </button>
                       )}
                   </div>
                   <div className="mt-2">
@@ -892,16 +803,15 @@ export const WholeMarketResearchCommercial = ({
 
                   <div className="d-flex justify-content-between mt-5">
                     <h6>Add Videos</h6>
-                    {staffid.logintype == "staff" &&
-                      (status === "complete" || status == "pending") &&
+                    {staffid.logintype === "staff" &&
+                      (status === "complete" || status === "pending") &&
                       pagetype !== "reminder" && enquiryDoumentData?.status !== "booking" && (
-                        <a
-                          href="#0"
+                        <button
                           onClick={() => setVideosVisible(true)}
                           className="btn1 me-2"
                         >
                           + Add
-                        </a>
+                        </button>
                       )}
                   </div>
 
@@ -1162,16 +1072,15 @@ export const WholeMarketResearchCommercial = ({
 
                 <div className="d-flex justify-content-between mt-5">
                   <h6>Add Pictures</h6>
-                  {staffid.logintype == "staff" &&
-                    (status === "complete" || status == "pending") &&
+                  {staffid.logintype === "staff" &&
+                    (status === "complete" || status === "pending") &&
                     pagetype !== "reminder" && enquiryDoumentData?.status !== "booking" && (
-                      <a
-                        href="#0"
+                      <button
                         onClick={() => setNearVisible(true)}
                         className="btn1 me-2"
                       >
                         + Add
-                      </a>
+                      </button>
                     )}
                 </div>
 
@@ -1190,16 +1099,15 @@ export const WholeMarketResearchCommercial = ({
 
                 <div className="d-flex justify-content-between mt-5">
                   <h6>Add Videos</h6>
-                  {staffid.logintype == "staff" &&
-                    (status === "complete" || status == "pending") &&
+                  {staffid.logintype === "staff" &&
+                    (status === "complete" || status === "pending") &&
                     pagetype !== "reminder" && enquiryDoumentData?.status !== "booking" && (
-                      <a
-                        href="#0"
+                      <button
                         onClick={() => setNearVideosVisible(true)}
                         className="btn1 me-2"
                       >
                         + Add
-                      </a>
+                      </button>
                     )}
                 </div>
 
@@ -1408,7 +1316,7 @@ export const WholeMarketResearchCommercial = ({
             </div>
             <hr />
 
-            {staffid.logintype == "staff" &&
+            {staffid.logintype === "staff" &&
               status !== "complete" &&
               pagetype !== "reminder" && (
                 <div className="ms-2 text-end mt-4">

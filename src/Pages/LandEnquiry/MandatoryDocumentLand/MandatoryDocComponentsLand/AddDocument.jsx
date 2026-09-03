@@ -97,7 +97,7 @@ export const AddDocument = (props) => {
       sortable: true,
     },
     {
-      name: "View",
+      name: "View & Upload",
       cell: (row) => (
         <>
           <div className="d-flex">
@@ -106,8 +106,8 @@ export const AddDocument = (props) => {
                 {row.document ? (
                   <button
                     type="button"
-                    className="btn btn-warning rounded-0"
-                    style={{ width: "70px" }}
+                    className="btn btn-primary"
+                    // style={{ width: "70px" }}
                     onClick={() =>
                       viewFileUrl(`${IMG_PATH}/enquiry/${row.document}`)
                     }
@@ -117,8 +117,8 @@ export const AddDocument = (props) => {
                 ) : (
                   <button
                     type="button"
-                    className="btn btn-primary rounded-0"
-                    style={{ width: "70px" }}
+                    className="btn btn-primary"
+
                   >
                     No data
                   </button>
@@ -131,7 +131,7 @@ export const AddDocument = (props) => {
                   enquiryDoumentData?.status !== "booking" && (
                     <button
                       type="button"
-                      className="btn btn-info rounded-0 ms-2"
+                      className="btn btn-primary ms-2"
                       onClick={() => {
                         setAddDocModal(true);
                         setUploadDocData(row);
@@ -256,13 +256,12 @@ export const AddDocument = (props) => {
               props.props.pagetype !== "reminder" &&
               enquiryDoumentData?.status !== "booking" && (
                 <div className="ms-2">
-                  <a
-                    href="#"
+                  <button
                     onClick={() => setIsModalAddDocument(true)}
                     className="btn1 me-2"
                   >
                     + Add document
-                  </a>
+                  </button>
                 </div>
               )}
           </div>

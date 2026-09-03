@@ -8,7 +8,7 @@ import * as yup from "yup";
 import axios from "axios";
 import API_BASE_URL from "../../../../Api/api";
 import Toast from "../../../../Utils/Toast";
-import { Table } from "rsuite";
+import { Table, Pagination } from "rsuite";
 import { useSelector } from "react-redux";
 const { Column, ColumnGroup, HeaderCell, Cell } = Table;
 
@@ -18,6 +18,7 @@ export const ProjectDetailsLawyerAP = ({
   status,
   pagetype,
   subtype,
+  department //becuase this container also show pricing department and extra fields added
 }) => {
   const staffid = JSON.parse(localStorage.getItem("token"));
 
@@ -36,7 +37,7 @@ export const ProjectDetailsLawyerAP = ({
   const onSubmit = async (values) => {
     setPostLoading(true)
     try {
-       await axios.post(
+      await axios.post(
         `${API_BASE_URL}/shopunitcreate`,
         values,
         {
@@ -74,6 +75,8 @@ export const ProjectDetailsLawyerAP = ({
     fetchDetails();
   }, []);
 
+  const currencyRegex = /^\d{1,3}(,\d{3})*(\.\d+)?$|^\d+(\.\d+)?$/;
+
   const formik = useFormik({
     initialValues: {
       enqid: eid,
@@ -85,11 +88,28 @@ export const ProjectDetailsLawyerAP = ({
       carpet_area_sqft: "",
       common_area_sqft: "",
       builtup_area_sqft: "",
+      total_saleable_sqft: "",
       balcony: "",
       facing_direction: "",
       covered_car_parking: "",
       underground_car_parking: "",
       open_car_parking: "",
+
+
+      basic_cost: "",
+      development_charges_cost: "",
+      infrastructure_cost: "",
+      apartment_cost_A: "",
+      corpus_amount: "",
+      maintenance_amount: "",
+      misc_charges: "",
+      gst: "",
+      assoc_total: "",
+      registration_charges: "",
+      documentation_charges: "",
+      other_cost_total: "",
+      total_without_registration: "",
+      total_with_registration: ""
     },
 
     validationSchema: yup.object().shape({
@@ -97,7 +117,6 @@ export const ProjectDetailsLawyerAP = ({
       flat_no: yup.string().required("flat No is required!"),
       no_bhk: yup.string().required("No of bhk is required!"),
       floor_no: yup.string().required("Floor No is required!"),
-
       uds_sqft: yup
         .number()
         .typeError("UDS (sqft) must be numeric")
@@ -119,6 +138,11 @@ export const ProjectDetailsLawyerAP = ({
       builtup_area_sqft: yup
         .number()
         .typeError("Built‑up area must be numeric")
+        .positive()
+        .required("Built‑up area is required!"),
+      total_saleable_sqft: yup
+        .number()
+        .typeError("Total Saleable area must be numeric")
         .positive()
         .required("Built‑up area is required!"),
 
@@ -147,6 +171,93 @@ export const ProjectDetailsLawyerAP = ({
         .typeError("Open car parking must be numeric")
         .min(0)
         .required("Open car parking is required!"),
+
+
+
+      ...(department === "pricing" && {
+
+        basic_cost: yup
+          .string()
+          .matches(
+            currencyRegex,
+            "Only numbers, commas, and decimal points are allowed"
+          )
+          .required("basic cost are required!"),
+        development_charges_cost: yup
+          .string()
+          .matches(
+            currencyRegex,
+            "Only numbers, commas, and decimal points are allowed"
+          )
+          .required("development charges are required!"),
+        infrastructure_cost: yup
+          .string()
+          .matches(
+            currencyRegex,
+            "Only numbers, commas, and decimal points are allowed"
+          )
+          .required("infrastructure cost are required!"),
+
+        corpus_amount: yup
+          .string()
+          .matches(
+            currencyRegex,
+            "Only numbers, commas, and decimal points are allowed"
+          )
+          .required("corpus amount are required!"),
+        maintenance_amount: yup
+          .string()
+          .matches(
+            currencyRegex,
+            "Only numbers, commas, and decimal points are allowed"
+          )
+          .required("maintenance amount are required!"),
+        misc_charges: yup
+          .string()
+          .matches(
+            currencyRegex,
+            "Only numbers, commas, and decimal points are allowed"
+          )
+          .required("Miscellaneous charges are required!"),
+        gst: yup
+          .string()
+          .matches(
+            currencyRegex,
+            "Only numbers, commas, and decimal points are allowed"
+          )
+          .required("gst amount are required!"),
+
+
+        registration_charges: yup
+          .string()
+          .matches(
+            currencyRegex,
+            "Only numbers, commas, and decimal points are allowed"
+          )
+          .required("registration charges are required!"),
+        documentation_charges: yup
+          .string()
+          .matches(
+            currencyRegex,
+            "Only numbers, commas, and decimal points are allowed"
+          )
+          .required("documentation charges are required!"),
+
+        total_without_registration: yup
+          .string()
+          .matches(
+            currencyRegex,
+            "Only numbers, commas, and decimal points are allowed"
+          )
+          .required("without registration are required!"),
+        total_with_registration: yup
+          .string()
+          .matches(
+            currencyRegex,
+            "Only numbers, commas, and decimal points are allowed"
+          )
+          .required("with registration are required!"),
+      })
     }),
 
     onSubmit,
@@ -157,7 +268,7 @@ export const ProjectDetailsLawyerAP = ({
   };
   const DeleteRow = async () => {
     try {
-       await axios.delete(
+      await axios.delete(
         `${API_BASE_URL}/deleteshopunit/${deleteId}`,
         {}
       );
@@ -176,10 +287,24 @@ export const ProjectDetailsLawyerAP = ({
     setNewDialog(false);
     formik.resetForm();
   };
+  const [unitData, setUnitData] = useState([])
+
+  const fetch = async (enqid) => {
+    try {
+      const response = await axios.get(`${API_BASE_URL}/pricingperunit/${enqid}`);
+      setUnitData(response.data);
+    } catch (error) { }
+  };
+  useEffect(() => {
+    if (eid) {
+      fetch(eid);
+    }
+  }, [eid]);
 
   const handleEdit = (data) => {
     setNewDialog(true);
     formik.setFieldValue("id", data.id || null);
+    formik.setFieldValue("price_per_unit", unitData[0]?.price_per_unit || null);
     formik.setFieldValue("block_no", data.block_no || "");
     formik.setFieldValue("flat_no", data.flat_no || "");
     formik.setFieldValue("no_bhk", data.no_bhk || "");
@@ -188,6 +313,7 @@ export const ProjectDetailsLawyerAP = ({
     formik.setFieldValue("carpet_area_sqft", data.carpet_area_sqft || "");
     formik.setFieldValue("common_area_sqft", data.common_area_sqft || "");
     formik.setFieldValue("builtup_area_sqft", data.builtup_area_sqft || "");
+    formik.setFieldValue("total_saleable_sqft", data.total_saleable_sqft || "");
     formik.setFieldValue("balcony", data.balcony || "");
     formik.setFieldValue("facing_direction", data.facing_direction || "");
     formik.setFieldValue("covered_car_parking", data.covered_car_parking || "");
@@ -196,6 +322,29 @@ export const ProjectDetailsLawyerAP = ({
       data.underground_car_parking || ""
     );
     formik.setFieldValue("open_car_parking", data.open_car_parking || "");
+    formik.setFieldValue("basic_cost", data.basic_cost || "");
+    formik.setFieldValue("development_charges_cost", data.development_charges_cost || "");
+    formik.setFieldValue("infrastructure_cost", data.infrastructure_cost || "");
+    formik.setFieldValue("apartment_cost_A", data.apartment_cost_A || "");
+    formik.setFieldValue("corpus_amount", data.corpus_amount || "");
+    formik.setFieldValue("maintenance_amount", data.maintenance_amount || "");
+    formik.setFieldValue("misc_charges", data.misc_charges || "");
+    formik.setFieldValue("gst", data.gst || "");
+    formik.setFieldValue("assoc_total", data.assoc_total || "");
+    formik.setFieldValue("registration_charges", data.registration_charges || "");
+    formik.setFieldValue("documentation_charges", data.documentation_charges || "");
+    formik.setFieldValue("other_cost_total", data.other_cost_total || "");
+    formik.setFieldValue("total_without_registration", data.total_without_registration || "");
+    formik.setFieldValue("total_with_registration", data.total_with_registration || "");
+  };
+
+
+  const [limit, setLimit] = useState(10);
+  const [page, setPage] = useState(1);
+
+  const handleChangeLimit = dataKey => {
+    setPage(1);
+    setLimit(dataKey);
   };
 
   const heightMap = {
@@ -204,7 +353,96 @@ export const ProjectDetailsLawyerAP = ({
     3: 240,
     4: 290,
     5: 340,
+    6: 390,
+    7: 440,
+    8: 490,
+    9: 540,
+    10: 570,
   };
+  const tableHeight =
+    getData?.length > 10
+      ? 550
+      : heightMap[getData?.length] || 140;
+
+  const paginatedData = getData?.slice(
+    (page - 1) * limit,
+    page * limit
+  );
+
+  useEffect(() => {
+    const parse = (val) => parseFloat(val?.toString().replace(/,/g, "")) || 0;
+    const basic = parse(formik.values.price_per_unit) * parse(formik.values.total_saleable_sqft);
+    formik.setFieldValue("basic_cost", basic.toFixed(2));
+
+    const A_total =
+      parse(formik.values.basic_cost) +
+      parse(formik.values.development_charges_cost) +
+      parse(formik.values.infrastructure_cost);
+
+    formik.setFieldValue("apartment_cost_A", A_total.toFixed(2));
+
+    const corpus = parse(formik.values.corpus_amount);
+    const maintenance = parse(formik.values.maintenance_amount);
+    const misc = parse(formik.values.misc_charges);
+
+
+    const customRound = (value) => {
+      const decimal = value - Math.floor(value);
+      if (decimal >= 0.5) return Math.ceil(value);
+      return Math.floor(value) - 1;
+    };
+
+    const gstBase = corpus + maintenance + misc;
+    const gstRaw = gstBase * 0.18;
+    let roundedGst = customRound(gstRaw);
+    if (roundedGst < 0) roundedGst = 0;
+
+    formik.setFieldValue("gst", roundedGst);
+
+    const gst = parse(formik.values.gst);
+    const b_total = corpus + maintenance + misc + gst;
+    formik.setFieldValue("assoc_total", b_total.toFixed(2));
+
+    const c_total =
+      parse(formik.values.registration_charges) +
+      parse(formik.values.documentation_charges);
+
+    formik.setFieldValue("other_cost_total", c_total.toFixed(2));
+
+    const totalApartmentcost_AB =
+      parse(formik.values.apartment_cost_A) +
+      parse(formik.values.assoc_total);
+
+    formik.setFieldValue(
+      "total_without_registration",
+      totalApartmentcost_AB.toFixed(2)
+    );
+    const totalApartmentcost_ABC =
+      parse(formik.values.apartment_cost_A) +
+      parse(formik.values.assoc_total) +
+      parse(formik.values.other_cost_total);
+
+    formik.setFieldValue(
+      "total_with_registration",
+      totalApartmentcost_ABC.toFixed(2)
+    );
+  }, [
+    formik.values.basic_cost,
+    formik.values.price_per_unit,
+    formik.values.total_saleable_sqft,
+    formik.values.development_charges_cost,
+    formik.values.infrastructure_cost,
+    formik.values.corpus_amount,
+    formik.values.maintenance_amount,
+    formik.values.misc_charges,
+    formik.values.gst,
+    formik.values.documentation_charges,
+    formik.values.registration_charges,
+    formik.values.apartment_cost_A,
+    formik.values.assoc_total,
+    formik.values.total_with_registration,
+    formik.values.total_without_registration,
+  ]);
   return (
     <>
       <div className="col-12 mt-4">
@@ -214,7 +452,7 @@ export const ProjectDetailsLawyerAP = ({
               <h6 className="text-center">Project Details</h6>
               {staffid.Login === "staff" &&
                 (status === "pending" || status === "complete") &&
-                pagetype !== "reminder" && enquiryDoumentData?.status !== "booking" && (
+                pagetype !== "reminder" && enquiryDoumentData?.status !== "booking" && department !== "pricing" && (
                   <button className="btn1" onClick={() => setNewDialog(true)}>
                     {" "}
                     Add{" "}
@@ -226,10 +464,16 @@ export const ProjectDetailsLawyerAP = ({
               <Table
                 bordered
                 cellBordered
-                // height={320}
-                height={heightMap[getData?.length] || 140}
+                height={tableHeight}
                 headerHeight={80}
-                data={getData}
+                data={paginatedData}
+                rowClassName={(rowData) => {
+                  if (rowData?.status === "booking") {
+
+                    return "booking-row";
+                  }
+                  return "";
+                }}
               >
                 <Column width={70} align="center">
                   <HeaderCell>S.No</HeaderCell>
@@ -266,6 +510,10 @@ export const ProjectDetailsLawyerAP = ({
                   <HeaderCell>Built-up Area in Sq.Ft.</HeaderCell>
                   <Cell dataKey="builtup_area_sqft" />
                 </Column>
+                <Column width={170} align="center">
+                  <HeaderCell>Total Saleable Sq.Ft.</HeaderCell>
+                  <Cell dataKey="total_saleable_sqft" />
+                </Column>
                 <Column width={130} align="center">
                   <HeaderCell>No Of BHK</HeaderCell>
                   <Cell dataKey="no_bhk" />
@@ -296,42 +544,188 @@ export const ProjectDetailsLawyerAP = ({
                     <Cell dataKey="open_car_parking" />
                   </Column>
                 </ColumnGroup>
+                {department === "pricing" && (<>
+                  <ColumnGroup
+                    header="Apartment Cost (Without Registration) - A"
+                    align="center"
+                    style={{ fontSize: "26px" }}
+                  >
+                    <Column width={130} colSpan={2}>
+                      <HeaderCell>Basic cost </HeaderCell>
+                      <Cell>{(rowData) => `₹ ${rowData.basic_cost ?? "0"} `}</Cell>
+                    </Column>
+                    <Column width={160}>
+                      <HeaderCell>Development charges </HeaderCell>
+                      {/* <Cell dataKey="development_charges" /> */}
+                      <Cell>{(rowData) => `₹ ${rowData.development_charges_cost ?? "0"}`}</Cell>
+                    </Column>
+                    <Column width={160}>
+                      <HeaderCell>Infrastructure cost </HeaderCell>
+                      {/* <Cell dataKey="infrastructure_cost" /> */}
+                      <Cell>{(rowData) => `₹${rowData.infrastructure_cost ?? "0"}`}</Cell>
+                    </Column>
+                    <Column width={130}>
+                      <HeaderCell>Total </HeaderCell>
+                      {/* <Cell dataKey="plot_cost_total" /> */}
+                      <Cell>{(rowData) => `₹${rowData.apartment_cost_A ?? "0"}`}</Cell>
+
+                    </Column>
+                  </ColumnGroup>
+                  <ColumnGroup
+                    header="Development / Association Cost - B"
+                    align="center"
+                    style={{ fontSize: "26px" }}
+                  >
+                    <Column width={130} colSpan={2}>
+                      <HeaderCell>Corpus Amount</HeaderCell>
+                      {/* <Cell dataKey="corpus_amount" /> */}
+                      <Cell>{(rowData) => `₹${rowData.corpus_amount ?? "0"}`}</Cell>
+                    </Column>
+                    <Column width={160}>
+                      <HeaderCell>Maintenance Amount </HeaderCell>
+                      {/* <Cell dataKey="maintenance_amount" /> */}
+                      <Cell>{(rowData) => `₹${rowData.maintenance_amount ?? "0"}`}</Cell>
+
+                    </Column>
+                    <Column width={160}>
+                      <HeaderCell>Miscellaneous charges </HeaderCell>
+                      {/* <Cell dataKey="misc_charges" /> */}
+                      <Cell>{(rowData) => `₹${rowData.misc_charges ?? "0"}`}</Cell>
+
+                    </Column>
+                    <Column width={130}>
+                      <HeaderCell>GST </HeaderCell>
+                      {/* <Cell dataKey="gst_amount" /> */}
+                      <Cell>{(rowData) => `₹${rowData.gst ?? "0"}`}</Cell>
+
+                    </Column>
+                    <Column width={130}>
+                      <HeaderCell>Total </HeaderCell>
+                      {/* <Cell dataKey="association_cost_total" /> */}
+                      <Cell>{(rowData) => `₹${rowData.assoc_total ?? "0"}`}</Cell>
+
+                    </Column>
+                  </ColumnGroup>
+                  <ColumnGroup
+                    header="Registration & other cost - C"
+                    align="center"
+                    style={{ fontSize: "26px" }}
+                  >
+                    <Column width={160} colSpan={2}>
+                      <HeaderCell>Registration Charges</HeaderCell>
+                      {/* <Cell dataKey="registration_charges" /> */}
+                      <Cell>{(rowData) => `₹${rowData.registration_charges ?? "0"}`}</Cell>
+
+                    </Column>
+                    <Column width={170}>
+                      <HeaderCell>Documentation charges </HeaderCell>
+                      {/* <Cell dataKey="documentation_charges" /> */}
+                      <Cell>{(rowData) => `₹${rowData.documentation_charges ?? "0"}`}</Cell>
+
+                    </Column>
+                    <Column width={130}>
+                      <HeaderCell>Total </HeaderCell>
+                      {/* <Cell dataKey="registration_total" /> */}
+                      <Cell>{(rowData) => `₹${rowData.other_cost_total ?? "0"}`}</Cell>
+
+                    </Column>
+                  </ColumnGroup>
+                  <ColumnGroup
+                    header="Total Plot Cost "
+                    align="center"
+                    style={{ fontSize: "26px" }}
+                  >
+                    <Column width={160} colSpan={2}>
+                      <HeaderCell>Without Registration</HeaderCell>
+                      {/* <Cell dataKey="total_without_registration" /> */}
+                      <Cell>{(rowData) => `₹${rowData.total_without_registration ?? "0"}`}</Cell>
+
+                    </Column>
+                    <Column width={160}>
+                      <HeaderCell>With Registration </HeaderCell>
+                      {/* <Cell dataKey="total_with_registration" /> */}
+                      <Cell>{(rowData) => `₹${rowData.total_with_registration ?? "0"}`}</Cell>
+
+                    </Column>
+                  </ColumnGroup>
+                </>)}
+
 
                 {staffid.Login === "staff" &&
                   (status === "pending" || status === "complete") &&
-                  pagetype !== "reminder" && enquiryDoumentData?.status !== "booking" && (
-                    <Column width={80} fixed="right" align="center">
+                  pagetype !== "reminder" &&
+                  enquiryDoumentData?.status !== "booking" && (
+                    <Column width={100} fixed="right" align="center">
                       <HeaderCell>Action</HeaderCell>
+
                       <Cell>
-                        {(rowData) => (
-                          <div className="d-flex">
-                            <button
-                              className="btn btn-outline-info me-1 edit"
-                              data-tooltip-id="edit"
-                              onClick={() => handleEdit(rowData)}
-                            >
-                              <EditIcon />
-                            </button>
-                            <button
-                              className="btn btn-outline-danger delete"
-                              data-tooltip-id="delete"
-                              onClick={() => {
-                                handleDelete(rowData);
-                                setDeleteId(rowData.id);
-                              }}
-                            >
-                              <DeleteIcon />
-                            </button>
-                          </div>
-                        )}
+                        {(rowData) => {
+                          const isBooking = rowData?.status === "booking";
+                          const isPricing = department === "pricing";
+
+                          if (isBooking) {
+                            return (
+                              <span className="badge bg-success">
+                                Booking
+                              </span>
+                            );
+                          }
+
+                          return (
+                            <div className="d-flex">
+                              {/* Edit */}
+                              <button
+                                className="btn btn-outline-info me-1 edit"
+                                data-tooltip-id="edit"
+                                onClick={() => handleEdit(rowData)}
+                              >
+                                <EditIcon />
+                              </button>
+
+                              {/* Delete - pricing department-la hide */}
+                              {!isPricing && (
+                                <button
+                                  className="btn btn-outline-danger delete"
+                                  data-tooltip-id="delete"
+                                  onClick={() => {
+                                    handleDelete(rowData);
+                                    setDeleteId(rowData.id);
+                                  }}
+                                >
+                                  <DeleteIcon />
+                                </button>
+                              )}
+                            </div>
+                          );
+                        }}
                       </Cell>
                     </Column>
                   )}
               </Table>
+              <div style={{ padding: 20 }}>
+                <Pagination
+                  prev
+                  next
+                  first
+                  last
+                  ellipsis
+                  boundaryLinks
+                  maxButtons={5}
+                  size="xs"
+                  layout={["total", "-", "pager"]}
+                  total={getData.length}
+                  limitOptions={[10, 30, 50]}
+                  limit={limit}
+                  activePage={page}
+                  onChangePage={setPage}
+                  onChangeLimit={handleChangeLimit}
+                />
+              </div>
             </div>
           </div>
         </div>
       </div>
+
       <Dialog
         visible={newDialog}
         style={{ width: "55rem" }}
@@ -391,11 +785,19 @@ export const ProjectDetailsLawyerAP = ({
               </label>
               <input
                 id="floor_no"
-                type="text"
+                type="number"
                 name="floor_no"
                 className="form-control"
                 value={formik.values.floor_no}
-                onChange={formik.handleChange}
+                // onChange={formik.handleChange}
+                onChange={(e) => {
+                  const value = e.target.value;
+
+                  // Allow only positive numbers and 0
+                  if (value === "" || /^\d+$/.test(value)) {
+                    formik.setFieldValue("floor_no", value);
+                  }
+                }}
                 onBlur={formik.handleBlur}
                 placeholder="Enter Floor No"
               />
@@ -492,6 +894,30 @@ export const ProjectDetailsLawyerAP = ({
                   </p>
                 )}
             </div>
+
+            <div className="form-group mt-2 col-6">
+              <label htmlFor="builtup_area_sqft" className="form-label">
+                Total Saleable Sqft<span style={{ color: "red" }}>*</span>
+              </label>
+              <input
+                id="total_saleable_sqft"
+                type="text"
+                name="total_saleable_sqft"
+                className="form-control"
+                value={formik.values.total_saleable_sqft}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                placeholder="Enter Total Saleable Sqft.."
+              />
+              {formik.errors.total_saleable_sqft &&
+                formik.touched.total_saleable_sqft && (
+                  <p style={{ color: "red", fontSize: "12px" }}>
+                    {formik.errors.total_saleable_sqft}
+                  </p>
+                )}
+            </div>
+
+
             <div className="form-group mt-2 col-6">
               <label htmlFor="balcony" className="form-label">
                 No Of Bhk<span style={{ color: "red" }}>*</span>
@@ -622,476 +1048,411 @@ export const ProjectDetailsLawyerAP = ({
                 )}
             </div>
           </div>
+          {department === "pricing" && (
+            <div>
+              <hr />
+              <div className="d-flex justify-content-start">
+                <h6>
+                  <b> Apartment cost (Without Registration) - A </b>{" "}
+                </h6>
+              </div>
+              <div className="row">
+                
+                <div className="form-group mt-2 col-6">
+                  <label htmlFor="north" className="form-label">
+                    {" "}
+                    Price Per Unit
+                    <span style={{ color: "red" }}>*</span>
+                  </label>
+                  <input
+                    id="price_per_unit"
+                    type="text"
+                    name="price_per_unit"
+                    className="form-control"
+                    value={formik.values.price_per_unit || ""}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    placeholder="Enter price per unit cost..."
+                    disabled
+                  />
+
+                </div>
+
+                <div className="form-group mt-2 col-6">
+                  <label htmlFor="north" className="form-label">
+                    {" "}
+                    Basic cost (price per unit * Total Saleable Sqft)
+                    <span style={{ color: "red" }}>*</span>
+                  </label>
+                  <input
+                    id="basic_cost"
+                    type="text"
+                    name="basic_cost"
+                    className="form-control"
+                    value={formik.values.basic_cost || ""}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    placeholder="Enter basic cost..."
+                    disabled
+                  />
+                  {formik.touched.basic_cost && formik.errors.basic_cost && (
+                    <p style={{ color: "red", fontSize: "12px" }}>
+                      {formik.errors.basic_cost}
+                    </p>
+                  )}
+                </div>
+                <div className="form-group mt-2 col-6">
+                  <label htmlFor="period" className="form-label">
+                    {" "}
+                    Development charges
+                    <span style={{ color: "red" }}>*</span>
+                  </label>
+                  <input
+                    id="development_charges_cost"
+                    type="text"
+                    name="development_charges_cost"
+                    className="form-control"
+                    value={formik.values.development_charges_cost || ""}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    placeholder="Enter development charges"
+                  />
+                  {formik.touched.development_charges_cost &&
+                    formik.errors.development_charges_cost && (
+                      <p style={{ color: "red", fontSize: "12px" }}>
+                        {formik.errors.development_charges_cost}
+                      </p>
+                    )}
+                </div>
+
+
+                <div className="form-group mt-2 col-6">
+                  <label htmlFor="period" className="form-label">
+                    {" "}
+                    Infrastructure cost
+                    <span style={{ color: "red" }}>*</span>
+                  </label>
+                  <input
+                    id="infrastructure_cost"
+                    type="text"
+                    name="infrastructure_cost"
+                    className="form-control "
+                    value={formik.values.infrastructure_cost || ""}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    placeholder="Enter infrastructure cost"
+                  />
+
+                  {formik.errors.infrastructure_cost &&
+                    formik.touched.infrastructure_cost ? (
+                    <p style={{ color: "red", fontSize: "12px" }}>
+                      {formik.errors.infrastructure_cost}
+                    </p>
+                  ) : null}
+                </div>
+                <div className="form-group mt-2 col-6">
+                  <label htmlFor="period" className="form-label">
+                    Total
+                  </label>
+                  <input
+                    id="apartment_cost_A"
+                    type="text"
+                    name="apartment_cost_A"
+                    className="form-control "
+                    value={formik.values.apartment_cost_A || ""}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    placeholder="Enter Total.."
+                    disabled
+                  />
+
+                  {formik.errors.apartment_cost_A &&
+                    formik.touched.apartment_cost_A ? (
+                    <p style={{ color: "red", fontSize: "12px" }}>
+                      {formik.errors.apartment_cost_A}
+                    </p>
+                  ) : null}
+                </div>
+              </div>
+
+              <hr />
+              <div className="d-flex justify-content-start">
+                <h6>
+                  {" "}
+                  <b> Development / Association Cost - B </b>{" "}
+                </h6>
+              </div>
+              <div className="row">
+                <div className="form-group mt-2 col-6">
+                  <label htmlFor="period" className="form-label">
+                    {" "}
+                    Corpus Amount
+                    <span style={{ color: "red" }}>*</span>
+                  </label>
+                  <input
+                    id="corpus_amount"
+                    type="text"
+                    name="corpus_amount"
+                    className="form-control "
+                    value={formik.values.corpus_amount || ""}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    placeholder="Enter corpus amount.."
+                  />
+
+                  {formik.errors.corpus_amount && formik.touched.corpus_amount ? (
+                    <p style={{ color: "red", fontSize: "12px" }}>
+                      {formik.errors.corpus_amount}
+                    </p>
+                  ) : null}
+                </div>
+                <div className="form-group mt-2 col-6">
+                  <label htmlFor="period" className="form-label">
+                    {" "}
+                    Maintenance Amount
+                    <span style={{ color: "red" }}>*</span>
+                  </label>
+                  <input
+                    id="maintenance_amount"
+                    type="text"
+                    name="maintenance_amount"
+                    className="form-control "
+                    value={formik.values.maintenance_amount || ""}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    placeholder="Enter maintenance amount..."
+                  />
+
+                  {formik.errors.maintenance_amount &&
+                    formik.touched.maintenance_amount ? (
+                    <p style={{ color: "red", fontSize: "12px" }}>
+                      {formik.errors.maintenance_amount}
+                    </p>
+                  ) : null}
+                </div>
+              </div>
+              <div className="row">
+                <div className="form-group mt-2 col-6">
+                  <label htmlFor="period" className="form-label">
+                    {" "}
+                    Miscellaneous charges
+                    <span style={{ color: "red" }}>*</span>
+                  </label>
+                  <input
+                    id="misc_charges"
+                    type="text"
+                    name="misc_charges"
+                    className="form-control "
+                    value={formik.values.misc_charges || ""}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    placeholder="Enter Miscellaneous charges... "
+                  />
+                  {formik.errors.misc_charges && formik.touched.misc_charges ? (
+                    <p style={{ color: "red", fontSize: "12px" }}>
+                      {formik.errors.misc_charges}
+                    </p>
+                  ) : null}
+                </div>
+                <div className="form-group mt-2 col-6">
+                  <label htmlFor="period" className="form-label">
+                    GST (18 %)
+                  </label>
+                  <input
+                    id="gst"
+                    type="text"
+                    name="gst"
+                    className="form-control "
+                    value={formik.values.gst || ""}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    placeholder="Enter gst amount..."
+                    disabled
+                  />
+
+                  {formik.errors.gst && formik.touched.gst ? (
+                    <p style={{ color: "red", fontSize: "12px" }}>
+                      {formik.errors.gst}
+                    </p>
+                  ) : null}
+                </div>
+                <div className="form-group mt-2 col-6">
+                  <label htmlFor="period" className="form-label">
+                    Total
+                  </label>
+                  <input
+                    id="assoc_total"
+                    type="text"
+                    name="assoc_total"
+                    className="form-control "
+                    value={formik.values.assoc_total || ""}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    placeholder="Enter Total.."
+                    disabled
+                  />
+
+                  {formik.errors.assoc_total &&
+                    formik.touched.assoc_total ? (
+                    <p style={{ color: "red", fontSize: "12px" }}>
+                      {formik.errors.assoc_total}
+                    </p>
+                  ) : null}
+                </div>
+              </div>
+              <hr />
+              <div className="d-flex justify-content-start">
+                <h6>
+                  {" "}
+                  <b> Registration & other cost - C </b>{" "}
+                </h6>
+              </div>
+              <div className="row">
+                <div className="form-group mt-2 col-6">
+                  <label htmlFor="period" className="form-label">
+                    {" "}
+                    Registration Charges
+                    <span style={{ color: "red" }}>*</span>
+                  </label>
+                  <input
+                    id="registration_charges"
+                    type="text"
+                    name="registration_charges"
+                    className="form-control "
+                    value={formik.values.registration_charges || ""}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    placeholder="Enter registration charges.."
+                  />
+
+                  {formik.errors.registration_charges &&
+                    formik.touched.registration_charges ? (
+                    <p style={{ color: "red", fontSize: "12px" }}>
+                      {formik.errors.registration_charges}
+                    </p>
+                  ) : null}
+                </div>
+                <div className="form-group mt-2 col-6">
+                  <label htmlFor="period" className="form-label">
+                    {" "}
+                    Documentation charges
+                    <span style={{ color: "red" }}>*</span>
+                  </label>
+                  <input
+                    id="documentation_charges"
+                    type="text"
+                    name="documentation_charges"
+                    className="form-control "
+                    value={formik.values.documentation_charges || ""}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    placeholder="Enter documentation charges..."
+                  />
+
+                  {formik.errors.documentation_charges &&
+                    formik.touched.documentation_charges ? (
+                    <p style={{ color: "red", fontSize: "12px" }}>
+                      {formik.errors.documentation_charges}
+                    </p>
+                  ) : null}
+                </div>
+              </div>
+              <div className="row">
+                <div className="form-group mt-2 col-6">
+                  <label htmlFor="period" className="form-label">
+                    Total
+                  </label>
+                  <input
+                    id="other_cost_total"
+                    type="text"
+                    name="other_cost_total"
+                    className="form-control "
+                    value={formik.values.other_cost_total || ""}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    placeholder="Enter Total.."
+                    disabled
+                  />
+
+                  {formik.errors.other_cost_total &&
+                    formik.touched.other_cost_total ? (
+                    <p style={{ color: "red", fontSize: "12px" }}>
+                      {formik.errors.other_cost_total}
+                    </p>
+                  ) : null}
+                </div>
+              </div>
+              <hr />
+
+              <div className="d-flex justify-content-start">
+                <h6>
+                  {" "}
+                  <b> Total Apartment Cost </b>{" "}
+                </h6>
+              </div>
+              <div className="row">
+                <div className="form-group mt-2 col-6">
+                  <label htmlFor="period" className="form-label">
+                    {" "}
+                    Without Registration (A+B)
+                    <span style={{ color: "red" }}>*</span>
+                  </label>
+                  <input
+                    id="total_without_registration"
+                    type="text"
+                    name="total_without_registration"
+                    className="form-control "
+                    value={formik.values.total_without_registration || ""}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    placeholder="Enter total.."
+                    disabled
+                  />
+
+                  {formik.errors.total_without_registration &&
+                    formik.touched.total_without_registration ? (
+                    <p style={{ color: "red", fontSize: "12px" }}>
+                      {formik.errors.total_without_registration}
+                    </p>
+                  ) : null}
+                </div>
+                <div className="form-group mt-2 col-6">
+                  <label htmlFor="period" className="form-label">
+                    {" "}
+                    With Registration (A+B+C)
+                    <span style={{ color: "red" }}>*</span>
+                  </label>
+                  <input
+                    id="total_with_registration"
+                    type="text"
+                    name="total_with_registration"
+                    className="form-control "
+                    value={formik.values.total_with_registration || ""}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    placeholder="Enter total..."
+                    disabled
+                  />
+
+                  {formik.errors.total_with_registration &&
+                    formik.touched.total_with_registration ? (
+                    <p style={{ color: "red", fontSize: "12px" }}>
+                      {formik.errors.total_with_registration}
+                    </p>
+                  ) : null}
+                </div>
+              </div>
+            </div>
+          )}
 
           <div className="d-flex justify-content-end gap-2 mt-4">
-            <Button variant="contained" color="success" type="submit" disabled={postLoading} >
+            <button
+              className="btn1 me-2"
+              type="submit"
+              disabled={postLoading}
+            >
               {postLoading ? "Processing..." : "Save"}
-            </Button>
-          </div>
-        </form>
-      </Dialog>
-      <Dialog
-        visible={editDialog}
-        style={{ width: "55rem" }}
-        breakpoints={{ "960px": "75vw", "641px": "90vw" }}
-        header="Update Plot  Details"
-        modal
-        className="p-fluid"
-        onHide={hideDialog}
-      >
-        <form onSubmit={formik.handleSubmit} autoComplete="off">
-          <div className="row">
-            <div className="form-group mt-2 col-6">
-              <label htmlFor="surveyno" className="form-label">
-                {" "}
-                Phase No
-                <span style={{ color: "red" }}>*</span>
-              </label>
-              <input
-                id="phase_no"
-                type="text"
-                name="phase_no"
-                className="form-control"
-                value={formik.values.phase_no}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                placeholder="Enter Phase No"
-              />
-
-              {formik.errors.phase_no && formik.touched.phase_no ? (
-                <p style={{ color: "red", fontSize: "12px" }}>
-                  {formik.errors.phase_no}
-                </p>
-              ) : null}
-            </div>
-            <div className="form-group mt-2 col-6">
-              <label htmlFor="subdivision" className="form-label">
-                Plot No <span style={{ color: "red" }}>*</span>
-              </label>
-              <input
-                id="plot_no"
-                type="text"
-                name="plot_no"
-                className="form-control"
-                placeholder="Enter Plot No"
-                value={formik.values.plot_no}
-                onChange={formik.handleChange}
-              />
-              {formik.errors.plot_no && formik.touched.plot_no ? (
-                <p style={{ color: "red", fontSize: "12px" }}>
-                  {formik.errors.plot_no}
-                </p>
-              ) : null}
-            </div>
-
-            <div className="form-group mt-2 col-6">
-              <label htmlFor="extent" className="form-label">
-                {" "}
-                Survey No
-                <span style={{ color: "red" }}>*</span>
-              </label>
-              <input
-                id="survey_no"
-                type="text"
-                name="survey_no"
-                className="form-control"
-                value={formik.values.survey_no}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                placeholder="Enter Survey No.,"
-              />
-
-              {formik.errors.survey_no && formik.touched.survey_no ? (
-                <p style={{ color: "red", fontSize: "12px" }}>
-                  {formik.errors.survey_no}
-                </p>
-              ) : null}
-            </div>
-            <div className="form-group mt-2 col-6">
-              <label htmlFor="extent" className="form-label">
-                {" "}
-                Extent in Sq.Ft.,
-                <span style={{ color: "red" }}>*</span>
-              </label>
-              <input
-                id="extent_sqft"
-                type="text"
-                name="extent_sqft"
-                className="form-control"
-                value={formik.values.extent_sqft}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                placeholder="Enter Extent in Sq.Ft.,"
-              />
-
-              {formik.errors.extent_sqft && formik.touched.extent_sqft ? (
-                <p style={{ color: "red", fontSize: "12px" }}>
-                  {formik.errors.extent_sqft}
-                </p>
-              ) : null}
-            </div>
-
-            <div className="form-group mt-2 col-6">
-              <label htmlFor="direction" className="form-label">
-                Facing Direction <span style={{ color: "red" }}>*</span>
-              </label>
-              <input
-                id="facing_direction"
-                type="text"
-                name="facing_direction"
-                className="form-control"
-                value={formik.values.facing_direction}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                placeholder="Enter Facing Direction"
-              />
-              {formik.errors.facing_direction &&
-                formik.touched.facing_direction ? (
-                <p style={{ color: "red", fontSize: "12px" }}>
-                  {formik.errors.facing_direction}
-                </p>
-              ) : null}
-            </div>
-
-            <div className="form-group mt-2 col-6">
-              <label htmlFor="remark" className="form-label">
-                {" "}
-                Road Width
-                <span style={{ color: "red" }}>*</span>
-              </label>
-              <input
-                id="road_width"
-                type="text"
-                name="road_width"
-                className="form-control "
-                value={formik.values.road_width}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                placeholder="Enter road width"
-              />
-
-              {formik.errors.road_width && formik.touched.road_width ? (
-                <p style={{ color: "red", fontSize: "12px" }}>
-                  {formik.errors.road_width}
-                </p>
-              ) : null}
-            </div>
-          </div>
-
-          <hr />
-          <div className="d-flex justify-content-start">
-            <h6>Dimension</h6>
-          </div>
-          <div className="row">
-            <div className="form-group mt-2 col-6">
-              <label htmlFor="north" className="form-label">
-                {" "}
-                North
-                <span style={{ color: "red" }}>*</span>
-              </label>
-              <input
-                id="north"
-                type="text"
-                name="dimension_north"
-                className="form-control"
-                value={formik.values.dimension_north || ""}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                placeholder="Enter dimension north"
-              />
-              {formik.touched.dimension_north &&
-                formik.errors.dimension_north && (
-                  <p style={{ color: "red", fontSize: "12px" }}>
-                    {formik.errors.dimension_north}
-                  </p>
-                )}
-            </div>
-            <div className="form-group mt-2 col-6">
-              <label htmlFor="period" className="form-label">
-                {" "}
-                South
-                <span style={{ color: "red" }}>*</span>
-              </label>
-              <input
-                id="south"
-                type="text"
-                name="dimension_south"
-                className="form-control"
-                value={formik.values.dimension_south || ""}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                placeholder="Enter dimension south"
-              />
-            </div>
-          </div>
-          <div className="row">
-            <div className="form-group mt-2 col-6">
-              <label htmlFor="period" className="form-label">
-                {" "}
-                East
-                <span style={{ color: "red" }}>*</span>
-              </label>
-              <input
-                id="dimension_east"
-                type="text"
-                name="dimension_east"
-                className="form-control "
-                value={formik.values.dimension_east || ""}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                placeholder="Enter dimension East"
-              />
-
-              {formik.errors.dimension_east && formik.touched.dimension_east ? (
-                <p style={{ color: "red", fontSize: "12px" }}>
-                  {formik.errors.dimension_east}
-                </p>
-              ) : null}
-            </div>
-            <div className="form-group mt-2 col-6">
-              <label htmlFor="period" className="form-label">
-                {" "}
-                West
-                <span style={{ color: "red" }}>*</span>
-              </label>
-              <input
-                id="days"
-                type="text"
-                name="dimension_west"
-                className="form-control "
-                value={formik.values.dimension_west || ""}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                placeholder="Enter dimenstion west"
-              />
-
-              {formik.errors.dimension_west && formik.touched.dimension_west ? (
-                <p style={{ color: "red", fontSize: "12px" }}>
-                  {formik.errors.dimension_west}
-                </p>
-              ) : null}
-            </div>
-          </div>
-          <hr />
-          <div className="d-flex justify-content-start">
-            <h6>Boundary</h6>
-          </div>
-          <div className="row">
-            <div className="form-group mt-2 col-6">
-              <label htmlFor="period" className="form-label">
-                {" "}
-                North
-                <span style={{ color: "red" }}>*</span>
-              </label>
-              <input
-                id="days"
-                type="text"
-                name="boundry_north"
-                className="form-control "
-                value={formik.values.boundry_north || ""}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                placeholder="Enter boundary north"
-              />
-
-              {formik.errors.boundry_north && formik.touched.boundry_north ? (
-                <p style={{ color: "red", fontSize: "12px" }}>
-                  {formik.errors.boundry_north}
-                </p>
-              ) : null}
-            </div>
-            <div className="form-group mt-2 col-6">
-              <label htmlFor="period" className="form-label">
-                {" "}
-                South
-                <span style={{ color: "red" }}>*</span>
-              </label>
-              <input
-                id="days"
-                type="text"
-                name="boundry_south"
-                className="form-control "
-                value={formik.values.boundry_south || ""}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                placeholder="Enter boundary south"
-              />
-
-              {formik.errors.boundry_south && formik.touched.boundry_south ? (
-                <p style={{ color: "red", fontSize: "12px" }}>
-                  {formik.errors.boundry_south}
-                </p>
-              ) : null}
-            </div>
-          </div>
-          <div className="row">
-            <div className="form-group mt-2 col-6">
-              <label htmlFor="period" className="form-label">
-                {" "}
-                East
-                <span style={{ color: "red" }}>*</span>
-              </label>
-              <input
-                id="days"
-                type="text"
-                name="boundry_east"
-                className="form-control "
-                value={formik.values.boundry_east || ""}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                placeholder="Enter boundary East"
-              />
-              {formik.errors.boundry_east && formik.touched.boundry_east ? (
-                <p style={{ color: "red", fontSize: "12px" }}>
-                  {formik.errors.boundry_east}
-                </p>
-              ) : null}
-            </div>
-            <div className="form-group mt-2 col-6">
-              <label htmlFor="period" className="form-label">
-                {" "}
-                West
-                <span style={{ color: "red" }}>*</span>
-              </label>
-              <input
-                id="boundry_west"
-                type="text"
-                name="boundry_west"
-                className="form-control "
-                value={formik.values.boundry_west || ""}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                placeholder="Enter boundary west"
-              />
-
-              {formik.errors.boundry_west && formik.touched.boundry_west ? (
-                <p style={{ color: "red", fontSize: "12px" }}>
-                  {formik.errors.boundry_west}
-                </p>
-              ) : null}
-            </div>
-          </div>
-
-          <hr />
-          <div className="row">
-            <div className="form-group mt-2 col-6">
-              <label htmlFor="period" className="form-label">
-                {" "}
-                Others
-                <span style={{ color: "red" }}>*</span>
-              </label>
-              <input
-                id="others"
-                type="text"
-                name="others"
-                className="form-control "
-                value={formik.values.others || ""}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                placeholder="Enter Others"
-              />
-              {formik.errors.others && formik.touched.others ? (
-                <p style={{ color: "red", fontSize: "12px" }}>
-                  {formik.errors.others}
-                </p>
-              ) : null}
-            </div>
-            <div className="form-group mt-2 col-6">
-              <label htmlFor="period" className="form-label">
-                {" "}
-                Verification Status
-                <span style={{ color: "red" }}>*</span>
-              </label>
-              <input
-                id="verification_status"
-                type="text"
-                name="verification_status"
-                className="form-control "
-                value={formik.values.verification_status || ""}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                placeholder="Enter Verification Status"
-              />
-              {formik.errors.verification_status &&
-                formik.touched.verification_status ? (
-                <p style={{ color: "red", fontSize: "12px" }}>
-                  {formik.errors.verification_status}
-                </p>
-              ) : null}
-            </div>
-            <div className="form-group mt-2 col-6">
-              <label htmlFor="period" className="form-label">
-                {" "}
-                Dispute
-                <span style={{ color: "red" }}>*</span>
-              </label>
-              <input
-                id="dispute"
-                type="text"
-                name="dispute"
-                className="form-control "
-                value={formik.values.dispute || ""}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                placeholder="Enter Dispute"
-              />
-              {formik.errors.dispute && formik.touched.dispute ? (
-                <p style={{ color: "red", fontSize: "12px" }}>
-                  {formik.errors.dispute}
-                </p>
-              ) : null}
-            </div>
-            <div className="form-group mt-2 col-6">
-              <label htmlFor="period" className="form-label">
-                {" "}
-                Next Followup Date
-                <span style={{ color: "red" }}>*</span>
-              </label>
-              <input
-                id="next_followup_date"
-                type="date"
-                name="next_followup_date"
-                className="form-control "
-                value={formik.values.next_followup_date || ""}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-              />
-              {formik.errors.next_followup_date &&
-                formik.touched.next_followup_date ? (
-                <p style={{ color: "red", fontSize: "12px" }}>
-                  {formik.errors.next_followup_date}
-                </p>
-              ) : null}
-            </div>
-            <div className="form-group mt-2 col-6">
-              <label htmlFor="remark" className="form-label">
-                {" "}
-                Remark
-                <span style={{ color: "red" }}>*</span>
-              </label>
-              <textarea
-                id="remarks"
-                type="text"
-                name="remarks"
-                className="form-control "
-                value={formik.values.remarks}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                placeholder="Enter Remark"
-              />
-
-              {formik.errors.remarks && formik.touched.remarks ? (
-                <p style={{ color: "red", fontSize: "12px" }}>
-                  {formik.errors.remarks}
-                </p>
-              ) : null}
-            </div>
-          </div>
-
-          <div className="d-flex justify-content-end gap-2 mt-4" >
-            <Button variant="contained" color="success" type="submit" disabled={postLoading}>
-              {postLoading ? "Processing..." : "Update"}
-            </Button>
+            </button>
           </div>
         </form>
       </Dialog>

@@ -13,6 +13,7 @@ import API_BASE_URL, { IMG_PATH } from "../../../../Api/api";
 import Toast from "../../../../Utils/Toast";
 import customStyle from "../../../../Utils/tableStyle";
 import OpenPreviewImage from "../../../../Utils/OpenPreviewImage";
+import { Switch } from 'antd';
 
 const Block1 = () => {
   const [newDialog, setNewDialog] = useState(false);
@@ -72,6 +73,12 @@ const Block1 = () => {
       width: "180px",
     },
     {
+      name: "Theme",
+      selector: (row) => row.theme,
+      sortable: true,
+      width: "150px",
+    },
+    {
       name: "Status",
       selector: (row) => row.status,
       sortable: true,
@@ -115,6 +122,7 @@ const Block1 = () => {
     formik.setFieldValue("image", row.image || "");
     formik.setFieldValue("old_image", row.image || "");
     formik.setFieldValue("description", row.description || "");
+    formik.setFieldValue("theme", row.theme || "");
     formik.setFieldValue("status", row.status || "");
   };
 
@@ -135,7 +143,7 @@ const Block1 = () => {
 
   const onSubmit = async (values) => {
     setIsSubmitting(true);
-
+    values.theme = values.theme || "light";
     try {
       const response = await axios.post(
         `${API_BASE_URL}/blocksection`,
@@ -164,6 +172,7 @@ const Block1 = () => {
       title: "service_block1",
       status: "",
       old_image: "",
+      theme: "light",
     },
     validationSchema: yup.object().shape({
       image: yup.string().required("image is required!"),
@@ -321,6 +330,15 @@ const Block1 = () => {
                   {formik.errors.description}
                 </p>
               )}
+            </div>
+            <div>
+              <label htmlFor="mx-1" className="form-label mx-1">Dark Theme :</label>
+              <Switch
+                checked={formik.values.theme === "dark"}
+                onChange={(checked) => {
+                  formik.setFieldValue("theme", checked ? "dark" : "light");
+                }}
+              />
             </div>
             <div className="mb-3">
               <label htmlFor="status" className="form-label">

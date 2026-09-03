@@ -1380,9 +1380,6 @@ export const AddMore = ({ isOpen, closeModal, id }) => {
                                     aria-label="customized table"
                                   >
                                     <TableHead
-                                      style={{
-                                        backgroundColor: "rgb(47, 79, 79)",
-                                      }}
                                     >
                                       <TableRow>
                                         <TableCell style={{ color: "white" }}>

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./logincss.css";
-import logo from "../../Assets/images/Goolok Final Logo.png";
+// import logo from "../../Assets/images/Boolok Logo Final 1.png";
+import logo from "../../Assets/images/BOOLOK LOGO VERTICAL HORIZONTAL LOCKUP.svg";
 import { useNavigate } from "react-router-dom";
 import { validateLogin } from "./auth";
 import { Input } from 'antd';
@@ -56,7 +57,8 @@ function Login() {
                   <div className="col-lg-6">
                     <div className="card-body p-md-5 mx-md-4">
                       <div className="text-center">
-                        <img src={logo} style={{ width: 185 }} alt="logo" />
+                        {/* <img src={logo} alt="logo" style={{ width: "100%" }} /> */}
+                        <img src={logo} alt="logo" style={{ width: "250px",height:"80px" }} />
                         <h4 className="mt-5 mb-3 pb-1" >Login</h4>
                       </div>
                       <form autoComplete="off">
@@ -109,9 +111,20 @@ function Login() {
                         <div className="text-center pt-1 mb-5 pb-1">
                           <button
                             type="submit"
-                            className="btn1 ps-4 pe-4"
+                            className="ps-4 pe-4"
                             onClick={handleSubmit}
                             disabled={loading}
+                            style={{
+                              backgroundColor:"#c89b3c",
+                              border:"1px solid #c89b3c",
+                              color: "#fff",
+                              borderRadius: "2px",
+                              fontSize: "14px",
+                              padding: "5px 10px",
+                              cursor: "pointer",
+                              fontWeight:"600"
+
+                            }}
                           >
                             {loading ? (
                               <ThreeDots

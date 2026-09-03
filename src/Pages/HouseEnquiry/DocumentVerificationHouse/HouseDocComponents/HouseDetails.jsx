@@ -287,7 +287,7 @@ const HouseDetails = ({ data }) => {
             {staffid.Login === "staff" &&
               (data.status === "pending" || data.status === "verify") && (
                 <>
-                  <Button
+                  {/* <Button
                     variant="outlined"
                     type="button"
                     color="error"
@@ -298,7 +298,11 @@ const HouseDetails = ({ data }) => {
                   </Button>
                   <Button variant="contained" type="submit">
                    {prDetails? "Update" : "Submit"}
-                  </Button>
+                  </Button> */}
+                   <div className="d-flex justify-content-end gap-2">
+                    <button type="button" className="btn1" onClick={() => formik.resetForm()}> Clear</button>
+                    <button type="submit " className="btn1">    {prDetails? "Update" : "Submit"}</button>
+                  </div>
                 </>
               )}
           </div>

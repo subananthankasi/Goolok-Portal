@@ -1,13 +1,13 @@
-import {  useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { pricingConfirmThunk } from "../../../../Redux/Actions/Enquiry/pricingConfirmThunk";
 import Toast from "../../../../Utils/Toast";
-import PricingDepartmentLayout from "./PricingDepartmentLayout";
 import PaymentScheduleDaysLayout from "./PaymentScheduleDaysLayout";
 import PhaseCostPricingLayout from "./PhaseCostPricingLayout";
 import ConfirmationModal from "../../../../Utils/ConfirmationModal";
 import { ProjectDetailsOwnerPricingLayout } from "./ProjectDetailsOwnerPricingLayout";
+import PricePerUnitComponent from "../../../Enquiry/Reusable/PricePerUnitComponent";
 
 const WholePricingDptLayout = ({ eid, status, id, pagetype, discountPage }) => {
   const staffid = JSON.parse(localStorage.getItem("token"));
@@ -40,7 +40,12 @@ const WholePricingDptLayout = ({ eid, status, id, pagetype, discountPage }) => {
         message={"Are you sure this has been verified?"}
         loading={confirmLoading}
       />
-      <ProjectDetailsOwnerPricingLayout eid={eid} id={id} status={status} pagetype = {pagetype}/> 
+      <PricePerUnitComponent
+        eid={eid}
+        id={id}
+        status={status}
+        pagetype={pagetype} />
+      <ProjectDetailsOwnerPricingLayout eid={eid} id={id} status={status} pagetype={pagetype} />
       <PhaseCostPricingLayout eid={eid} id={id} status={status} pagetype={pagetype} />
       {/* <PricingDepartmentLayout eid={eid} status={status} pagetype={pagetype} discountPage={discountPage} /> */}
       {/* <PaymentSchedulePricingLayout eid={eid} id= {id} status={status} pagetype={pagetype}/> */}

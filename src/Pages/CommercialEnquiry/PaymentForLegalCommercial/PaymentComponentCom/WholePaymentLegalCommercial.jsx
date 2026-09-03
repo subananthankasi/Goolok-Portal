@@ -41,6 +41,8 @@ export const WholePaymentLegalCommercial = ({ eid, id, status, pagetype }) => {
   useEffect(() => {
     fetchData();
   }, []);
+
+
   const showEditColumn =
     staffid.logintype === "staff" &&
     pagetype !== "reminder" &&
@@ -80,9 +82,8 @@ export const WholePaymentLegalCommercial = ({ eid, id, status, pagetype }) => {
         <>
           <button
             type="button"
-            className={`badge rounded-pill btnhover btn p-2 ${row.status == "pending" ? "bg-danger" : "bg-success"
+            className={` ${row.status === "pending" ? "badge-danger" : "badge-success"
               } `}
-            style={{ width: "60px" }}
           >
             {row.status}
           </button>
@@ -234,7 +235,7 @@ export const WholePaymentLegalCommercial = ({ eid, id, status, pagetype }) => {
 
               <hr />
 
-              {!data.invoice_id && staffid.logintype == "staff" ? (
+              {!data.invoice_id && staffid.logintype === "staff" ? (
                 <div className="container" style={{ maxWidth: "350px" }}>
                   <div className="p-4 text-center">
                     <a
@@ -498,8 +499,7 @@ const AddInvoice = ({
     setSelectedSubCat(null);
     setError({});
   };
-  const [deletedIds, setDeletedIds] = useState([]);
-  // delete the row  form table
+
   const handleDelete = async (deleteIndex, id) => {
     if (id) {
       try {

@@ -1,4 +1,3 @@
-import React from "react";
 import { TabView, TabPanel } from "primereact/tabview";
 import { useParams } from "react-router-dom";
 import { Header } from "../../Enquiry/Reusable/Header";

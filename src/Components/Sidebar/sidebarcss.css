@@ -77,10 +77,12 @@ ul {
   background: #555;
 }
 .css-11xthqp > .ps-menu-button:hover {
-  background-color: #617978 !important;
+  background-color: #4686ce !important;
+  /* background-color: #617978 !important; */
 }
 .css-qgt4cf > .ps-menu-button:hover {
-  background-color: #617978 !important;
+  background-color: #4686ce !important;
+  /* background-color: #617978 !important; */
 }
 
 /* .e-pager .e-numericitem {
@@ -97,4 +99,34 @@ ul {
   padding: 7px !important;
   background-color: white !important;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px !important;
+  height: 60px !important;
+}
+
+
+.css-78trlr-MuiButtonBase-root-MuiIconButton-root:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+    color: black !important;
+}
+.ps-menu-icon .css-wx7wi4 {
+    color: black !important;
+}
+/* .css-1m3bo6 {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+} */
+
+.css-1t8x7v1 >.ps-menu-button {
+    height: 55px !important;
+}
+.css-1t8x7v1 {
+    display: flex !important;
+    gap: 30px !important;
+    align-items: center !important;
+}
+.css-17wybr7 {
+    margin-left: 0 !important;
+}
+.css-1m3bo6{
+   margin-left: 0 !important;
 }

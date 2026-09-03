@@ -106,7 +106,7 @@ export const AddDocOpinionLawyer = (props) => {
       sortable: true,
     },
     {
-      name: "View",
+      name: "View & Upload",
       width: "170px",
       cell: (row) => (
         <>
@@ -116,8 +116,7 @@ export const AddDocOpinionLawyer = (props) => {
                 {row.document ? (
                   <button
                     type="button"
-                    className="btn btn-warning rounded-0"
-                    style={{ width: "70px" }}
+                    className="btn btn-primary"
                     onClick={() =>
                       viewFileUrl(`${IMG_PATH}/enquiry/${row.document}`)
                     }
@@ -127,8 +126,7 @@ export const AddDocOpinionLawyer = (props) => {
                 ) : (
                   <button
                     type="button"
-                    className="btn btn-primary rounded-0"
-                    style={{ width: "70px" }}
+                    className="btn btn-primary"
                   >
                     No data
                   </button>
@@ -140,7 +138,7 @@ export const AddDocOpinionLawyer = (props) => {
                   enquiryDoumentData?.status !== "live" && (
                     <button
                       type="button"
-                      className="btn btn-info rounded-0 ms-2"
+                      className="btn btn-primary ms-2"
                       onClick={() => {
                         openAddDocModal();
                         setUploadDocData(row);
@@ -155,8 +153,7 @@ export const AddDocOpinionLawyer = (props) => {
                 {row.document ? (
                   <button
                     type="button"
-                    className="btn btn-warning rounded-0"
-                    style={{ width: "70px" }}
+                    className="btn btn-primary"
                     onClick={() =>
                       viewFileUrl(`${IMG_PATH}/enquiry/${row.document}`)
                     }
@@ -166,7 +163,7 @@ export const AddDocOpinionLawyer = (props) => {
                 ) : (
                   <button
                     type="button"
-                    className="btn btn-primary rounded-0"
+                    className="btn btn-primary"
                     style={{ width: "70px" }}
                   >
                     No data
@@ -186,7 +183,7 @@ export const AddDocOpinionLawyer = (props) => {
           {row.upload_type == "lawyer" ? (
             <button
               type="button"
-              className={`btn btn-primary rounded-0`}
+              className={`btn btn-primary`}
               style={{ marginLeft: "7px" }}
               onClick={() => {
                 if (row.document) {
@@ -205,7 +202,7 @@ export const AddDocOpinionLawyer = (props) => {
           ) : (
             <button
               type="button"
-              className={`btn btn-primary rounded-0`}
+              className={`btn btn-primary`}
               onClick={() => {
                 if (row.document) {
                   setIsModalAddMoreView(true);
@@ -226,9 +223,8 @@ export const AddDocOpinionLawyer = (props) => {
         <>
           <button
             type="button"
-            className={`badge rounded-pill btnhover btn p-2 ${row.status == "verify" ? "bg-success" : "bg-danger"
+            className={`${row.status == "verify" ? "badge-success" : "badge-danger"
               }`}
-            style={{ width: "60px" }}
             onClick={() => {
               if (
                 row.upload_type === "lawyer" &&
@@ -254,11 +250,12 @@ export const AddDocOpinionLawyer = (props) => {
     },
     {
       name: "Redo Status",
+      width:"140px",
       cell: (row) => (
         <>
           <button
             type="button"
-            className={`btn btn-outline-info`}
+            className={`btn btn-primary`}
             onClick={() => {
               openModalRedo();
               setDocId(row);
@@ -272,6 +269,7 @@ export const AddDocOpinionLawyer = (props) => {
     },
     {
       name: "Verified Date",
+       width:"140px",
       selector: (row) => row.veryfi_date,
       sortable: true,
     },
@@ -418,7 +416,7 @@ export const AddDocOpinionLawyer = (props) => {
       {loadingPage ? (
         ""
       ) : (
-        <div className="">
+        <div className="mb-5">
           <div className="col-12">
             <div className="border-0">
               <div className="border-0">

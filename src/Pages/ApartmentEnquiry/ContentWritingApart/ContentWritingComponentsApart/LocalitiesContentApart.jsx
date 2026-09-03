@@ -256,6 +256,18 @@ const LocalitiesContentApart = ({ eid, id, status }) => {
     formik.setFieldValue("description", row.description);
     formik.setFieldValue("location", row.location);
     formik.setFieldValue("id", row.id);
+    if (row.location) {
+    const [lat, lng] = row.location.split(",").map(Number);
+
+    const position = { lat, lng };
+
+    setClickedLatLng(position);
+
+    if (map) {
+      map.panTo(position);
+      map.setZoom(15);
+    }
+  }
   };
 
   const column1 = [
@@ -310,7 +322,7 @@ const LocalitiesContentApart = ({ eid, id, status }) => {
   ];
   const deleteUnitsDialogFooter = (
     <div className=" d-flex gap-3 justify-content-end">
-      <Button
+      {/* <Button
         label="No"
         icon="pi pi-times"
         outlined
@@ -323,7 +335,21 @@ const LocalitiesContentApart = ({ eid, id, status }) => {
         severity="danger"
         style={{ borderRadius: "7px" }}
         onClick={handleDelete}
-      />
+      /> */}
+      <button
+        className="btn1"
+        style={{ borderRadius: "7px" }}
+        onClick={() => setDeleteDialog(false)}
+      >
+        Cancel
+      </button>
+      <button
+        className="btn1"
+        style={{ borderRadius: "7px" }}
+        onClick={handleDelete}
+      >
+        Delete
+      </button>
     </div>
   );
   const hideDeleteProductsDialog = () => {
@@ -595,9 +621,10 @@ const LocalitiesContentApart = ({ eid, id, status }) => {
             </div>
           </div>
           <div className="d-flex justify-content-end gap-2 mt-4">
-            <Button variant="outlined" color="error" onClick={clearForm} >Clear</Button>
-            <Button variant="contained" type="submit" onClick={() => setEditing(false)}>Submit</Button>
-
+            {/* <Button variant="outlined" color="error" onClick={clearForm} >Clear</Button>
+            <Button variant="contained" type="submit" onClick={() => setEditing(false)}>Submit</Button> */}
+            <button type="button" className="btn1" onClick={clearForm}> Cancel</button>
+            <button type="submit " className="btn1" onClick={() => setEditing(false)} > Save</button>
           </div>
         </form>
       </Dialog>
@@ -676,7 +703,7 @@ const LocalitiesContentApart = ({ eid, id, status }) => {
             </div>
 
             <div>
-              {status == "pending" && (
+              {(status === "pending" || status === "complete") && (
                 <div className="form-group mt-3">
                   <div className="row mb-3 align-items-center">
                     <div className="col-2">

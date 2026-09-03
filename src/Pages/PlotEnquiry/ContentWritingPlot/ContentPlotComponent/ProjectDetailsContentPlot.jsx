@@ -965,14 +965,14 @@ const ProjectDetailsContentPlot = ({
               {staffid.Login === "staff" &&
                 (status === "pending" || status === "complete") && (
                   <>
-                    <Button
-                      variant="contained"
+                    <button
+                      className="btn1"
                       type="submit"
                       onClick={() => setIsEditing(false)}
                       disabled={postLoading}
                     >
                       {postLoading ? "Processing..." : "Save"}
-                    </Button>
+                    </button>
                   </>
                 )}
             </div>

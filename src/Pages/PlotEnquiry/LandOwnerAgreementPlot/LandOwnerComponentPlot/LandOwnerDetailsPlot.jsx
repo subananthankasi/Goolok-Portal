@@ -93,7 +93,7 @@ const LandOwnerDetailsPlot = ({ eid, id, status, pagetype }) => {
       const data = response.data;
       setDetailsData(data);
     } catch (error) {
-      
+
     }
   };
   useEffect(() => {
@@ -113,7 +113,7 @@ const LandOwnerDetailsPlot = ({ eid, id, status, pagetype }) => {
         setEditDialog(false);
         formik.resetForm();
       } catch (error) {
-        
+
         setPostLoading(false)
       } finally {
         fetch();
@@ -132,7 +132,7 @@ const LandOwnerDetailsPlot = ({ eid, id, status, pagetype }) => {
         setNewDialog(false);
         formik.resetForm();
       } catch (error) {
-        
+
         setPostLoading(false)
       } finally {
         fetch();
@@ -176,7 +176,7 @@ const LandOwnerDetailsPlot = ({ eid, id, status, pagetype }) => {
       Toast({ message: "Successfully Deleted", type: "success" });
       fetch();
     } catch (error) {
-      
+
     } finally {
       fetch();
     }
@@ -451,7 +451,7 @@ const LandOwnerDetailsPlot = ({ eid, id, status, pagetype }) => {
               Agreement Starting Date <span style={{ color: "red" }}>*</span>
             </label>
 
-            <DatePicker
+            {/* <DatePicker
               placement="topRight"
               name="startdate"
               value={
@@ -468,8 +468,25 @@ const LandOwnerDetailsPlot = ({ eid, id, status, pagetype }) => {
               }}
               format="DD/MM/YYYY"
               style={{ width: "100%" }}
-              //   disabledDate={(current) => current && current > dayjs()}
               onBlur={formik.handleBlur}
+            /> */}
+            <DatePicker
+              picker="date"
+              format="DD/MM/YYYY"
+              value={
+                formik.values.startdate
+                  ? dayjs(formik.values.startdate)
+                  : null
+              }
+              onChange={(date) => {
+                formik.setFieldValue(
+                  "startdate",
+                  date ? date.format("YYYY-MM-DD") : ""
+                );
+                formik.setFieldValue("closedate", "");
+              }}
+              style={{ width: "100%" }}
+              getPopupContainer={(triggerNode) => triggerNode.parentNode}
             />
             {/* <input
               id="startdate"

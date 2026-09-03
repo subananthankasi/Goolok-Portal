@@ -44,6 +44,7 @@ export const WholeInvoicePlot = ({ id, status }) => {
       name: "Customer Name",
       selector: (row) => row.customer,
       sortable: true,
+       width:"160px",
     },
     {
       name: "Age",
@@ -61,9 +62,8 @@ export const WholeInvoicePlot = ({ id, status }) => {
         <>
           <button
             type="button"
-            className={`badge rounded-pill btnhover btn p-2 ${row.status === "success" ? "bg-success" : "bg-danger"
+            className={` ${row.status === "success" ? "badge-success" : "badge-danger"
               }`}
-            style={{ width: "60px" }}
           >
             {row.status}
           </button>

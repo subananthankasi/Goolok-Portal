@@ -14,6 +14,8 @@ import API_BASE_URL, { IMG_PATH } from "../../../../Api/api";
 import Toast from "../../../../Utils/Toast";
 import customStyle from "../../../../Utils/tableStyle";
 import OpenPreviewImage from "../../../../Utils/OpenPreviewImage";
+import * as yup from "yup";
+import { Switch } from 'antd';
 
 const ServiceContent = () => {
   const [newDialog, setNewDialog] = useState(false);
@@ -31,6 +33,11 @@ const ServiceContent = () => {
     const url = `${IMG_PATH}/cms_service/servicecontent/${row.image}`
     setPreviwUrl(url)
   }
+  const safeValue = (value) => {
+    if (value === null || value === undefined || value === "null" || value === "")
+      return "-";
+    return value;
+  };
   const columns = [
     {
       name: "S.no",
@@ -40,17 +47,17 @@ const ServiceContent = () => {
 
     {
       name: "Service",
-      selector: (row) => row.service_title,
+      selector: (row) => safeValue(row.service_title),
       sortable: true,
     },
     {
       name: "Offer",
-      selector: (row) => row.offer,
+      selector: (row) => safeValue(row.offer),
       sortable: true,
     },
     {
       name: "Title",
-      selector: (row) => row.title,
+      selector: (row) => safeValue(row.title),
       sortable: true,
     },
     {
@@ -77,23 +84,22 @@ const ServiceContent = () => {
     },
     {
       name: "Benifit_Title",
-      selector: (row) => row.benifit_title,
+      selector: (row) => safeValue(row.benifit_title),
       sortable: true,
     },
-
     {
       name: "Amount",
-      selector: (row) => row.amount,
+      selector: (row) => safeValue(row.amount),
       sortable: true,
     },
     {
       name: "OfferAmount",
-      selector: (row) => row.off_amount,
+      selector: (row) => safeValue(row.off_amount),
       sortable: true,
     },
     {
       name: "ButtonText",
-      selector: (row) => row.button_text,
+      selector: (row) => safeValue(row.button_text),
       sortable: true,
     },
     //  {
@@ -104,13 +110,18 @@ const ServiceContent = () => {
     // },
     {
       name: "Howwork_Title",
-      selector: (row) => row.howwork_title,
+      selector: (row) => safeValue(row.howwork_title),
       sortable: true,
     },
 
     {
+      name: "Theme",
+      selector: (row) => safeValue(row.theme),
+      sortable: true,
+    },
+    {
       name: "Status",
-      selector: (row) => row.status,
+      selector: (row) => safeValue(row.status),
       sortable: true,
     },
 
@@ -162,6 +173,7 @@ const ServiceContent = () => {
     formik.setFieldValue("button_url", row.button_url || "");
     formik.setFieldValue("howwork_title", row.howwork_title || "");
     formik.setFieldValue("howwork_content", row.howwork_content || "");
+    formik.setFieldValue("theme", row.theme || "");
     formik.setFieldValue("status", row.status || "");
   };
 
@@ -194,28 +206,72 @@ const ServiceContent = () => {
     fetchRolesServiceCreation();
   }, []);
 
+  // const onSubmit = async (values) => {
+  //   setIsSubmitting(true);
+  //   try {
+  //     const response = await axios.post(
+  //       `${API_BASE_URL}/servicecontent`,
+  //       values,
+  //       {
+  //         headers: { "Content-Type": "multipart/form-data" },
+  //       }
+  //     );
+  //     Toast({ message: "Successfully Created", type: "success" });
+  //     setNewDialog(false);
+  //     await fetchRoles();
+  //     formik.resetForm();
+  //     setPreviewImage(null);
+  //   } catch (error) {
+  //     const errorMessage =
+  //       error.response?.data?.messages?.message ||
+  //       "Error while creating banner";
+
+  //     Toast({ message: errorMessage, type: "error" });
+  //   } finally {
+  //     setIsSubmitting(false);
+  //   }
+  // };
+
   const onSubmit = async (values) => {
     setIsSubmitting(true);
+    values.theme = values.theme || "light";
 
     try {
+      const formData = new FormData();
+
+      Object.keys(values).forEach((key) => {
+        const value = values[key];
+
+        if (value === "") {
+          formData.append(key, null);
+        } else {
+          formData.append(key, value);
+        }
+      });
+
+
       const response = await axios.post(
         `${API_BASE_URL}/servicecontent`,
-        values,
+        formData,
         {
           headers: { "Content-Type": "multipart/form-data" },
         }
       );
+
       Toast({ message: "Successfully Created", type: "success" });
+
       setNewDialog(false);
       await fetchRoles();
       formik.resetForm();
       setPreviewImage(null);
+
     } catch (error) {
       const errorMessage =
         error.response?.data?.messages?.message ||
         "Error while creating banner";
 
       Toast({ message: errorMessage, type: "error" });
+
     } finally {
       setIsSubmitting(false);
     }
@@ -237,23 +293,23 @@ const ServiceContent = () => {
       howwork_title: "",
       howwork_content: "",
       status: "",
+      theme: "light",
     },
-    // validationSchema: yup.object().shape({
-    //   image: yup.string().required("image is required!"),
-    //   service_cms_id: yup.string().required("service_cms_id is required!"),
-    //   offer: yup.string().required("offer is required!"),
-
-    //   description: yup.string().required("description is required!"),
-    //   benifit_title: yup.string().required("benifit_title is required!"),
-    //   benifit_content: yup.string().required("benifit_content is required!"),
-    //   howwork_title: yup.string().required("howwork_title is required!"),
-    //   howwork_content: yup.string().required("howwork_content is required!"),
-    //   amount: yup.string().required("amount is required!"),
-    //   off_amount: yup.string().required("off_amount is required!"),
-    //   button_text: yup.string().required("button_text is required!"),
-    //   button_url: yup.string().required("button_url is required!"),
-    //   status: yup.string().required("Status is required"),
-    // }),
+    validationSchema: yup.object().shape({
+      image: yup.string().required("image is required!"),
+      service_cms_id: yup.string().required("service is required!"),
+      offer: yup.string().required("offer is required!"),
+      description: yup.string().required("description is required!"),
+      // benifit_title: yup.string().required("benifit_title is required!"),
+      // benifit_content: yup.string().required("benifit_content is required!"),
+      // howwork_title: yup.string().required("howwork_title is required!"),
+      // howwork_content: yup.string().required("howwork_content is required!"),
+      // amount: yup.string().required("amount is required!"),
+      // off_amount: yup.string().required("off_amount is required!"),
+      // button_text: yup.string().required("button_text is required!"),
+      // button_url: yup.string().required("button_url is required!"),
+      status: yup.string().required("Status is required"),
+    }),
     onSubmit,
   });
   const handleConfirmClosedelete = () => {
@@ -387,6 +443,15 @@ const ServiceContent = () => {
                 <small className="text-danger">{formik.errors.title}</small>
               )}
             </div>
+             <div>
+                <label htmlFor="mx-1" className="form-label me-2">Dark Theme :</label>
+                <Switch
+                  checked={formik.values.theme === "dark"}
+                  onChange={(checked) => {
+                    formik.setFieldValue("theme", checked ? "dark" : "light");
+                  }}
+                />
+              </div>
 
             <div className="mb-3">
               <label htmlFor="image" className="form-label">
@@ -633,7 +698,7 @@ const ServiceContent = () => {
                   )}
               </div>
             </div>
-
+           
             <div className="mb-3">
               <label htmlFor="status" className="form-label">
                 Status
@@ -646,7 +711,7 @@ const ServiceContent = () => {
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
               >
-                <option value="">-- Select Status --</option>
+                <option value="">--Select Status--</option>
                 <option value="active">Active</option>
                 <option value="inactive">Inactive</option>
               </select>

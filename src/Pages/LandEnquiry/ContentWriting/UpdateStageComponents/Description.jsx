@@ -16,14 +16,19 @@ import { CWDescAndFeatureGetThunk } from "../../../../Redux/Actions/Enquiry/Cont
 import { iFeatureGetThunk } from "../../../../Redux/Actions/MasterPage/FeaturesThunk/InteriorFeatureThunk";
 import { eFeatureGetThunk } from "../../../../Redux/Actions/MasterPage/FeaturesThunk/ExteriorFeatureThunk";
 import { gFeatureGetThunk } from "../../../../Redux/Actions/MasterPage/FeaturesThunk/GeneralFeatureThunk";
+import * as FaIcons from "react-icons/fa";
+import EditorToolbar from "../../../../Utils/EditerHeader";
+
+
 
 const Description = ({ eid, id, status }) => {
   const dispatch = useDispatch();
   const [amenities, setAmenities] = useState([]);
   const staffid = JSON.parse(localStorage.getItem("token"));
-   const enquiryDoumentData = useSelector(
+  const enquiryDoumentData = useSelector(
     (state) => state.Enquiry.enquiryDocument
   );
+
   // Redux data
   const cwData = useSelector(
     (state) => state.CWDescFeatureData?.get?.data?.[0]?.amenities
@@ -37,6 +42,7 @@ const Description = ({ eid, id, status }) => {
   const titleValue = useSelector(
     (state) => state.CWDescFeatureData?.get?.data?.[0]?.title
   );
+
   const idvalue = useSelector(
     (state) => state.CWDescFeatureData?.get?.data?.[0]?.id
   );
@@ -50,20 +56,23 @@ const Description = ({ eid, id, status }) => {
   }, [dispatch, eid]);
 
   useEffect(() => {
-    const fetchAmenities = async () => {
-      try {
-        const response = await axios.get(`${API_BASE_URL}/landamenities`);
-        setAmenities(response.data?.[0]?.amenities || []);
-      } catch (error) {
+    if (enquiryDoumentData?.propertytypeid) {
+      const fetchAmenities = async (pid) => {
+        try {
+          const response = await axios.get(`${API_BASE_URL}/landamenities/${pid}`);
+          // setAmenities(response.data?.[0]?.amenities || []);
+          setAmenities(response.data || []);
+        } catch (error) {
 
-      }
-    };
-    fetchAmenities();
-  }, []);
+        }
+      };
+      fetchAmenities(enquiryDoumentData?.propertytypeid);
+    }
+  }, [enquiryDoumentData?.propertytypeid]);
 
- 
+
   const formik = useFormik({
-    enableReinitialize: true, 
+    enableReinitialize: true,
     initialValues: {
       title: titleValue || "",
       highlights: highlightsValue || "",
@@ -71,12 +80,14 @@ const Description = ({ eid, id, status }) => {
       amenities: cwData ? JSON.parse(cwData) : [],
       id: idvalue || null,
       enqid: eid,
+
     },
     validationSchema: Yup.object({
       title: Yup.string().required("Title is required"),
       highlights: Yup.string().required("Highlights are required"),
       description: Yup.string().required("Description is required"),
       amenities: Yup.array().min(1, "Select at least one amenity"),
+
     }),
     onSubmit: async (values) => {
       try {
@@ -115,51 +126,47 @@ const Description = ({ eid, id, status }) => {
   return (
     <div>
       <form onSubmit={formik.handleSubmit}>
-        {/* Title */}
-        <div className="form-group">
-          <label className="form-label">Title :</label>
-          <input
-            type="text"
-            id="title"
-            name="title"
-            className="form-control w-25"
-            placeholder="Enter Title..."
-            value={formik.values.title}
-            onChange={formik.handleChange}
-          />
-          {formik.touched.title && formik.errors.title && (
-            <div className="validation_msg">{formik.errors.title}</div>
-          )}
+
+        <div className="row">
+          <div className="col-3">
+            {/* Title */}
+            <div className="form-group">
+              <label className="form-label">Title :</label>
+              <input
+                type="text"
+                id="title"
+                name="title"
+                className="form-control "
+                placeholder="Enter Title..."
+                value={formik.values.title}
+                onChange={formik.handleChange}
+              />
+              {formik.touched.title && formik.errors.title && (
+                <div className="validation_msg">{formik.errors.title}</div>
+              )}
+            </div>
+
+            {/* Highlights */}
+            <div className="form-group mt-3">
+              <label className="form-label">Nearby Highlights :</label>
+
+              <input
+                type="text"
+                id="highlights"
+                name="highlights"
+                className="form-control "
+                placeholder="Enter highlights..."
+                value={formik.values.highlights}
+                onChange={formik.handleChange}
+              />
+              {formik.touched.highlights && formik.errors.highlights && (
+                <div className="validation_msg">{formik.errors.highlights}</div>
+              )}
+            </div>
+          </div>
         </div>
 
-        {/* Highlights */}
-        <div className="form-group mt-3">
-          <label className="form-label">Nearby Highlights :</label>
-          {/* <Editor
-            value={formik.values.highlights}
-            onTextChange={(value) =>
-              formik.setFieldValue(
-                "highlights",
-                value.htmlValue?.replace(/<[^>]*>/g, "") || ""
-              )
-            }
-            style={{ height: "300px" }}
-            className="mt-2"
-            placeholder="Text here ..."
-          /> */}
-           <input
-            type="text"
-            id="highlights"
-            name="highlights"
-            className="form-control w-25"
-            placeholder="Enter highlights..."
-            value={formik.values.highlights}
-            onChange={formik.handleChange}
-          />
-          {formik.touched.highlights && formik.errors.highlights && (
-            <div className="validation_msg">{formik.errors.highlights}</div>
-          )}
-        </div>
+
 
         {/* Description */}
         <div className="form-group mt-3">
@@ -172,6 +179,7 @@ const Description = ({ eid, id, status }) => {
                 value.htmlValue?.replace(/<[^>]*>/g, "") || ""
               )
             }
+            headerTemplate={EditorToolbar}
             style={{ height: "300px" }}
             className="mt-2"
             placeholder="Text here ..."
@@ -189,24 +197,29 @@ const Description = ({ eid, id, status }) => {
             </label>
             <hr />
             <div className="row">
-              {amenities.map((amenity) => (
-                <div className="col-md-6 col-lg-3 mt-2" key={amenity.id}>
-                  <div className="form-check">
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      checked={formik.values?.amenities?.includes(amenity.id)}
-                      onChange={() => handleCheckboxChange(amenity.id)}
-                    />
-                    <label
-                      className="form-check-label amenitiesBox"
-                      style={{ fontSize: "15px" }}
-                    >
-                      {amenity.amenities}
-                    </label>
+              {amenities.map((amenity) => {
+                const IconComponent = FaIcons[amenity.icon];
+                return (
+                  <div className="col-md-6 col-lg-3 mt-2" key={amenity.id}>
+                    <div className="form-check d-flex align-items-center gap-2">
+                      <input
+                        className="form-check-input"
+                        type="checkbox"
+                        checked={formik.values?.amenities?.includes(amenity.id)}
+                        onChange={() => handleCheckboxChange(amenity.id)}
+                      />
+                      {IconComponent && <IconComponent size={15} />}
+
+                      <label
+                        className="form-check-label amenitiesBox"
+                        style={{ fontSize: "15px" }}
+                      >
+                        {amenity.amenities}
+                      </label>
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
             {formik.touched.amenities && formik.errors.amenities && (
               <div className="validation_msg">{formik.errors.amenities}</div>
@@ -216,7 +229,7 @@ const Description = ({ eid, id, status }) => {
 
         {/* Save button */}
         {(status === "pending" || status === "complete") &&
-          staffid.Login === "staff" && enquiryDoumentData?.status !=="booking" && (
+          staffid.Login === "staff" && enquiryDoumentData?.status !== "booking" && (
             <div className="d-flex justify-content-end mt-3">
               <Button variant="contained" type="submit">
                 Save

@@ -515,7 +515,7 @@ const PattaDetailsPlot = ({ data, setStep }) => {
                 </label>
               </div>
               <div className="col-8 mb-3 ">
-                <Select
+                {/* <Select
                   placeholder="Select Classification"
                   style={{ width: "100%" }}
                   options={classification}
@@ -524,8 +524,8 @@ const PattaDetailsPlot = ({ data, setStep }) => {
                     formik.setFieldValue("classification", value)
                   }
                   onBlur={formik.handleBlur}
-                />
-                {/* <input
+                /> */}
+                <input
                   type="text"
                   className="form-control"
                   name="classification"
@@ -533,7 +533,7 @@ const PattaDetailsPlot = ({ data, setStep }) => {
                   value={formik.values.classification}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
-                /> */}
+                />
                 {formik.errors.classification &&
                   formik.touched.classification ? (
                   <p style={{ color: "red", fontSize: "12px" }}>
@@ -548,7 +548,12 @@ const PattaDetailsPlot = ({ data, setStep }) => {
             {staffid.Login === "staff" &&
               (data.status === "pending" || data.status === "verify") && (
                 <>
-                  <Button
+
+                  <div className="d-flex justify-content-end gap-2">
+                    <button type="button" className="btn1" onClick={() => formik.resetForm()}> Clear</button>
+                    <button type="submit " className="btn1"> Next</button>
+                  </div>
+                  {/* <Button
                     variant="outlined"
                     type="button"
                     color="error"
@@ -559,7 +564,7 @@ const PattaDetailsPlot = ({ data, setStep }) => {
                   </Button>
                   <Button variant="contained" type="submit">
                     Next
-                  </Button>
+                  </Button> */}
                 </>
               )}
           </div>

@@ -16,6 +16,7 @@ function UpdateOpinionByLawyer() {
   const decryId = decryptData(id);
   const decryStatus = decryptData(status);
 
+
   return (
     <>
       <section className="section">

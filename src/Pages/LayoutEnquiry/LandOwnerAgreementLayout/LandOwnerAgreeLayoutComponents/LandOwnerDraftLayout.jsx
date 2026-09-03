@@ -192,7 +192,7 @@ const LandOwnerDraftLayout = ({ eid, id, status, sub_property, pagetype }) => {
         <>
           <a
             href={`${IMG_PATH}/enquiry/agreement/${row.document}`}
-            className="btn btn-warning ms-2"
+            className="btn btn-primary ms-2"
             download="download"
             target="_blank"
             rel="noopener noreferrer"
@@ -210,9 +210,8 @@ const LandOwnerDraftLayout = ({ eid, id, status, sub_property, pagetype }) => {
         <>
           <button
             type="button"
-            className={`badge btn rounded-pill btnhover btn p-2 ${row.status === "pending" ? "bg-danger" : "bg-success"
+            className={` ${row.status === "pending" ? "badge-danger" : "badge-success"
               }`}
-            style={{ width: "60px" }}
           >
             {row.status}
           </button>
@@ -408,7 +407,7 @@ const LandOwnerDraftLayout = ({ eid, id, status, sub_property, pagetype }) => {
       taluk: yup.string().required("taluk is required !!"),
       village: yup.string().required("village is required !!"),
       sro: yup.string().required("sro is required !!"),
-      // pincode: yup.string().required("pincode is required !!"),
+      pincode: yup.string().required("pincode is required !!"),
       projectname: yup.string().required("projectname is required !!"),
       aprovalno: yup.string().required("aprovalno is required !!"),
       rerano: yup.string().required("rerano is required !!"),
@@ -469,7 +468,7 @@ const LandOwnerDraftLayout = ({ eid, id, status, sub_property, pagetype }) => {
       "overall_extent_unit",
       enquiryDoumentData?.land_extent_total
     );
-    formik.setFieldValue("priceper", enquiryDoumentData?.price_per_unit);
+    // formik.setFieldValue("priceper", enquiryDoumentData?.price_per_unit);
     formik.setFieldValue("type", createFetchData[0]?.village_type);
     formik.setFieldValue("state", createFetchData[0]?.state);
     formik.setFieldValue("district", createFetchData[0]?.district);
@@ -1165,7 +1164,7 @@ const LandOwnerDraftLayout = ({ eid, id, status, sub_property, pagetype }) => {
                       value={formik.values.priceper}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
-                      disabled
+                    // disabled
                     />
                     <InputGroup.Addon>
                       {enquiryDoumentData?.land_units}{" "}

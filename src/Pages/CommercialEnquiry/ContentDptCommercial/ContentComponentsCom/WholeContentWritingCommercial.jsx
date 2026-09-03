@@ -76,7 +76,7 @@ const WholeContentWritingCommercial = ({ eid, id, status, pagetype, subtype }) =
           </Tabs.Tab>
         </Tabs>
 
-        {(staffid.logintype == "staff" && status == "pending") && pagetype !== "reminder" && (
+        {(staffid.logintype === "staff" && status === "pending") && pagetype !== "reminder" && (
           <div className="text-end mt-3 mb-3">
             <button
               onClick={() => setIsVerifyConfirm(true)}

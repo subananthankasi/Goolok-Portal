@@ -184,7 +184,7 @@ const WaitingPricingCom = () => {
                                                 <ColumnDirective
                                                     field="customer"
                                                     headerText="Customer Name"
-                                                    width="150"
+                                                    width="170"
                                                 />
                                                 <ColumnDirective
                                                     headerText="Age"
@@ -202,7 +202,7 @@ const WaitingPricingCom = () => {
                                                     width="150"
                                                 />
 
-                                                {staffid?.logintype == "staff" &&
+                                                {staffid?.logintype === "staff" &&
                                                     <ColumnDirective
                                                         headerText="Take task"
                                                         width="160"

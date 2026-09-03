@@ -177,7 +177,7 @@ const PrivacyPolicy = () => {
           <div className="card">
             <div className="card-header">
               <div className="d-flex justify-content-between">
-                <h4 className="page_heading">Service PrivacyPolice View Table</h4>
+                <h4 className="page_heading">PrivacyPolicy View Table</h4>
                 <button
                   type="button"
                   className="btn1"
@@ -220,7 +220,7 @@ const PrivacyPolicy = () => {
         }}
       >
         <Modal.Header>
-          <Modal.Title> Service PrivacyPolice </Modal.Title>
+          <Modal.Title>  PrivacyPolicy </Modal.Title>
         </Modal.Header>
 
         <Modal.Body

@@ -91,6 +91,9 @@ import { talukDetailsReducer } from "../Reducers/MasterPage/TalukDetailsReducer"
 import { contactTalukReducer } from "../Reducers/MasterPage/ContactPersonTalukReducer";
 import { projectServiceVerifyService } from "../Reducers/ProjectReducer/ProjectReducer";
 import { generalAddressReducer } from "../Reducers/MasterPage/GeneralAddressReducer";
+import { paymentModeReducer } from "../Reducers/MasterPage/PaymentMode/PaymentModeReducer";
+import { bankReducer } from "../Reducers/MasterPage/BankReducer/BankReducer";
+import { enquiryCountsReducer } from "../Reducers/EnquiryCountReducer";
 
 const rootReducer = combineReducers({
   // master page data
@@ -121,6 +124,9 @@ const rootReducer = combineReducers({
   //tags
   suitableData: suitableReducer,
   propertyData: propertyReducer,
+  //Bank & PaymentMode
+  paymentmodeData: paymentModeReducer,
+  bankData: bankReducer,
   //offer
   offerData: offerReducer,
   couponsData: couponsReducer,
@@ -198,8 +204,8 @@ const rootReducer = combineReducers({
   AddDoc: ApartmentAddReducer,
   AddDocGet: ApartmentAddGetReducer,
 
-  // source book
-  // other reducers
+  // Enquiry Count
+  enquiryCounts: enquiryCountsReducer,
 });
 
 const store = createStore(rootReducer, applyMiddleware(thunk));

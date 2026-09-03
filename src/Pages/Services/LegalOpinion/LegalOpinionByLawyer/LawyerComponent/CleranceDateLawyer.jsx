@@ -21,22 +21,41 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import { useSelector } from "react-redux";
 
 export const CleranceDateLawyer = (props) => {
-    const options = props.data.status == "complete" ? " " : "Edit";
-    const filterSettings = { type: "Excel" };
-    const toolbarOptions = [options];
-
+    // const options = props.data.status === "complete" ? " " : "Edit";
     const staffid = JSON.parse(localStorage.getItem("token"));
     const enquiryDoumentData = useSelector(
         (state) => state.Enquiry.enquiryDocument
     );
+    const options =
+        (
+            (props.data.status === "pending" ||
+                props.data.status === "complete") &&
+            staffid.Login === "staff" &&
+            enquiryDoumentData?.status !== "live"
+        )
+            ? "Edit"
+            : "";
+    const filterSettings = { type: "Excel" };
+    const toolbarOptions = options ? [options] : [];
+
+
+    // const editSettings = {
+    //     allowEditing:
+    //         props.data.status === "pending" ||
+    //             (props.data.status === "complete" &&
+    //                 staffid.Login === "staff" &&
+    //                 enquiryDoumentData?.status !== "live")
+    //             ? true
+    //             : false,
+    //     mode: "Dialog",
+    //     template: dialogTemplate,
+    // };
     const editSettings = {
         allowEditing:
-            props.data.status === "pending" ||
-                (props.data.status === "complete" &&
-                    staffid.Login === "staff" &&
-                    enquiryDoumentData?.status !== "live")
-                ? true
-                : false,
+            (props.data.status === "pending" ||
+                props.data.status === "complete") &&
+            staffid.Login === "staff" &&
+            enquiryDoumentData?.status !== "live",
         mode: "Dialog",
         template: dialogTemplate,
     };
@@ -339,6 +358,11 @@ function DialogFormTemplate({ props, setSelectedFile }) {
             }));
         }
     };
+    useEffect(() => {
+        if (props) {
+            setFormData(props);
+        }
+    }, [props]);
     return (
         <div className="container">
             <div className="row">
@@ -415,6 +439,12 @@ function DialogFormTemplate({ props, setSelectedFile }) {
                             floatLabelType="Always"
                             format="dd-MMM-yy"
                             max={new Date()}
+                            change={(e) =>
+                                setFormData((prev) => ({
+                                    ...prev,
+                                    last_saledeed_date: e.value,
+                                }))
+                            }
                         />
                         <span className="e-float-line"></span>
                         {/* <label className="e-float-text e-label-top">Last sale date</label> */}
@@ -542,6 +572,7 @@ function DialogFormTemplate({ props, setSelectedFile }) {
                     >
                         <button
                             className="btn"
+                            type="button"
                             onClick={() =>
                                 window.open(`${IMG_PATH}/enquiry/${props.wanted}`, "_blank")
                             }

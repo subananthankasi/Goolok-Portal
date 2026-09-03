@@ -151,7 +151,7 @@ const WholeLocationLayout = ({ eid, id, status, pagetype }) => {
       setEditDialog(false);
       fetchSurveyNo();
     } catch (error) {
-      
+
       setIsLoading(false);
     }
   };
@@ -166,7 +166,7 @@ const WholeLocationLayout = ({ eid, id, status, pagetype }) => {
       const fetchedLocation = response.data?.location;
       setIsLoadingPage(false);
     } catch (error) {
-      
+
       setIsLoadingPage(false);
     }
   };
@@ -299,8 +299,7 @@ const WholeLocationLayout = ({ eid, id, status, pagetype }) => {
                   <th
                     className="text-center"
                     style={{
-                      backgroundColor: "rgb(47, 79, 79)",
-                      color: "#ffff",
+                      backgroundColor: "#f2f2f2",
                       fontWeight: "400",
                     }}
                   >
@@ -310,18 +309,17 @@ const WholeLocationLayout = ({ eid, id, status, pagetype }) => {
                   <th
                     className="text-center"
                     style={{
-                      backgroundColor: "rgb(47, 79, 79)",
-                      color: "#ffff",
+                      backgroundColor: "#f2f2f2",
                       fontWeight: "400",
                     }}
                   >
                     Survey No{" "}
                   </th>
+                  <th className="text-center" style={{ backgroundColor: "#f2f2f2", color: "black", fontWeight: "400" }}>Sub Division </th>
                   <th
                     className="text-center"
                     style={{
-                      backgroundColor: "rgb(47, 79, 79)",
-                      color: "#ffff",
+                      backgroundColor: "#f2f2f2",
                       fontWeight: "400",
                     }}
                   >
@@ -335,13 +333,11 @@ const WholeLocationLayout = ({ eid, id, status, pagetype }) => {
                     <th
                       className="text-center"
                       style={{
-                        backgroundColor: "rgb(47, 79, 79)",
-                        color: "#ffff",
+                        backgroundColor: "#f2f2f2",
                         fontWeight: "400",
                       }}
                     >
-                      {" "}
-                      Actions{" "}
+                      Actions
                     </th>
                   ) : null}
                 </tr>
@@ -352,6 +348,7 @@ const WholeLocationLayout = ({ eid, id, status, pagetype }) => {
                     <tr key={item.id}>
                       <td className="text-center">{index + 1} </td>
                       <td className="text-center">{item.survey_no} </td>
+                      <td className="text-center">{item.sub_division} </td>
                       <td className="text-center"> {item.location} </td>
 
                       {staffid.Login === "staff" &&
@@ -420,7 +417,7 @@ const WholeLocationLayout = ({ eid, id, status, pagetype }) => {
                           <div
                             style={{
                               textAlign: "center",
-                              height: "50px",
+                              // height: "50px",
                               overflow: "hidden",
                             }}
                             className="p-0"
@@ -428,6 +425,10 @@ const WholeLocationLayout = ({ eid, id, status, pagetype }) => {
                             <h6 style={{ fontWeight: "400", fontSize: "15px" }}>
                               {" "}
                               Survey No : {item.survey_no}
+                            </h6>
+                            <h6 style={{ fontWeight: "400", fontSize: "15px" }}>
+                              {" "}
+                              Sub Division : {item.sub_division}
                             </h6>
                             <p>
                               <LocationOnIcon
@@ -443,7 +444,7 @@ const WholeLocationLayout = ({ eid, id, status, pagetype }) => {
                 })}
 
                 {/* Polygon */}
-                <Polygon
+                {/* <Polygon
                   path={surveyData
                     .filter((item) => item.location)
                     .map((item) => {
@@ -459,7 +460,7 @@ const WholeLocationLayout = ({ eid, id, status, pagetype }) => {
                     strokeOpacity: 1,
                     strokeWeight: 2,
                   }}
-                />
+                /> */}
               </GoogleMap>
             </div>
 

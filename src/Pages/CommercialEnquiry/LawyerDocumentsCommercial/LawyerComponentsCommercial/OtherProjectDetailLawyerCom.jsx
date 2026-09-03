@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Button from "@mui/material/Button";
@@ -29,24 +29,8 @@ export const OtherProjectDetailLawyerCom = ({
   const [editDialog, setEditDialog] = useState(false);
   const [getData, setGetData] = useState([]);
 
-  const [limit, setLimit] = React.useState(10);
-  const [page, setPage] = React.useState(1);
 
-  const handleChangeLimit = (dataKey) => {
-    setPage(1);
-    setLimit(dataKey);
-  };
-
-  const data = getData.filter((v, i) => {
-    const start = limit * (page - 1);
-    const end = start + limit;
-    return i >= start && i < end;
-  });
   const onSubmit = async (values) => {
-    const updateData = {
-      details: values,
-    };
-
     try {
       const response = await axios.post(
         `${API_BASE_URL}/shopunitcreate`,
@@ -59,7 +43,7 @@ export const OtherProjectDetailLawyerCom = ({
       );
       Toast({ message: "Successfully Updated", type: "success" });
     } catch (error) {
-      
+
     } finally {
       fetchDetails();
     }
@@ -75,7 +59,7 @@ export const OtherProjectDetailLawyerCom = ({
       }));
       setGetData(data);
     } catch (error) {
-      
+
     }
   };
 
@@ -175,7 +159,7 @@ export const OtherProjectDetailLawyerCom = ({
       Toast({ message: "Successfully Deleted", type: "success" });
       fetchDetails();
     } catch (error) {
-      
+
     } finally {
       fetchDetails();
     }
@@ -183,26 +167,8 @@ export const OtherProjectDetailLawyerCom = ({
     setDeleteDialog(false);
   };
 
-  const deleteUnitsDialogFooter = (
-    <div className=" d-flex gap-3 justify-content-end">
-      <Button
-        variant="outlined"
-        color="error"
-        onClick={() => setDeleteDialog(false)}
-      >
-        No
-      </Button>
-      <Button variant="contained" color="success" onClick={DeleteRow}>
-        Yes
-      </Button>
-    </div>
-  );
   const hideDialog = () => {
     setNewDialog(false);
-    formik.resetForm();
-  };
-  const editHide = () => {
-    setEditDialog(false);
     formik.resetForm();
   };
 
@@ -322,7 +288,7 @@ export const OtherProjectDetailLawyerCom = ({
 
                 {staffid.Login === "staff" &&
                   (status === "pending" || status === "complete") &&
-                  pagetype !== "reminder" && enquiryDoumentData?.status !== "booking" &&(
+                  pagetype !== "reminder" && enquiryDoumentData?.status !== "booking" && (
                     <Column width={80} fixed="right" align="center">
                       <HeaderCell>Action</HeaderCell>
                       <Cell>
@@ -630,9 +596,16 @@ export const OtherProjectDetailLawyerCom = ({
           </div>
 
           <div className="d-flex justify-content-end gap-2 mt-4">
-            <Button variant="contained" color="success" type="submit">
+            {/* <Button variant="contained" color="success" type="submit">
               Save
-            </Button>
+            </Button> */}
+
+            <button
+              className="btn1 me-2"
+              type="submit"
+            >
+              Save
+            </button>
           </div>
         </form>
       </Dialog>

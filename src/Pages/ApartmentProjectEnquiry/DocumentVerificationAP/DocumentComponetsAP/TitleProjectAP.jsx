@@ -1,4 +1,4 @@
-import  { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import Button from "@mui/material/Button";
@@ -65,6 +65,7 @@ const TitleProjectAP = ({ data }) => {
       no_of_2bhk: "",
       no_of_3bhk: "",
       no_of_4bhk: "",
+      location: "",
     },
     validationSchema: yup.object().shape({
       projectname: yup.string().required("project name is required !!"),
@@ -82,6 +83,7 @@ const TitleProjectAP = ({ data }) => {
       no_of_2bhk: yup.string().required("no of 2bhk is required"),
       no_of_3bhk: yup.string().required("no of 3bhk is required"),
       no_of_4bhk: yup.string().required("no of 4bhk is required"),
+      location: yup.string().required("location is required !!"),
     }),
     onSubmit,
   });
@@ -102,10 +104,11 @@ const TitleProjectAP = ({ data }) => {
       formik.setFieldValue("no_of_3bhk", prDetails.no_of_3bhk || "");
       formik.setFieldValue("no_of_4bhk", prDetails.no_of_4bhk || "");
       formik.setFieldValue("id", prDetails.id || "");
+      formik.setFieldValue("location", prDetails.location || "");
     }
   }, [prDetails]);
 
- 
+
 
   return (
     <div className="p-2">
@@ -154,7 +157,7 @@ const TitleProjectAP = ({ data }) => {
                   onBlur={formik.handleBlur}
                 />
                 {formik.errors.developer_name &&
-                formik.touched.developer_name ? (
+                  formik.touched.developer_name ? (
                   <h6 style={{ color: "red", fontSize: "12px" }}>
                     {formik.errors.developer_name}
                   </h6>
@@ -162,11 +165,11 @@ const TitleProjectAP = ({ data }) => {
               </div>
             </div>
           </div>
-           <div className="col-md-6 mb-3 ">
+          <div className="col-md-6 mb-3 ">
             <div className="row">
               <div className="col-4 mb-3 ">
                 <label htmlFor="projectname" className="form-label">
-                 Project Status
+                  Project Status
                 </label>
               </div>
               <div className="col-8 mb-3 ">
@@ -180,7 +183,7 @@ const TitleProjectAP = ({ data }) => {
                   onBlur={formik.handleBlur}
                 />
                 {formik.errors.project_status &&
-                formik.touched.project_status ? (
+                  formik.touched.project_status ? (
                   <h6 style={{ color: "red", fontSize: "12px" }}>
                     {formik.errors.project_status}
                   </h6>
@@ -214,38 +217,38 @@ const TitleProjectAP = ({ data }) => {
               </div>
             </div>
           </div>
-        
-            <div className="col-md-6 mb-3 ">
-              <div className="row">
-                <div className="col-4 mb-3 ">
-                  <label htmlFor="lastName" className="form-label">
-                    RERA No
-                  </label>
-                </div>
-                <div className="col-8 mb-3 ">
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="rerano"
-                    placeholder="Enter rera no..."
-                    value={formik.values.rerano}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                  />
-                  {formik.errors.rerano && formik.touched.rerano ? (
-                    <h6 style={{ color: "red", fontSize: "12px" }}>
-                      {formik.errors.rerano}
-                    </h6>
-                  ) : null}
-                </div>
-              </div>
-            </div>
-    
+
           <div className="col-md-6 mb-3 ">
             <div className="row">
               <div className="col-4 mb-3 ">
                 <label htmlFor="lastName" className="form-label">
-                 Project size (area in unit)
+                  RERA No
+                </label>
+              </div>
+              <div className="col-8 mb-3 ">
+                <input
+                  type="text"
+                  className="form-control"
+                  name="rerano"
+                  placeholder="Enter rera no..."
+                  value={formik.values.rerano}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                />
+                {formik.errors.rerano && formik.touched.rerano ? (
+                  <h6 style={{ color: "red", fontSize: "12px" }}>
+                    {formik.errors.rerano}
+                  </h6>
+                ) : null}
+              </div>
+            </div>
+          </div>
+
+          <div className="col-md-6 mb-3 ">
+            <div className="row">
+              <div className="col-4 mb-3 ">
+                <label htmlFor="lastName" className="form-label">
+                  Project size (area in unit)
                 </label>
               </div>
               <div className="col-8 mb-3 ">
@@ -270,7 +273,7 @@ const TitleProjectAP = ({ data }) => {
             <div className="row">
               <div className="col-4 mb-3 ">
                 <label htmlFor="lastName" className="form-label">
-                 Total no of units
+                  Total no of units
                 </label>
               </div>
               <div className="col-8 mb-3 ">
@@ -295,7 +298,7 @@ const TitleProjectAP = ({ data }) => {
             <div className="row">
               <div className="col-4 mb-3 ">
                 <label htmlFor="lastName" className="form-label">
-                 Total saleable no of units
+                  Total saleable no of units
                 </label>
               </div>
               <div className="col-8 mb-3 ">
@@ -309,7 +312,7 @@ const TitleProjectAP = ({ data }) => {
                   onBlur={formik.handleBlur}
                 />
                 {formik.errors.total_saleable_units &&
-                formik.touched.total_saleable_units ? (
+                  formik.touched.total_saleable_units ? (
                   <h6 style={{ color: "red", fontSize: "12px" }}>
                     {formik.errors.total_saleable_units}
                   </h6>
@@ -317,31 +320,31 @@ const TitleProjectAP = ({ data }) => {
               </div>
             </div>
           </div>
-           <div className="col-md-6 mb-3 ">
-              <div className="row">
-                <div className="col-4 mb-3 ">
-                  <label htmlFor="lastName" className="form-label">
-                    Configurations
-                  </label>
-                </div>
-                <div className="col-8 mb-3 ">
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="configurations"
-                    placeholder="Enter configurations..."
-                    value={formik.values.configurations}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                  />
-                  {formik.errors.configurations && formik.touched.configurations ? (
-                    <h6 style={{ color: "red", fontSize: "12px" }}>
-                      {formik.errors.configurations}
-                    </h6>
-                  ) : null}
-                </div>
+          <div className="col-md-6 mb-3 ">
+            <div className="row">
+              <div className="col-4 mb-3 ">
+                <label htmlFor="lastName" className="form-label">
+                  Configurations
+                </label>
+              </div>
+              <div className="col-8 mb-3 ">
+                <input
+                  type="text"
+                  className="form-control"
+                  name="configurations"
+                  placeholder="Enter configurations..."
+                  value={formik.values.configurations}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                />
+                {formik.errors.configurations && formik.touched.configurations ? (
+                  <h6 style={{ color: "red", fontSize: "12px" }}>
+                    {formik.errors.configurations}
+                  </h6>
+                ) : null}
               </div>
             </div>
+          </div>
           <div className="col-md-6 mb-3 ">
             <div className="row">
               <div className="col-4 mb-3 ">
@@ -367,7 +370,7 @@ const TitleProjectAP = ({ data }) => {
               </div>
             </div>
           </div>
-           <div className="col-md-6 mb-3 ">
+          <div className="col-md-6 mb-3 ">
             <div className="row">
               <div className="col-4 mb-3 ">
                 <label htmlFor="lastName" className="form-label">
@@ -421,7 +424,7 @@ const TitleProjectAP = ({ data }) => {
             <div className="row">
               <div className="col-4 mb-3 ">
                 <label htmlFor="lastName" className="form-label">
-                 No of 4bhk
+                  No of 4bhk
                 </label>
               </div>
               <div className="col-8 mb-3 ">
@@ -442,11 +445,37 @@ const TitleProjectAP = ({ data }) => {
               </div>
             </div>
           </div>
+          <div className="col-md-6 mb-3 ">
+            <div className="row">
+              <div className="col-4 mb-3 ">
+                <label htmlFor="lastName" className="form-label">
+                  Location
+                </label>
+              </div>
+              <div className="col-8 mb-3 ">
+                <input
+                  type="text"
+                  className="form-control"
+                  name="location"
+                  placeholder="Enter location ..."
+                  value={formik.values.location}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                />
+
+                {formik.errors.location && formik.touched.location ? (
+                  <p style={{ color: "red", fontSize: "12px" }}>
+                    {formik.errors.location}
+                  </p>
+                ) : null}
+              </div>
+            </div>
+          </div>
           <div className="text-end gap-3 mb-3">
             {staffid.Login === "staff" &&
               (data.status === "pending" || data.status === "verify") && (
                 <>
-                  <Button
+                  {/* <Button
                     variant="outlined"
                     type="button"
                     color="error"
@@ -457,7 +486,21 @@ const TitleProjectAP = ({ data }) => {
                   </Button>
                   <Button variant="contained" type="submit">
                     {prDetails?.length === 0 ? "Submit" : "Update"}
-                  </Button>
+                  </Button> */}
+                  <button
+                    className="btn1 me-2"
+                    type="button"
+
+                    onClick={() => formik.resetForm()}
+                  >
+                    Clear
+                  </button>
+                  <button
+                    className="btn1 me-2"
+                    type="submit"
+                  >
+                    {prDetails?.length === 0 ? "Submit" : "Update"}
+                  </button>
                 </>
               )}
           </div>

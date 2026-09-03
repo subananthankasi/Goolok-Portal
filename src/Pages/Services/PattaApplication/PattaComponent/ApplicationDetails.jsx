@@ -31,9 +31,9 @@ const ApplicationDetails = ({ eid, id, status, rowId, pagetype }) => {
     const TalukData = useSelector((state) => state.Taluk.TalukData);
     const VillageData = useSelector((state) => state.Village.villageData);
     const SRODetailsData = useSelector((state) => state.SRODetails.SRODetailsData);
-     const enquiryDoumentData = useSelector(
-    (state) => state.Enquiry.enquiryDocument
-  );
+    const enquiryDoumentData = useSelector(
+        (state) => state.Enquiry.enquiryDocument
+    );
 
     useEffect(() => {
         dispatch(fetchDistrict());
@@ -88,7 +88,7 @@ const ApplicationDetails = ({ eid, id, status, rowId, pagetype }) => {
             selector: (row) => row.sro_title,
             sortable: true,
         },
-        ...(staffid.logintype == "staff" && (status === "complete" || status === "pending")) && pagetype !== "reminder" && enquiryDoumentData?.status !=="live" ? [
+        ...(staffid.logintype == "staff" && (status === "complete" || status === "pending")) && pagetype !== "reminder" && enquiryDoumentData?.status !== "live" ? [
             {
                 name: "Actions",
                 cell: (row) => (
@@ -125,7 +125,7 @@ const ApplicationDetails = ({ eid, id, status, rowId, pagetype }) => {
             fetch()
             setDeleteDialog(false)
         } catch (error) {
-            
+
         }
     }
     const handleEdit = (row) => {
@@ -172,7 +172,7 @@ const ApplicationDetails = ({ eid, id, status, rowId, pagetype }) => {
             setGetData(response.data)
             setLoading(false)
         } catch (error) {
-            
+
         } finally {
             setLoading(false)
         }
@@ -400,9 +400,10 @@ const ApplicationDetails = ({ eid, id, status, rowId, pagetype }) => {
                             </div>
                         </div>
                         <div className="d-flex justify-content-end mt-4">
-                            <Button variant="contained" type="submit" disabled={postLoading} >
+                            {/* <Button variant="contained" type="submit" disabled={postLoading} >
                                 {editing ? "Update" : "Submit"}
-                            </Button>
+                            </Button> */}
+                            <button className="btn1" type="submit" disabled={postLoading}> {editing ? "Update" : "Submit"} </button>
                         </div>
                     </form>
                 )}

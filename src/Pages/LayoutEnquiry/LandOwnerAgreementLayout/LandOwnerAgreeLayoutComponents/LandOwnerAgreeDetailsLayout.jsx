@@ -95,7 +95,7 @@ const LandOwnerAgreeDetailsLayout = ({ eid, id, status, pagetype }) => {
       const data = response.data;
       setDetailsData(data);
     } catch (error) {
-      
+
     }
   };
   useEffect(() => {
@@ -117,7 +117,7 @@ const LandOwnerAgreeDetailsLayout = ({ eid, id, status, pagetype }) => {
         setEditDialog(false);
         formik.resetForm();
       } catch (error) {
-        
+
         setPostLoading(false);
       } finally {
         fetch();
@@ -135,7 +135,7 @@ const LandOwnerAgreeDetailsLayout = ({ eid, id, status, pagetype }) => {
         setNewDialog(false);
         formik.resetForm();
       } catch (error) {
-        
+
         setPostLoading(false);
       } finally {
         fetch();
@@ -179,7 +179,7 @@ const LandOwnerAgreeDetailsLayout = ({ eid, id, status, pagetype }) => {
       Toast({ message: "Successfully Deleted", type: "success" });
       fetch();
     } catch (error) {
-      
+
     } finally {
       fetch();
     }
@@ -389,7 +389,7 @@ const LandOwnerAgreeDetailsLayout = ({ eid, id, status, pagetype }) => {
           </div>
 
           <div className="d-flex justify-content-end gap-2 mt-4">
-            <Button
+            {/* <Button
               variant="contained"
               color="success"
               onClick={() => setEditing(false)}
@@ -398,7 +398,9 @@ const LandOwnerAgreeDetailsLayout = ({ eid, id, status, pagetype }) => {
             >
               {" "}
               {postLoading ? "Processing..." : "Save"}{" "}
-            </Button>
+            </Button> */}
+
+            <button className="btn1" type="submit" onClick={() => setEditing(false)}>  {postLoading ? "Processing..." : "Save"}{" "}</button>
           </div>
         </form>
       </Dialog>
@@ -461,7 +463,7 @@ const LandOwnerAgreeDetailsLayout = ({ eid, id, status, pagetype }) => {
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
             /> */}
-            <DatePicker
+            {/* <DatePicker
               placement="topRight"
               name="startdate"
               value={
@@ -478,8 +480,28 @@ const LandOwnerAgreeDetailsLayout = ({ eid, id, status, pagetype }) => {
               }}
               format="DD/MM/YYYY"
               style={{ width: "100%" }}
-              //   disabledDate={(current) => current && current > dayjs()}
               onBlur={formik.handleBlur}
+              getPopupContainer={(triggerNode) => triggerNode.parentNode}
+            /> */}
+            <DatePicker
+              picker="date"
+              format="DD/MM/YYYY"
+              value={
+                formik.values.startdate
+                  ? dayjs(formik.values.startdate)
+                  : null
+              }
+              onChange={(date) => {
+
+
+                formik.setFieldValue(
+                  "startdate",
+                  date ? date.format("YYYY-MM-DD") : ""
+                );
+
+                formik.setFieldValue("closedate", "");
+              }}
+              style={{ width: "100%" }}
               getPopupContainer={(triggerNode) => triggerNode.parentNode}
             />
 
@@ -551,7 +573,7 @@ const LandOwnerAgreeDetailsLayout = ({ eid, id, status, pagetype }) => {
             ) : null}
           </div>
           <div className="d-flex justify-content-end gap-2 mt-4">
-            <Button
+            {/* <Button
               variant="contained"
               color="success"
               onClick={() => setEditing(true)}
@@ -559,7 +581,8 @@ const LandOwnerAgreeDetailsLayout = ({ eid, id, status, pagetype }) => {
               disabled={postLoading}
             >
               {postLoading ? "Processing..." : "Save"}{" "}
-            </Button>
+            </Button> */}
+            <button className="btn1" type="submit" onClick={() => setEditing(true)}>  {postLoading ? "Processing..." : "Save"}{" "}</button>
           </div>
         </form>
       </Dialog>

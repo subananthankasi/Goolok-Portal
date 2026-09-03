@@ -80,9 +80,8 @@ export const PlotLegalOpinion = ({ eid, id, status, pagetype }) => {
         <>
           <button
             type="button"
-            className={`badge rounded-pill btnhover btn p-2 ${row.status === "pending" ? "bg-danger" : "bg-success"
+            className={`${row.status === "pending" ? "badge-danger" : "badge-success"
               } `}
-            style={{ width: "60px" }}
           >
             {row.status}
           </button>
@@ -96,7 +95,7 @@ export const PlotLegalOpinion = ({ eid, id, status, pagetype }) => {
         <>
           <button
             type="button"
-            className="btn-primary btn btn-sm"
+            className="btn-primary btn"
             onClick={() => setIsModalViewInvoice(true)}
           >
             <VisibilityIcon />

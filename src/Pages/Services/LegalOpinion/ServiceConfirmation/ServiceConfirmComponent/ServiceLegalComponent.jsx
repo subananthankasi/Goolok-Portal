@@ -16,7 +16,6 @@ import { DatePicker } from "antd";
 import Common from "../../../../../common/Common";
 import { useSelector } from "react-redux";
 
-
 const ServiceLegalComponent = ({ eid, id, status, pagetype }) => {
   const staffid = JSON.parse(localStorage.getItem("token"));
   const [editing, setEditing] = useState(false);
@@ -27,7 +26,7 @@ const ServiceLegalComponent = ({ eid, id, status, pagetype }) => {
   const [getData, setGetData] = useState([]);
   const { disableBeforeDate } = Common();
   const enquiryDoumentData = useSelector(
-    (state) => state.Enquiry.enquiryDocument
+    (state) => state.Enquiry.enquiryDocument,
   );
   const column1 = [
     {
@@ -53,7 +52,8 @@ const ServiceLegalComponent = ({ eid, id, status, pagetype }) => {
 
     ...(staffid.logintype == "staff" &&
       (status === "complete" || status === "pending") &&
-      pagetype !== "reminder" && enquiryDoumentData?.status !== "live"
+      pagetype !== "reminder" &&
+      enquiryDoumentData?.status !== "live"
       ? [
         {
           name: "Actions",
@@ -90,14 +90,12 @@ const ServiceLegalComponent = ({ eid, id, status, pagetype }) => {
   const handleDelete = async (row) => {
     try {
       const response = await axios.delete(
-        `${API_BASE_URL}/confirmation/${deleteId}`
+        `${API_BASE_URL}/confirmation/${deleteId}`,
       );
       Toast({ message: "Successfully deleted", type: "success" });
       fetch();
       setDeleteDialog(false);
-    } catch (error) {
-
-    }
+    } catch (error) { }
   };
   const handleEdit = (row) => {
     setEditDialog(true);
@@ -106,21 +104,21 @@ const ServiceLegalComponent = ({ eid, id, status, pagetype }) => {
     formik.setFieldValue("remark", row.remark);
     formik.setFieldValue("id", row.id);
   };
-  const [postLoading, setPostLoading] = useState(false)
+  const [postLoading, setPostLoading] = useState(false);
   const onSubmit = async (values) => {
     const payload = {
       ...values,
       eid: eid,
       status: "confirm",
     };
-    setPostLoading(true)
+    setPostLoading(true);
     try {
       const response = await axios.post(
         `${API_BASE_URL}/confirmation`,
-        payload
+        payload,
       );
       fetch();
-      setPostLoading(false)
+      setPostLoading(false);
       if (editing) {
         Toast({ message: "Successfully Updated", type: "success" });
         setEditDialog(false);
@@ -131,7 +129,7 @@ const ServiceLegalComponent = ({ eid, id, status, pagetype }) => {
       formik.resetForm();
     } catch (error) {
       Toast({ message: "Failed to save", type: "error" });
-      setPostLoading(false)
+      setPostLoading(false);
     }
   };
   const fetch = async () => {
@@ -142,12 +140,10 @@ const ServiceLegalComponent = ({ eid, id, status, pagetype }) => {
           headers: {
             "Gl-Status": "confirm",
           },
-        }
+        },
       );
       setGetData(response.data);
-    } catch (error) {
-
-    }
+    } catch (error) { }
   };
   useEffect(() => {
     fetch();
@@ -176,7 +172,8 @@ const ServiceLegalComponent = ({ eid, id, status, pagetype }) => {
               <div className="d-flex justify-content-end">
                 {staffid.logintype == "staff" &&
                   (status === "complete" || status === "pending") &&
-                  pagetype !== "reminder" && enquiryDoumentData?.status !== "live" && (
+                  pagetype !== "reminder" &&
+                  enquiryDoumentData?.status !== "live" && (
                     <div className="ms-2">
                       <a
                         href="#"
@@ -236,7 +233,7 @@ const ServiceLegalComponent = ({ eid, id, status, pagetype }) => {
               onChange={(date) => {
                 formik.setFieldValue(
                   "lastdate",
-                  date ? date?.format("YYYY-MM-DD") : ""
+                  date ? date?.format("YYYY-MM-DD") : "",
                 );
                 formik.setFieldValue("nextdate", "");
               }}
@@ -298,7 +295,7 @@ const ServiceLegalComponent = ({ eid, id, status, pagetype }) => {
               onChange={(date) =>
                 formik.setFieldValue(
                   "nextdate",
-                  date ? date?.format("YYYY-MM-DD") : ""
+                  date ? date?.format("YYYY-MM-DD") : "",
                 )
               }
               format="DD/MM/YYYY"
@@ -322,14 +319,17 @@ const ServiceLegalComponent = ({ eid, id, status, pagetype }) => {
             ) : null}
           </div>
           <div className="d-flex justify-content-end mt-4">
-            <Button
+            {/* <Button
               variant="contained"
               type="submit"
               onClick={() => setEditing(false)}
               disabled={postLoading}
             >
               {postLoading ? "Processing..." : "Submit"}
-            </Button>
+            </Button> */}
+            <button className="btn1" onClick={() => setEditing(false)} disabled={postLoading}>
+              {postLoading ? "Processing..." : "Submit"}
+            </button>
           </div>
         </form>
       </Dialog>
@@ -363,7 +363,7 @@ const ServiceLegalComponent = ({ eid, id, status, pagetype }) => {
               onChange={(date) => {
                 formik.setFieldValue(
                   "lastdate",
-                  date ? date?.format("YYYY-MM-DD") : ""
+                  date ? date?.format("YYYY-MM-DD") : "",
                 );
                 formik.setFieldValue("nextdate", "");
               }}
@@ -425,7 +425,7 @@ const ServiceLegalComponent = ({ eid, id, status, pagetype }) => {
               onChange={(date) =>
                 formik.setFieldValue(
                   "nextdate",
-                  date ? date?.format("YYYY-MM-DD") : ""
+                  date ? date?.format("YYYY-MM-DD") : "",
                 )
               }
               format="DD/MM/YYYY"
@@ -449,14 +449,17 @@ const ServiceLegalComponent = ({ eid, id, status, pagetype }) => {
             ) : null}
           </div>
           <div className="d-flex justify-content-end mt-4">
-            <Button
+            {/* <Button
               variant="contained"
               type="submit"
               onClick={() => setEditing(true)}
               disabled={postLoading}
             >
               {postLoading ? "Processing..." : "Update"}
-            </Button>
+            </Button> */}
+            <button className="btn1" onClick={() => setEditing(false)} disabled={postLoading}>
+              {postLoading ? "Processing..." : "Update"}
+            </button>
           </div>
         </form>
       </Dialog>

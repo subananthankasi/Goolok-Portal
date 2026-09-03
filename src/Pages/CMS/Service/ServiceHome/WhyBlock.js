@@ -13,6 +13,7 @@ import API_BASE_URL, { IMG_PATH } from "../../../../Api/api";
 import Toast from "../../../../Utils/Toast";
 import customStyle from "../../../../Utils/tableStyle";
 import OpenPreviewImage from "../../../../Utils/OpenPreviewImage";
+import { Switch } from 'antd';
 
 const WhyBlock = () => {
   const [newDialog, setNewDialog] = useState(false);
@@ -82,6 +83,12 @@ const WhyBlock = () => {
       width: "150px"
     },
     {
+      name: "Theme",
+      selector: (row) => row.theme,
+      sortable: true,
+      width: "150px"
+    },
+    {
       name: "Status",
       selector: (row) => row.status,
       sortable: true,
@@ -127,6 +134,7 @@ const WhyBlock = () => {
     formik.setFieldValue("image", row.image || "");
     formik.setFieldValue("old_image", row.image || "");
     formik.setFieldValue("description", row.description || "");
+    formik.setFieldValue("theme", row.theme || "");
     formik.setFieldValue("status", row.status || "");
   };
 
@@ -146,6 +154,7 @@ const WhyBlock = () => {
 
   const onSubmit = async (values) => {
     setIsSubmitting(true);
+    values.theme = values.theme || "light";
     try {
       const response = await axios.post(`${API_BASE_URL}/visionblock`, values, {
         headers: { "Content-Type": "multipart/form-data" },
@@ -171,6 +180,7 @@ const WhyBlock = () => {
       title: "",
       status: "",
       old_image: "",
+      theme: "light",
     },
     validationSchema: yup.object().shape({
       image: yup.string().required("image is required!"),
@@ -312,7 +322,7 @@ const WhyBlock = () => {
 
             <div className="col-md-12 mb-3">
               <label htmlFor="description" className="form-label">
-                Discribtion
+                Description
               </label>
               <textarea
                 name="description"
@@ -369,6 +379,16 @@ const WhyBlock = () => {
                   {formik.errors.button_url}
                 </small>
               )}
+            </div>
+
+            <div>
+              <label htmlFor="mx-1" className="form-label mx-1">Dark Theme :</label>
+              <Switch
+                checked={formik.values.theme === "dark"}
+                onChange={(checked) => {
+                  formik.setFieldValue("theme", checked ? "dark" : "light");
+                }}
+              />
             </div>
 
             <div className="mb-3">

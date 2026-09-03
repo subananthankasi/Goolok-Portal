@@ -1,23 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useFormik } from "formik";
 import * as yup from "yup";
 import Button from "@mui/material/Button";
-import DatePicker from "react-datepicker";
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchState } from '../../../../Redux/Actions/MasterPage/StateAction';
-import { fetchDistrict } from '../../../../Redux/Actions/MasterPage/DistrictAction';
-import { fetchTaluk } from '../../../../Redux/Actions/MasterPage/TalukAction';
-import { fetchVillage } from '../../../../Redux/Actions/MasterPage/VillageAction';
 import Toast from '../../../../Utils/Toast';
 import axios from 'axios';
 import API_BASE_URL from '../../../../Api/api';
-import Spinner from "react-bootstrap/Spinner";
+
 
 const TitleProjectDetailsApart = ({ data }) => {
     const staffid = JSON.parse(localStorage.getItem("token"));
-    const dispatch = useDispatch();
-
-
 
 
     const [prDetails, setPrDetails] = useState([])
@@ -78,7 +69,8 @@ const TitleProjectDetailsApart = ({ data }) => {
             commonarea: "",
             superarea: "",
             uds: "",
-            carparking: ""
+            carparking: "",
+            location: ""
         },
         validationSchema: yup.object().shape({
             projectname: yup.string().required("projectname is required !!"),
@@ -91,7 +83,7 @@ const TitleProjectDetailsApart = ({ data }) => {
             superarea: yup.string().required("super built up area is required !!"),
             uds: yup.string().required("uds is required !!"),
             carparking: yup.string().required("car parking is required !!"),
-
+            location: yup.string().required("location is required !!"),
         }),
         onSubmit,
     });
@@ -112,8 +104,8 @@ const TitleProjectDetailsApart = ({ data }) => {
             formik.setFieldValue("superarea", prDetails.super_area)
             formik.setFieldValue("uds", prDetails.uds_size)
             formik.setFieldValue("carparking", prDetails.parking)
+            formik.setFieldValue("location", prDetails.location)
             formik.setFieldValue("id", prDetails.id)
-
         }
     }, [prDetails])
 
@@ -552,16 +544,46 @@ const TitleProjectDetailsApart = ({ data }) => {
                             </div>
                         </div>
                     </div>
+                    <div className="col-md-6 mb-3 ">
+                        <div className="row">
+                            <div className="col-4 mb-3 ">
+                                <label htmlFor="lastName" className="form-label">
+                                    Location
+                                </label>
+                            </div>
+                            <div className="col-8 mb-3 ">
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    name="location"
+                                    placeholder="Enter location ..."
+                                    value={formik.values.location}
+                                    onChange={formik.handleChange}
+                                    onBlur={formik.handleBlur}
+                                />
+
+                                {formik.errors.location && formik.touched.location ? (
+                                    <p style={{ color: "red", fontSize: "12px" }}>
+                                        {formik.errors.location}
+                                    </p>
+                                ) : null}
+                            </div>
+                        </div>
+                    </div>
 
                     <div className="text-end gap-3">
                         {staffid.Login === "staff" && (data.status === "pending" || data.status === "verify") && (
                             <>
-                                <Button variant="outlined" type="button" color="error" className='me-2' onClick={() => formik.resetForm()} >
+                                <div className="d-flex justify-content-end gap-2">
+                                    <button type="button" className="btn1" onClick={() => formik.resetForm()}> Cancel</button>
+                                    <button type="submit " className="btn1"> Next</button>
+                                </div>
+                                {/* <Button variant="outlined" type="button" color="error" className='me-2' onClick={() => formik.resetForm()} >
                                     Clear
                                 </Button>
                                 <Button variant="contained" type="submit"  >
                                     Next
-                                </Button>
+                                </Button> */}
                             </>
                         )}
                     </div>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Button from "@mui/material/Button";
@@ -14,7 +14,7 @@ const { Column, ColumnGroup, HeaderCell, Cell } = Table;
 
 export const LandProjectdetailLawyerCom = ({ eid, id, status, pagetype }) => {
   const staffid = JSON.parse(localStorage.getItem("token"));
-   const enquiryDoumentData = useSelector(
+  const enquiryDoumentData = useSelector(
     (state) => state.Enquiry.enquiryDocument
   );
   const [newDialog, setNewDialog] = useState(false);
@@ -23,24 +23,9 @@ export const LandProjectdetailLawyerCom = ({ eid, id, status, pagetype }) => {
   const [editDialog, setEditDialog] = useState(false);
   const [getData, setGetData] = useState([]);
 
-  const [limit, setLimit] = React.useState(10);
-  const [page, setPage] = React.useState(1);
 
-  const handleChangeLimit = (dataKey) => {
-    setPage(1);
-    setLimit(dataKey);
-  };
-
-  const data = getData.filter((v, i) => {
-    const start = limit * (page - 1);
-    const end = start + limit;
-    return i >= start && i < end;
-  });
   const [postLoading, setPostLoading] = useState(false)
   const onSubmit = async (values) => {
-    const updateData = {
-      details: values,
-    };
     setPostLoading(true)
     try {
       const response = await axios.post(
@@ -74,7 +59,7 @@ export const LandProjectdetailLawyerCom = ({ eid, id, status, pagetype }) => {
       }));
       setGetData(data);
     } catch (error) {
-      
+
     }
   };
 
@@ -135,7 +120,7 @@ export const LandProjectdetailLawyerCom = ({ eid, id, status, pagetype }) => {
       Toast({ message: "Successfully Deleted", type: "success" });
       fetchDetails();
     } catch (error) {
-      
+
     } finally {
       fetchDetails();
     }
@@ -143,26 +128,9 @@ export const LandProjectdetailLawyerCom = ({ eid, id, status, pagetype }) => {
     setDeleteDialog(false);
   };
 
-  const deleteUnitsDialogFooter = (
-    <div className=" d-flex gap-3 justify-content-end">
-      <Button
-        variant="outlined"
-        color="error"
-        onClick={() => setDeleteDialog(false)}
-      >
-        No
-      </Button>
-      <Button variant="contained" color="success" onClick={DeleteRow}>
-        Yes
-      </Button>
-    </div>
-  );
+
   const hideDialog = () => {
     setNewDialog(false);
-    formik.resetForm();
-  };
-  const editHide = () => {
-    setEditDialog(false);
     formik.resetForm();
   };
 
@@ -206,7 +174,7 @@ export const LandProjectdetailLawyerCom = ({ eid, id, status, pagetype }) => {
               <h6 className="text-center">Project Details</h6>
               {staffid.Login === "staff" &&
                 (status === "pending" || status === "complete") &&
-                pagetype !== "reminder" && enquiryDoumentData?.status !== "booking" &&(
+                pagetype !== "reminder" && enquiryDoumentData?.status !== "booking" && (
                   <button className="btn1" onClick={() => setNewDialog(true)}>
                     {" "}
                     Add{" "}
@@ -319,7 +287,7 @@ export const LandProjectdetailLawyerCom = ({ eid, id, status, pagetype }) => {
                 </Column> */}
                 {staffid.Login === "staff" &&
                   (status === "pending" || status === "complete") &&
-                  pagetype !== "reminder" && enquiryDoumentData?.status !== "booking" &&(
+                  pagetype !== "reminder" && enquiryDoumentData?.status !== "booking" && (
                     <Column width={80} fixed="right" align="center">
                       <HeaderCell>Action</HeaderCell>
                       <Cell>
@@ -742,9 +710,17 @@ export const LandProjectdetailLawyerCom = ({ eid, id, status, pagetype }) => {
           </div>
 
           <div className="d-flex justify-content-end gap-2 mt-4">
-            <Button variant="contained" color="success" type="submit" disabled={postLoading} >
+            {/* <Button variant="contained" color="success" type="submit" disabled={postLoading} >
               {postLoading ? "Processing..." : "Save"}
-            </Button>
+            </Button> */}
+
+            <button
+              className="btn1 me-2"
+              type="submit"
+              disabled={postLoading}
+            >
+              {postLoading ? "Processing..." : "Save"}
+            </button>
           </div>
         </form>
       </Dialog>
@@ -1207,8 +1183,8 @@ export const LandProjectdetailLawyerCom = ({ eid, id, status, pagetype }) => {
           </div>
 
           <div className="d-flex justify-content-end gap-2 mt-4">
-            <Button variant="contained" color="success" type="submit" disabled = {postLoading} >
-            {postLoading ? "Updating...":"Update"}
+            <Button variant="contained" color="success" type="submit" disabled={postLoading} >
+              {postLoading ? "Updating..." : "Update"}
             </Button>
           </div>
         </form>

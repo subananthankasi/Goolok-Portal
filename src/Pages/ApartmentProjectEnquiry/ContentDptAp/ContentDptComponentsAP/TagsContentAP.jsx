@@ -239,10 +239,15 @@ const TagsContentAP = ({ eid, id, status }) => {
                                 <div className="d-flex justify-content-end gap-2 mt-4">
 
                                     <div>
-                                        <Button variant="contained" type="submit" >
+                                        {/* <Button variant="contained" type="submit" >
                                             Save
-                                        </Button>
-                                        {/* <Button label="Submit" icon="pi pi-upload" type="submit" size="small" style={{ borderRadius: '7px' }} /> */}
+                                        </Button> */}
+                                        <button
+                                            className="btn1 me-2"
+                                            type="submit"
+                                        >
+                                            Save
+                                        </button>
                                     </div>
                                 </div>
                             )}

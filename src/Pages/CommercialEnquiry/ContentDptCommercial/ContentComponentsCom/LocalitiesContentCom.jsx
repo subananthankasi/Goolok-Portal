@@ -247,6 +247,19 @@ const LocalitiesContentCom = ({ eid, id, status }) => {
     formik.setFieldValue("description", row.description);
     formik.setFieldValue("location", row.location);
     formik.setFieldValue("id", row.id);
+
+    if (row.location) {
+      const [lat, lng] = row.location.split(",").map(Number);
+
+      const position = { lat, lng };
+
+      setClickedLatLng(position);
+
+      if (map) {
+        map.panTo(position);
+        map.setZoom(15);
+      }
+    }
   };
 
   const column1 = [
@@ -265,7 +278,7 @@ const LocalitiesContentCom = ({ eid, id, status }) => {
       selector: (row) => row.title,
       sortable: true,
     },
-    ...((status === "pending" || status === "complete") && staffid.Login == "staff" && enquiryDoumentData?.status !== "booking"
+    ...((status === "pending" || status === "complete") && staffid.Login === "staff" && enquiryDoumentData?.status !== "booking"
       ? [
         {
           name: "Actions",
@@ -295,7 +308,7 @@ const LocalitiesContentCom = ({ eid, id, status }) => {
   ];
   const deleteUnitsDialogFooter = (
     <div className=" d-flex gap-3 justify-content-end">
-      <Button
+      {/* <Button
         label="No"
         icon="pi pi-times"
         outlined
@@ -308,7 +321,19 @@ const LocalitiesContentCom = ({ eid, id, status }) => {
         severity="danger"
         style={{ borderRadius: "7px" }}
         onClick={handleDelete}
-      />
+      /> */}
+      <button
+        className="btn1"
+        onClick={() => setDeleteDialog(false)}
+      >
+        Cancel
+      </button>
+      <button
+        className="btn1"
+        onClick={handleDelete}
+      >
+        Delete
+      </button>
     </div>
   );
   const hideDeleteProductsDialog = () => {
@@ -355,6 +380,8 @@ const LocalitiesContentCom = ({ eid, id, status }) => {
   useEffect(() => {
     fetchSurveyNo();
   }, []);
+
+
   const [handleMarker, setHandleMarker] = useState(null);
   const handleMarking = (index) => {
     setHandleMarker(index);
@@ -581,9 +608,22 @@ const LocalitiesContentCom = ({ eid, id, status }) => {
             </div>
           </div>
           <div className="d-flex justify-content-end gap-2 mt-4">
-            <Button variant="outlined" color="error" onClick={clearForm} >Clear</Button>
-            <Button variant="contained" type="submit" onClick={() => setEditing(false)}>Submit</Button>
-
+            {/* <Button variant="outlined" color="error" onClick={clearForm} >Clear</Button>
+            <Button variant="contained" type="submit" onClick={() => setEditing(false)}>Submit</Button> */}
+            <button
+              className="btn1 me-2"
+              type="button"
+              onClick={clearForm}
+            >
+              Clear
+            </button>
+            <button
+              className="btn1 me-2"
+              type="submit"
+              onClick={() => setEditing(false)}
+            >
+              Submit
+            </button>
           </div>
         </form>
       </Dialog>
@@ -662,7 +702,7 @@ const LocalitiesContentCom = ({ eid, id, status }) => {
             </div>
 
             <div>
-              {status === "pending" && (
+              {(status === "pending" || status === "complete") && (
                 <div className="form-group mt-3">
                   <div className="row mb-3 align-items-center">
                     <div className="col-2">
@@ -787,7 +827,14 @@ const LocalitiesContentCom = ({ eid, id, status }) => {
                 onClick={() => setEditing(true)}
               />
             </div> */}
-            <Button variant="contained" type="submit" onClick={() => setEditing(true)}>Update</Button>
+            {/* <Button variant="contained" type="submit" onClick={() => setEditing(true)}>Update</Button> */}
+            <button
+              className="btn1 me-2"
+              type="submit"
+              onClick={() => setEditing(true)}
+            >
+              Update
+            </button>
           </div>
         </form>
       </Dialog>

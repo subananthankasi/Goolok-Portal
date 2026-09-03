@@ -1,5 +1,5 @@
 import { useFormik } from "formik";
-import  { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import API_BASE_URL from "../../../../Api/api";
 import axios from "axios";
 import Toast from "../../../../Utils/Toast";
@@ -12,9 +12,9 @@ import { useSelector } from "react-redux";
 
 const NearbyMarketResearch = ({ eid, status, marketid, pagetype }) => {
     const [nearByData, setNearByData] = useState([]);
- const enquiryDoumentData = useSelector(
-    (state) => state.Enquiry.enquiryDocument
-  );
+    const enquiryDoumentData = useSelector(
+        (state) => state.Enquiry.enquiryDocument
+    );
     const staffid = JSON.parse(localStorage.getItem("token"));
 
     // tab 1 ------------------------------------------------------------------------------------------------------
@@ -130,7 +130,7 @@ const NearbyMarketResearch = ({ eid, status, marketid, pagetype }) => {
         },
         ...(staffid.logintype == "staff" &&
             (status === "complete" || status === "pending") &&
-            pagetype !== "reminder"&& enquiryDoumentData?.status !=="booking"
+            pagetype !== "reminder" && enquiryDoumentData?.status !== "booking"
             ? [
                 {
                     name: "Actions",
@@ -332,10 +332,10 @@ const NearbyMarketResearch = ({ eid, status, marketid, pagetype }) => {
             <div className="d-flex justify-content-end mt-4 mb-3">
                 {staffid.logintype == "staff" &&
                     (status === "pending" || status === "complete") &&
-                    pagetype !== "reminder" && enquiryDoumentData?.status !=="booking" ?  (
-                    <a href="#0" onClick={() => setNewDialog(true)} className="btn1 me-2">
+                    pagetype !== "reminder" && enquiryDoumentData?.status !== "booking" ? (
+                    <button onClick={() => setNewDialog(true)} className="btn1 me-2">
                         + Add
-                    </a>
+                    </button>
                 ) : null}
             </div>
 

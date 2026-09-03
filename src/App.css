@@ -6,7 +6,11 @@
   height: 40vmin;
   pointer-events: none;
 }
-
+:root {
+  --bg-light-primary: #8fc1f2;
+  --bg-primary: #0962c5;
+  --btn-color: white;
+}
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
@@ -65,4 +69,5 @@
   font-size: 9px !important;
   color: red !important;
 }
+
 

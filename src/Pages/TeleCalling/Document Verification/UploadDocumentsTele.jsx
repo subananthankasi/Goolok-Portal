@@ -98,14 +98,14 @@ const UploadDocumentsTele = ({ eid, id }) => {
     },
 
     {
-      name: "View/Upload",
+      name: "View & Upload",
       cell: (row) => (
         <>
           <div className="d-flex gap-2">
             {row.document ? (
               <button
                 type="button"
-                className="btn btn-warning rounded-0"
+                className="btn btn-primary"
                 onClick={() =>
                   viewFileUrl(`${IMG_PATH}/enquiry/${row.document}`)
                 }
@@ -113,7 +113,7 @@ const UploadDocumentsTele = ({ eid, id }) => {
                 <RemoveRedEyeIcon />
               </button>
             ) : (
-              <button type="button" className="btn btn-primary rounded-0">
+              <button type="button" className="btn btn-primary">
                 <VisibilityOffIcon />
               </button>
             )}
@@ -121,7 +121,7 @@ const UploadDocumentsTele = ({ eid, id }) => {
             {staffid.logintype === "staff" && (
               <button
                 type="button"
-                className="btn btn-info rounded-0 ms-2"
+                className="btn btn-primary"
                 onClick={() => {
                   openAddDocModal();
                   setUploadDocData(row);

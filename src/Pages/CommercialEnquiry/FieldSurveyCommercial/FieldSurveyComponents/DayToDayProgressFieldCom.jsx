@@ -49,7 +49,7 @@ const DayToDayProgressFieldCom = (props) => {
           name: "Actions",
           cell: (row) => (
             <>
-              {row.user_type == "survey" && (
+              {row.user_type === "survey" && (
                 <div className="d-flex">
                   <button
                     className="btn btn-outline-info me-1 edit"

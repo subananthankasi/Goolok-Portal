@@ -44,7 +44,7 @@ const PaymentScheduleDaysLayout = ({ eid, status, pagetype }) => {
   }, []);
 
   const getValues = useSelector(
-    (state) => state.paymentScheduleEnqData.get?.data
+    (state) => state.paymentScheduleEnqData.get?.data,
   );
 
   const option = useSelector((state) => state.paymentSchedule.get?.data);
@@ -149,6 +149,8 @@ const PaymentScheduleDaysLayout = ({ eid, status, pagetype }) => {
       </Button>
     </div>
   );
+
+  
   const hideDialog = () => {
     setNewDialog(false);
     formik.resetForm();
@@ -205,7 +207,7 @@ const PaymentScheduleDaysLayout = ({ eid, status, pagetype }) => {
   const [rowData, setRowData] = useState([]);
   const [buttonShow, setButtonShow] = useState(false);
   const enquiryDoumentData = useSelector(
-    (state) => state.Enquiry.enquiryDocument
+    (state) => state.Enquiry.enquiryDocument,
   );
   const column1 = [
     {
@@ -288,7 +290,8 @@ const PaymentScheduleDaysLayout = ({ eid, status, pagetype }) => {
 
     ...(staffid.logintype == "staff" &&
       (status === "complete" || status === "pending") &&
-      pagetype !== "reminder" && enquiryDoumentData?.status !== "booking"
+      pagetype !== "reminder" &&
+      enquiryDoumentData?.status !== "booking"
       ? [
         {
           name: "Edit",
@@ -331,13 +334,13 @@ const PaymentScheduleDaysLayout = ({ eid, status, pagetype }) => {
     if (editId) {
       const oldValue = parseFloat(
         installmentData.find((item) => item.id === editId)
-          ?.percentage_of_amount || 0
+          ?.percentage_of_amount || 0,
       );
 
       const adjustedTotal =
         installmentData.reduce(
           (sum, item) => sum + parseFloat(item.percentage_of_amount || 0),
-          0
+          0,
         ) -
         oldValue +
         valueNum;
@@ -345,7 +348,7 @@ const PaymentScheduleDaysLayout = ({ eid, status, pagetype }) => {
       if (adjustedTotal > 100) {
         formik1.setFieldError(
           "percentage_of_amount",
-          "The total percentage cannot exceed 100%"
+          "The total percentage cannot exceed 100%",
         );
         return;
       }
@@ -359,21 +362,21 @@ const PaymentScheduleDaysLayout = ({ eid, status, pagetype }) => {
               percentage_of_amount: values.percentage_of_amount,
               days: values.days,
             }
-            : item
-        )
+            : item,
+        ),
       );
       setEditId(null);
       setButtonShow(false);
     } else {
       const totalPercentage = installmentData.reduce(
         (sum, item) => sum + parseFloat(item.percentage_of_amount || 0),
-        0
+        0,
       );
 
       if (totalPercentage + valueNum > 100) {
         formik1.setFieldError(
           "percentage_of_amount",
-          "The total percentage cannot exceed 100%"
+          "The total percentage cannot exceed 100%",
         );
         return;
       }
@@ -385,7 +388,7 @@ const PaymentScheduleDaysLayout = ({ eid, status, pagetype }) => {
         days: values.days,
       };
       setInstallmentData((prev) =>
-        Array.isArray(prev) ? [...prev, newEntry] : [newEntry]
+        Array.isArray(prev) ? [...prev, newEntry] : [newEntry],
       );
     }
 
@@ -431,9 +434,7 @@ const PaymentScheduleDaysLayout = ({ eid, status, pagetype }) => {
           }
 
           installments = Array.isArray(parsed) ? parsed : [];
-        } catch (e) {
-
-        }
+        } catch (e) { }
       }
       if (installments.length > 0) {
         setInstallmentData(installments);
@@ -450,11 +451,11 @@ const PaymentScheduleDaysLayout = ({ eid, status, pagetype }) => {
       fetchData(rowId);
     }
   }, [rowId]);
-const [postLoading,setPostLoading] = useState(false)
+  const [postLoading, setPostLoading] = useState(false);
   const handleInstallmentFinalSubmit = async () => {
     const totalPercentage = installmentData.reduce(
       (sum, item) => sum + (parseFloat(item.percentage_of_amount) || 0),
-      0
+      0,
     );
 
     if (totalPercentage < 100) {
@@ -470,23 +471,24 @@ const [postLoading,setPostLoading] = useState(false)
       details: installmentData,
       id: rowId,
     };
-    setPostLoading(true)
+    setPostLoading(true);
     try {
       const response = await axios.post(
         `${API_BASE_URL}/addinstallment`,
-        payload
+        payload,
       );
       fetchData(rowId);
       dispatch(paymentSchedulEnqGetThunk(eid));
       setInstallmentView(false);
-      setPostLoading(false)
-    } catch (error) { 
-      setPostLoading(false)
+      setPostLoading(false);
+    } catch (error) {
+      setPostLoading(false);
     }
   };
 
   const isSubmitDisabled =
-    loading || postLoading ||
+    loading ||
+    postLoading ||
     installmentData.length === 0 ||
     installmentData.some((item) => !item.percentage_of_amount || !item.days);
 
@@ -502,7 +504,7 @@ const [postLoading,setPostLoading] = useState(false)
             !item.percentage_of_amount ||
             String(item.percentage_of_amount).trim() === "" ||
             !item.days ||
-            String(item.days).trim() === ""
+            String(item.days).trim() === "",
         )));
 
   return (
@@ -514,7 +516,8 @@ const [postLoading,setPostLoading] = useState(false)
               <h6>Payment Schedule</h6>
               {staffid.logintype == "staff" &&
                 (status === "complete" || status === "pending") &&
-                pagetype !== "reminder" && enquiryDoumentData?.status !== "booking" && (
+                pagetype !== "reminder" &&
+                enquiryDoumentData?.status !== "booking" && (
                   <div className="ms-2">
                     <button
                       href="#"
@@ -758,15 +761,19 @@ const [postLoading,setPostLoading] = useState(false)
                             alignItems: "center",
                           }}
                         >
-                          <Button
-                            variant="contained"
-                            color="success"
-                            size="small"
-                            type="button"
-                            onClick={formik1.handleSubmit}
-                          >
+                          {/* <Button
+                          variant="contained"
+                          color="success"
+                          size="small"
+                          type="button"
+                          onClick={formik1.handleSubmit}
+                        >
+                          Add
+                        </Button> */}
+
+                          <button className="btn1 me-2" type="button" onClick={formik1.handleSubmit}>
                             Add
-                          </Button>
+                          </button>
                         </div>
                       )}
                     </div>
@@ -777,7 +784,19 @@ const [postLoading,setPostLoading] = useState(false)
               </section>
             )}
           <div className="d-flex justify-content-end gap-2 mt-4">
-            <div>
+            <button className="btn1 me-2" type="button" onClick={cancelDialog}>
+              Cancel
+            </button>
+            <button
+              className="btn1"
+              type="submit"
+              onClick={() => setEditing(false)}
+              disabled={isAddSubmitDisabled}
+            >
+              {" "}
+              Save
+            </button>
+            {/* <div>
               <Button variant="outlined" onClick={cancelDialog}>
                 {" "}
                 Cancel{" "}
@@ -792,7 +811,7 @@ const [postLoading,setPostLoading] = useState(false)
               >
                 Save
               </Button>
-            </div>
+            </div> */}
           </div>
         </form>
       </Dialog>

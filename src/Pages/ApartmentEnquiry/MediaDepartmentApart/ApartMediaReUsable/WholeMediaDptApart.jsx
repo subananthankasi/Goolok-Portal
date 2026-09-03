@@ -1,4 +1,3 @@
-import { useRef } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { ThreeDots } from "react-loader-spinner";
@@ -15,9 +14,6 @@ const WholeMediaDptApart = ({ eid, id, status, pagetype }) => {
     const staffid = JSON.parse(localStorage.getItem("token"));
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const toast = useRef()
-
-
 
     const confirmLoading = useSelector((state) => state.mediaDptConfirm?.loading)
     const handleConfirm = async () => {
@@ -57,7 +53,7 @@ const WholeMediaDptApart = ({ eid, id, status, pagetype }) => {
                                 <AddAttachmentsApart eid={eid} id={id} status={status} pagetype={pagetype} />
                             </TabPanel>
                         </TabView>
-                        {(staffid.logintype == "staff") && status === "pending" && pagetype !== "reminder" && (
+                        {(staffid.logintype === "staff") && status === "pending" && pagetype !== "reminder" && (
                             <div className="text-end mt-3">
                                 <button
                                     onClick={handleConfirm}

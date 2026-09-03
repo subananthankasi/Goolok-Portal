@@ -31,7 +31,6 @@ import { projectStatusThunk } from "../../../Redux/Actions/ProjectThunk/ProjectS
 import { encryptData } from "../../../Utils/encrypt";
 import { ThreeDots } from "react-loader-spinner";
 
-
 const VerifyProperty = () => {
   const { eid, id, status } = useParams();
 
@@ -39,7 +38,7 @@ const VerifyProperty = () => {
   const [loading, setLoading] = useState(true);
   const [confirmDialog, setConfirmDialog] = useState(false);
   const [enqId, setEnqId] = useState("");
-  const [propertyType, setPropetyType] = useState("")
+  const [propertyType, setPropetyType] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -63,11 +62,8 @@ const VerifyProperty = () => {
     }
   }
 
-
-  console.log("data", propertyType?.toLowerCase())
-
   const onSubmit = async (values) => {
-    setLoading(true)
+    setLoading(true);
     const payload = {
       ...values,
       id: enqId.id,
@@ -78,21 +74,25 @@ const VerifyProperty = () => {
       if (propertyType.toLowerCase() === "layout") {
         await axios.post(`${API_BASE_URL}/enquiryreport/layoutstatus`, payload);
       }
-      else {
+      if (propertyType.toLowerCase() === "apartment project") {
+        await axios.post(
+          `${API_BASE_URL}/enquiryreport/apartmentprstatus`,
+          payload,
+        );
+      } else {
         await axios.post(`${API_BASE_URL}/enquiryreport/status`, payload);
       }
       fetchData();
-      setLoading(false)
+      setLoading(false);
       setTimeout(() => {
         dispatch(projectStatusThunk());
       }, 2000);
       setVisible(false);
       Toast({ message: "Succefully Updated", type: "success" });
     } catch (error) {
-      setLoading(false)
-    }
-    finally {
-      setLoading(false)
+      setLoading(false);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -116,7 +116,7 @@ const VerifyProperty = () => {
               return !!value;
             }
             return true;
-          }
+          },
         )
         .test(
           "numbers-only-if-live",
@@ -126,18 +126,17 @@ const VerifyProperty = () => {
               return /^[0-9]+$/.test(value || "");
             }
             return true;
-          }
+          },
         ),
     }),
     onSubmit,
   });
 
   function gridUrlTemplate(props) {
-
     return (
       <Link
         to={`/view_details/${encryptData(props.id)}/${encryptData(
-          props.subpro_name
+          props.subpro_name,
         )}/${encryptData(props.property_type)}`}
         className="btn btn_pdf light btn-warning text-dark"
       >
@@ -145,7 +144,7 @@ const VerifyProperty = () => {
       </Link>
     );
   }
-  console.log("enqqqq", propertyType)
+
   const renderStatusButton = (props) => {
     return (
       <button
@@ -154,7 +153,7 @@ const VerifyProperty = () => {
         onClick={() => {
           setVisible(true);
           setEnqId(props);
-          setPropetyType(props.property_type)
+          setPropetyType(props.property_type);
         }}
       >
         <KeyboardDoubleArrowRightIcon /> Pending
@@ -173,7 +172,6 @@ const VerifyProperty = () => {
       setLoading(false);
     } catch (error) {
       setLoading(false);
-
     }
   };
   useEffect(() => {
@@ -380,7 +378,6 @@ const VerifyProperty = () => {
                 setVisible(false);
                 formik.resetForm();
               }}
-
             >
               Cancel
             </Button>
@@ -402,7 +399,6 @@ const VerifyProperty = () => {
               ) : (
                 "SUbmit"
               )}
-
             </Button>
           </div>
         </form>

@@ -12,6 +12,9 @@ import { Dialog } from "primereact/dialog";
 import Stack from "@mui/material/Stack";
 import MuiButton from "@mui/material/Button";
 import OpenPreviewImage from "../../../Utils/OpenPreviewImage";
+import { Switch } from 'antd';
+import SectionTitle from "./SectionTitle";
+
 
 const PremiumProperties = () => {
   const [newDialog, setNewDialog] = useState(false);
@@ -24,6 +27,7 @@ const PremiumProperties = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [preview, setPreview] = useState(false)
   const [previewUrl, setPreviwUrl] = useState(null)
+  const [titlemodal, setTitlemodal] = useState(false);
 
   const handlePreview = (row) => {
     setPreview(true)
@@ -69,10 +73,16 @@ const PremiumProperties = () => {
       sortable: false,
     },
     {
+      name: "Theme",
+      selector: (row) => row.theme,
+      sortable: true,
+    },
+    {
       name: "Status",
       selector: (row) => row.status,
       sortable: true,
     },
+
 
     {
       name: "Actions",
@@ -115,6 +125,7 @@ const PremiumProperties = () => {
     setPreviewImage(`${IMG_PATH}/cms/premiumproperties/${row.image}`);
     formik.setFieldValue("image", row.image || "");
     formik.setFieldValue("old_image", row.image || "");
+    formik.setFieldValue("theme", row.theme || "");
     formik.setFieldValue("status", row.status || "");
   };
 
@@ -159,6 +170,7 @@ const PremiumProperties = () => {
 
   const onSubmit = async (values) => {
     setIsSubmitting(true);
+    values.theme = values.theme || "light";
     try {
       const response = await axios.post(
         `${API_BASE_URL}/premiumproperties`,
@@ -191,6 +203,7 @@ const PremiumProperties = () => {
       image: "",
       status: "",
       property_id: [],
+      theme: "light",
       // old_image:""
     },
     // validationSchema: yup.object().shape({
@@ -230,22 +243,38 @@ const PremiumProperties = () => {
 
   return (
     <>
+      <SectionTitle
+        visible={titlemodal}
+        setVisible={setTitlemodal}
+        section="premiumProperties"
+      />
       <OpenPreviewImage preview={preview} setPreview={setPreview} url={previewUrl} />
       <section className="section">
         <div className="container">
           <div className="card">
             <div className="card-header">
               <div className="d-flex justify-content-between">
-                <h4 className="page_heading">PremiumProperties View Table</h4>
-                <button
-                  type="button"
-                  className="btn1"
-                  onClick={() => {
-                    setNewDialog(true);
-                  }}
-                >
-                  Add
-                </button>
+                <h4 className="page_heading">Premium Properties Reports</h4>
+                <div className="d-flex gap-2">
+                  <button
+                    type="button"
+                    className="btn1"
+                    onClick={() => {
+                      setTitlemodal(true);
+                    }}
+                  >
+                    Add Title
+                  </button>
+                  <button
+                    type="button"
+                    className="btn1"
+                    onClick={() => {
+                      setNewDialog(true);
+                    }}
+                  >
+                    Add
+                  </button>
+                </div>
               </div>
             </div>
             <div className="card-body">
@@ -274,7 +303,7 @@ const PremiumProperties = () => {
         }}
       >
         <Modal.Header>
-          <Modal.Title>PremiumProperties </Modal.Title>
+          <Modal.Title>Premium Properties </Modal.Title>
         </Modal.Header>
 
         <Modal.Body
@@ -451,6 +480,15 @@ const PremiumProperties = () => {
               {formik.errors.image && formik.touched.image && (
                 <small className="text-danger">{formik.errors.image}</small>
               )}
+            </div>
+            <div>
+              <label htmlFor="mx-1" className="form-label mx-1">Dark Theme :</label>
+              <Switch
+                checked={formik.values.theme === "dark"}
+                onChange={(checked) => {
+                  formik.setFieldValue("theme", checked ? "dark" : "light");
+                }}
+              />
             </div>
 
             <div className="mb-3">

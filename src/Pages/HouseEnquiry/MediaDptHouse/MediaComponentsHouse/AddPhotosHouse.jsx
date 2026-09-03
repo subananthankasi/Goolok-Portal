@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import customStyle from "../../../../Utils/tableStyle";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -145,7 +145,6 @@ const AddPhotosHouse = ({ eid, status, pagetype }) => {
         } else {
             try {
                 const response = await dispatch(mediaPostPhotoThunk(values));
-
                 if (mediaPostPhotoThunk.fulfilled.match(response)) {
                     const message = response.payload.data;
                     setPhotoDialog(false);
@@ -180,10 +179,7 @@ const AddPhotosHouse = ({ eid, status, pagetype }) => {
         setPhotoDialog(false);
         formik.resetForm();
     };
-    const hideEditDialog = () => {
-        setEditDialog(false);
-        formik.resetForm();
-    };
+
     const handleEdit = (row) => {
         setEditDialog(true);
         formik.setFieldValue("notes", row.notes);
@@ -193,6 +189,7 @@ const AddPhotosHouse = ({ eid, status, pagetype }) => {
         formik.setFieldValue("file", row.gallery);
         setUrl(imgFileUrl);
     };
+
     const column1 = [
         {
             name: "S.no",
@@ -215,6 +212,7 @@ const AddPhotosHouse = ({ eid, status, pagetype }) => {
                             controls
                             className="mt-1 mb-1 rounded-circle"
                             src={imgFileUrl}
+                            alt="add img"
                         />
                     );
                 } else {
@@ -307,17 +305,16 @@ const AddPhotosHouse = ({ eid, status, pagetype }) => {
 
             <div className="mt-2">
                 <div className="d-flex justify-content-end mb-3">
-                    {(status == "pending" || status == "complete") &&
+                    {(status === "pending" || status === "complete") &&
                         staffid.Login === "staff" &&
                         pagetype !== "reminder" && enquiryDoumentData?.status !== "booking" && (
                             <div className="ms-2">
-                                <a
-                                    href="#"
+                                <button
                                     onClick={() => setPhotoDialog(true)}
                                     className="btn1 me-2"
                                 >
                                     + Add
-                                </a>
+                                </button>
                             </div>
                         )}
                 </div>

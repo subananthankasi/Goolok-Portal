@@ -133,7 +133,7 @@ const CompleteInv = () => {
                                                     <ColumnDirective
                                                         field="customer"
                                                         headerText="Customer Name"
-                                                        width="150"
+                                                        width="170"
                                                     />
                                                     <ColumnDirective
                                                         field='age'
@@ -153,9 +153,8 @@ const CompleteInv = () => {
                                                         template={(props) => (
                                                             <button
                                                                 type="button"
-                                                                className={`badge rounded-pill btnhover btn1 badge1 p-2 ${props.status === "success" ? "bg-success" : "bg-danger"
+                                                                className={`${props.status === "success" ? "badge-success" : "badge-danger"
                                                                     }`}
-                                                                style={{ width: "60px" }}
                                                             >
                                                                 {props.status}
                                                             </button>

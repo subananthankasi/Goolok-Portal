@@ -518,7 +518,9 @@ const PattaDetailsLayout = ({ data, setStep }) => {
             {staffid.Login === "staff" &&
               (data.status === "pending" || data.status === "verify") && (
                 <>
-                  <Button
+                  <button className="btn1 me-2" type="button"  onClick={() => formik.resetForm()}>Clear</button>
+                  <button className="btn1" type="submit"> Next</button>
+                  {/* <Button
                     variant="outlined"
                     type="button"
                     color="error"
@@ -529,7 +531,7 @@ const PattaDetailsLayout = ({ data, setStep }) => {
                   </Button>
                   <Button variant="contained" type="submit">
                     Next
-                  </Button>
+                  </Button> */}
                 </>
               )}
           </div>

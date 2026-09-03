@@ -240,7 +240,7 @@ const LandOwnerDraftHouse = ({ eid, id, status, sub_property, pagetype }) => {
         <>
           <a
             href={`${IMG_PATH}/enquiry/agreement/${row.document}`}
-            className="btn btn-warning ms-2"
+            className="btn btn-primary"
             download="download"
             target="_blank"
             rel="noopener noreferrer"
@@ -258,9 +258,8 @@ const LandOwnerDraftHouse = ({ eid, id, status, sub_property, pagetype }) => {
         <>
           <button
             type="button"
-            className={`badge btn rounded-pill btnhover btn p-2 ${row.status === "pending" ? "bg-danger" : "bg-success"
+            className={`${row.status === "pending" ? "badge-danger" : "badge-success"
               }`}
-            style={{ width: "60px" }}
           >
             {row.status}
           </button>
@@ -1666,7 +1665,27 @@ const LandOwnerDraftHouse = ({ eid, id, status, sub_property, pagetype }) => {
               {staffid.Login === "staff" &&
                 (status === "pending" || status === "complete") && (
                   <>
-                    <Button
+                    <button type="submit" className="btn1" onClick={() => setIsEditing(false)} disabled={loading}>
+                      {loading ? (
+                        <ThreeDots
+                          visible={true}
+                          height="25"
+                          width="55"
+                          color="#ffffff"
+                          radius="18"
+                          ariaLabel="three-dots-loading"
+                          wrapperStyle={{
+                            justifyContent: "center",
+                            fontSize: "12px",
+                          }}
+                          wrapperClass=""
+                        />
+                      ) : (
+                        "Save "
+                      )}
+                    </button>
+
+                    {/* <Button
                       variant="contained"
                       type="submit"
                       onClick={() => setIsEditing(false)}
@@ -1689,7 +1708,7 @@ const LandOwnerDraftHouse = ({ eid, id, status, sub_property, pagetype }) => {
                       ) : (
                         "Save "
                       )}
-                    </Button>
+                    </Button> */}
                   </>
                 )}
             </div>

@@ -530,7 +530,7 @@ const PattaDetailsAP = ({ data, setStep }) => {
             {staffid.Login === "staff" &&
               (data.status === "pending" || data.status === "verify") && (
                 <>
-                  <Button
+                  {/* <Button
                     variant="outlined"
                     type="button"
                     color="error"
@@ -541,7 +541,21 @@ const PattaDetailsAP = ({ data, setStep }) => {
                   </Button>
                   <Button variant="contained" type="submit">
                     Next
-                  </Button>
+                  </Button> */}
+                  <button
+                    className="btn1 me-2"
+                    type="button"
+
+                    onClick={() => formik.resetForm()}
+                  >
+                    Clear
+                  </button>
+                  <button
+                    className="btn1 me-2"
+                    type="submit"
+                  >
+                    Save
+                  </button>
                 </>
               )}
           </div>

@@ -756,7 +756,7 @@ const PaymentInstallmentLand = ({ eid, status, pagetype }) => {
                                                         alignItems: "center",
                                                     }}
                                                 >
-                                                    <Button
+                                                    {/* <Button
                                                         variant="contained"
                                                         color="success"
                                                         size="small"
@@ -764,7 +764,8 @@ const PaymentInstallmentLand = ({ eid, status, pagetype }) => {
                                                         onClick={formik1.handleSubmit}
                                                     >
                                                         Add
-                                                    </Button>
+                                                    </Button> */}
+                                                      <button type="button" className="btn1" onClick={formik1.handleSubmit}> Add</button>
                                                 </div>
                                             )}
                                         </div>
@@ -775,7 +776,12 @@ const PaymentInstallmentLand = ({ eid, status, pagetype }) => {
                             </section>
                         )}
                     <div className="d-flex justify-content-end gap-2 mt-4">
-                        <div>
+                        <div className="d-flex justify-content-end gap-2">
+                            <button type="button" className="btn1" onClick={cancelDialog}> Cancel</button>
+                            <button type="submit " className="btn1" onClick={() => setEditing(false)}
+                                disabled={isAddSubmitDisabled} > Save</button>
+                        </div>
+                        {/* <div>
                             <Button variant="outlined" onClick={cancelDialog}>
                                 {" "}
                                 Cancel{" "}
@@ -790,7 +796,7 @@ const PaymentInstallmentLand = ({ eid, status, pagetype }) => {
                             >
                                 Save
                             </Button>
-                        </div>
+                        </div> */}
                     </div>
                 </form>
             </Dialog>

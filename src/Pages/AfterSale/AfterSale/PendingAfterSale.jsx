@@ -64,7 +64,7 @@ const PendingAfterSale = () => {
             case "DefaultExport_csvexport":
                 gridInstance.csvExport();
                 break;
-                default:
+            default:
                 break;
         }
     }
@@ -81,6 +81,7 @@ const PendingAfterSale = () => {
         return (
             <Link
                 className="btn btn_pdf light btn-warning text-dark"
+                to={`/aftersale/${encryptData(props.enqid)}/${encryptData(props.id)}/${encryptData("pending")}/${encryptData(props.bid)}/${encryptData(props.booking_no)}/${encryptData(props.block_id)}`}
             >
                 {props.booking_no}
             </Link>
@@ -89,7 +90,6 @@ const PendingAfterSale = () => {
     }
     return (
         <>
-
             <section className="section1">
                 <div className=" ">
                     <div className="row">

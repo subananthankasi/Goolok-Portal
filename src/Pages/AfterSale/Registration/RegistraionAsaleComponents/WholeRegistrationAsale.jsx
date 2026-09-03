@@ -97,7 +97,7 @@ const WholeRegistrationAsale = ({
 
   const handleDelete = async (row) => {
     try {
-       await axios.delete(
+      await axios.delete(
         `${API_BASE_URL}/confirmation/${deleteId}`
       );
       Toast({ message: "Successfully deleted", type: "success" });
@@ -286,7 +286,7 @@ const WholeRegistrationAsale = ({
     };
     setPostLoading(true)
     try {
-       await axios.post(
+      await axios.post(
         `${API_BASE_URL}/registration`,
         payload
       );
@@ -388,7 +388,7 @@ const WholeRegistrationAsale = ({
     };
     setVisibleLoading(true)
     try {
-       await axios.post(`${API_BASE_URL}/regstatus`, payload, {
+      await axios.post(`${API_BASE_URL}/regstatus`, payload, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -556,14 +556,13 @@ const WholeRegistrationAsale = ({
               status === "pending" &&
               pagetype !== "reminder" && (
                 <div className="mt-3 ms-2 mx-4 mb-3 text-end">
-                  <Button
-                    variant="contained"
-                    endIcon={<SendIcon />}
+                  <button
+                    className="btn1"
                     onClick={() => setIsVerifyConfirm(true)}
                     disabled={confirmLoading}
                   >
                     {confirmLoading ? "Processing..." : "Confirm"}
-                  </Button>
+                  </button>
                 </div>
               )}
           </div>
@@ -1018,14 +1017,14 @@ const WholeRegistrationAsale = ({
           </div>
 
           <div className="d-flex justify-content-end mt-4">
-            <Button
-              variant="contained"
+            <button
+              className="btn1"
               type="submit"
               onClick={() => setEditing(false)}
               disabled={postLoading}
             >
               {postLoading ? "Processing..." : "Submit"}
-            </Button>
+            </button>
           </div>
         </form>
       </Dialog>
@@ -1435,14 +1434,14 @@ const WholeRegistrationAsale = ({
           </div>
 
           <div className="d-flex justify-content-end mt-4">
-            <Button
-              variant="contained"
+            <button
+              className="btn1"
               type="submit"
               onClick={() => setEditing(true)}
               disabled={postLoading}
             >
               {postLoading ? "Processing..." : "Update"}
-            </Button>
+            </button>
           </div>
         </form>
       </Dialog>
@@ -1463,16 +1462,16 @@ const WholeRegistrationAsale = ({
         </div>
 
         <div className="d-flex justify-content-end mt-3 gap-3">
-          <Button
-            variant="outlined"
+          <button
+            className="btn1"
             color="error"
             onClick={() => setDeleteDialog(false)}
           >
             No
-          </Button>
-          <Button variant="contained" onClick={handleDelete}>
+          </button>
+          <button className="btn1" onClick={handleDelete}>
             Yes
-          </Button>
+          </button>
         </div>
       </Dialog>
 
@@ -1592,9 +1591,9 @@ const WholeRegistrationAsale = ({
           >
             No
           </Button> */}
-            <Button variant="contained" type="submit" disabled={visibleLoading}>
+            <button className="btn1" type="submit" disabled={visibleLoading}>
               {visibleLoading ? "Processing..." : "Submit"}
-            </Button>
+            </button>
           </div>
         </form>
       </Dialog>

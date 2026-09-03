@@ -38,7 +38,7 @@ const CompleteAfterSale = () => {
             case "DefaultExport_csvexport":
                 gridInstance.csvExport();
                 break;
-                default:
+            default:
                 break;
         }
     }
@@ -93,12 +93,14 @@ const CompleteAfterSale = () => {
         return (
             <Link
                 className="btn btn_pdf light btn-warning text-dark"
+                to={`/aftersale/${encryptData(props.enqid)}/${encryptData(props.id)}/${encryptData("pending")}/${encryptData(props.bid)}/${encryptData(props.booking_no)}/${encryptData(props.block_id)}`}
             >
                 {props.booking_no}
             </Link>
 
         );
     }
+
     return (
         <>
             <section className="section1">

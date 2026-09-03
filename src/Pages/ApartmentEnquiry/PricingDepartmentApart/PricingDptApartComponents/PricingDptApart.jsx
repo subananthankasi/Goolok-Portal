@@ -141,7 +141,12 @@ const PricingDptApart = ({ eid, status, id, pagetype, discountPage }) => {
     },
     validationSchema: yup.object().shape({
       charges: yup.string().required("pricing type is required!!"),
-      price: yup.string().required("Price is required!!"),
+      // price: yup.string().required("Price is required!!"),
+      price: yup.number()
+        .typeError("Price must be a number")
+        .positive("Negative values not allowed")
+        .required("Price is required")
+
     }),
     onSubmit,
   });
@@ -279,9 +284,10 @@ const PricingDptApart = ({ eid, status, id, pagetype, discountPage }) => {
 
 
   const handleInputNumberChange = (e) => {
-    const inputNumberValue = e.value;
+    const inputNumberValue = e.target.value;
     formik.setFieldValue("inputNumber", inputNumberValue);
-    const updatedValue = `${e.value}/${formik.values.unit} `;
+    // const updatedValue = `${e.target.value}/${formik.values.unit} `;
+    const updatedValue = `${inputNumberValue}/${enquiryDoumentData?.land_units}`;
     setCombinedValue(updatedValue);
   };
 
@@ -353,7 +359,7 @@ const PricingDptApart = ({ eid, status, id, pagetype, discountPage }) => {
                       Edit Pricing
                     </button>
                   )}
-                {staffid.Login === "admin" &&
+                {/* {staffid.Login === "admin" &&
                   discountPage === "discount" &&
                   pagetype !== "reminder" && (
                     <Button
@@ -365,7 +371,7 @@ const PricingDptApart = ({ eid, status, id, pagetype, discountPage }) => {
                     >
                       Discount
                     </Button>
-                  )}
+                  )} */}
               </div>
               <hr />
               <div>
@@ -429,6 +435,7 @@ const PricingDptApart = ({ eid, status, id, pagetype, discountPage }) => {
         modal
         className="p-fluid"
         closable={false}
+        focusOnShow={false}
       >
         <div className=" container w-100">
           {/* <div > */}
@@ -479,7 +486,7 @@ const PricingDptApart = ({ eid, status, id, pagetype, discountPage }) => {
                 <div className="row">
                   <div className="col-3 mt-2" style={{ height: "40px" }}>
                     <label
-                      htmlFor="unit"
+                      htmlFor="charges"
                       className="font-bold"
                       style={{ fontSize: "13px" }}
                     >
@@ -495,7 +502,7 @@ const PricingDptApart = ({ eid, status, id, pagetype, discountPage }) => {
                       style={{ height: "40px" }}
                       autoFocus={false}
                     >
-                      <option value={""}>Select Pricing Type</option>
+                      <option value={""}>--Select Pricing Type--</option>
                       {getOption?.map((item) => {
                         return (
                           <option value={item.charges_name} key={item.id}>
@@ -518,7 +525,7 @@ const PricingDptApart = ({ eid, status, id, pagetype, discountPage }) => {
                             placeholder=""
                             className="form-control"
                             value={formik.values.inputNumber}
-                            onValueChange={handleInputNumberChange}
+                            onChange={handleInputNumberChange}
                           />
 
                           <InputGroup.Addon>
@@ -540,10 +547,16 @@ const PricingDptApart = ({ eid, status, id, pagetype, discountPage }) => {
                     <input
                       id="price"
                       name="price"
-                      type="number"
+                      type="text"
                       className="form-control mt-1"
                       value={formik.values.price}
-                      onChange={formik.handleChange}
+                      // onChange={formik.handleChange}
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        if (/^\d*$/.test(value)) {
+                          formik.setFieldValue("price", value);
+                        }
+                      }}
                       onBlur={formik.handleBlur}
                       placeholder="Enter Price"
                       style={{ height: "40px" }}
@@ -567,7 +580,10 @@ const PricingDptApart = ({ eid, status, id, pagetype, discountPage }) => {
 
           {/* </div> */}
 
-          <div className="d-flex gap-3 justify-content-end mt-3">
+          <div className="d-flex gap-2 justify-content-end mt-3">
+            <button type="button" className="btn1" onClick={clear}>
+              Cancel
+            </button>
             <button className="btn1" onClick={handleFormSubmit} disabled={postLoading} >
               {postLoading ? (
                 <ThreeDots
@@ -587,9 +603,7 @@ const PricingDptApart = ({ eid, status, id, pagetype, discountPage }) => {
                 "Confirm "
               )}
             </button>
-            <button className="btn1" onClick={clear}>
-              Cancel
-            </button>
+
           </div>
         </div>
       </Dialog>

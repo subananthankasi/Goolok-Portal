@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import Button from "@mui/material/Button";
-// import DatePicker from "react-datepicker";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import axios from "axios";
-import Spinner from "react-bootstrap/Spinner";
 import { fetchState } from "../../../../Redux/Actions/MasterPage/StateAction";
 import { fetchDistrict } from "../../../../Redux/Actions/MasterPage/DistrictAction";
 import { fetchTaluk } from "../../../../Redux/Actions/MasterPage/TalukAction";
@@ -23,30 +21,13 @@ import { DatePicker } from "antd";
 const TitleDetailsCommercial = ({ data, setStep }) => {
   const staffid = JSON.parse(localStorage.getItem("token"));
   const dispatch = useDispatch();
-  const StateData = useSelector((state) => state.State.StateNameData);
-  const DistrictData = useSelector((state) => state.District.districtData);
-  const talukData = useSelector((state) => state.Taluk.TalukData);
-  const VillageData = useSelector((state) => state.Village.villageData);
   const [titeleData, setTitledata] = useState([]);
-
-  const [sroData, setSroData] = useState([]);
-
-  const fetchSro = async () => {
-    try {
-      const response = await axios.get(`${API_BASE_URL}/srodetails`);
-      setSroData(response?.data || []);
-    } catch (error) {
-
-    }
-  };
 
   useEffect(() => {
     dispatch(fetchState());
     dispatch(fetchDistrict());
     dispatch(fetchTaluk());
     dispatch(fetchVillage());
-
-    fetchSro();
   }, [dispatch, data]);
 
   const fetchPatta = async (id) => {
@@ -64,8 +45,6 @@ const TitleDetailsCommercial = ({ data, setStep }) => {
     }
   }, [data]);
 
-  const [isLoading, setIsLoading] = useState(true);
-
   const onSubmit = async (values) => {
     const payload = {
       ...values,
@@ -73,7 +52,7 @@ const TitleDetailsCommercial = ({ data, setStep }) => {
       eid: data.eid,
       pid: null,
     };
-    setIsLoading(true);
+
     try {
       await axios.post(`${API_BASE_URL}/enquirydeed`, payload, {
         headers: {
@@ -81,7 +60,6 @@ const TitleDetailsCommercial = ({ data, setStep }) => {
         },
       });
       Toast({ message: "Successfully Submited", type: "success" });
-      setIsLoading(false);
       setTitledata();
       setTimeout(() => {
         setStep(2);
@@ -90,9 +68,9 @@ const TitleDetailsCommercial = ({ data, setStep }) => {
       alert(error);
     } finally {
       fetchPatta(data.id);
-      setIsLoading(false);
     }
   };
+
   const formik = useFormik({
     initialValues: {
       areatype: "",
@@ -589,7 +567,7 @@ const TitleDetailsCommercial = ({ data, setStep }) => {
             {staffid.Login === "staff" &&
               (data.status === "pending" || data.status === "verify") && (
                 <>
-                  <Button
+                  {/* <Button
                     variant="outlined"
                     type="button"
                     color="error"
@@ -600,7 +578,20 @@ const TitleDetailsCommercial = ({ data, setStep }) => {
                   </Button>
                   <Button variant="contained" type="submit">
                     Next
-                  </Button>
+                  </Button> */}
+                  <button
+                    className="btn1 me-2"
+                    type="button"
+                    onClick={() => formik.resetForm()}
+                  >
+                    Clear
+                  </button>
+                  <button
+                    className="btn1 me-2"
+                    type="submit"
+                  >
+                    Next
+                  </button>
                 </>
               )}
           </div>

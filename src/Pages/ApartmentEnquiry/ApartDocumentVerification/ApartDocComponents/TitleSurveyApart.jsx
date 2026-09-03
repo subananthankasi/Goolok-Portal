@@ -58,8 +58,9 @@ const TitleSurveyApart = ({ data }) => {
     useEffect(() => {
         dispatch(fetchUnit());
         fetchType()
-
     }, [data])
+
+    
     useEffect(() => {
         fetchSurvey();
     }, [data])

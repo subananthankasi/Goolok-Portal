@@ -61,7 +61,7 @@ const Topbar = ({ menuTree }) => {
       {/* User Profile */}
       <Box display="flex" alignItems="center">
         <AccountCircleIcon
-          sx={{ fontSize: 35, cursor: "pointer" }}
+          sx={{ fontSize: 35, cursor: "pointer",color:"#0962c5" }}
           onClick={handleClick}
         />
         {parsedUser && (

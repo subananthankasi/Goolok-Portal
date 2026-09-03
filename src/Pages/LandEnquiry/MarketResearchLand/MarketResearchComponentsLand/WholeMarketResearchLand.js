@@ -738,13 +738,12 @@ export const WholeMarketResearchLand = ({ eid, marketid, status, pagetype }) => 
                     {staffid.logintype === "staff" &&
                       (status === "complete" || status === "pending") &&
                       pagetype !== "reminder" && enquiryDoumentData?.status !== "booking" && (
-                        <a
-                          href="#0"
+                        <button
                           onClick={() => setVisible(true)}
                           className="btn1 me-2"
                         >
                           + Add
-                        </a>
+                        </button>
                       )}
                   </div>
                   <div className="mt-2">
@@ -764,13 +763,12 @@ export const WholeMarketResearchLand = ({ eid, marketid, status, pagetype }) => 
                     {staffid.logintype === "staff" &&
                       (status === "complete" || status === "pending") &&
                       pagetype !== "reminder" && enquiryDoumentData?.status !=="booking" && (
-                        <a
-                          href="#0"
+                        <button
                           onClick={() => setVideosVisible(true)}
                           className="btn1 me-2"
                         >
                           + Add
-                        </a>
+                        </button>
                       )}
                   </div>
 
@@ -1003,13 +1001,12 @@ export const WholeMarketResearchLand = ({ eid, marketid, status, pagetype }) => 
                   {staffid.logintype == "staff" &&
                     (status === "complete" || status == "pending") &&
                     pagetype !== "reminder" && enquiryDoumentData?.status !=="booking" && (
-                      <a
-                        href="#0"
+                      <button
                         onClick={() => setNearVisible(true)}
                         className="btn1 me-2"
                       >
                         + Add
-                      </a>
+                      </button>
                     )}
                 </div>
 
@@ -1031,13 +1028,12 @@ export const WholeMarketResearchLand = ({ eid, marketid, status, pagetype }) => 
                   {staffid.logintype == "staff" &&
                     (status === "complete" || status == "pending") &&
                     pagetype !== "reminder" && enquiryDoumentData?.status !=="booking" && (
-                      <a
-                        href="#0"
+                      <button
                         onClick={() => setNearVideosVisible(true)}
                         className="btn1 me-2"
                       >
                         + Add
-                      </a>
+                      </button>
                     )}
                 </div>
 
@@ -1247,14 +1243,13 @@ export const WholeMarketResearchLand = ({ eid, marketid, status, pagetype }) => 
 
             {staffid.logintype == "staff" && status !== "complete" && (
               <div className="ms-2 text-end mt-4">
-                <a
-                  href="#0"
+                <button
                   onClick={() => setIsVerifyConfirm(true)}
                   className="btn1 me-2"
                   disabled={confirmLoading}
                 >
                   {confirmLoading ? "Processing..." : "Confirm"}
-                </a>
+                </button>
               </div>
             )}
           </div>

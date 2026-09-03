@@ -1,4 +1,4 @@
-import  { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import DataTable from "react-data-table-component";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import Select from "react-select";
@@ -105,7 +105,7 @@ export const LawyerAddDocumentApart = (props) => {
             sortable: true,
         },
         {
-            name: "View",
+            name: "View & Upload",
             width: "180px",
             cell: (row) => (
                 <>
@@ -115,8 +115,7 @@ export const LawyerAddDocumentApart = (props) => {
                                 {row.document ? (
                                     <button
                                         type="button"
-                                        className="btn btn-warning rounded-0"
-                                        style={{ width: "70px" }}
+                                        className="btn btn-primary"
                                         onClick={() =>
                                             viewFileUrl(`${IMG_PATH}/enquiry/${row.document}`)
                                         }
@@ -126,7 +125,7 @@ export const LawyerAddDocumentApart = (props) => {
                                 ) : (
                                     <button
                                         type="button"
-                                        className="btn btn-primary rounded-0"
+                                        className="btn btn-primary"
                                         style={{ width: "70px" }}
                                     >
                                         No data
@@ -139,7 +138,7 @@ export const LawyerAddDocumentApart = (props) => {
                                     staffid.Login === "staff" && enquiryDoumentData?.status !== "booking" && (
                                         <button
                                             type="button"
-                                            className="btn btn-info rounded-0 ms-2"
+                                            className="btn btn-primary ms-2"
                                             onClick={() => {
                                                 openAddDocModal();
                                                 setUploadDocData(row);
@@ -154,7 +153,7 @@ export const LawyerAddDocumentApart = (props) => {
                                 {row.document ? (
                                     <button
                                         type="button"
-                                        className="btn btn-warning rounded-0"
+                                        className="btn btn-primary"
                                         style={{ width: "70px" }}
                                         onClick={() =>
                                             viewFileUrl(`${IMG_PATH}/enquiry/${row.document}`)
@@ -185,7 +184,7 @@ export const LawyerAddDocumentApart = (props) => {
                     {row.upload_type == "lawyer" ? (
                         <button
                             type="button"
-                            className={`btn btn-primary rounded-0`}
+                            className={`btn btn-primary`}
                             style={{ marginLeft: "7px" }}
                             onClick={() => {
                                 if (row.document) {
@@ -204,7 +203,7 @@ export const LawyerAddDocumentApart = (props) => {
                     ) : (
                         <button
                             type="button"
-                            className={`btn btn-primary rounded-0`}
+                            className={`btn btn-primary`}
                             onClick={() => {
                                 if (row.document) {
                                     setIsModalAddMoreView(true);
@@ -226,9 +225,8 @@ export const LawyerAddDocumentApart = (props) => {
                 <>
                     <button
                         type="button"
-                        className={`badge rounded-pill btnhover btn p-2 ${row.status === "verify" ? "bg-success" : "bg-danger"
+                        className={` ${row.status === "verify" ? "badge-success" : "badge-danger"
                             }`}
-                        style={{ width: "60px" }}
                         onClick={() => {
                             if (
                                 row.upload_type === "lawyer" &&
@@ -447,13 +445,12 @@ export const LawyerAddDocumentApart = (props) => {
                                         staffid.Login === "staff" &&
                                         props.data.pagetype !== "reminder" && enquiryDoumentData?.status !== "booking" && (
                                             <div className="ms-2">
-                                                <a
-                                                    href="#"
+                                                <button
                                                     onClick={() => setIsModalAddDocument(true)}
                                                     className="btn1 me-2"
                                                 >
                                                     + Add document
-                                                </a>
+                                                </button>
                                             </div>
                                         )}
                                 </div>

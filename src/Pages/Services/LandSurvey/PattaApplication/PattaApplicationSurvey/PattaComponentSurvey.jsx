@@ -70,8 +70,8 @@ const PattaComponentSurvey = ({ eid, id, status, pagetype }) => {
             cell: (row) => (
                 <>
                     <div className="d-flex">
-                        <Button
-                            variant="outlined"
+                        <button
+                            className="btn btn-primary"
                             onClick={() => {
                                 setFillDialog(true);
                                 setRowId(row.id);
@@ -80,7 +80,7 @@ const PattaComponentSurvey = ({ eid, id, status, pagetype }) => {
                         >
                             {" "}
                             Fill Details{" "}
-                        </Button>
+                        </button>
                     </div>
                 </>
             ),
@@ -126,7 +126,7 @@ const PattaComponentSurvey = ({ eid, id, status, pagetype }) => {
             Toast({ message: "Successfully Deleted", type: "success" });
             setDeleteDialog(false);
         } catch (error) {
-            
+
         }
     };
     const [postLoading, setPostLoading] = useState(false);
@@ -160,7 +160,7 @@ const PattaComponentSurvey = ({ eid, id, status, pagetype }) => {
             const response = await axios.get(`${API_BASE_URL}/pattaApp/${eid}/edit`);
             setGetData(response.data);
         } catch (error) {
-            
+
         }
     };
     useEffect(() => {

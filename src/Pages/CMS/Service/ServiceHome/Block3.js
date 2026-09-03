@@ -14,6 +14,7 @@ import API_BASE_URL, { IMG_PATH } from "../../../../Api/api";
 import Toast from "../../../../Utils/Toast";
 import customStyle from "../../../../Utils/tableStyle";
 import OpenPreviewImage from "../../../../Utils/OpenPreviewImage";
+import { Switch } from 'antd';
 
 const Block3 = () => {
   const [newDialog, setNewDialog] = useState(false);
@@ -73,6 +74,12 @@ const Block3 = () => {
       width: "180px",
     },
     {
+      name: "Theme",
+      selector: (row) => row.theme,
+      sortable: true,
+      width: "180px",
+    },
+    {
       name: "Status",
       selector: (row) => row.status,
       sortable: true,
@@ -118,6 +125,7 @@ const Block3 = () => {
     formik.setFieldValue("old_image", row.image || "");
     formik.setFieldValue("description", row.description || "");
     formik.setFieldValue("status", row.status || "");
+    formik.setFieldValue("theme", row.theme || "");
   };
 
   const fetchRoles = async () => {
@@ -139,6 +147,7 @@ const Block3 = () => {
 
   const onSubmit = async (values) => {
     setIsSubmitting(true);
+    values.theme = values.theme || "light";
     try {
       const response = await axios.post(
         `${API_BASE_URL}/blocksection`,
@@ -168,6 +177,7 @@ const Block3 = () => {
       title: "service_block3",
       status: "",
       old_image: "",
+      theme: "light",
     },
     validationSchema: yup.object().shape({
       image: yup.string().required("image is required!"),
@@ -248,22 +258,7 @@ const Block3 = () => {
           style={{ overflow: "scroll", overflowX: "hidden" }}
         >
           <form onSubmit={formik.handleSubmit}>
-            {/* <div className="mb-3">
-                                                <label htmlFor="image" className="form-label">Banner Image</label>
-                                                <input
-                                                    type="file"
-                                                    className="form-control "
-                                                    id="image"
-                                                    name="image"
-                                                    accept="image/*"
-                                                    onChange={(event) => {
-                                                        formik.setFieldValue("image", event.currentTarget.files[0]);
-                                                    }}
-                                                />
-                                                {formik.errors.image && formik.touched.image && (
-                                                    <small className="text-danger">{formik.errors.image}</small>
-                                                )}
-                                            </div> */}
+
             <div className="mb-3">
               <label htmlFor="image" className="form-label">
                 Banner Image
@@ -341,6 +336,15 @@ const Block3 = () => {
                   {formik.errors.description}
                 </p>
               )}
+            </div>
+            <div>
+              <label htmlFor="mx-1" className="form-label mx-1">Dark Theme :</label>
+              <Switch
+                checked={formik.values.theme === "dark"}
+                onChange={(checked) => {
+                  formik.setFieldValue("theme", checked ? "dark" : "light");
+                }}
+              />
             </div>
             <div className="mb-3">
               <label htmlFor="status" className="form-label">

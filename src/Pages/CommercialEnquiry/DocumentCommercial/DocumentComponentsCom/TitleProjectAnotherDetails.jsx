@@ -1,4 +1,4 @@
-import  { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import Button from "@mui/material/Button";
@@ -202,92 +202,92 @@ const TitleProjectAnotherDetails = ({ data }) => {
             </div>
           </div>
           {data?.property === "Building" && (
-          <div className="col-md-6 mb-3 ">
-            <div className="row">
-              <div className="col-4 mb-3 ">
-                <label htmlFor="lastName" className="form-label">
-                  Car Parking
-                </label>
-              </div>
-              <div className="col-8 mb-3 ">
-                <input
-                  type="text"
-                  className="form-control"
-                  name="carparking"
-                  placeholder="Enter car parking..."
-                  value={formik.values.carparking}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                />
-                {formik.errors.carparking && formik.touched.carparking ? (
-                  <h6 style={{ color: "red", fontSize: "12px" }}>
-                    {formik.errors.carparking}
-                  </h6>
-                ) : null}
+            <div className="col-md-6 mb-3 ">
+              <div className="row">
+                <div className="col-4 mb-3 ">
+                  <label htmlFor="lastName" className="form-label">
+                    Car Parking
+                  </label>
+                </div>
+                <div className="col-8 mb-3 ">
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="carparking"
+                    placeholder="Enter car parking..."
+                    value={formik.values.carparking}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                  {formik.errors.carparking && formik.touched.carparking ? (
+                    <h6 style={{ color: "red", fontSize: "12px" }}>
+                      {formik.errors.carparking}
+                    </h6>
+                  ) : null}
+                </div>
               </div>
             </div>
-          </div>
           )}
-           {data?.property === "Complex" && (
-          <div className="col-md-6 mb-3 ">
-            <div className="row">
-              <div className="col-4 mb-3 ">
-                <label htmlFor="lastName" className="form-label">
-                 No of Car Parking
-                </label>
-              </div>
-              <div className="col-8 mb-3 ">
-                <input
-                  type="text"
-                  className="form-control"
-                  name="no_carparking"
-                  placeholder="Enter no of car parking..."
-                  value={formik.values.no_carparking}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                />
-                {formik.errors.no_carparking && formik.touched.no_carparking ? (
-                  <h6 style={{ color: "red", fontSize: "12px" }}>
-                    {formik.errors.no_carparking}
-                  </h6>
-                ) : null}
+          {data?.property === "Complex" && (
+            <div className="col-md-6 mb-3 ">
+              <div className="row">
+                <div className="col-4 mb-3 ">
+                  <label htmlFor="lastName" className="form-label">
+                    No of Car Parking
+                  </label>
+                </div>
+                <div className="col-8 mb-3 ">
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="no_carparking"
+                    placeholder="Enter no of car parking..."
+                    value={formik.values.no_carparking}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                  {formik.errors.no_carparking && formik.touched.no_carparking ? (
+                    <h6 style={{ color: "red", fontSize: "12px" }}>
+                      {formik.errors.no_carparking}
+                    </h6>
+                  ) : null}
+                </div>
               </div>
             </div>
-          </div>
           )}
-             {data?.property === "Complex" && (
-          <div className="col-md-6 mb-3 ">
-            <div className="row">
-              <div className="col-4 mb-3 ">
-                <label htmlFor="lastName" className="form-label">
-                No. of Two Wheeler Parking
-                </label>
-              </div>
-              <div className="col-8 mb-3 ">
-                <input
-                  type="text"
-                  className="form-control"
-                  name="no_twowheel"
-                  placeholder="Enter no of two wheeler parking..."
-                  value={formik.values.no_twowheel}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                />
-                {formik.errors.no_twowheel && formik.touched.no_twowheel ? (
-                  <h6 style={{ color: "red", fontSize: "12px" }}>
-                    {formik.errors.no_twowheel}
-                  </h6>
-                ) : null}
+          {data?.property === "Complex" && (
+            <div className="col-md-6 mb-3 ">
+              <div className="row">
+                <div className="col-4 mb-3 ">
+                  <label htmlFor="lastName" className="form-label">
+                    No. of Two Wheeler Parking
+                  </label>
+                </div>
+                <div className="col-8 mb-3 ">
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="no_twowheel"
+                    placeholder="Enter no of two wheeler parking..."
+                    value={formik.values.no_twowheel}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                  {formik.errors.no_twowheel && formik.touched.no_twowheel ? (
+                    <h6 style={{ color: "red", fontSize: "12px" }}>
+                      {formik.errors.no_twowheel}
+                    </h6>
+                  ) : null}
+                </div>
               </div>
             </div>
-          </div>
           )}
 
           <div className="text-end gap-3 mb-3">
             {staffid.Login === "staff" &&
               (data.status === "pending" || data.status === "verify") && (
                 <>
-                  <Button
+                  {/* <Button
                     variant="outlined"
                     type="button"
                     color="error"
@@ -298,7 +298,20 @@ const TitleProjectAnotherDetails = ({ data }) => {
                   </Button>
                   <Button variant="contained" type="submit">
                     {prDetails?.id ? "Update" : "Submit"}
-                  </Button>
+                  </Button> */}
+                  <button
+                    className="btn1 me-2"
+                    type="button"
+                    onClick={() => formik.resetForm()}
+                  >
+                    Clear
+                  </button>
+                  <button
+                    className="btn1 me-2"
+                    type="submit"
+                  >
+                    {prDetails?.id ? "Update" : "Submit"}
+                  </button>
                 </>
               )}
           </div>

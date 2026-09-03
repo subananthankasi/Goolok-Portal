@@ -1,12 +1,9 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Dialog } from "primereact/dialog";
 import { useFormik } from "formik";
-import * as yup from "yup";
 import { Checkbox } from "primereact/checkbox";
 import Button from "@mui/material/Button";
 import { useDispatch, useSelector } from "react-redux";
-
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import AddIcon from "@mui/icons-material/Add";
 import {
   paymentScheduleStageEnqGetThunk,
@@ -16,19 +13,9 @@ import Toast from "../../../../Utils/Toast";
 
 const PaymentSchedulePricingCom = ({ eid, id, status, pagetype }) => {
   const [newDialog, setNewDialog] = useState(false);
-  const [isCreateButtonVisible, setIsCreateButtonVisible] = useState(true);
   const staffid = JSON.parse(localStorage.getItem("token"));
 
-  const [initialValues, setInitialValues] = useState({
-    fullPayment: false,
-    payInThree: false,
-    payInFour: false,
-    payInSix: false,
-    bankLoan: false,
-  });
-
   const dispatch = useDispatch();
-
 
   const onSubmit = (values) => {
     const selectedOptions = Object.keys(values).filter(
@@ -101,8 +88,6 @@ const PaymentSchedulePricingCom = ({ eid, id, status, pagetype }) => {
   useEffect(() => {
     localStorage.setItem("isAnyOptionSelected", isAnyOptionSelected);
   }, []);
-
-  const valueFalse = localStorage.getItem("isAnyOptionSelected");
 
   const handleAdd = async () => {
     setNewDialog(true);

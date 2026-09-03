@@ -137,7 +137,7 @@ const CompleteInvoiceLayout = () => {
                                                     <ColumnDirective
                                                         field="customer"
                                                         headerText="Customer Name"
-                                                        width="150"
+                                                        width="170"
                                                     />
                                                     <ColumnDirective
                                                         field='age'
@@ -157,10 +157,8 @@ const CompleteInvoiceLayout = () => {
                                                         template={(props) => (
                                                             <button
                                                                 type="button"
-                                                                className={`badge rounded-pill btnhover btn1 badge1 p-2 ${props.status === "success" ? "bg-success" : "bg-danger"
-                                                                    }`}
-                                                                style={{ width: "60px" }}
-                                                            >
+                                                                className={`${props.status === "success" ? "badge-success" : "badge-danger"
+                                                                    }`}>
                                                                 {props.status}
                                                             </button>
                                                         )}

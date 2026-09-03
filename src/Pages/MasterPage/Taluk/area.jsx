@@ -99,21 +99,6 @@ function Area() {
 
   // submit
   const [errors, setErrors] = useState({});
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   const validationResult = TalukvalidateFormData(formData);
-  //   if (validationResult.isValid) {
-  //     Toast({ message: "Added successfully", type: "success" });
-  //     setFormData({ taluk_name: "", status: "Enable" });
-  //     setErrors({});
-  //     handleResetSelected();
-  //     dispatch(addTaluk([formData]));
-  //   } else {
-  //     setErrors(validationResult.errors);
-  //   }
-  // };
-
   //  edit data
   const { cleanText } = Common()
   const handleSubmit = async (e) => {
@@ -164,18 +149,46 @@ function Area() {
   const [visible, setVisible] = useState(false)
 
   const handleFileUpload = async (event) => {
+    // const file = event.target.files[0];
+    // const binaryStr = await file.arrayBuffer();
+    // const workbook = XLSX.read(binaryStr, { type: "array" });
     const file = event.target.files[0];
-    const binaryStr = await file.arrayBuffer();
-    const workbook = XLSX.read(binaryStr, { type: "array" });
+
+    const data = await file.arrayBuffer();
+
+    const workbook = XLSX.read(data, {
+      type: "array",
+      raw: true,
+    });
 
     const sheetName = workbook.SheetNames[0];
     const sheet = workbook.Sheets[sheetName];
     const jsonData = XLSX.utils.sheet_to_json(sheet, { defval: "" });
+
+    // const cleanedData = jsonData
+    //   .map((item) => ({
+    //     taluk_name: item.taluk?.trim(),
+    //     district_name: item.district?.trim(),
+    //   }))
+
+    //   .filter(
+    //     (row) =>
+    //       row.taluk_name &&
+    //       row.district_name
+    //   )
     const cleanedData = jsonData
       .map((item) => ({
-        taluk_name: item.taluk?.trim(),
+        taluk_name:
+          item.taluk?.trim() ||
+          item.Taluk?.trim() ||
+          item.TALUK?.trim(),
+
+        district_name:
+          item.district?.trim() ||
+          item.District?.trim() ||
+          item.DISTRICT?.trim(),
       }))
-      .filter((row) => row.taluk_name && row.taluk_name.trim() !== "");
+      .filter((row) => row.taluk_name && row.district_name);
     setUploadedData(cleanedData);
 
     const existingDistrict = TalukData.map((x) =>
@@ -198,10 +211,15 @@ function Area() {
     const payload = uploadedData.map(item => ({
       taluk_name: item.taluk_name,
       taluk_state: bulkFormData.taluk_state,
-      taluk_district: bulkFormData.taluk_district,
+      // taluk_district: bulkFormData.taluk_district,
+      taluk_district: item.district_name,
       status: bulkFormData.status,
     }));
-    const validationResult = TalukvalidateFormDatas(payload[0]);
+    // const validationResult = TalukvalidateFormDatas(payload[0]);
+    const validationResult = TalukvalidateFormDatas(
+      bulkFormData,
+      uploadedData
+    );
     if (validationResult.isValid) {
       const res = await dispatch(addTaluk(payload));
       if (res?.success) {
@@ -303,6 +321,10 @@ function Area() {
   ];
 
   const formatColumn = [
+    {
+      name: "District",
+      selector: (row) => row.district,
+    },
     {
       name: "Taluk",
       selector: (row) => row.sno,
@@ -466,7 +488,7 @@ function Area() {
                           />
                         </div>
 
-                        <div className="col-md-12 mb-3 ">
+                        {/* <div className="col-md-12 mb-3 ">
                           <label className="form-label" htmlFor="inputState">
                             District
                           </label>
@@ -474,7 +496,7 @@ function Area() {
                             onSelect={handleDistrictSelect}
                             selectedDistrict={selectedDistrict}
                           />
-                        </div>
+                        </div> */}
 
                         {/* <div className="row">
                           <div className="col-md-12 mb-3 ">
@@ -490,13 +512,14 @@ function Area() {
                         <div className="row">
                           <div className="col-md-12 mb-3 ">
                             <label htmlFor="lastName" className="form-label">
-                              Upload the excel file
+                              Upload the Csv file
                             </label>
                             <input
                               type="file"
                               className="form-control"
                               id="lastName"
                               ref={updata}
+                              accept=".xlsx,.xls,.csv"
                               onChange={handleFileUpload}
                             />
                           </div>
@@ -596,7 +619,7 @@ function Area() {
         header="Duplicate Taluk"
         modal
         className="p-fluid"
-        closable={uploadedData.length === 0 ? true : false}
+        // closable={uploadedData.length === 0 ? true : false}
         dismissableMask={false}
         onHide={() => {
           setVisible(false);

@@ -1788,13 +1788,16 @@ const ProjectDetailsContentLayout = ({
               {staffid.Login === "staff" &&
                 (status === "pending" || status === "complete") && (
                   <>
-                    <Button
+                    {/* <Button
                       variant="contained"
                       type="submit"
                       onClick={() => setIsEditing(true)}
                     >
                       Update
-                    </Button>
+                    </Button> */}
+                    <button className="btn1 me-2" type="submit" onClick={() => setIsEditing(true)}>
+                      Update
+                    </button>
                   </>
                 )}
             </div>

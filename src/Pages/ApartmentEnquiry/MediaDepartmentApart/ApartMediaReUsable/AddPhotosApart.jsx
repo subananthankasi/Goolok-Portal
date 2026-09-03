@@ -128,6 +128,8 @@ const AddPhotosApart = ({ eid, status, pagetype }) => {
             }
         }
     };
+
+
     useEffect(() => {
         dispatch(mediaGetPhotoThunk(eid));
     }, []);
@@ -161,6 +163,8 @@ const AddPhotosApart = ({ eid, status, pagetype }) => {
     const enquiryDoumentData = useSelector(
         (state) => state.Enquiry.enquiryDocument
     );
+
+    
     const column1 = [
         {
             name: "S.no",
@@ -195,8 +199,8 @@ const AddPhotosApart = ({ eid, status, pagetype }) => {
             selector: (row) => row.notes,
             sortable: true,
         },
-        ...(staffid.Login == "staff" &&
-            (status == "pending" || status == "complete") &&
+        ...(staffid.Login === "staff" &&
+            (status === "pending" || status === "complete") &&
             pagetype !== "reminder" && enquiryDoumentData?.status !== "booking"
             ? [
                 {

@@ -230,9 +230,10 @@ const TagsContentApart = ({ eid, id, status }) => {
                                 <div className="d-flex justify-content-end gap-2 mt-4">
 
                                     <div>
-                                        <Button variant="contained" type="submit" >
+                                        {/* <Button variant="contained" type="submit" >
                                             Save
-                                        </Button>
+                                        </Button> */}
+                                        <button type="submit" className="btn1" > Save</button>
                                     </div>
                                 </div>
                             )}

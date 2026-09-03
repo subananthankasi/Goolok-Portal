@@ -10,7 +10,6 @@ import { fetchVillage } from "../../../../Redux/Actions/MasterPage/VillageAction
 import Toast from "../../../../Utils/Toast";
 import axios from "axios";
 import API_BASE_URL from "../../../../Api/api";
-import Spinner from "react-bootstrap/Spinner";
 import { DatePicker } from "antd";
 import dayjs from "dayjs";
 import GeneralState from "../../../../Utils/Dropdown/GeneralState";
@@ -22,30 +21,13 @@ import GeneralSroDropdown from "../../../../Utils/Dropdown/GeneralSroDropdown";
 const TitleDetailsApart = ({ data, setStep }) => {
   const staffid = JSON.parse(localStorage.getItem("token"));
   const dispatch = useDispatch();
-  const StateData = useSelector((state) => state.State.StateNameData);
-  const DistrictData = useSelector((state) => state.District.districtData);
-  const talukData = useSelector((state) => state.Taluk.TalukData);
-  const VillageData = useSelector((state) => state.Village.villageData);
   const [titeleData, setTitledata] = useState([]);
-
-  const [sroData, setSroData] = useState([]);
-
-  const fetchSro = async () => {
-    try {
-      const response = await axios.get(`${API_BASE_URL}/srodetails`);
-      setSroData(response?.data || []);
-    } catch (error) {
-
-    }
-  };
 
   useEffect(() => {
     dispatch(fetchState());
     dispatch(fetchDistrict());
     dispatch(fetchTaluk());
     dispatch(fetchVillage());
-
-    fetchSro();
   }, [dispatch, data]);
 
   const fetchPatta = async (id) => {
@@ -589,7 +571,11 @@ const TitleDetailsApart = ({ data, setStep }) => {
             {staffid.Login === "staff" &&
               (data.status === "pending" || data.status === "verify") && (
                 <>
-                  <Button
+                  <div className="d-flex justify-content-end gap-2">
+                    <button type="button" className="btn1" onClick={() => formik.resetForm()}> Cancel</button>
+                    <button type="submit " className="btn1"> Submit</button>
+                  </div>
+                  {/* <Button
                     variant="outlined"
                     type="button"
                     color="error"
@@ -600,7 +586,7 @@ const TitleDetailsApart = ({ data, setStep }) => {
                   </Button>
                   <Button variant="contained" type="submit">
                     Next
-                  </Button>
+                  </Button> */}
                 </>
               )}
           </div>

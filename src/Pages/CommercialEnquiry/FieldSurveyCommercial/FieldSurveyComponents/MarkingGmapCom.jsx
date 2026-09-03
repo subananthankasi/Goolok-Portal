@@ -123,7 +123,7 @@ const MarkingGmapCom = ({ eid, id, status, pagetype }) => {
             setEditDialog(false);
             fetchSurveyNo();
         } catch (error) {
-            
+
             setIsLoading(false);
         }
     };
@@ -237,8 +237,7 @@ const MarkingGmapCom = ({ eid, id, status, pagetype }) => {
                                     <th
                                         className="text-center"
                                         style={{
-                                            backgroundColor: "rgb(47, 79, 79)",
-                                            color: "#ffff",
+                                            backgroundColor: "#f2f2f2",
                                             fontWeight: "400",
                                         }}
                                     >
@@ -248,8 +247,7 @@ const MarkingGmapCom = ({ eid, id, status, pagetype }) => {
                                     <th
                                         className="text-center"
                                         style={{
-                                            backgroundColor: "rgb(47, 79, 79)",
-                                            color: "#ffff",
+                                            backgroundColor: "#f2f2f2",
                                             fontWeight: "400",
                                         }}
                                     >
@@ -258,8 +256,7 @@ const MarkingGmapCom = ({ eid, id, status, pagetype }) => {
                                     <th
                                         className="text-center"
                                         style={{
-                                            backgroundColor: "rgb(47, 79, 79)",
-                                            color: "#ffff",
+                                            backgroundColor: "#f2f2f2",
                                             fontWeight: "400",
                                         }}
                                     >
@@ -273,8 +270,7 @@ const MarkingGmapCom = ({ eid, id, status, pagetype }) => {
                                         <th
                                             className="text-center"
                                             style={{
-                                                backgroundColor: "rgb(47, 79, 79)",
-                                                color: "#ffff",
+                                                backgroundColor: "#f2f2f2",
                                                 fontWeight: "400",
                                             }}
                                         >

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import customStyle from "../../../../Utils/tableStyle";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -48,6 +48,7 @@ const AddPhotosLayout = ({ eid, status, pagetype }) => {
         setDeleteDialog(true);
         setDeleteId(row.id);
     };
+
     const handleDelete = async () => {
         try {
             const response = await dispatch(mediaDeletePhotoThunk(deleteId));
@@ -65,9 +66,12 @@ const AddPhotosLayout = ({ eid, status, pagetype }) => {
             
         }
     };
+
     const hideDeleteProductsDialog = () => {
         setDeleteDialog(false);
     };
+
+
     const deleteUnitsDialogFooter = (
         <div className="d-flex justify-content-end gap-2 mt-4">
             <Button variant="outlined" onClick={() => setDeleteDialog(false)}>
@@ -159,6 +163,7 @@ const AddPhotosLayout = ({ eid, status, pagetype }) => {
             }
         }
     };
+
     useEffect(() => {
         dispatch(mediaGetPhotoThunk(eid));
     }, []);
@@ -179,10 +184,7 @@ const AddPhotosLayout = ({ eid, status, pagetype }) => {
         setPhotoDialog(false);
         formik.resetForm();
     };
-    const hideEditDialog = () => {
-        setEditDialog(false);
-        formik.resetForm();
-    };
+
     const handleEdit = (row) => {
         setEditDialog(true);
         formik.setFieldValue("notes", row.notes);
@@ -214,6 +216,7 @@ const AddPhotosLayout = ({ eid, status, pagetype }) => {
                             controls
                             className="mt-1 mb-1 rounded-circle"
                             src={imgFileUrl}
+                            alt="file"
                         />
                     );
                 } else {
@@ -226,8 +229,8 @@ const AddPhotosLayout = ({ eid, status, pagetype }) => {
             selector: (row) => row.notes,
             sortable: true,
         },
-        ...(staffid.Login == "staff" &&
-            (status == "pending" || status == "complete") &&
+        ...(staffid.Login === "staff" &&
+            (status === "pending" || status === "complete") &&
             pagetype !== "reminder" && enquiryDoumentData?.status !== "booking"
             ? [
                 {
@@ -306,17 +309,16 @@ const AddPhotosLayout = ({ eid, status, pagetype }) => {
 
             <div className="mt-2">
                 <div className="d-flex justify-content-end mb-3">
-                    {(status == "pending" || status == "complete") &&
+                    {(status === "pending" || status === "complete") &&
                         staffid.Login === "staff" &&
                         pagetype !== "reminder" && enquiryDoumentData?.status !== "booking" && (
                             <div className="ms-2">
-                                <a
-                                    href="#"
+                                <button
                                     onClick={() => setPhotoDialog(true)}
                                     className="btn1 me-2"
                                 >
                                     + Add
-                                </a>
+                                </button>
                             </div>
                         )}
                 </div>

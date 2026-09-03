@@ -192,7 +192,7 @@ export const LandOwnerAgreement = ({ eid, id, status, pagetype }) => {
         <>
           <a
             href={`${IMG_PATH}/enquiry/agreement/${row.agreement_file}`}
-            className="btn btn-warning ms-2"
+            className="btn btn-primary ms-2"
             download="download"
             target="_blank"
             rel="noopener noreferrer"
@@ -211,9 +211,8 @@ export const LandOwnerAgreement = ({ eid, id, status, pagetype }) => {
         <>
           <button
             type="button"
-            className={`badge rounded-pill btnhover btn p-2 ${row.status === "pending" ? "bg-danger" : "bg-success"
+            className={` ${row.status === "pending" ? "badge-danger" : "badge-success"
               }`}
-            style={{ width: "60px" }}
           >
             {row.status}
           </button>

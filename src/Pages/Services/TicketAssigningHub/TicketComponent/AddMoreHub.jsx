@@ -1315,23 +1315,21 @@ const AddMoreHub = ({ isOpen, closeModal, id }) => {
                                     aria-label="customized table"
                                   >
                                     <TableHead
-                                      style={{
-                                        backgroundColor: "rgb(47, 79, 79)",
-                                      }}
+
                                     >
                                       <TableRow>
-                                        <TableCell style={{ color: "white" }}>
+                                        <TableCell >
                                           S.No
                                         </TableCell>
                                         <TableCell
                                           align="right"
-                                          style={{ color: "white" }}
+                                          
                                         >
                                           Survey No
                                         </TableCell>
                                         <TableCell
                                           align="right"
-                                          style={{ color: "white" }}
+                                          
                                         >
                                           Sub Division
                                         </TableCell>
@@ -1340,14 +1338,14 @@ const AddMoreHub = ({ isOpen, closeModal, id }) => {
                                             <>
                                               <TableCell
                                                 align="right"
-                                                style={{ color: "white" }}
+                                                
                                               >
                                                 {" "}
                                                 Old Survey No
                                               </TableCell>
                                               <TableCell
                                                 align="right"
-                                                style={{ color: "white" }}
+                                                
                                               >
                                                 {" "}
                                                 Old Sub Division
@@ -1356,7 +1354,7 @@ const AddMoreHub = ({ isOpen, closeModal, id }) => {
                                           )}
                                         <TableCell
                                           align="right"
-                                          style={{ color: "white" }}
+                                          
                                         >
                                           Hectare-Are
                                         </TableCell>
@@ -1365,7 +1363,7 @@ const AddMoreHub = ({ isOpen, closeModal, id }) => {
                                             id.status === "verify") && (
                                             <TableCell
                                               align="right"
-                                              style={{ color: "white" }}
+                                              
                                             >
                                               Action
                                             </TableCell>

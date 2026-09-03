@@ -21,7 +21,6 @@ import { fetchDoc } from "../../../../Redux/Actions/MasterPage/LawyerDocumentAct
 import ConfirmationModal from "../../../../Utils/ConfirmationModal";
 import AlertPop from "../../../../Utils/AlertPop";
 import FileView from "../../../../Utils/FileView/FileView";
-// import AnotherAddMoreApart from "../../../Enquiry/AppartmentEnquiry/ApartDocumentVerification/ApartDocComponents/AnotherAddMoreApart";
 import customStyle from "../../../../Utils/tableStyle";
 import { DateFormatcustom } from "../../../../Utils/DateFormatcustom";
 import AnotherAddMoreApart from "./AnotherAddMoreApart";
@@ -235,14 +234,15 @@ const WholeComponentDocApart = ({ eid, id, status, pagetype }) => {
     },
 
     {
-      name: "View/Upload",
+      name: "View & Upload",
+      width:"150px",
       cell: (row) => (
         <>
           <div className="d-flex gap-2">
             {row.document ? (
               <button
                 type="button"
-                className="btn btn-warning rounded-0"
+                className="btn btn-primary"
                 onClick={() =>
                   viewFileUrl(`${IMG_PATH}/enquiry/${row.document}`)
                 }
@@ -250,7 +250,7 @@ const WholeComponentDocApart = ({ eid, id, status, pagetype }) => {
                 <RemoveRedEyeIcon />
               </button>
             ) : (
-              <button type="button" className="btn btn-primary rounded-0">
+              <button type="button" className="btn btn-primary">
                 <VisibilityOffIcon />
               </button>
             )}
@@ -261,7 +261,7 @@ const WholeComponentDocApart = ({ eid, id, status, pagetype }) => {
               (
                 <button
                   type="button"
-                  className="btn btn-info rounded-0 ms-2"
+                  className="btn btn-primary ms-2"
                   onClick={() => {
                     openAddDocModal();
                     setUploadDocData(row);
@@ -277,6 +277,7 @@ const WholeComponentDocApart = ({ eid, id, status, pagetype }) => {
 
     {
       name: "Fill Details",
+      width:"150px",
       cell: (row) => {
         const handleClick = () => {
           if (row.document) {
@@ -319,18 +320,19 @@ const WholeComponentDocApart = ({ eid, id, status, pagetype }) => {
 
     {
       name: "Status",
+      width:"140px",
       cell: (row) => {
         return (
           <>
             <button
               type="button"
-              className={`badge rounded-pill btnhover btn p-2 ${row.status === "verify"
-                ? "bg-success"
+              className={` ${row.status === "verify"
+                ? "badge-success"
                 : row.status === "pending"
-                  ? "bg-danger"
+                  ? "badge-danger"
                   : "bg-info"
                 }`}
-              style={{ width: "60px" }}
+              // style={{ width: "60px" }}
               // onClick={() => {
               //   if (staffid.logintype == "staff") {
               //     openModalDoc();
@@ -361,11 +363,12 @@ const WholeComponentDocApart = ({ eid, id, status, pagetype }) => {
     },
     {
       name: "Redo Status",
+      width:"140px",
       cell: (row) => (
         <>
           <button
             type="button"
-            className={`btn btn-outline-info`}
+            className={`btn btn-primary`}
             onClick={() => {
               openModalRedo();
               setDocId(row);
@@ -381,6 +384,7 @@ const WholeComponentDocApart = ({ eid, id, status, pagetype }) => {
       name: "Verified Date",
       selector: (row) => row.veryfi_date,
       sortable: true,
+      width:"160px",
     },
 
     ...(staffid.Login === "staff" &&

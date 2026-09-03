@@ -383,9 +383,9 @@ const CustomerMarketLayout = ({ eid, marketid, status, pagetype }) => {
           (status === "pending" || status === "complete") &&
           pagetype !== "reminder" &&
           customerdata.length === 0 ? (
-          <a href="#0" onClick={() => setNewDialog(true)} className="btn1 me-2">
+          <button onClick={() => setNewDialog(true)} className="btn1 me-2">
             + Add customer Property
-          </a>
+          </button>
         ) : null}
       </div>
 

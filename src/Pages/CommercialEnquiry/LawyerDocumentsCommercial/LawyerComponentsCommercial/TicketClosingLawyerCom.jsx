@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import Button from "@mui/material/Button";
-import {  useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import axios from "axios";
 import API_BASE_URL from "../../../../Api/api";
 import Toast from "../../../../Utils/Toast";
@@ -135,7 +135,7 @@ const TicketClosingLawyerCom = ({ eid, id, status, subtype, pagetype }) => {
       ]
       : []),
 
-    ...(staffid.Login == "staff" &&
+    ...(staffid.Login === "staff" &&
       (status === "pending" || status === "complete") &&
       pagetype !== "reminder" && enquiryDoumentData?.status !== "booking"
       ? [
@@ -831,7 +831,7 @@ const TicketClosingLawyerCom = ({ eid, id, status, subtype, pagetype }) => {
                 {staffid.Login === "staff" &&
                   (status === "pending" || status === "complete") && (
                     <>
-                      <Button
+                      {/* <Button
                         variant="outlined"
                         type="button"
                         color="error"
@@ -842,7 +842,20 @@ const TicketClosingLawyerCom = ({ eid, id, status, subtype, pagetype }) => {
                       </Button>
                       <Button variant="contained" type="submit">
                         {prDetails ? "Update" : "Submit"}
-                      </Button>
+                      </Button> */}
+                      <button
+                        className="btn1 me-2"
+                        type="button"
+                        onClick={() => formik.resetForm()}
+                      >
+                        Clear
+                      </button>
+                      <button
+                        className="btn1 me-2"
+                        type="submit"
+                      >
+                        {prDetails ? "Update" : "Submit"}
+                      </button>
                     </>
                   )}
               </div>

@@ -75,33 +75,33 @@ const FollowupDateTele = ({ eid, id, status, telePageType }) => {
     },
 
     ...(staffid.Login === "staff" &&
-    (status === "pending" || status === "complete")
+      (status === "pending" || status === "complete")
       ? [
-          {
-            name: "Action",
-            cell: (row) => (
-              <>
-                <div className="d-flex">
-                  <button
-                    className="btn btn-outline-info me-1 edit"
-                    data-tooltip-id="edit"
-                    onClick={() => handleEdit(row)}
-                  >
-                    <EditIcon />
-                  </button>
-                  <button
-                    className="btn btn-outline-danger delete"
-                    data-tooltip-id="delete"
-                    onClick={() => handleDelete(row)}
-                  >
-                    <DeleteIcon />
-                  </button>
-                </div>
-              </>
-            ),
-            sortable: true,
-          },
-        ]
+        {
+          name: "Action",
+          cell: (row) => (
+            <>
+              <div className="d-flex">
+                <button
+                  className="btn btn-outline-info me-1 edit"
+                  data-tooltip-id="edit"
+                  onClick={() => handleEdit(row)}
+                >
+                  <EditIcon />
+                </button>
+                <button
+                  className="btn btn-outline-danger delete"
+                  data-tooltip-id="delete"
+                  onClick={() => handleDelete(row)}
+                >
+                  <DeleteIcon />
+                </button>
+              </div>
+            </>
+          ),
+          sortable: true,
+        },
+      ]
       : []),
   ];
   const [loading, setLoading] = useState(false);
@@ -143,7 +143,7 @@ const FollowupDateTele = ({ eid, id, status, telePageType }) => {
       setNewDialog(false);
       Toast({ message: "Successfully Created", type: "success" });
     } catch (error) {
-      
+
     }
   };
 
@@ -181,7 +181,7 @@ const FollowupDateTele = ({ eid, id, status, telePageType }) => {
       Toast({ message: "Successfully Deleted", type: "success" });
       fetch();
     } catch (error) {
-      
+
     } finally {
       fetch();
     }
@@ -190,16 +190,16 @@ const FollowupDateTele = ({ eid, id, status, telePageType }) => {
 
   const deleteUnitsDialogFooter = (
     <div className=" d-flex gap-3 justify-content-end">
-      <Button
-        variant="outlined"
+      <button
+        className="btn1"
         color="error"
         onClick={() => setDeleteDialog(false)}
       >
         No
-      </Button>
-      <Button variant="contained" color="success" onClick={DeleteRow}>
+      </button>
+      <button className="btn1" color="success" onClick={DeleteRow}>
         Yes
-      </Button>
+      </button>
     </div>
   );
   const hideDialog = () => {
@@ -278,7 +278,7 @@ const FollowupDateTele = ({ eid, id, status, telePageType }) => {
             />
 
             {formik.errors.lastfollowupdate &&
-            formik.touched.lastfollowupdate ? (
+              formik.touched.lastfollowupdate ? (
               <p style={{ color: "red", fontSize: "12px" }}>
                 {formik.errors.lastfollowupdate}
               </p>
@@ -299,7 +299,7 @@ const FollowupDateTele = ({ eid, id, status, telePageType }) => {
             />
 
             {formik.errors.nextfollowupdate &&
-            formik.touched.nextfollowupdate ? (
+              formik.touched.nextfollowupdate ? (
               <p style={{ color: "red", fontSize: "12px" }}>
                 {formik.errors.nextfollowupdate}
               </p>
@@ -325,14 +325,13 @@ const FollowupDateTele = ({ eid, id, status, telePageType }) => {
             ) : null}
           </div>
           <div className="d-flex justify-content-end gap-2 mt-4">
-            <Button
-              variant="contained"
-              color="success"
+            <button
+              className="btn1"
               onClick={() => setEditing(false)}
               type="submit"
             >
               Save
-            </Button>
+            </button>
           </div>
         </form>
       </Dialog>
@@ -445,14 +444,13 @@ const FollowupDateTele = ({ eid, id, status, telePageType }) => {
           </div>
 
           <div className="d-flex justify-content-end gap-2 mt-4">
-            <Button
-              variant="contained"
-              color="success"
+            <button
+              className="btn1"
               onClick={() => setEditing(true)}
               type="submit"
             >
               Update
-            </Button>
+            </button>
           </div>
         </form>
       </Dialog>

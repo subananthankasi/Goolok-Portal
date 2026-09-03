@@ -1,4 +1,4 @@
-import  React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import {
@@ -169,7 +169,7 @@ const LocationSelectPlot = ({ eid, id, status, pagetype }) => {
       setEditDialog(false);
       fetchSurveyNo();
     } catch (error) {
-      
+
       setIsLoading(false);
     }
   };
@@ -184,7 +184,7 @@ const LocationSelectPlot = ({ eid, id, status, pagetype }) => {
       const fetchedLocation = response.data?.location;
       setIsLoadingPage(false);
     } catch (error) {
-      
+
       setIsLoadingPage(false);
     }
   };
@@ -281,7 +281,7 @@ const LocationSelectPlot = ({ eid, id, status, pagetype }) => {
   };
 
 
-    const viewCenter = surveyData[0]?.location
+  const viewCenter = surveyData[0]?.location
     ? (() => {
       const [lat, lng] = surveyData[0].location.split(",").map(Number);
       return isNaN(lat) || isNaN(lng) ? null : { lat, lng };
@@ -317,8 +317,7 @@ const LocationSelectPlot = ({ eid, id, status, pagetype }) => {
                   <th
                     className="text-center"
                     style={{
-                      backgroundColor: "rgb(47, 79, 79)",
-                      color: "#ffff",
+                      backgroundColor: "#f2f2f2",
                       fontWeight: "400",
                     }}
                   >
@@ -328,18 +327,17 @@ const LocationSelectPlot = ({ eid, id, status, pagetype }) => {
                   <th
                     className="text-center"
                     style={{
-                      backgroundColor: "rgb(47, 79, 79)",
-                      color: "#ffff",
+                      backgroundColor: "#f2f2f2",
                       fontWeight: "400",
                     }}
                   >
                     Survey No{" "}
                   </th>
+                  <th className="text-center" style={{ backgroundColor: "#f2f2f2", color: "black", fontWeight: "400" }}>Sub Division </th>
                   <th
                     className="text-center"
                     style={{
-                      backgroundColor: "rgb(47, 79, 79)",
-                      color: "#ffff",
+                      backgroundColor: "#f2f2f2",
                       fontWeight: "400",
                     }}
                   >
@@ -353,8 +351,7 @@ const LocationSelectPlot = ({ eid, id, status, pagetype }) => {
                     <th
                       className="text-center"
                       style={{
-                        backgroundColor: "rgb(47, 79, 79)",
-                        color: "#ffff",
+                        backgroundColor: "#f2f2f2",
                         fontWeight: "400",
                       }}
                     >
@@ -370,6 +367,7 @@ const LocationSelectPlot = ({ eid, id, status, pagetype }) => {
                     <tr key={item.id}>
                       <td className="text-center">{index + 1} </td>
                       <td className="text-center">{item.survey_no} </td>
+                      <td className="text-center">{item.sub_division} </td>
                       <td className="text-center"> {item.location} </td>
 
                       {staffid.Login === "staff" &&
@@ -437,7 +435,7 @@ const LocationSelectPlot = ({ eid, id, status, pagetype }) => {
                           <div
                             style={{
                               textAlign: "center",
-                              height: "50px",
+                              // height: "50px",
                               overflow: "hidden",
                             }}
                             className="p-0"
@@ -445,6 +443,10 @@ const LocationSelectPlot = ({ eid, id, status, pagetype }) => {
                             <h6 style={{ fontWeight: "400", fontSize: "15px" }}>
                               {" "}
                               Survey No : {item.survey_no}
+                            </h6>
+                             <h6 style={{ fontWeight: "400", fontSize: "15px" }}>
+                              {" "}
+                              Sub Division : {item.sub_division}
                             </h6>
                             <p>
                               <LocationOnIcon

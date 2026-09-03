@@ -144,7 +144,7 @@ const CompleteFieldSurveyHouse = () => {
                                                     <ColumnDirective
                                                         field="customer"
                                                         headerText="Customer Name"
-                                                        width="150"
+                                                        width="170px"
                                                     />
                                                     <ColumnDirective
                                                         headerText="Age"

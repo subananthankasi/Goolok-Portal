@@ -20,7 +20,7 @@ export const FinalOpinionLawyerAP = (props) => {
     const column = [
         {
             name: "S.no",
-            cell: (row, index) =>index+1 ,
+            cell: (row, index) => index + 1,
             sortable: true,
         },
         {
@@ -30,7 +30,7 @@ export const FinalOpinionLawyerAP = (props) => {
                     <div className="d-flex">
                         <button
                             type="button"
-                            className="btn btn-warning rounded-0"
+                            className="btn btn-primary"
                             onClick={() =>
                                 viewFileUrl(`${IMG_PATH}/enquiry/lawyer/${row.document}`)
                             }

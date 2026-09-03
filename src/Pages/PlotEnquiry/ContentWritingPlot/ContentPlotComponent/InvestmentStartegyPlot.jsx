@@ -265,8 +265,7 @@ const InvestmentStartegyPlot = ({ eid, id, status }) => {
                     <tr>
                       <th
                         style={{
-                          backgroundColor: "rgb(47, 79, 79)",
-                          color: "white",
+                          backgroundColor: "#f2f2f2",
                           fontWeight: "300",
                         }}
                       >
@@ -274,8 +273,7 @@ const InvestmentStartegyPlot = ({ eid, id, status }) => {
                       </th>
                       <th
                         style={{
-                          backgroundColor: "rgb(47, 79, 79)",
-                          color: "white",
+                          backgroundColor: "#f2f2f2",
                           fontWeight: "300",
                         }}
                       >
@@ -283,8 +281,7 @@ const InvestmentStartegyPlot = ({ eid, id, status }) => {
                       </th>
                       <th
                         style={{
-                          backgroundColor: "rgb(47, 79, 79)",
-                          color: "white",
+                          backgroundColor: "#f2f2f2",
                           fontWeight: "300",
                         }}
                       >
@@ -404,32 +401,32 @@ const InvestmentStartegyPlot = ({ eid, id, status }) => {
                 <tr>
                   <th
                     style={{
-                      backgroundColor: "rgb(47, 79, 79)",
-                      color: "white",
+                      backgroundColor: "#f2f2f2",
+
                     }}
                   >
                     S.NO
                   </th>
                   <th
                     style={{
-                      backgroundColor: "rgb(47, 79, 79)",
-                      color: "white",
+                      backgroundColor: "#f2f2f2",
+
                     }}
                   >
                     Strategy Button
                   </th>
                   <th
                     style={{
-                      backgroundColor: "rgb(47, 79, 79)",
-                      color: "white",
+                      backgroundColor: "#f2f2f2",
+
                     }}
                   >
                     Remark
                   </th>
                   <th
                     style={{
-                      backgroundColor: "rgb(47, 79, 79)",
-                      color: "white",
+                      backgroundColor: "#f2f2f2",
+
                     }}
                   >
                     Action

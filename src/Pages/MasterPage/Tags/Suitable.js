@@ -1,5 +1,5 @@
 import { useFormik } from "formik";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import * as yup from "yup";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -17,6 +17,8 @@ import {
 import CustomLoder from "../../../Components/customLoader/CustomLoder";
 import Common from "../../../common/Common";
 import Toast from "../../../Utils/Toast";
+import { TabView, TabPanel } from "primereact/tabview";
+import * as XLSX from "xlsx";
 
 const Suitable = () => {
   const [editDialog, setEditDialog] = useState(false);
@@ -25,13 +27,17 @@ const Suitable = () => {
   const [deleteId, setDeleteId] = useState("");
   const [deleteDialog, setDeleteDialog] = useState(false);
   const { cleanText } = Common();
+  const [excelFile, setExcelFile] = useState(null);
+  const [bulkLoading, setBulkLoading] = useState(false);
+  const fileInputRef = useRef(null);
+
   const isLoading = useSelector((state) => state.suitableData?.get?.loading);
   const updateLoading = useSelector(
-    (state) => state.suitableData?.update?.loading
+    (state) => state.suitableData?.update?.loading,
   );
   const postLoading = useSelector((state) => state.suitableData?.post?.loading);
   const deleteLoading = useSelector(
-    (state) => state.suitableData?.delete?.loading
+    (state) => state.suitableData?.delete?.loading,
   );
 
   const dispatch = useDispatch();
@@ -53,7 +59,7 @@ const Suitable = () => {
       if (suitableUpdateThunk.rejected.match(res)) {
         formik.setFieldError(
           "suitabletag",
-          res?.payload?.messages?.suitabletag
+          res?.payload?.messages?.suitabletag,
         );
       }
     } else {
@@ -66,7 +72,7 @@ const Suitable = () => {
       if (suitablePostThunk.rejected.match(res)) {
         formik.setFieldError(
           "suitabletag",
-          res?.payload?.messages?.suitabletag
+          res?.payload?.messages?.suitabletag,
         );
       }
     }
@@ -176,6 +182,91 @@ const Suitable = () => {
     setFilterText(event.target.value);
   };
 
+  const handleExcelUpload = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+
+    reader.onload = async (event) => {
+      const data = new Uint8Array(event.target.result);
+
+      const workbook = XLSX.read(data, { type: "array" });
+
+      const sheet = workbook.Sheets[workbook.SheetNames[0]];
+
+      const jsonData = XLSX.utils.sheet_to_json(sheet);
+
+      setExcelFile(jsonData);
+    };
+
+    reader.readAsArrayBuffer(file);
+  };
+  const handleBulkSubmit = async () => {
+    if (!excelFile || excelFile.length === 0) {
+      Toast({
+        message: "Please upload an Excel file",
+        type: "error",
+      });
+      return;
+    }
+
+    setBulkLoading(true);
+
+    const errors = [];
+    let successCount = 0;
+
+    for (let i = 0; i < excelFile.length; i++) {
+      const row = excelFile[i];
+
+      const payload = {
+        suitabletag: cleanText(
+          row.suitabletag || row.SuitableTag || row["Suitable Tag"],
+        ),
+        status: row.status || row.Status || "enable",
+      };
+
+      const res = await dispatch(suitablePostThunk(payload));
+
+      if (suitablePostThunk.fulfilled.match(res)) {
+        successCount++;
+      } else if (suitablePostThunk.rejected.match(res)) {
+        errors.push({
+          row: i + 2,
+          suitabletag: payload.suitabletag,
+          message:
+            res?.payload?.messages?.suitabletag ||
+            res?.payload?.message ||
+            "Upload Failed",
+        });
+      }
+    }
+
+    dispatch(suitableGetThunk());
+
+    setBulkLoading(false);
+
+    // Reset file
+    setExcelFile(null);
+
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+
+    if (errors.length > 0) {
+      Toast({
+        message: `${successCount} uploaded, ${errors.length} failed`,
+        type: "warning",
+      });
+
+      console.table(errors);
+    } else {
+      Toast({
+        message: "Bulk Upload Successfully",
+        type: "success",
+      });
+    }
+  };
   return (
     <>
       <section className="section mt-3">
@@ -184,9 +275,106 @@ const Suitable = () => {
             <div className="col-lg-4 col-sm-6">
               <div className="card">
                 <div className="card-header">
-                  <h4 className="page_heading">Add Suitable </h4>
+                  {/* <h4 className="page_heading">Add Suitable </h4> */}
+                  <TabView>
+                    <TabPanel header="Single Upload ">
+                      <div className="card-body">
+                        <form onSubmit={formik.handleSubmit}>
+                          <div className="row">
+                            <div className="mb-3 col-md-12">
+                              <label
+                                className="form-label"
+                                htmlFor="interiorFeature"
+                              >
+                                Suitable Tag
+                              </label>
+                              <input
+                                name="suitabletag"
+                                id="suitabletag"
+                                placeholder="Enter Suitable Tag"
+                                className="form-control"
+                                value={formik.values.suitabletag}
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                              />
+                              {formik.errors.suitabletag &&
+                              formik.touched.suitabletag ? (
+                                <p style={{ color: "red", fontSize: "14px" }}>
+                                  {formik.errors.suitabletag}
+                                </p>
+                              ) : null}
+                            </div>
+                            <div className="col-md-12 mb-3 ">
+                              <label htmlFor="lastName" className="form-label">
+                                Status
+                              </label>
+
+                              <select
+                                name="status"
+                                className="form-select"
+                                value={formik.values.status}
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                              >
+                                <option value="enable">Enable</option>
+                                <option value="disable">Disable</option>
+                              </select>
+                              {formik.errors.status && formik.touched.status ? (
+                                <p style={{ color: "red", fontSize: "14px" }}>
+                                  {formik.errors.status}
+                                </p>
+                              ) : null}
+                            </div>
+                          </div>
+
+                          <div className="text-end py-3 px-3">
+                            <button
+                              className="btn1   me-1"
+                              onClick={() => {
+                                formik.resetForm();
+                              }}
+                              type="button"
+                            >
+                              Clear
+                            </button>
+                            <button
+                              type="submit"
+                              className="btn1"
+                              onClick={() => setEditing(false)}
+                              disabled={postLoading}
+                            >
+                              {postLoading ? "processing..." : "Add"}
+                            </button>
+                          </div>
+                        </form>
+                      </div>
+                    </TabPanel>
+                    <TabPanel header="Bulk Upload">
+                      <div className="mb-3 mt-3">
+                        <label className="form-label">Upload Excel</label>
+
+                        <input
+                          ref={fileInputRef}
+                          type="file"
+                          accept=".xlsx,.xls"
+                          className="form-control"
+                          onChange={handleExcelUpload}
+                        />
+                      </div>
+
+                      <div className="text-end">
+                        <button
+                          className="btn1"
+                          onClick={handleBulkSubmit}
+                          disabled={bulkLoading}
+                        >
+                          {bulkLoading ? "Uploading..." : "Upload"}
+                        </button>
+                      </div>
+                    </TabPanel>
+                  </TabView>
                 </div>
-                <div className="card-body">
+                {/* <div className="card-body">
                   <form onSubmit={formik.handleSubmit}>
                     <div className="row">
                       <div className="mb-3 col-md-12">
@@ -234,10 +422,11 @@ const Suitable = () => {
 
                     <div className="text-end py-3 px-3">
                       <button
-                        className="btn1 text-dark me-1"
+                        className="btn1   me-1"
                         onClick={() => {
                           formik.resetForm();
                         }}
+                         type="button"
                       >
                         Clear
                       </button>
@@ -251,7 +440,7 @@ const Suitable = () => {
                       </button>
                     </div>
                   </form>
-                </div>
+                </div> */}
               </div>
             </div>
             <div className="col-lg-8 col-sm-6">
@@ -350,11 +539,7 @@ const Suitable = () => {
           </div>
 
           <div className="d-flex justify-content-end gap-2 mt-4">
-            <button
-              onClick={cancelDialog}
-              type="button"
-              className="btn1"
-            >
+            <button onClick={cancelDialog} type="button" className="btn1">
               Cancel
             </button>
             <button

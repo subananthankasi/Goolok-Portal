@@ -1,4 +1,4 @@
-import  { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import PriceDepartmentPlot from "./PriceDepartmentPlot";
 import PaymentScheduleUpdateStagePlot from "./PaymentScheduleUpdateStagePlot";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,15 +7,15 @@ import { pricingConfirmThunk } from "../../../../Redux/Actions/Enquiry/pricingCo
 import Toast from "../../../../Utils/Toast";
 import { ProjectDetailsOwnerPlot } from "../../LandOwnerAgreementPlot/LandOwnerComponentPlot/ProjectDetailsOwnerPlot";
 import ConfirmationModal from "../../../../Utils/ConfirmationModal";
+import PricePerUnitComponent from "../../../Enquiry/Reusable/PricePerUnitComponent";
 
 const WholePricingDptPlot = ({ eid, status, id, pagetype, discountPage }) => {
-
   const staffid = JSON.parse(localStorage.getItem("token"));
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const toast = useRef();
-  const confirmLoading = useSelector((state) => state.pricingConfirm?.loading)
-    const [verifyConfirm, setIsVerifyConfirm] = useState(false);
+  const confirmLoading = useSelector((state) => state.pricingConfirm?.loading);
+  const [verifyConfirm, setIsVerifyConfirm] = useState(false);
 
   const handleConfirm = async () => {
     const payload = {
@@ -34,31 +34,56 @@ const WholePricingDptPlot = ({ eid, status, id, pagetype, discountPage }) => {
 
         Toast({ message: "rejected", type: "error" });
       }
-    } catch (error) {
-    }
+    } catch (error) {}
   };
   return (
     <>
-    <ConfirmationModal
+      <ConfirmationModal
         isOpen={verifyConfirm}
         closeModal={() => setIsVerifyConfirm(false)}
         onConfirm={handleConfirm}
         message={"Are you sure this has been verified?"}
         loading={confirmLoading}
       />
-      <ProjectDetailsOwnerPlot eid={eid} id={id} status={status} pagetype={pagetype} />
+      <PricePerUnitComponent
+        eid={eid}
+        id={id}
+        status={status}
+        pagetype={pagetype}
+      />
+      <ProjectDetailsOwnerPlot
+        eid={eid}
+        id={id}
+        status={status}
+        pagetype={pagetype}
+      />
       {/* <PriceDetailsPlot  eid={eid} id={id} status={status} pagetype = {pagetype}/> */}
-      <PriceDepartmentPlot eid={eid} status={status} pagetype={pagetype} discountPage={discountPage} />
-      <PaymentScheduleUpdateStagePlot eid={eid} status={status} pagetype={pagetype} />
+      <PriceDepartmentPlot
+        eid={eid}
+        status={status}
+        pagetype={pagetype}
+        discountPage={discountPage}
+      />
+      <PaymentScheduleUpdateStagePlot
+        eid={eid}
+        status={status}
+        pagetype={pagetype}
+      />
       {/* <PaymentScheduleStagePlot id={id} eid={eid} status={status} pagetype={pagetype}/> */}
 
-      {staffid.logintype == "staff" && status == "pending" && pagetype !== "reminder" && (
-        <div className="text-end mt-3 mb-3">
-          <button onClick={() => setIsVerifyConfirm(true)} className="btn1" disabled={confirmLoading} >
-            {confirmLoading ? "Processing..." : "Confirm"}
-          </button>
-        </div>
-      )}
+      {staffid.logintype == "staff" &&
+        status == "pending" &&
+        pagetype !== "reminder" && (
+          <div className="text-end mt-3 mb-3">
+            <button
+              onClick={() => setIsVerifyConfirm(true)}
+              className="btn1"
+              disabled={confirmLoading}
+            >
+              {confirmLoading ? "Processing..." : "Confirm"}
+            </button>
+          </div>
+        )}
     </>
   );
 };

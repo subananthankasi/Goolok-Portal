@@ -47,35 +47,35 @@ const AddServiceValuation = ({ eid, id, status, pagetype }) => {
       sortable: true,
     },
     ...(staffid.logintype == "staff" &&
-    (status === "complete" || status === "pending") &&
-    pagetype !== "reminder" &&
-    enquiryDoumentData?.status !== "live"
+      (status === "complete" || status === "pending") &&
+      pagetype !== "reminder" &&
+      enquiryDoumentData?.status !== "live"
       ? [
-          {
-            name: "Actions",
-            cell: (row) => (
-              <>
-                <div className="d-flex">
-                  <button
-                    className="btn btn-outline-info me-1 edit"
-                    data-tooltip-id="edit"
-                    onClick={() => handleEdit(row)}
-                  >
-                    <EditIcon />
-                  </button>
-                  <button
-                    className="btn btn-outline-danger delete"
-                    data-tooltip-id="delete"
-                    onClick={() => handleDeleteOpen(row)}
-                  >
-                    <DeleteIcon />
-                  </button>
-                </div>
-              </>
-            ),
-            sortable: true,
-          },
-        ]
+        {
+          name: "Actions",
+          cell: (row) => (
+            <>
+              <div className="d-flex">
+                <button
+                  className="btn btn-outline-info me-1 edit"
+                  data-tooltip-id="edit"
+                  onClick={() => handleEdit(row)}
+                >
+                  <EditIcon />
+                </button>
+                <button
+                  className="btn btn-outline-danger delete"
+                  data-tooltip-id="delete"
+                  onClick={() => handleDeleteOpen(row)}
+                >
+                  <DeleteIcon />
+                </button>
+              </div>
+            </>
+          ),
+          sortable: true,
+        },
+      ]
       : []),
   ];
   const handleDeleteOpen = (row) => {
@@ -91,7 +91,7 @@ const AddServiceValuation = ({ eid, id, status, pagetype }) => {
       fetch();
       setDeleteDialog(false);
     } catch (error) {
-      
+
     }
   };
   const handleEdit = (row) => {
@@ -136,7 +136,7 @@ const AddServiceValuation = ({ eid, id, status, pagetype }) => {
       );
       setGetData(response.data);
     } catch (error) {
-      
+
     }
   };
   useEffect(() => {
@@ -166,16 +166,15 @@ const AddServiceValuation = ({ eid, id, status, pagetype }) => {
               <h6>Add Service</h6>
               {staffid.logintype == "staff" &&
                 (status === "complete" || status === "pending") &&
-                pagetype !== "reminder" && enquiryDoumentData?.status !=="live" &&(
+                pagetype !== "reminder" && enquiryDoumentData?.status !== "live" && (
                   <div className="d-flex justify-content-end">
                     <div className="ms-2">
-                      <a
-                        href="#"
+                      <button
                         onClick={() => setNewDialog(true)}
                         className="btn1 me-2"
                       >
                         + Add
-                      </a>
+                      </button>
                     </div>
                   </div>
                 )}
@@ -290,14 +289,14 @@ const AddServiceValuation = ({ eid, id, status, pagetype }) => {
           </div>
 
           <div className="d-flex justify-content-end mt-4">
-            <Button
-              variant="contained"
+            <button
+              className="btn1"
               type="submit"
               onClick={() => setEditing(false)}
               disabled={postLoading}
             >
               {postLoading ? "Processing..." : "Save"}
-            </Button>
+            </button>
           </div>
         </form>
       </Dialog>
@@ -394,14 +393,14 @@ const AddServiceValuation = ({ eid, id, status, pagetype }) => {
           </div>
 
           <div className="d-flex justify-content-end mt-4">
-            <Button
-              variant="contained"
+            <button
+              className="btn1"
               type="submit"
               onClick={() => setEditing(true)}
               disabled={postLoading}
             >
               {postLoading ? "Processing..." : "Update"}
-            </Button>
+            </button>
           </div>
         </form>
       </Dialog>

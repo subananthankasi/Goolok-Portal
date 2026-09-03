@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import Button from "@mui/material/Button";
-// import DatePicker from "react-datepicker";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import axios from "axios";
 import { fetchState } from "../../../../Redux/Actions/MasterPage/StateAction";
 import { fetchDistrict } from "../../../../Redux/Actions/MasterPage/DistrictAction";
@@ -21,10 +20,6 @@ import dayjs from "dayjs";
 const PattaDetailsCommercial = ({ data, setStep }) => {
   const staffid = JSON.parse(localStorage.getItem("token"));
   const dispatch = useDispatch();
-  const StateData = useSelector((state) => state.State.StateNameData);
-  const DistrictData = useSelector((state) => state.District.districtData);
-  const talukData = useSelector((state) => state.Taluk.TalukData);
-  const VillageData = useSelector((state) => state.Village.villageData);
 
   useEffect(() => {
     dispatch(fetchState());
@@ -32,16 +27,15 @@ const PattaDetailsCommercial = ({ data, setStep }) => {
     dispatch(fetchTaluk());
     dispatch(fetchVillage());
     fetchPatta();
-  }, [dispatch, data]);
+  }, [dispatch]);
 
   const fetchPatta = async () => {
     try {
       const response = await axios.get(
-        `${API_BASE_URL}/enquirypatta/${data.id}`
+        `${API_BASE_URL}/enquirypatta/${data.id}`,
       );
       setPattaData(response.data);
-    } catch (error) {
-    }
+    } catch (error) { }
   };
 
   useEffect(() => {
@@ -49,7 +43,6 @@ const PattaDetailsCommercial = ({ data, setStep }) => {
   }, [data]);
 
   const [pattaData, setPattaData] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
 
   const onSubmit = async (values) => {
     const payload = {
@@ -275,7 +268,7 @@ const PattaDetailsCommercial = ({ data, setStep }) => {
                   onChange={(date) => {
                     formik.setFieldValue(
                       "date",
-                      date ? date?.format("YYYY-MM-DD") : ""
+                      date ? date?.format("YYYY-MM-DD") : "",
                     );
                   }}
                   format="DD/MM/YYYY"
@@ -537,7 +530,7 @@ const PattaDetailsCommercial = ({ data, setStep }) => {
             {staffid.Login === "staff" &&
               (data.status === "pending" || data.status === "verify") && (
                 <>
-                  <Button
+                  {/* <Button
                     variant="outlined"
                     type="button"
                     color="error"
@@ -548,7 +541,20 @@ const PattaDetailsCommercial = ({ data, setStep }) => {
                   </Button>
                   <Button variant="contained" type="submit">
                     Next
-                  </Button>
+                  </Button> */}
+                  <button
+                    className="btn1 me-2"
+                    type="button"
+                    onClick={() => formik.resetForm()}
+                  >
+                    Clear
+                  </button>
+                  <button
+                    className="btn1 me-2"
+                    type="submit"
+                  >
+                    Next
+                  </button>
                 </>
               )}
           </div>

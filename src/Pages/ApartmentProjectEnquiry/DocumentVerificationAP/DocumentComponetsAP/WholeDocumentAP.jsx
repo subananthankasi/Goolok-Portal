@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
@@ -230,14 +230,15 @@ const WholeDocumentAP = ({ eid, id, status, pagetype }) => {
     },
 
     {
-      name: "View/Upload",
+      name: "View & Upload",
+      width: "150px",
       cell: (row) => (
         <>
           <div className="d-flex gap-2">
             {row.document ? (
               <button
                 type="button"
-                className="btn btn-warning rounded-0"
+                className="btn btn-primary"
                 onClick={() =>
                   viewFileUrl(`${IMG_PATH}/enquiry/${row.document}`)
                 }
@@ -245,7 +246,7 @@ const WholeDocumentAP = ({ eid, id, status, pagetype }) => {
                 <RemoveRedEyeIcon />
               </button>
             ) : (
-              <button type="button" className="btn btn-primary rounded-0">
+              <button type="button" className="btn btn-primary">
                 <VisibilityOffIcon />
               </button>
             )}
@@ -255,7 +256,7 @@ const WholeDocumentAP = ({ eid, id, status, pagetype }) => {
               enquiryDoumentData?.status !== "booking" && (
                 <button
                   type="button"
-                  className="btn btn-info rounded-0 ms-2"
+                  className="btn btn-primary ms-2"
                   onClick={() => {
                     openAddDocModal();
                     setUploadDocData(row);
@@ -271,6 +272,7 @@ const WholeDocumentAP = ({ eid, id, status, pagetype }) => {
 
     {
       name: "Fill Details",
+      width: "130px",
       cell: (row) => {
         const handleClick = () => {
           if (row.document) {
@@ -291,7 +293,7 @@ const WholeDocumentAP = ({ eid, id, status, pagetype }) => {
               enquiryDoumentData?.status !== "booking" ? (
               <button
                 type="button"
-                className="btn btn-primary rounded-0"
+                className="btn btn-primary"
                 onClick={handleClick}
               >
                 Fill Details..
@@ -299,7 +301,7 @@ const WholeDocumentAP = ({ eid, id, status, pagetype }) => {
             ) : (
               <button
                 type="button"
-                className="btn btn-primary rounded-0"
+                className="btn btn-primary"
                 onClick={() => {
                   setViewDetails(true);
                   setViewData(row);
@@ -320,19 +322,12 @@ const WholeDocumentAP = ({ eid, id, status, pagetype }) => {
           <>
             <button
               type="button"
-              className={`badge rounded-pill btnhover btn p-2 ${row.status === "verify"
-                ? "bg-success"
+              className={` ${row.status === "verify"
+                ? "badge-success"
                 : row.status === "pending"
-                  ? "bg-danger"
-                  : "bg-info"
+                  ? "badge-danger"
+                  : "badge-info"
                 }`}
-              style={{ width: "60px" }}
-              // onClick={() => {
-              //   if (staffid.logintype == "staff") {
-              //     openModalDoc();
-              //     setDocId(row);
-              //   }
-              // }}
               onClick={() => {
                 if (
                   staffid.logintype !== "admin" &&
@@ -357,11 +352,12 @@ const WholeDocumentAP = ({ eid, id, status, pagetype }) => {
     },
     {
       name: "Redo Status",
+      width: "150px",
       cell: (row) => (
         <>
           <button
             type="button"
-            className={`btn btn-outline-info`}
+            className={`btn btn-primary`}
             onClick={() => {
               openModalRedo();
               setDocId(row);
@@ -377,6 +373,7 @@ const WholeDocumentAP = ({ eid, id, status, pagetype }) => {
       name: "Verified Date",
       selector: (row) => row.veryfi_date,
       sortable: true,
+      width: "170px"
     },
 
     ...(staffid.Login === "staff" &&
@@ -543,7 +540,7 @@ const WholeDocumentAP = ({ eid, id, status, pagetype }) => {
     setConfirmLoading(true);
     try {
       await axios.post(
-        `${API_BASE_URL}/aprtprojectenqupdate`,
+        `${API_BASE_URL}/enqupdate`,
         { id: eid },
         {
           headers: {
@@ -564,6 +561,7 @@ const WholeDocumentAP = ({ eid, id, status, pagetype }) => {
       handleOpenModal();
     }
   };
+   
   return (
     <>
       <ConfirmationModal

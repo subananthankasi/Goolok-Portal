@@ -13,6 +13,7 @@ import Stack from '@mui/material/Stack';
 import MuiButton from "@mui/material/Button";
 import { Editor } from 'primereact/editor';
 import OpenPreviewImage from '../../../Utils/OpenPreviewImage';
+import { Switch } from 'antd';
 
 const AboutUS = () => {
 
@@ -47,7 +48,7 @@ const AboutUS = () => {
         },
         {
             name: "Content ",
-            selector: (row) => row.content.replace(/<[^>]+>/g, ""),
+            selector: (row) => row.content?.replace(/<[^>]+>/g, ""),
             sortable: true,
             width: "180px",
         },
@@ -72,11 +73,15 @@ const AboutUS = () => {
 
         {
             name: "Subcontent",
-            selector: (row) => row.subcontent.replace(/<[^>]+>/g, ""),
-
+            selector: (row) => row.subcontent?.replace(/<[^>]+>/g, ""),
             sortable: true,
             width: "180px",
 
+        },
+        {
+            name: "Theme",
+            selector: (row) => row.theme,
+            sortable: true,
         },
         {
             name: "Status",
@@ -122,6 +127,7 @@ const AboutUS = () => {
         formik.setFieldValue("image", row.image || "");
         setPreviewImage(`${IMG_PATH}/cms/aboutus/${row.image}`);
         formik.setFieldValue("old_image", row.image || "");
+        formik.setFieldValue("theme", row.theme || "");
         formik.setFieldValue("status", row.status || "");
     };
 
@@ -144,7 +150,7 @@ const AboutUS = () => {
     const onSubmit = async (values) => {
 
         setIsSubmitting(true);
-
+        values.theme = values.theme || "light";
         try {
             const response = await axios.post(`${API_BASE_URL}/aboutus`, values, {
                 headers: { "Content-Type": "multipart/form-data" },
@@ -176,6 +182,7 @@ const AboutUS = () => {
             image: "",
             old_image: "",
             status: "",
+            theme: "light",
         },
         // validationSchema: yup.object().shape({
         //   title: yup.string().required("title is required!"),
@@ -224,7 +231,7 @@ const AboutUS = () => {
                     <div className="card">
                         <div className="card-header">
                             <div className="d-flex justify-content-between">
-                                <h4 className="page_heading">AboutUs View Table</h4>
+                                <h4 className="page_heading">AboutUs Reports </h4>
                                 <button
                                     type="button"
                                     className="btn1"
@@ -256,9 +263,7 @@ const AboutUS = () => {
 
 
             <Modal
-
                 size={"40rem"}
-
                 open={newDialog}
                 onClose={() => {
                     setNewDialog(false);
@@ -369,7 +374,15 @@ const AboutUS = () => {
 
                             </div>
                         </div>
-
+                        <div>
+                            <label htmlFor="mx-1" className="form-label mx-1">Dark Theme :</label>
+                            <Switch
+                                checked={formik.values.theme === "dark"}
+                                onChange={(checked) => {
+                                    formik.setFieldValue("theme", checked ? "dark" : "light");
+                                }}
+                            />
+                        </div>
 
                         <div className="mb-3">
                             <label htmlFor="status" className="form-label">Status</label>

@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
 import Button from "@mui/material/Button";
 import { Dialog } from "primereact/dialog";
 import { useFormik } from "formik";
@@ -8,7 +7,7 @@ import * as yup from "yup";
 import axios from "axios";
 import API_BASE_URL from "../../../../Api/api";
 import Toast from "../../../../Utils/Toast";
-import { Table, Pagination } from "rsuite";
+import { Table } from "rsuite";
 const { Column, ColumnGroup, HeaderCell, Cell } = Table;
 
 export const ProjectDetailsOwnerPricingCom = ({
@@ -23,16 +22,9 @@ export const ProjectDetailsOwnerPricingCom = ({
   const [deleteDialog, setDeleteDialog] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
   const [editDialog, setEditDialog] = useState(false);
-  const [editing, setEditing] = useState(false);
   const [getData, setGetData] = useState([]);
 
-  const [limit, setLimit] = React.useState(10);
-  const [page, setPage] = React.useState(1);
 
-  const handleChangeLimit = (dataKey) => {
-    setPage(1);
-    setLimit(dataKey);
-  };
 
   const onSubmit = async (values) => {
 
@@ -217,9 +209,6 @@ export const ProjectDetailsOwnerPricingCom = ({
     onSubmit,
   });
 
-  const handleDelete = (row) => {
-    setDeleteDialog(true);
-  };
   const DeleteRow = async () => {
     try {
       const response = await axios.delete(
@@ -237,26 +226,8 @@ export const ProjectDetailsOwnerPricingCom = ({
     setDeleteDialog(false);
   };
 
-  const deleteUnitsDialogFooter = (
-    <div className=" d-flex gap-3 justify-content-end">
-      <Button
-        variant="outlined"
-        color="error"
-        onClick={() => setDeleteDialog(false)}
-      >
-        No
-      </Button>
-      <Button variant="contained" color="success" onClick={DeleteRow}>
-        Yes
-      </Button>
-    </div>
-  );
   const hideDialog = () => {
     setNewDialog(false);
-    formik.resetForm();
-  };
-  const editHide = () => {
-    setEditDialog(false);
     formik.resetForm();
   };
 

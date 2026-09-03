@@ -6,6 +6,7 @@ import PaymentScheduleStage from "./PaymentScheduleStage";
 import { pricingConfirmThunk } from "../../../../Redux/Actions/Enquiry/pricingConfirmThunk";
 import Toast from "../../../../Utils/Toast";
 import ConfirmationModal from "../../../../Utils/ConfirmationModal";
+import PricePerUnitComponent from "../../../Enquiry/Reusable/PricePerUnitComponent";
 
 
 const WholePricingDptApart = ({ eid, id, status, pagetype, discountPage }) => {
@@ -15,7 +16,7 @@ const WholePricingDptApart = ({ eid, id, status, pagetype, discountPage }) => {
   const [verifyConfirm, setIsVerifyConfirm] = useState(false);
   const confirmLoading = useSelector((state) => state.pricingConfirm?.loading)
 
-  
+
   const handleConfirm = async () => {
     const payload = {
       enqid: eid,
@@ -43,6 +44,10 @@ const WholePricingDptApart = ({ eid, id, status, pagetype, discountPage }) => {
         message={"Are you sure this has been verified?"}
         loading={confirmLoading}
       />
+      <PricePerUnitComponent eid={eid}
+        id={id}
+        status={status}
+        pagetype={pagetype} />
       <PricingDptApart
         eid={eid}
         id={id}
@@ -61,8 +66,8 @@ const WholePricingDptApart = ({ eid, id, status, pagetype, discountPage }) => {
         status === "pending" &&
         pagetype !== "reminder" && (
           <div className="text-end mt-3 mb-3">
-            <button  onClick={() => setIsVerifyConfirm(true)} className="btn1" disabled ={confirmLoading} >
-             {confirmLoading ? "Processing" : "Confirm"}
+            <button onClick={() => setIsVerifyConfirm(true)} className="btn1" disabled={confirmLoading} >
+              {confirmLoading ? "Processing" : "Confirm"}
             </button>
           </div>
         )}

@@ -1,14 +1,10 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
-// import API_BASE_URL, { IMG_PATH } from "../../../../../Api/api";
-// import FileViewUtils from "../../../../../Utils/FileView/FileViewUtils";
+import { useEffect, useState } from "react";
 import Spinner from "react-bootstrap/Spinner";
 import API_BASE_URL, { IMG_PATH } from "../../../../Api/api";
 import Toast from "../../../../Utils/Toast";
 import FileViewUtils from "../../../../Utils/FileView/FileViewUtils";
-// import { useFormik } from "formik";
-// import * as yup from "yup";
-// import Toast from "../../../../../Utils/Toast";
+
 
 const AnotherAddMoreApart = ({ isOpen, closeModal, data }) => {
   const staffid = JSON.parse(localStorage.getItem("token"));

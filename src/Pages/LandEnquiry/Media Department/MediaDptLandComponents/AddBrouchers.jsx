@@ -1,10 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import customStyle from "../../../../Utils/tableStyle";
 import EditIcon from "@mui/icons-material/Edit";
 import DataTable from "react-data-table-component";
 import { Dialog } from "primereact/dialog";
 import { useFormik } from "formik";
-import * as yup from "yup";
 import {
   mediaAttachmentDeleteThunk,
   mediaAttachmentGetThunk,
@@ -57,10 +56,6 @@ const AddBrouchers = ({ eid, status, pagetype }) => {
     (state) => state.mediaAttachmentData?.delete?.loading
   );
 
-  const openDelete = (row) => {
-    setDeleteDialog(true);
-    setDeleteId(row.id);
-  };
   const handleDelete = async () => {
     try {
       const response = await dispatch(mediaAttachmentDeleteThunk(deleteId));
@@ -74,12 +69,14 @@ const AddBrouchers = ({ eid, status, pagetype }) => {
         const errorPayload = response;
       }
     } catch (error) {
-      
+
     }
   };
+
   const hideDeleteProductsDialog = () => {
     setDeleteDialog(false);
   };
+
   const deleteUnitsDialogFooter = (
     <div className="d-flex justify-content-end gap-2 mt-4">
       <button
@@ -127,7 +124,7 @@ const AddBrouchers = ({ eid, status, pagetype }) => {
           const errorPayload = response.payload.error.reason;
         }
       } catch (error) {
-        
+
       }
     } else {
       // Create Submit
@@ -143,61 +140,61 @@ const AddBrouchers = ({ eid, status, pagetype }) => {
           const errorPayload = response.payload.error.reason;
         }
       } catch (error) {
-        
+
       }
     }
   };
   const validate = (values) => {
-    const errors = {};
+    // const errors = {};
 
-    // === COMMON FIELDS ===
-    if (!values.brochures) {
-      errors.brochures = "Brochures is required";
-    }
-    if (!values.layouts) {
-      errors.layouts = "Layouts is required";
-    }
-    if (!values.floor) {
-      errors.floor = "Floor plan is required";
-    }
-    if (!values.building) {
-      errors.building = "Building details is required";
-    }
-    if (!values.mapping) {
-      errors.mapping = "Mapping is required";
-    }
 
-    // === VR SECTION ===
-    if (!values.vrtype) {
-      errors.vrtype = "Please select VR type";
-    } else {
-      if (values.vrtype === "file") {
-        if (!values.vrfile) {
-          errors.vrfile = "Please upload VR file";
-        }
-      } else if (values.vrtype === "link") {
-        if (!values.vrlink) {
-          errors.vrlink = "Please enter VR link";
-        }
-      }
-    }
+    // if (!values.brochures) {
+    //   errors.brochures = "Brochures is required";
+    // }
+    // if (!values.layouts) {
+    //   errors.layouts = "Layouts is required";
+    // }
+    // if (!values.floor) {
+    //   errors.floor = "Floor plan is required";
+    // }
+    // if (!values.building) {
+    //   errors.building = "Building details is required";
+    // }
+    // if (!values.mapping) {
+    //   errors.mapping = "Mapping is required";
+    // }
 
-    // === AR SECTION ===
-    if (!values.artype) {
-      errors.artype = "Please select AR type";
-    } else {
-      if (values.artype === "file") {
-        if (!values.arfile) {
-          errors.arfile = "Please upload AR file";
-        }
-      } else if (values.artype === "link") {
-        if (!values.arlink) {
-          errors.arlink = "Please enter AR link";
-        }
-      }
-    }
 
-    return errors;
+    // if (!values.vrtype) {
+    //   errors.vrtype = "Please select VR type";
+    // } else {
+    //   if (values.vrtype === "file") {
+    //     if (!values.vrfile) {
+    //       errors.vrfile = "Please upload VR file";
+    //     }
+    //   } else if (values.vrtype === "link") {
+    //     if (!values.vrlink) {
+    //       errors.vrlink = "Please enter VR link";
+    //     }
+    //   }
+    // }
+
+
+    // if (!values.artype) {
+    //   errors.artype = "Please select AR type";
+    // } else {
+    //   if (values.artype === "file") {
+    //     if (!values.arfile) {
+    //       errors.arfile = "Please upload AR file";
+    //     }
+    //   } else if (values.artype === "link") {
+    //     if (!values.arlink) {
+    //       errors.arlink = "Please enter AR link";
+    //     }
+    //   }
+    // }
+
+    // return errors;
   };
 
   const formik = useFormik({
@@ -244,17 +241,15 @@ const AddBrouchers = ({ eid, status, pagetype }) => {
     //   }),
     // }),
 
-    validate,
+    // validate,
     onSubmit,
   });
   const hideDialog = () => {
     setBroucherDialog(false);
     formik.resetForm();
-  };
-  const hideEditDialog = () => {
     setEditDialog(false);
-    formik.resetForm();
   };
+
 
   const handleEdit = (row) => {
     setEditDialog(true);
@@ -328,10 +323,10 @@ const AddBrouchers = ({ eid, status, pagetype }) => {
             rel="noopener noreferrer"
             className="btn"
           >
-            <i className="pi pi-file-pdf" style={{ fontSize: "1.5rem" }}></i>
+            <i className="pi pi-file-pdf" style={{ fontSize: "1.5rem", color: "red" }}></i>
           </a>
         ) : (
-          <span>No Brochure</span>
+          <span>-</span>
         ),
     },
     {
@@ -339,17 +334,17 @@ const AddBrouchers = ({ eid, status, pagetype }) => {
       selector: (row) => row.building,
       sortable: true,
       cell: (row) =>
-        row.brochures ? (
+        row.building ? (
           <a
             href={`${IMG_PATH}/enquiry/attach/${row.building}`}
             target="_blank"
             rel="noopener noreferrer"
             className="btn"
           >
-            <i className="pi pi-file-pdf" style={{ fontSize: "1.5rem" }}></i>
+            <i className="pi pi-file-pdf" style={{ fontSize: "1.5rem", color: "red" }}></i>
           </a>
         ) : (
-          <span>No building</span>
+          <span>-</span>
         ),
     },
     {
@@ -357,17 +352,17 @@ const AddBrouchers = ({ eid, status, pagetype }) => {
       selector: (row) => row.floor,
       sortable: true,
       cell: (row) =>
-        row.brochures ? (
+        row.floor ? (
           <a
             href={`${IMG_PATH}/enquiry/attach/${row.floor}`}
             target="_blank"
             rel="noopener noreferrer"
             className="btn"
           >
-            <i className="pi pi-file-pdf" style={{ fontSize: "1.5rem" }}></i>
+            <i className="pi pi-file-pdf" style={{ fontSize: "1.5rem", color: "red" }}></i>
           </a>
         ) : (
-          <span>No Floor</span>
+          <span>-</span>
         ),
     },
     {
@@ -375,17 +370,17 @@ const AddBrouchers = ({ eid, status, pagetype }) => {
       selector: (row) => row.layouts,
       sortable: true,
       cell: (row) =>
-        row.brochures ? (
+        row.layouts ? (
           <a
             href={`${IMG_PATH}/enquiry/attach/${row.layouts}`}
             target="_blank"
             rel="noopener noreferrer"
             className="btn"
           >
-            <i className="pi pi-file-pdf" style={{ fontSize: "1.5rem" }}></i>
+            <i className="pi pi-file-pdf" style={{ fontSize: "1.5rem", color: "red" }}></i>
           </a>
         ) : (
-          <span>No layouts</span>
+          <span>-</span>
         ),
     },
     {
@@ -403,10 +398,11 @@ const AddBrouchers = ({ eid, status, pagetype }) => {
               controls
               className="mt-1 mb-1 rounded-circle"
               src={imgFileUrl}
+              alt="media"
             />
           );
         } else {
-          return <div>no photo</div>;
+          return <div>-</div>;
         }
       },
     },
@@ -433,7 +429,7 @@ const AddBrouchers = ({ eid, status, pagetype }) => {
             </a>
           );
         } else {
-          return <span>No Video</span>;
+          return <span>-</span>;
         }
       },
     },
@@ -460,7 +456,7 @@ const AddBrouchers = ({ eid, status, pagetype }) => {
             </a>
           );
         } else {
-          return <span>No Audio</span>;
+          return <span>- </span>;
         }
       },
     },
@@ -559,7 +555,7 @@ const AddBrouchers = ({ eid, status, pagetype }) => {
 
   return (
     <>
-      <div className="">
+      <div className="mt-5">
         {mediaDataLoading ? (
           <div className="d-flex justify-content-center mt-5 mb-5">
             <ThreeCircles
@@ -574,7 +570,7 @@ const AddBrouchers = ({ eid, status, pagetype }) => {
           </div>
         ) : (status === "pending" || status === "complete") &&
           staffid.Login === "staff" &&
-          mediaData.length === 0  && enquiryDoumentData?.status !=="booking" ? (
+          mediaData.length === 0 && enquiryDoumentData?.status !== "booking" ? (
           <>
             <div className="d-flex justify-content-center mb-3 mt-3">
               <div className="ms-2">
@@ -618,7 +614,7 @@ const AddBrouchers = ({ eid, status, pagetype }) => {
             <div className="mt-3 form-group">
               <label htmlFor="broucher" style={{ fontSize: "14px" }}>
                 {" "}
-                Broucher <span style={{ color: "red" }}>*</span> :
+                Broucher  :
               </label>
               <input
                 name="brochures"
@@ -641,7 +637,7 @@ const AddBrouchers = ({ eid, status, pagetype }) => {
             <div className="mt-2 form-group">
               <label htmlFor="photo" style={{ fontSize: "14px" }}>
                 {" "}
-                Layouts <span style={{ color: "red" }}>*</span>:
+                Layouts :
               </label>
               <input
                 name="layouts"
@@ -666,7 +662,7 @@ const AddBrouchers = ({ eid, status, pagetype }) => {
             <div className=" form-group mt-2">
               <label htmlFor="photo" style={{ fontSize: "14px" }}>
                 {" "}
-                Floor plans <span style={{ color: "red" }}>*</span> :
+                Floor plans  :
               </label>
               <input
                 name="floor"
@@ -691,7 +687,7 @@ const AddBrouchers = ({ eid, status, pagetype }) => {
                 htmlFor="buildingSpecification"
                 style={{ fontSize: "14px" }}
               >
-                building specifications <span style={{ color: "red" }}>*</span>:
+                building specifications :
               </label>
               <input
                 name="building"
@@ -717,7 +713,7 @@ const AddBrouchers = ({ eid, status, pagetype }) => {
 
             <div className="form-group mt-2" style={{ width: "100%" }}>
               <label htmlFor="areaMaping" style={{ fontSize: "14px" }}>
-                Area Mapping <span style={{ color: "red" }}>*</span>:
+                Area Mapping :
               </label>
               <input
                 name="mapping"
@@ -740,7 +736,7 @@ const AddBrouchers = ({ eid, status, pagetype }) => {
             <div className="d-flex gap-4" style={{ width: "100%" }}>
               <div className="form-group" style={{ width: "100%" }}>
                 <label htmlFor="vrType" style={{ fontSize: "14px" }}>
-                  Add VR <span style={{ color: "red" }}>*</span>:
+                  Add VR :
                 </label>
                 <select
                   name="vrtype"
@@ -815,7 +811,7 @@ const AddBrouchers = ({ eid, status, pagetype }) => {
               <div className="d-flex gap-4 mt-2" style={{ width: "100%" }}>
                 <div className=" form-group" style={{ width: "100%" }}>
                   <label htmlFor="artype" style={{ fontSize: "14px" }}>
-                    Add AR <span style={{ color: "red" }}>*</span>:
+                    Add AR :
                   </label>
                   <select
                     name="artype"
@@ -974,7 +970,7 @@ const AddBrouchers = ({ eid, status, pagetype }) => {
             <div className="mt-3 form-group">
               <label htmlFor="broucher" style={{ fontSize: "14px" }}>
                 {" "}
-                Broucher <span style={{ color: "red" }}>*</span> :
+                Broucher  :
               </label>
               <div className="d-flex gap-3 align-items-center">
                 <input
@@ -1001,7 +997,7 @@ const AddBrouchers = ({ eid, status, pagetype }) => {
             <div className="mt-2 form-group">
               <label htmlFor="photo" style={{ fontSize: "14px" }}>
                 {" "}
-                Layouts <span style={{ color: "red" }}>*</span>:
+                Layouts :
               </label>
               <div className="d-flex gap-3 align-items-center">
                 <input
@@ -1028,7 +1024,7 @@ const AddBrouchers = ({ eid, status, pagetype }) => {
             <div className=" form-group mt-2">
               <label htmlFor="photo" style={{ fontSize: "14px" }}>
                 {" "}
-                Floor plans <span style={{ color: "red" }}>*</span> :
+                Floor plans  :
               </label>
               <div className="d-flex gap-3 align-items-center">
                 <input
@@ -1057,7 +1053,7 @@ const AddBrouchers = ({ eid, status, pagetype }) => {
                 htmlFor="buildingSpecification"
                 style={{ fontSize: "14px" }}
               >
-                building specifications <span style={{ color: "red" }}>*</span>:
+                building specifications :
               </label>
               <div className="d-flex gap-3 align-items-center">
                 <input
@@ -1084,7 +1080,7 @@ const AddBrouchers = ({ eid, status, pagetype }) => {
 
             <div className="form-group mt-2" style={{ width: "100%" }}>
               <label htmlFor="areaMaping" style={{ fontSize: "14px" }}>
-                Area Mapping <span style={{ color: "red" }}>*</span>:
+                Area Mapping :
               </label>
               <div className="d-flex gap-3 align-items-center">
                 <input
@@ -1115,7 +1111,7 @@ const AddBrouchers = ({ eid, status, pagetype }) => {
             <div className="d-flex gap-4" style={{ width: "100%" }}>
               <div className="form-group" style={{ width: "100%" }}>
                 <label htmlFor="vrType" style={{ fontSize: "14px" }}>
-                  Add VR <span style={{ color: "red" }}>*</span>:
+                  Add VR :
                 </label>
                 <select
                   name="vrtype"
@@ -1198,7 +1194,7 @@ const AddBrouchers = ({ eid, status, pagetype }) => {
               <div className="d-flex gap-4 mt-2" style={{ width: "100%" }}>
                 <div className=" form-group" style={{ width: "100%" }}>
                   <label htmlFor="artype" style={{ fontSize: "14px" }}>
-                    Add AR <span style={{ color: "red" }}>*</span>:
+                    Add AR :
                   </label>
                   <select
                     name="artype"

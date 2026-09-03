@@ -30,9 +30,8 @@ const tableStyle = {
 };
 
 const highlightStyle = {
-  backgroundColor: "#2f4f4f",
+  backgroundColor: "#f2f2f2",
   // fontWeight: "bold",
-  color: "white"
 };
 
 const cellStyle = {
@@ -218,13 +217,12 @@ const RegistrationIdAsale = ({
                   (status === "complete" || status === "pending") &&
                   pagetype !== "reminder" && (
                     <div className="">
-                      <a
-                        href="#"
+                      <button
                         onClick={() => setNewDialog(true)}
                         className="btn1 me-2"
                       >
                         + Create Ticket
-                      </a>
+                      </button>
                     </div>
                   )}
               </div>

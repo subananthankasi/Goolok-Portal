@@ -63,6 +63,7 @@ const TitleProjectDetailsHouse = ({ data }) => {
       supper_built_up_area: "",
       uds: "",
       land_area: "",
+      location: "",
     },
     validationSchema: yup.object().shape({
       projectname:
@@ -100,27 +101,29 @@ const TitleProjectDetailsHouse = ({ data }) => {
         data?.property !== "Villa"
           ? yup.string().required("land area is required !!")
           : yup.string().notRequired(),
+      location: yup.string().required("location is required !!"),
     }),
     onSubmit,
   });
 
- useEffect(() => {
-  if (prDetails && Object.keys(prDetails).length > 0) {
-    formik.setFieldValue("projectname", prDetails.project_name || "");
-    formik.setFieldValue("plotno", prDetails.plot_no || "");
-    formik.setFieldValue("approvaltype", prDetails.approval_type || "");
-    formik.setFieldValue("aprovalno", prDetails.approval_no || "");
-    formik.setFieldValue("rerano", prDetails.rera_no || "");
-    formik.setFieldValue("planning_permit_no", prDetails.planing_permit_no || "");
-    formik.setFieldValue("building_permit_no", prDetails.building_permit_no || "");
-    formik.setFieldValue("built_up_area", prDetails.builtup_area || "");
-    formik.setFieldValue("common_area", prDetails.common_area || "");
-    formik.setFieldValue("supper_built_up_area", prDetails.super_area || "");
-    formik.setFieldValue("uds", prDetails.uds_size || "");
-    formik.setFieldValue("land_area", prDetails.land_area || "");
-    formik.setFieldValue("id", prDetails.id || "");
-  }
-}, [prDetails]);
+  useEffect(() => {
+    if (prDetails && Object.keys(prDetails).length > 0) {
+      formik.setFieldValue("projectname", prDetails.project_name || "");
+      formik.setFieldValue("plotno", prDetails.plot_no || "");
+      formik.setFieldValue("approvaltype", prDetails.approval_type || "");
+      formik.setFieldValue("aprovalno", prDetails.approval_no || "");
+      formik.setFieldValue("rerano", prDetails.rera_no || "");
+      formik.setFieldValue("planning_permit_no", prDetails.planing_permit_no || "");
+      formik.setFieldValue("building_permit_no", prDetails.building_permit_no || "");
+      formik.setFieldValue("built_up_area", prDetails.builtup_area || "");
+      formik.setFieldValue("common_area", prDetails.common_area || "");
+      formik.setFieldValue("supper_built_up_area", prDetails.super_area || "");
+      formik.setFieldValue("uds", prDetails.uds_size || "");
+      formik.setFieldValue("land_area", prDetails.land_area || "");
+      formik.setFieldValue("id", prDetails.id || "");
+      formik.setFieldValue("location", prDetails.location)
+    }
+  }, [prDetails]);
 
   return (
     <div className="p-2">
@@ -280,7 +283,7 @@ const TitleProjectDetailsHouse = ({ data }) => {
                   onBlur={formik.handleBlur}
                 />
                 {formik.errors.planning_permit_no &&
-                formik.touched.planning_permit_no ? (
+                  formik.touched.planning_permit_no ? (
                   <h6 style={{ color: "red", fontSize: "12px" }}>
                     {formik.errors.planning_permit_no}
                   </h6>
@@ -306,7 +309,7 @@ const TitleProjectDetailsHouse = ({ data }) => {
                   onBlur={formik.handleBlur}
                 />
                 {formik.errors.building_permit_no &&
-                formik.touched.building_permit_no ? (
+                  formik.touched.building_permit_no ? (
                   <h6 style={{ color: "red", fontSize: "12px" }}>
                     {formik.errors.building_permit_no}
                   </h6>
@@ -382,7 +385,7 @@ const TitleProjectDetailsHouse = ({ data }) => {
                   onBlur={formik.handleBlur}
                 />
                 {formik.errors.supper_built_up_area &&
-                formik.touched.supper_built_up_area ? (
+                  formik.touched.supper_built_up_area ? (
                   <h6 style={{ color: "red", fontSize: "12px" }}>
                     {formik.errors.supper_built_up_area}
                   </h6>
@@ -443,11 +446,42 @@ const TitleProjectDetailsHouse = ({ data }) => {
             </div>
           )}
 
+          <div className="col-md-6 mb-3 ">
+            <div className="row">
+              <div className="col-4 mb-3 ">
+                <label htmlFor="lastName" className="form-label">
+                  Location
+                </label>
+              </div>
+              <div className="col-8 mb-3 ">
+                <input
+                  type="text"
+                  className="form-control"
+                  name="location"
+                  placeholder="Enter location ..."
+                  value={formik.values.location}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                />
+
+                {formik.errors.location && formik.touched.location ? (
+                  <p style={{ color: "red", fontSize: "12px" }}>
+                    {formik.errors.location}
+                  </p>
+                ) : null}
+              </div>
+            </div>
+          </div>
+
           <div className="text-end gap-3 mb-3">
             {staffid.Login === "staff" &&
               (data.status === "pending" || data.status === "verify") && (
                 <>
-                  <Button
+                  <div className="d-flex justify-content-end gap-2">
+                    <button type="button" className="btn1" onClick={() => formik.resetForm()}> Clear</button>
+                    <button type="submit " className="btn1"> Next</button>
+                  </div>
+                  {/* <Button
                     variant="outlined"
                     type="button"
                     color="error"
@@ -458,7 +492,7 @@ const TitleProjectDetailsHouse = ({ data }) => {
                   </Button>
                   <Button variant="contained" type="submit">
                     {prDetails ? "Update" : "Submit"}
-                  </Button>
+                  </Button> */}
                 </>
               )}
           </div>

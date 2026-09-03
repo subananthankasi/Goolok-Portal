@@ -685,9 +685,16 @@ export const ProjectDetailsOwnerAP = ({
           </div>
 
           <div className="d-flex justify-content-end gap-2 mt-4">
-            <Button variant="contained" color="success" type="submit" disabled={postLoading} >
+            {/* <Button variant="contained" color="success" type="submit" disabled={postLoading} >
               {postLoading ? "Processing..." : "Save"}
-            </Button>
+            </Button> */}
+            <button
+              className="btn1 me-2"
+              type="submit"
+              disabled={postLoading}
+            >
+              {postLoading ? "Processing..." : "Save"}
+            </button>
           </div>
         </form>
       </Dialog>

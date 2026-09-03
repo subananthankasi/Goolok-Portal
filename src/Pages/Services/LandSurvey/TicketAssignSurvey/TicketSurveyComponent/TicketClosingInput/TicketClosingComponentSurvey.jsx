@@ -68,7 +68,7 @@ const TicketClosingComponentSurvey = ({ eid, id, status, pagetype }) => {
             {row.document ? (
               <button
                 type="button"
-                className="btn btn-warning rounded-0"
+                className="btn btn-primary"
                 onClick={() =>
                   viewFileUrl(`${IMG_PATH}/enquiry/${row.document}`)
                 }
@@ -76,7 +76,7 @@ const TicketClosingComponentSurvey = ({ eid, id, status, pagetype }) => {
                 <RemoveRedEyeIcon />
               </button>
             ) : (
-              <button type="button" className="btn btn-primary rounded-0">
+              <button type="button" className="btn btn-primary ">
                 <VisibilityOffIcon />
               </button>
             )}
@@ -90,8 +90,8 @@ const TicketClosingComponentSurvey = ({ eid, id, status, pagetype }) => {
       cell: (row) => (
         <>
           <div className="d-flex">
-            <Button
-              variant="outlined"
+            <button
+              className="btn btn-primary"
               onClick={() => {
                 setFillDialog(true);
                 setRowId(row.id);
@@ -100,7 +100,7 @@ const TicketClosingComponentSurvey = ({ eid, id, status, pagetype }) => {
             >
               {" "}
               Fill Details{" "}
-            </Button>
+            </button>
           </div>
         </>
       ),

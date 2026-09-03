@@ -165,9 +165,9 @@ const LandOwnerDraftPlot = ({ eid, id, status, sub_property, pagetype }) => {
         <>
           <a
             href={`${IMG_PATH}/enquiry/agreement/${row.document}`}
-            className="btn btn-warning ms-2"
+            className="btn btn-primary ms-2"
             download="download"
-            target="_blank"
+            target="_blank" 
             rel="noopener noreferrer"
           >
             <RemoveRedEyeIcon />
@@ -183,9 +183,9 @@ const LandOwnerDraftPlot = ({ eid, id, status, sub_property, pagetype }) => {
         <>
           <button
             type="button"
-            className={`badge btn rounded-pill btnhover btn p-2 ${row.status == "pending" ? "bg-danger" : "bg-success"
+            className={`${row.status == "pending" ? "badge-danger" : "badge-success"
               }`}
-            style={{ width: "60px" }}
+            // style={{ width: "60px" }}
           >
             {row.status}
           </button>

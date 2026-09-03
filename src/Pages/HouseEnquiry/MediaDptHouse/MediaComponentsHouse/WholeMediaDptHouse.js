@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { TabView, TabPanel } from "primereact/tabview";
@@ -107,7 +107,7 @@ const WholeMediaDptHouse = ({ eid, id, status, pagetype }) => {
           </div>
         </div>
       </div>
-      {staffid.logintype == "staff" &&
+      {staffid.logintype === "staff" &&
         (status === "pending" || status === "complete") &&
         pagetype !== "reminder" && enquiryDoumentData?.status !== "booking" && (
           <div className="text-end mt-3 mb-3">

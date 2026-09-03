@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect,useState } from "react";
 import {
   GridComponent,
   ColumnsDirective,
@@ -10,7 +10,6 @@ import {
   Inject,
   Filter,
 } from "@syncfusion/ej2-react-grids";
-import { DatePickerComponent } from "@syncfusion/ej2-react-calendars";
 import axios from "axios";
 import { Calendar } from "primereact/calendar";
 import { UploaderComponent } from "@syncfusion/ej2-react-inputs";
@@ -126,10 +125,6 @@ export const LandClearanceDateCom = (props) => {
     }
   }
 
-  // const dataSource = surveyData.lawyer_details !== null ? parsedSurveyData : surveyData
-  const dataSource = surveyData.map((data, index) =>
-    data.lawyer_details !== null ? parsedSurveyData[index] : data
-  );
   //................................................................
 
   const [date, setDate] = useState(null);

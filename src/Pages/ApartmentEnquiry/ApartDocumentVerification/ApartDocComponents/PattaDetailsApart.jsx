@@ -21,11 +21,6 @@ import GeneralVillageDropdown from "../../../../Utils/Dropdown/GeneralVillageDro
 const PattaDetailsApart = ({ data, setStep }) => {
   const staffid = JSON.parse(localStorage.getItem("token"));
   const dispatch = useDispatch();
-  const StateData = useSelector((state) => state.State.StateNameData);
-  const DistrictData = useSelector((state) => state.District.districtData);
-  const talukData = useSelector((state) => state.Taluk.TalukData);
-  const VillageData = useSelector((state) => state.Village.villageData);
-
   const { classification } = Common();
 
   useEffect(() => {
@@ -34,7 +29,7 @@ const PattaDetailsApart = ({ data, setStep }) => {
     dispatch(fetchTaluk());
     dispatch(fetchVillage());
     fetchPatta();
-  }, [dispatch, data]);
+  }, [dispatch]);
 
   const fetchPatta = async () => {
     try {
@@ -52,8 +47,6 @@ const PattaDetailsApart = ({ data, setStep }) => {
   }, [data]);
 
   const [pattaData, setPattaData] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-
   const onSubmit = async (values) => {
     const payload = {
       ...values,
@@ -560,7 +553,11 @@ const PattaDetailsApart = ({ data, setStep }) => {
             {staffid.Login === "staff" &&
               (data.status === "pending" || data.status === "verify") && (
                 <>
-                  <Button
+                  <div className="d-flex justify-content-end gap-2">
+                    <button type="button" className="btn1" onClick={() => formik.resetForm()}> Clear</button>
+                    <button type="submit " className="btn1"> Next</button>
+                  </div>
+                  {/* <Button
                     variant="outlined"
                     type="button"
                     color="error"
@@ -571,7 +568,7 @@ const PattaDetailsApart = ({ data, setStep }) => {
                   </Button>
                   <Button variant="contained" type="submit">
                     Next
-                  </Button>
+                  </Button> */}
                 </>
               )}
           </div>

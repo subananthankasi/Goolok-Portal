@@ -19,6 +19,8 @@ function StaffReport() {
   const staffdata = useSelector(state => state.staff.staff);
   const dispatch = useDispatch();
   const [editModal, setEditModal] = useState(false)
+  
+  const [editData, setEditData] = useState()
 
   useEffect(() => {
     dispatch(fetchStaff());
@@ -140,11 +142,7 @@ function StaffReport() {
         <div className="d-flex">
           <button
             className="btn btn-outline-info me-1 edit" data-tooltip-id="edit"
-            onClick={() => {
-              handleEdit(row);
-              // openModal();
-              setEditModal(true)
-            }}
+            onClick={()=>handleEdit(row)}
           >
             <EditIcon />
           </button>
@@ -159,8 +157,8 @@ function StaffReport() {
 
   // edit 
 
-  const [editData, setEditData] = useState()
   const handleEdit = (row) => {
+    setEditModal(true)
     setEditData(row)
   };
 

@@ -13,8 +13,6 @@ import {
   Filter,
 } from "@syncfusion/ej2-react-grids";
 import { useNavigate } from 'react-router-dom';
-import jsPDF from "jspdf";
-import html2canvas from "html2canvas";
 import axios from 'axios';
 import { Spinner } from 'react-bootstrap';
 import { ButtonGroup, Button, Whisper, Popover, Dropdown, IconButton } from 'rsuite';
@@ -193,7 +191,7 @@ function PendingInvCom() {
                           <ColumnDirective
                             field="customer"
                             headerText="Customer Name"
-                            width="150"
+                            width="170"
                           />
                           <ColumnDirective
                             field="age"
@@ -213,9 +211,8 @@ function PendingInvCom() {
                             template={(props) => (
                               <button
                                 type="button"
-                                className={`badge rounded-pill btnhover btn1 badge1 p-2 ${props.status === "success" ? "bg-success" : "bg-danger"
+                                className={`${props.status === "success" ? "badge-success" : "badge-danger"
                                   }`}
-                                style={{ width: "60px" }}
                               >
                                 {props.status}
                               </button>

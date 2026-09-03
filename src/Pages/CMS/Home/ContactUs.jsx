@@ -23,7 +23,6 @@ const ContactUs = () => {
 
     const [newDialog, setNewDialog] = useState(false);
     const [fetchbanner, setFetchbanner] = useState([]);
-
     const [deleteconfirmmodal, setDeleteconfirmmodal] = useState(false);
     const [selectedRowId, setSelectedRowId] = useState(null);
     const [previewImage, setPreviewImage] = useState(null);
@@ -52,7 +51,6 @@ const ContactUs = () => {
         {
             name: "Mobile",
             selector: (row) => row.mobile,
-
             sortable: true,
             width: "180px",
         },
@@ -193,7 +191,7 @@ const ContactUs = () => {
                     <div className="card">
                         <div className="card-header">
                             <div className="d-flex justify-content-between">
-                                <h4 className="page_heading">ContactUs View Table</h4>
+                                <h4 className="page_heading">ContactUs Reports</h4>
                                 <button
                                     type="button"
                                     className="btn1"

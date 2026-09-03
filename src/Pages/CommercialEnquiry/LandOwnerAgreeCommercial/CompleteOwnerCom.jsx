@@ -49,8 +49,6 @@ const CompleteOwnerCom = () => {
         fetchData();
     }, []);
 
-
-
     const filterSettings = { type: "Excel" };
     const toolbarOptions = ["ExcelExport", "PdfExport", "Search"];
 
@@ -135,7 +133,7 @@ const CompleteOwnerCom = () => {
                                                 <ColumnDirective
                                                     field="customer"
                                                     headerText="Customer Name"
-                                                    width="150"
+                                                    width="170"
                                                 />
                                                 <ColumnDirective
                                                     headerText="Age"

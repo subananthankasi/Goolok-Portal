@@ -117,10 +117,10 @@ const AddMoreCommercial = ({ isOpen, closeModal, data }) => {
                       className="p-0 m-0"
                       style={{ height: "540px", overflowY: "scroll", overflowX: "hidden" }}
                     >
-                      {data?.doc_type == "Patta" && (
+                      {data?.doc_type === "Patta" && (
                         <div className="">
                           {step === 1 &&
-                            (isLoading == 1 ? (
+                            (isLoading === 1 ? (
                               <div
                                 className="d-flex justify-content-center "
                                 style={{
@@ -156,13 +156,13 @@ const AddMoreCommercial = ({ isOpen, closeModal, data }) => {
                         </div>
                       )}
 
-                      {data?.doc_type == "Aadhaar" && (
+                      {data?.doc_type === "Aadhaar" && (
                         <AadharDetailsCommercial data={data} isOpen={isOpen} clearFormRef={formRef} />
                       )}
-                      {data?.doc_type == "Title document" && (
+                      {data?.doc_type === "Title document" && (
                         <>
                           {step === 1 &&
-                            (isLoading == 4 ? (
+                            (isLoading === 4 ? (
                               <div
                                 className="d-flex justify-content-center "
                                 style={{

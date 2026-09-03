@@ -200,7 +200,7 @@ export const ProjectDetailsLandOwnerLayout = ({ eid, id, status, pagetype }) => 
     formik.setFieldValue("id", data.id || null);
   };
 
- const [limit, setLimit] = useState(10);
+  const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(1);
 
   const handleChangeLimit = dataKey => {
@@ -853,9 +853,10 @@ export const ProjectDetailsLandOwnerLayout = ({ eid, id, status, pagetype }) => 
           </div>
 
           <div className="d-flex justify-content-end gap-2 mt-4">
-            <Button variant="contained" color="success" type="submit" disabled={postLoading} >
+            {/* <Button variant="contained" color="success" type="submit" disabled={postLoading} >
               {postLoading ? "Processing..." : "Save"}
-            </Button>
+            </Button> */}
+            <button className="btn1" type="submit" disabled={postLoading}>  {postLoading ? "Processing..." : "Save"}</button>
           </div>
         </form>
       </Dialog>

@@ -564,9 +564,9 @@ const TalukDetailsSurvey = ({ eid, id, status, rowId, pagetype }) => {
 
                             </div>
                             <div className="d-flex justify-content-end mt-4">
-                                <Button variant="contained" type="submit" disabled={postLoading} >
+                                <button className="btn1" type="submit" disabled={postLoading} >
                                     {postLoading ? "Processing..." : "Submit"}
-                                </Button>
+                                </button>
                             </div>
                         </form>
                     )}

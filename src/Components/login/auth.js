@@ -15,7 +15,7 @@ export const validateLogin = async (formData) => {
             localStorage.setItem('logintype', token.logintype);
             localStorage.setItem('token', JSON.stringify(token));
             document.title =
-                token.logintype === "staff" ? "Goolok | Staff" : "Goolok | Admin";
+                token.logintype === "staff" ? "Boolok | Staff" : "Boolok | Admin";
             return { isValid: true };
         } catch (error) {
             return { isValid: false, errorMessage: "Login failed. Please try again later." };

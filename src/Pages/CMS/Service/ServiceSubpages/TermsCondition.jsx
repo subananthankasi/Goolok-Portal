@@ -16,6 +16,7 @@ import Stack from "@mui/material/Stack";
 import MuiButton from "@mui/material/Button";
 import { Editor } from "primereact/editor";
 import API_BASE_URL from "../../../../Api/api";
+import EditorToolbar from "../../../../Utils/EditerHeader";
 
 const TermsCondition = () => {
   const navigate = useNavigate();
@@ -94,7 +95,7 @@ const TermsCondition = () => {
         },
       });
       setFetchbanner(response.data?.data || []);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   useEffect(() => {
@@ -160,7 +161,7 @@ const TermsCondition = () => {
             <div className="card-header">
               <div className="d-flex justify-content-between">
                 <h4 className="page_heading">
-                  Service TermsCondition View Table
+                  TermsCondition View Table
                 </h4>
                 <button
                   type="button"
@@ -199,7 +200,7 @@ const TermsCondition = () => {
         }}
       >
         <Modal.Header>
-          <Modal.Title> Service TermsCondition </Modal.Title>
+          <Modal.Title>  TermsCondition </Modal.Title>
         </Modal.Header>
 
         <Modal.Body
@@ -209,9 +210,9 @@ const TermsCondition = () => {
           <form onSubmit={formik.handleSubmit}>
             <div className="col-12 mb-3">
               <div className="">
-                <label htmlFor="content" className="form-label text-muted">
+                {/* <label htmlFor="content" className="form-label text-muted">
                   PrivacyPolice
-                </label>
+                </label> */}
 
                 <Editor
                   id="content"
@@ -220,6 +221,7 @@ const TermsCondition = () => {
                   onTextChange={(e) =>
                     formik.setFieldValue("content", e.htmlValue)
                   }
+                   headerTemplate={EditorToolbar}
                   onBlur={formik.handleBlur}
                   style={{ height: "320px" }}
                 />

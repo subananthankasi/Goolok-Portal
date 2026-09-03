@@ -120,7 +120,7 @@ const NearbyMarketCom = ({ eid, status, marketid, subtype, pagetype }) => {
             sortable: true,
             width: "150px",
         },
-        ...(staffid.logintype == "staff" &&
+        ...(staffid.logintype === "staff" &&
             (status === "complete" || status === "pending") &&
             pagetype !== "reminder" && enquiryDoumentData?.status !== "booking"
             ? [
@@ -308,9 +308,9 @@ const NearbyMarketCom = ({ eid, status, marketid, subtype, pagetype }) => {
                 {staffid.logintype == "staff" &&
                     (status === "pending" || status === "complete") &&
                     pagetype !== "reminder" && enquiryDoumentData?.status !== "booking" ? (
-                    <a href="#0" onClick={() => setNewDialog(true)} className="btn1 me-2">
+                    <button onClick={() => setNewDialog(true)} className="btn1 me-2">
                         + Add
-                    </a>
+                    </button>
                 ) : null}
             </div>
 

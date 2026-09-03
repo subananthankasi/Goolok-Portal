@@ -421,7 +421,7 @@ const PricingDepartmentLayout = ({
                       Edit Pricing
                     </button>
                   )}
-                {staffid.Login === "admin" &&
+                {/* {staffid.Login === "admin" &&
                   discountPage === "discount" &&
                   pagetype !== "reminder" && (
                     <Button
@@ -433,7 +433,7 @@ const PricingDepartmentLayout = ({
                     >
                       Discount
                     </Button>
-                  )}
+                  )} */}
               </div>
               <hr />
               <div>

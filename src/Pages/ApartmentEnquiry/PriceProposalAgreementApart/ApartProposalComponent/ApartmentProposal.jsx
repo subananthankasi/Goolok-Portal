@@ -7,7 +7,8 @@ import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import API_BASE_URL, { IMG_PATH } from "../../../../Api/api";
 import customStyle from "../../../../Utils/tableStyle";
 import Toast from "../../../../Utils/Toast";
-
+import { InputGroup } from "rsuite";
+import { useSelector } from "react-redux";
 
 export const ApartmentProposal = ({ eid, id, status, pagetype }) => {
 
@@ -56,7 +57,7 @@ export const ApartmentProposal = ({ eid, id, status, pagetype }) => {
                 <>
                     <a
                         href={`${IMG_PATH}/enquiry/proposal/${row.document}`}
-                        className="btn btn-warning ms-2"
+                        className="btn btn-primary ms-2"
                         download="download"
                         target="_blank"
                         rel="noopener noreferrer"
@@ -74,7 +75,7 @@ export const ApartmentProposal = ({ eid, id, status, pagetype }) => {
                 <>
                     <button
                         type="button"
-                        className={`badge rounded-pill btnhover btn p-2 ${row.status === 'pending' ? "bg-danger" : "bg-success"}`}
+                        className={`badge ${row.status === 'pending' ? "badge-danger" : "badge-success"}`}
                         style={{ width: "60px" }}
                     >
                         {row.status}
@@ -86,6 +87,7 @@ export const ApartmentProposal = ({ eid, id, status, pagetype }) => {
         },
         {
             name: "Signed date",
+            width: "150px",
             selector: (row) => row.signed_date,
             sortable: true,
         },
@@ -199,7 +201,9 @@ const PriceproposalAgreement = ({ isOpen, closeModal, eid, id, fetch }) => {
     const [loading, setloading] = useState(false)
     const [errors, setErrors] = useState({});
 
-
+    const enquiryDoumentData = useSelector(
+        (state) => state.Enquiry.enquiryDocument
+    );
 
     const handleFileChange = (e) => {
         const selectedFile = e.target.files[0];
@@ -244,7 +248,11 @@ const PriceproposalAgreement = ({ isOpen, closeModal, eid, id, fetch }) => {
         formData.append("enqid", eid);
         formData.append("proposalId", id);
         formData.append("file", file);
-        formData.append("unit", proposedPrice);
+        // formData.append("unit", proposedPrice);
+        formData.append(
+            "unit",
+            `${proposedPrice}/${enquiryDoumentData?.land_units}`
+        );
         formData.append("price", totalPrice);
         setloading(true)
         try {
@@ -323,7 +331,7 @@ const PriceproposalAgreement = ({ isOpen, closeModal, eid, id, fetch }) => {
                                                 </label>
                                             </div>
                                             <div className="col-7">
-                                                <input
+                                                {/* <input
                                                     type="text"
                                                     className="form-control"
                                                     value={proposedPrice}
@@ -337,7 +345,30 @@ const PriceproposalAgreement = ({ isOpen, closeModal, eid, id, fetch }) => {
                                                         if (!regex.test(e.key)) {
                                                             e.preventDefault();
                                                         }
-                                                    }} />
+                                                    }} /> */}
+                                                <InputGroup>
+                                                    <input
+                                                        type="text"
+                                                        className="form-control"
+                                                        value={proposedPrice}
+                                                        onChange={(e) => {
+                                                            const rawValue = e.target.value.replace(
+                                                                /[^0-9]/g,
+                                                                ""
+                                                            );
+                                                            setProposedPrice(rawValue);
+                                                        }}
+                                                        onKeyPress={(e) => {
+                                                            const regex = /^[0-9]$/;
+                                                            if (!regex.test(e.key)) {
+                                                                e.preventDefault();
+                                                            }
+                                                        }}
+                                                    />
+                                                    <InputGroup.Addon>
+                                                        {enquiryDoumentData?.land_units}{" "}
+                                                    </InputGroup.Addon>
+                                                </InputGroup>
                                                 {errors.proposedPrice && (
                                                     <div className="validation_msg">
                                                         {errors.proposedPrice}
@@ -413,12 +444,25 @@ const PriceproposalEdit = ({ isOpen, closeModal, fetch, editData }) => {
     const [loading, setloading] = useState(false)
     const [errors, setErrors] = useState({});
 
+    const enquiryDoumentData = useSelector(
+        (state) => state.Enquiry.enquiryDocument
+    );
     useEffect(() => {
         if (editData) {
-            setProposedPrice(editData.proposal_unit ?? "")
-            setTotalPrice(editData.proposal_price ?? "")
+            setProposedPrice(
+                editData.proposal_unit?.split("/")[0] ?? ""
+            );
+
+            setTotalPrice(editData.proposal_price ?? "");
         }
-    }, [editData])
+    }, [editData]);
+
+    // useEffect(() => {
+    //     if (editData) {
+    //         setProposedPrice(editData.proposal_unit ?? "")
+    //         setTotalPrice(editData.proposal_price ?? "")
+    //     }
+    // }, [editData])
 
 
     const handleFileChange = (e) => {
@@ -465,7 +509,11 @@ const PriceproposalEdit = ({ isOpen, closeModal, fetch, editData }) => {
 
         formData.append("id", editData.id);
         formData.append("file", file);
-        formData.append("unit", proposedPrice);
+        // formData.append("unit", proposedPrice);
+        formData.append(
+            "unit",
+            `${proposedPrice}/${enquiryDoumentData?.land_units}`
+        );
         formData.append("price", totalPrice);
         formData.append("doc", editData.document);
 
@@ -556,7 +604,7 @@ const PriceproposalEdit = ({ isOpen, closeModal, fetch, editData }) => {
                                                 </label>
                                             </div>
                                             <div className="col-7">
-                                                <input
+                                                {/* <input
                                                     type="text"
                                                     className="form-control"
                                                     value={proposedPrice}
@@ -571,7 +619,30 @@ const PriceproposalEdit = ({ isOpen, closeModal, fetch, editData }) => {
                                                         if (!regex.test(e.key)) {
                                                             e.preventDefault();
                                                         }
-                                                    }} />
+                                                    }} /> */}
+                                                <InputGroup>
+                                                    <input
+                                                        type="text"
+                                                        className="form-control"
+                                                        value={proposedPrice}
+                                                        onChange={(e) => {
+                                                            const rawValue = e.target.value.replace(
+                                                                /[^0-9]/g,
+                                                                ""
+                                                            );
+                                                            setProposedPrice(rawValue);
+                                                        }}
+                                                        onKeyPress={(e) => {
+                                                            const regex = /^[0-9]$/;
+                                                            if (!regex.test(e.key)) {
+                                                                e.preventDefault();
+                                                            }
+                                                        }}
+                                                    />
+                                                    <InputGroup.Addon>
+                                                        {enquiryDoumentData?.land_units}{" "}
+                                                    </InputGroup.Addon>
+                                                </InputGroup>
                                                 {errors.proposedPrice && (
                                                     <div className="validation_msg">
                                                         {errors.proposedPrice}

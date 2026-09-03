@@ -39,7 +39,7 @@ export const LawyerAddDocumentCom = (props) => {
       setEnquiryDoumentData(response.data);
       setLoadingPage(false);
     } catch (error) {
-      
+
     }
   };
 
@@ -63,7 +63,7 @@ export const LawyerAddDocumentCom = (props) => {
       setDeleteDialog(false);
       fetchEnqData();
     } catch (error) {
-      
+
     }
   };
 
@@ -104,17 +104,17 @@ export const LawyerAddDocumentCom = (props) => {
       sortable: true,
     },
     {
-      name: "View",
+      name: "View & Upload",
       width: "150px",
       cell: (row) => (
         <>
           <div className="d-flex p-0">
-            {row.upload_type == "lawyer" ? (
+            {row.upload_type === "lawyer" ? (
               <>
                 {row.document ? (
                   <button
                     type="button"
-                    className="btn btn-warning rounded-0"
+                    className="btn btn-primary"
                     style={{ width: "70px" }}
                     onClick={() =>
                       viewFileUrl(`${IMG_PATH}/enquiry/${row.document}`)
@@ -125,20 +125,19 @@ export const LawyerAddDocumentCom = (props) => {
                 ) : (
                   <button
                     type="button"
-                    className="btn btn-primary rounded-0"
-                    style={{ width: "70px" }}
+                    className="btn btn-primary"
                   >
                     No data
                   </button>
                 )}
 
-                {(props.data.status == "pending" ||
+                {(props.data.status === "pending" ||
                   props.data.status === "complete") &&
                   props.data.pagetype !== "reminder" &&
-                  staffid.Login == "staff" && enquiryDoumentData?.status !== "booking" && (
+                  staffid.Login === "staff" && enquiryDoumentData?.status !== "booking" && (
                     <button
                       type="button"
-                      className="btn btn-info rounded-0 ms-2"
+                      className="btn btn-primary ms-2"
                       onClick={() => {
                         openAddDocModal();
                         setUploadDocData(row);
@@ -153,7 +152,7 @@ export const LawyerAddDocumentCom = (props) => {
                 {row.document ? (
                   <button
                     type="button"
-                    className="btn btn-warning rounded-0"
+                    className="btn btn-primary"
                     style={{ width: "70px" }}
                     onClick={() =>
                       viewFileUrl(`${IMG_PATH}/enquiry/${row.document}`)
@@ -181,10 +180,10 @@ export const LawyerAddDocumentCom = (props) => {
       width: "150px",
       cell: (row) => (
         <>
-          {row.upload_type == "lawyer" ? (
+          {row.upload_type === "lawyer" ? (
             <button
               type="button"
-              className={`btn btn-primary rounded-0`}
+              className={`btn btn-primary`}
               style={{ marginLeft: "7px" }}
               onClick={() => {
                 if (row.document) {
@@ -196,7 +195,7 @@ export const LawyerAddDocumentCom = (props) => {
               {(props.data.status === "pending" ||
                 props.data.status === "complete") &&
                 props.data.pagetype !== "reminder" &&
-                staffid.Login == "staff" &&
+                staffid.Login === "staff" &&
                 enquiryDoumentData?.status !== "booking"
                 ? "Fill Details.."
                 : "View"}
@@ -204,7 +203,7 @@ export const LawyerAddDocumentCom = (props) => {
           ) : (
             <button
               type="button"
-              className={`btn btn-primary rounded-0`}
+              className={`btn btn-primary`}
               onClick={() => {
                 if (row.document) {
                   setIsModalAddMoreView(true);
@@ -225,7 +224,7 @@ export const LawyerAddDocumentCom = (props) => {
         <>
           <button
             type="button"
-            className={`badge rounded-pill btnhover btn p-2 ${row.status == "verify" ? "bg-success" : "bg-danger"
+            className={`  ${row.status === "verify" ? "badge-success" : "badge-danger"
               }`}
             style={{ width: "60px" }}
             onClick={() => {
@@ -241,9 +240,9 @@ export const LawyerAddDocumentCom = (props) => {
               }
             }}
           >
-            {row.status == "verify"
+            {row.status === "verify"
               ? "Verify"
-              : row.status == "pending"
+              : row.status === "pending"
                 ? "Pending"
                 : "Redo"}
           </button>
@@ -276,8 +275,8 @@ export const LawyerAddDocumentCom = (props) => {
       selector: (row) => row.veryfi_date,
       sortable: true,
     },
-    ...(staffid.Login == "staff" &&
-      (props.data.status == "pending" || props.data.status === "complete") &&
+    ...(staffid.Login === "staff" &&
+      (props.data.status === "pending" || props.data.status === "complete") &&
       props.data.pagetype !== "reminder" &&
       enquiryDoumentData?.status !== "booking"
       ? [
@@ -316,9 +315,7 @@ export const LawyerAddDocumentCom = (props) => {
 
   // Remark view modal
   const [isModalRedo, setIsModalRedo] = useState(false);
-  const openModalRedo = () => {
-    setIsModalRedo(true);
-  };
+
   const closeModalRedo = () => {
     setIsModalRedo(false);
   };
